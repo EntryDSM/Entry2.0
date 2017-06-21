@@ -1,0 +1,601 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+    /* 공통 */
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    outline: none;
+    overflow-x: auto;
+    font-family: sans-serif;
+}
+
+body {
+    /* 공통 */
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    min-width: 850px;
+}
+
+
+/* header 부분 */
+
+header {
+    /* 공통 */
+    width: 100%;
+    height: 750px;
+    background: url(ImageFiles/TestBackground2.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+header #Header_Image_Cover {
+    /* 공통 */
+    position: absolute;
+    width: 100%;
+    height: 750px;
+    background: linear-gradient(to right bottom, rgba(44, 181, 115, 0.85), rgba(51, 204, 231, 0.85));
+    /* 딱히 필요한 코드인지는 모르겠다.. */
+    -webkit-background: linear-gradient(to right bottom, rgba(44, 181, 115, 0.85), rgba(51, 204, 231, 0.85));
+    -ms-background: linear-gradient(to right bottom, rgba(44, 181, 115, 0.85), rgba(51, 204, 231, 0.85));
+    /*opacity:0.85;*/
+    min-width: 850px;
+}
+
+#Header_Image_Cover #LogoAndNav {
+    /* 공통 */
+    width: 100%;
+    height: 110px;
+    overflow: hidden;
+    /*border:2px solid white;*/
+    margin-top: 30px;
+    /*                position:fixed;*/
+}
+
+
+/* 고정 값 줘서 배경 색 바꾸도록 하기 -JS 이용 */
+
+#LogoAndNav #LogoImage {
+    width: 270px;
+    height: 70px;
+    margin-left: 7rem;
+    margin-top: 1.5rem;
+    overflow: hidden;
+}
+
+#LogoAndNav #LogoImage #Logo {
+    width: 170px;
+    display: block;
+}
+
+#LogoAndNav #LogoImage #LogoTitle {
+    font-size: 0.65rem;
+    text-align: left;
+    color: white;
+    font-family: 'Poiret One', cursive;
+    font-weight: bold;
+}
+
+#LogoAndNav #Header_Navigation {
+    position: relative;
+    width: 380px;
+    height: 50px;
+    /*border:2px solid white;*/
+    float: right;
+    bottom: 4.5rem;
+    right: 7.5rem;
+    overflow: hidden;
+}
+
+#Header_Navigation ul li {
+    float: left;
+    color: white;
+    padding-left: 2rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.75px;
+    padding-top: 1.075rem;
+    overflow: hidden;
+}
+
+#Header_Navigation ul li:hover {
+    /* 공통 */
+    cursor: pointer;
+    /* 임시 지정 */
+    font-weight: bold;
+}
+
+#Header_Image_Cover #Header_MainPart {
+    width: 85.675%;
+    height: 70%;
+    /*border:2px solid white;*/
+    margin: 0 auto;
+    font-size: 0;
+    overflow: hidden;
+    /* 상단 부분 fixed 적용할 시 필요!
+                margin-top:150px;
+                */
+    margin-top: 10px;
+}
+
+#Header_MainPart .Main_TwoParts {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    /*border:1px solid white;*/
+}
+
+.Main_TwoParts #Main_Title {
+    font-size: 2.2rem;
+    color: white;
+    font-family: 'Montserrat';
+    letter-spacing: 3px;
+    line-height: 1.5;
+    padding-top: 7.5rem;
+}
+
+.Main_TwoParts #Sub_Title {
+    font-size: 0.9rem;
+    color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: 2px;
+    padding-top: 1.5rem;
+    line-height: 1.75;
+}
+
+.Main_TwoParts #ToMainBox {
+    width: 10rem;
+    height: 2.75rem;
+    border: 1px solid white;
+    margin-top: 1.75rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    letter-spacing: 3px;
+    padding-top: 0.775rem;
+    transition: 1.2s;
+}
+
+.Main_TwoParts #ToMainBox:hover {
+    /* 공통 */
+    cursor: pointer;
+    font-size: 1rem;
+    letter-spacing: 5px;
+}
+
+.Main_TwoParts #Main_UnderLine {
+    width: 7.5rem;
+    height: 2.25px;
+    margin-top: 0.65rem;
+    background-color: white;
+}
+
+#Header_MainPart #White_OpacityBox {
+    /* 공통 */
+    background-color: #83dad0;
+}
+
+#White_OpacityBox #WhiteBox_Title {
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+    font-family: 'Montserrat';
+    letter-spacing: 3px;
+    padding-top: 5rem;
+}
+
+#White_OpacityBox #BoxesCover {
+    width: 90%;
+    height: 60%;
+    /*border:2px solid white;*/
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+
+#BoxesCover .FourBoxes {
+    width: 49.75%;
+    height: 49.5%;
+    float: left;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: 0.1%;
+    transition: 1.2s;
+}
+
+.FourBoxes .MainNumbers {
+    font-size: 2.5rem;
+    color: #66BEB4;
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: lighter;
+    letter-spacing: 7.5px;
+    padding-top: 1.875rem;
+}
+
+.FourBoxes .NumbersExplain {
+    font-size: 0.8rem;
+    color: #66BEB4;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    letter-spacing: 4px;
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+.FourBoxes:hover {
+    /* 공통 */
+    cursor: default;
+    background-color: #6cc4b9 !important;
+}
+
+.FourBoxes:hover .MainNumbers,
+.FourBoxes:hover .NumbersExplain {
+    /* 공통 */
+    color: white;
+}
+
+.FourBoxes:hover .NumbersExplain {
+    /* 공통 */
+    font-size: 1.1rem;
+    overflow: hidden;
+}
+
+
+/* 헤더 부분 끝 */
+
+
+/* 섹션 시작 */
+
+section {
+    /* 공통 */
+    width: 100%;
+    height: auto;
+}
+
+section #ExploreLanding {
+    /* 공통 */
+    width: 100%;
+    height: 350px;
+    background-color: #282828;
+}
+
+#ExploreLanding #Explore_Title {
+    /* 공통 */
+    color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    font-size: 1.75rem;
+    letter-spacing: 4px;
+    margin-top: 3rem;
+}
+
+#ExploreLanding #Explore_Line {
+    /* 공통 */
+    width: 5rem;
+    height: 4px;
+    background-color: white;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+
+#ExploreLanding #Explore_Explain {
+    /* 공통 */
+    color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: lighter;
+    text-align: center;
+    margin-top: 1.5rem;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+#ExploreLanding #Explore_Button {
+    /* 공통 */
+    width: 10.15rem;
+    height: 3.5rem;
+    background-color: #EA466A;
+    margin: 0 auto;
+    border-radius: 50px;
+    margin-top: 1.75rem;
+    border: 1.5px solid white;
+    cursor: pointer;
+    display: table;
+    /*padding-top:0.85rem;*/
+}
+
+
+/* 누를 시 아래로 내려가도록 */
+
+#Explore_Button #Explore_Text {
+    /* 공통 */
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+    display: table-cell;
+    vertical-align: middle;
+    /* 브라우저별 중앙 위치 고려하여 */
+}
+
+section article {
+    width: 100%;
+    height: 530px;
+    /*border-bottom:1px solid #c6c6c6;*/
+    background-color: #E9F3FF;
+}
+
+article #Article_Title {
+    text-align: center;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-top: 5rem;
+    text-transform: uppercase;
+    color: #333;
+}
+
+article #Article_Line {
+    width: 5rem;
+    height: 3.5px;
+    background-color: #5B5B5B;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+
+article #Article_Images_Cover {
+    width: 100%;
+    height: 340px;
+    text-align: center;
+    /*border-top:1px solid #c6c6c6;*/
+    /* 임시 지정 */
+    /* 반응형 할 때 다시 고려 */
+}
+
+#Article_Images_Cover .Article_Images {
+    width: 18rem;
+    height: 18rem;
+    display: inline-block;
+    /*border:1px solid black;*/
+    /*border-bottom:1px solid darkgray;*/
+    margin: 1rem;
+    margin-top: 3rem;
+}
+
+#Article_Images_Cover .ExImages {
+    display: block;
+    margin: 0 auto;
+}
+
+#Article_Images_Cover .ExImages:hover {
+    /* 공통 */
+    animation: SideMove 0.5s forwards;
+    -webkit-animation: SideMove 0.5s forwards;
+    -ms-animation: SideMove 0.5s forwards;
+}
+
+@keyframes SideMove {
+    /* 공통 */
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.7);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.Article_Images .Article_ImageTitle {
+    color: #414141;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: 1.23rem;
+    letter-spacing: 4px;
+    margin-top: 1.25rem;
+}
+
+.Article_Images .Article_Image_Explain {
+    font-size: 0.9rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #484848;
+    margin-top: 1rem;
+    line-height: 1.75;
+    letter-spacing: 0.5px;
+}
+
+section #Article_Real_Main {
+    width: 100%;
+    height: 2150px;
+    background-color: white;
+}
+
+#Article_Real_Main .Main_Explain_Boxes {
+    width: 100%;
+    height: calc(100%/6);
+    overflow: hidden;
+    /* 이게 없으면 줄이 생김- 설계 잘못 ㅜ */
+}
+
+.Main_Explain_Boxes .Explain_Images {
+    display: block;
+    margin-left: 17.5rem;
+    margin-top: 3.25rem;
+}
+
+.Main_Explain_Boxes .Explain_Images2 {
+    display: block;
+    margin-right: 17.5rem;
+    margin-top: 3.25rem;
+}
+
+#Article_Real_Main .Explain_Images_Main {
+    /*background-color:red;*/
+    position: relative;
+    font-size: 1.75rem;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    color: #414141;
+    letter-spacing: 2px;
+}
+
+#Article_Real_Main .Explain_Images_Main2 {
+    font-size: 1.75rem;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    color: #414141;
+    letter-spacing: 3px;
+}
+
+#Article_Real_Main .Explain_Images_Sub {
+    position: relative;
+    font-size: 1.15rem;
+    color: #414141;
+    font-family: 'Noto Sans KR';
+    letter-spacing: 3px;
+    overflow: hidden;
+}
+
+#Article_Real_Main .Explain_Images_Sub2 {
+    position: relative;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    font-family: 'Noto Sans KR';
+    color: #414141;
+    line-height: 1.35;
+    overflow: hidden;
+}
+
+
+/* 섹션 부분 끝*/
+
+
+/* 푸터 부분 시작 */
+
+footer {
+    /* 공통 */
+    width: 100%;
+    height: 200px;
+    background-color: #242729;
+}
+
+footer #Privacy {
+    width: 60%;
+    height: 100%;
+    /*border:2px solid white;*/
+    margin-left: 15rem;
+    transition: 1.5s;
+    padding-top: 1rem;
+}
+
+#Privacy .Privacy_Sub {
+    color: floralwhite;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    word-spacing: 1.5px;
+    margin-top: 2rem;
+}
+
+
+/* 푸터 부분 끝 */
+
+
+/* 반응형 고려 시작 */
+
+@media all and (min-width:400px) {
+    section article {
+        height: 900px;
+    }
+    article #Article_Images_Cover {
+        height: 750px;
+    }
+    section #Article_Real_Main {
+        height: 3000px;
+    }
+    .Main_Explain_Boxes .Explain_Images,
+    .Main_Explain_Boxes .Explain_Images2 {
+        margin: 0 auto;
+        margin-top: 2rem;
+    }
+    #Article_Real_Main .Explain_Images_Main,
+    #Article_Real_Main .Explain_Images_Sub {
+        width: 100%;
+        bottom: 0rem;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 1rem;
+        line-height: 1.5;
+        margin-right: 4.1rem;
+    }
+    #Article_Real_Main .Explain_Images_Main2,
+    #Article_Real_Main .Explain_Images_Sub2 {
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+        padding: 0;
+        padding-top: 1.5rem;
+        letter-spacing: 3px;
+        line-height: 1.5;
+    }
+}
+
+@media all and (min-width:1295.1px) {
+    section article {
+        height: 530px;
+    }
+    article #Article_Images_Cover {
+        height: 350px;
+        overflow: hidden;
+    }
+    section #Article_Real_Main {
+        height: 2150px;
+    }
+    /* 여기부터의 반응형은 야매로 한 느낌이 들어서 좀 찝찝하지만 결과는 제대로 나옴. 내년에 새로 다시 짜거나 수정을 전체적으로 해야겠음. */
+    .Main_Explain_Boxes .Explain_Images {
+        display: block;
+        margin-left: 17.5rem;
+        margin-top: 3.25rem;
+    }
+    .Main_Explain_Boxes .Explain_Images2 {
+        display: block;
+        margin-right: 11rem;
+        margin-top: 3.25rem;
+    }
+    #Article_Real_Main .Explain_Images_Main {
+        width: 55%;
+        bottom: 14rem;
+        padding-left: 8rem;
+        line-height: 1.35;
+        text-align: left;
+    }
+    #Article_Real_Main .Explain_Images_Main2 {
+        width: 60%;
+        float: left;
+        text-align: left;
+        margin-top: -15rem;
+        margin-left: 13.5rem;
+    }
+    #Article_Real_Main .Explain_Images_Sub {
+        width: 55%;
+        bottom: 11rem;
+        padding-left: 8rem;
+        line-height: 1.35;
+        text-align: left;
+        margin-top: -1.25rem;
+    }
+    #Article_Real_Main .Explain_Images_Sub2 {
+        width: 60%;
+        float: left;
+        text-align: left;
+        margin-top: -10rem;
+        margin-left: 13.5rem;
+    }
+}
