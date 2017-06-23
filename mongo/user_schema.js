@@ -10,13 +10,13 @@ Schema.createSchema = function (mongoose) {
       type: String,
       required: true
     },
-    check: false,
+    check: Boolean,
     hash_password: String,
     hash_email: String
   });
   DocsSchema.virtual('password').set(function (password) {
+    console.log('virtual password');
     this._password = password;
-    this.salt = this.makesalt();
     this.hash_password = this.enpassword(password);
   }).get(function () {
     return this._password;
@@ -44,7 +44,15 @@ Schema.createSchema = function (mongoose) {
   DocsSchema.static('authEnemail', function (unemail, Email,Salt, callback) {
     callback(this.unemailmethod(Email,Salt) === unemail);
   });
+  // DocsSchema.virtual('uncheck').set(function(){
+  //   this.check = this.makecheck();
+  // }).get(function(){
+  //   return this.check;
+  // })
 
+  // DocsSchema.method('makecheck',function(){
+  //   return true;
+  // })
 
   DocsSchema.static('findunemail', function (hash_email, callback) {
     return this.find({
@@ -52,8 +60,11 @@ Schema.createSchema = function (mongoose) {
     }, callback);
   });
 
-  DocsSchema.virtual('unemail').set(function (unemail, salt) {
+  DocsSchema.virtual('unemail').set(function (unemail) {
+    console.log('virtual unemail');
     this._unemail = unemail;
+       this.salt = this.makesalt();
+       console.log('salt make');
     this.hash_email = this.unemailmethod(unemail);
   }).get(function () {
     return this._unemail;
