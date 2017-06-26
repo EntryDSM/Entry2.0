@@ -1,0 +1,36 @@
+.gradeInputTable{
+    width: 1100px;
+    margin-left: 2%;
+}
+
+.btnGroupChild{
+    display: inline-block;
+    border-radius: 100%;
+    width: 25px;
+    padding: 5px 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btnGroupChild:hover{
+    border-radius: 100%;
+    background-color: skyblue;
+    transition:0.5s;
+    transition-timing-function:linear;
+}
+
+.btnGroupParent{
+    padding-left: 15px;
+    padding-right: 15px; 
+}
+
+.checkBox{
+    display: block;
+    margin: 15px;
+    margin-left: 68px;
+}
+
+.stdGrade{
+    padding-left: 43px;
+    width: 50px;
+}

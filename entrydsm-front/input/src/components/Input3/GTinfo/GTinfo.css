@@ -1,0 +1,19 @@
+.gtInputDiv{
+    width: 1000px;
+    margin-left: 30px;
+    margin-bottom: 40px;
+}
+
+.graduationDiv{
+    display: inline-block;
+    width: 35%;
+}
+
+.typeDiv{
+    display: inline-block;
+    width: 35%;
+}
+
+.optionalBtn{
+    margin-left: 20px;
+}

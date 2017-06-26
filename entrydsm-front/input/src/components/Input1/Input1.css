@@ -1,0 +1,11 @@
+.InputTitle{
+    margin-left: 10px;
+}
+
+input[type=text]::-ms-clear {
+    display: none;
+}
+
+.generalInput{
+    margin: 15px;
+}

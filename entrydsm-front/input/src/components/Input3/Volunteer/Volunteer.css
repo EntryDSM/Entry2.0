@@ -1,0 +1,20 @@
+#volunteerDiv{
+    width: 300px;
+    margin: 0px;
+    margin-left: 100px;
+    margin-top: 40px;
+    float: left;
+}
+
+.volGrade{
+    position: relative;
+    text-align: center;
+    bottom: 215px;
+}
+
+.volGradeInput{
+    font-size: 30px;
+    text-align: center;
+    width: 55px;
+    border: 0;
+}

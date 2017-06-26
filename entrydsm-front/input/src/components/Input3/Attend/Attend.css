@@ -1,0 +1,11 @@
+.attendDiv{
+    margin-left: 100px;
+    margin-top: 20px;
+    float: left;
+}
+
+.dayInput{
+    margin-left: 6px; 
+    width: 50px;
+    font-size: 18px;
+}

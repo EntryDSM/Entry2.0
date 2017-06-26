@@ -1,0 +1,194 @@
+body {
+    margin: 0;
+}
+
+#frame{
+    height: 100%;
+}
+
+#sidemenu {
+    height: 100%;
+    width: 16%;
+    float: left;
+    background-color: #dbdde0;
+}
+
+#title {
+    float: left;
+    width: 81.7%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 2%;
+} 
+
+#contents {
+    float: left;
+    width: 83.7%;
+    height: auto;
+    font-size: 24px;
+    padding-bottom: 1%; 
+}  
+
+input {
+    font-size: 24px;
+}
+
+input[type=text]::-ms-clear {display: none;} 
+
+#area_photo {
+    border:2px solid black;
+    float: left;
+    position: relative;
+    width: 16%;
+    height: 36%;
+    margin-top: 3%;
+    margin-left: 10%;
+    margin-right: 2%;
+    padding: 1.5%;
+    background-image: url('../src/components/Input2/add-new-page.png');
+}
+
+#area_info1 {
+    float: left;
+    padding: 1%;
+    float:left;
+    position: relative;
+    margin-top: 0.8%;
+}
+
+#area_info2 {
+    float: left;
+    position: relative;
+    clear: both;
+    margin-left: 10%;
+}
+
+button {
+    background-color: #dbdde0;
+    border: none;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding-left: 1%;
+    padding-right: 1%;
+    border-radius: 2px;
+    font-size: 18px;
+}
+
+.c1 {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 1%;
+}
+
+.c2 {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    margin-left: 1%;
+}
+
+#name, #parents_name {
+    width: 20%;
+}
+
+#my_phonenum {
+    width: 18%;
+    margin-right: 4%;
+    text-align: center;
+}
+
+#parents_phonenum {
+    width: 18%;
+    text-align: center;
+}
+
+#mail_address {
+    width: 28%;
+    text-align: center;
+}
+
+#select_domain {
+    font-size: 24px;
+    height: 3.6%;
+    margin-top: 1.5%;
+    margin-left: 2.7%;
+}
+
+#write_domain {
+    width: 28%;
+    float: left;
+    margin-left: 2.7%;
+    display: none;
+}
+
+#year {
+    width: 5.5%;
+}
+
+#month, #day {
+    width: 3%;
+}
+
+#year, #month, #day {
+    text-align: right;
+}
+
+#basic_address {
+    width: 50%;
+}
+
+#detail_address {
+    margin-left: 6.5%;
+    width: 60%;
+    margin-bottom: 2%;
+}
+
+#schoolname {
+    width: 33%;
+    text-align: center;
+}
+
+#schoolcode {
+    width: 20%;
+    text-align: center;
+}
+
+#grade, #class, #number {
+    width: 5%;
+    text-align: right;
+}
+
+#nextpage {
+    float: right;
+    margin-top: 18%;
+    margin-right: 4%;
+    background-color: #a0bbe8;
+}
+
+#ediv {
+    width: 50%;
+    float: right;
+    margin-right: 21.5%;
+    margin-top: 0.7%;
+}
+
+#footer {
+    background-color: #dbdde0;
+    width: 100%;
+    height: 16%;
+    clear: both;
+}
+
+#attachfile {
+    width: 84%;
+    height: 88%;
+    position: absolute;
+    opacity: 0;
+}
+
+#IDPhoto {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    line-height: 35vh;
+}
