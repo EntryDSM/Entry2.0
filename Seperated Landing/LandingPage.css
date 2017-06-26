@@ -166,7 +166,6 @@ header #Header_Image_Cover {
 .Main_TwoParts #ToMainBox:hover {
     /* 공통 */
     cursor: pointer;
-    font-size: 1rem;
     letter-spacing: 5px;
 }
 
