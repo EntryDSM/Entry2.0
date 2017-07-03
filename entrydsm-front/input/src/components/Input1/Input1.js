@@ -18,16 +18,13 @@ class Input1 extends Component{
 
     render(){
         return(
-            <div>
-                <InputLayout  />
-                <div>
-                    <InputHeader now={"기본 정보"} />
-                    {this.state.InputForms.map((inputForm, index)=>{
-                        return <GeneralInputForm inputname={inputForm.title} key={index}/>
-                    })}
-                    <button type="button">이메일 인증</button>
-                    <button type="button">인적 사항</button>
-                </div>
+            <div className={styles.inputContent}>
+                <InputHeader now={"기본 정보"} />
+                {this.state.InputForms.map((inputForm, index)=>{
+                    return <GeneralInputForm inputname={inputForm.title} key={index}/>
+                })}
+                <button type="button">이메일 인증</button>
+                <button type="button">인적 사항</button>
             </div>
         );
     }

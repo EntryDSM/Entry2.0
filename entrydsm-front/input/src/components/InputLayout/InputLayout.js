@@ -2,8 +2,7 @@ import React from 'react';
 import styles from './InputLayout.css';
 import Logo from './Logo/Logo';
 import Process from './Process/Process';
-import Footer from './Footer/Footer';
-
+import Footer from '../Footer/Footer';
 import Input3 from '../Input3/Input3'
 
 class InputLayout extends React.Component{
@@ -14,12 +13,9 @@ class InputLayout extends React.Component{
 
     render(){
         return(
-            <div>
-                <div className = {styles.menu_area}>
-                    <Logo />
-                    <Process />
-                </div>
-                <Footer/>
+            <div className = {styles.menu_area}>
+                <Logo />
+                <Process />
             </div>
         );  
     }

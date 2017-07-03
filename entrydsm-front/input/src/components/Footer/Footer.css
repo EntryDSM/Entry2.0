@@ -2,16 +2,18 @@ footer{
     width:100%;
     height:200px;
     background-color:#242729;
+    clear: both;
 }
+
 footer #Privacy{
     width:60%;
-    height:100%;
     /*border:2px solid white;*/
     margin-left:15rem;
     transition:1.5s;
     padding-top:1rem;
     /* 반응형 할 시 trasition 값 줌.*/
 }
+
 #Privacy #Privacy_Main{
     color:floralwhite;
     font-size:0.9rem;
@@ -19,6 +21,7 @@ footer #Privacy{
     letter-spacing: 0.5px;
     padding-top:1.15rem;
 }
+
 #Privacy .Privacy_Sub{
     color:floralwhite;
     font-size:0.8rem;
