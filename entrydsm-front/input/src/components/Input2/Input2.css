@@ -86,19 +86,23 @@ button {
     margin-left: 1%;
 }
 
-#name, #parents_name {
+#name, #parent_name {
     width: 20%;
 }
 
-#my_phonenum {
+#my_tel {
     width: 18%;
     margin-right: 4%;
-    text-align: center;
+    text-align: left;
 }
 
-#parents_phonenum {
+#parent_tel {
     width: 18%;
-    text-align: center;
+    text-align: left;
+}
+
+#school_tel {
+    width: 30%;
 }
 
 #mail_address {
@@ -142,17 +146,17 @@ button {
     margin-bottom: 2%;
 }
 
-#schoolname {
+#school_name {
     width: 33%;
-    text-align: center;
+    text-align: left;
 }
 
-#schoolcode {
+#school_code {
     width: 20%;
-    text-align: center;
+    text-align: left;
 }
 
-#grade, #class, #number {
+#grade, #class{
     width: 5%;
     text-align: right;
 }
