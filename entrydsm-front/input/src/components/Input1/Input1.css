@@ -8,6 +8,7 @@ input[type=text]::-ms-clear {
 
 .generalInput{
     margin: 15px 0px 15px 0px;
+    font-size: 15px;
 }
 
 .inputContent{
@@ -15,4 +16,15 @@ input[type=text]::-ms-clear {
     width: calc(100% - 270px);
     padding-left: 20px;
     padding-top: 20px;
+}
+
+#nextBtn{
+    border: 0.5px;
+    background: lightblue;
+    border-radius: 20px;
+}
+
+#nextBtn:hover{
+    background: lightseagreen;
+    color: white;
 }

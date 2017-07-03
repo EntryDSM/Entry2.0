@@ -9,11 +9,18 @@ class Input1 extends Component{
         this.state = {
             InputForms : [
                 {title : "이름"},
-                {title : "이매일"},
+                {title : "이메일"},
                 {title : "비밀번호"},
                 {title : "비밀번호 확인"}
             ]
         }
+    }
+
+    componentDidMount(){
+        document.querySelector("div > button").addEventListener('click', (event) => {
+            event.target.style.background = "lightseagreen";
+            event.target.style.color = "white";  
+        });
     }
 
     render(){
@@ -23,8 +30,7 @@ class Input1 extends Component{
                 {this.state.InputForms.map((inputForm, index)=>{
                     return <GeneralInputForm inputname={inputForm.title} key={index}/>
                 })}
-                <button type="button">이메일 인증</button>
-                <button type="button">인적 사항</button>
+                <button id={styles.nextBtn} type="button">인적 사항</button>
             </div>
         );
     }
