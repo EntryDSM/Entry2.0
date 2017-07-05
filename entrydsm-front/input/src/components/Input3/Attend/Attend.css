@@ -1,7 +1,7 @@
 .attendDiv{
-    margin-left: 100px;
-    margin-top: 20px;
-    float: left;
+    width: 200px;
+    float: right;
+    padding-right: 150px;
 }
 
 .dayInput{

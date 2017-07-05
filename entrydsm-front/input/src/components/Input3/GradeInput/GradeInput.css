@@ -1,13 +1,13 @@
 .gradeInputTable{
-    width: 1100px;
-    margin-left: 2%;
+    width: 1150px;
+    padding-top: 30px;
 }
 
 .btnGroupChild{
     display: inline-block;
     border-radius: 100%;
     width: 25px;
-    padding: 5px 0;
+    line-height: 1.6;
     text-align: center;
     cursor: pointer;
 }
@@ -22,15 +22,11 @@
 .btnGroupParent{
     padding-left: 15px;
     padding-right: 15px; 
+    padding-bottom: 5px;
 }
 
 .checkBox{
     display: block;
     margin: 15px;
     margin-left: 68px;
-}
-
-.stdGrade{
-    padding-left: 43px;
-    width: 50px;
 }

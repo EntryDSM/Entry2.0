@@ -5,7 +5,7 @@ import classNames from 'classnames';
 class InputHeader extends Component{
     render(){
         return(
-            <div className={classNames(styles.InputTitle, styles.test)}>{this.props.now}</div>
+            <div className={styles.InputTitle}>{this.props.now}</div>
         );
     }
 }

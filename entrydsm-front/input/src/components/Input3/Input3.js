@@ -15,17 +15,14 @@ class Input3 extends Component{
 
     render(){
         return(
-            <div id={styles.wrapper}>
-                <InputLayout id={styles.sidebar}/>
-                <div id={styles.contents}>
-                    <div className={styles.inputTitle}>
-                        <InputHeader now={"성적 입력"} />
-                    </div>
-                    <GTinfo />
-                    <GradeInput />
-                    <Volunteer />
-                    <Attend />
+            <div id={styles.contents}>
+                <div className={styles.inputTitle}>
+                    <InputHeader now={"성적 입력"} />
                 </div>
+                <GTinfo />
+                <Volunteer />
+                <Attend />
+                <GradeInput />
             </div>
         );
     }

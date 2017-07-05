@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import GradeSelectBtn from './GradeSelectBtn';
 import BtnGroup from './BtnGroup';
 import NotPass from './NotPass';
-import styles from './GradeInput.css';
+import styles from './Graduated.css';
 
-class Subjects extends Component{
+class Graduated extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -73,4 +73,4 @@ class StudentGrade extends Component{
 }
 
 
-export default Subjects;
+export default Graduated;

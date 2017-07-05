@@ -32,21 +32,23 @@ class GTinfo extends Component{
         return(
             <div className={styles.gtInputDiv}>
                 <div className={styles.graduationDiv}>
-                    <h3>졸업 구분</h3>
-                    <input type="number" style={{width: 50}}/> 년
-                    <select className={styles.optionalBtn}>
-                        {months.map((month, index) => {
-                            return <Options optionName={month} key={index}/>
-                        })}
-                    </select> 월
-                    <select className={styles.optionalBtn}>
-                        {this.state.graduationOptions.map((types, index) => {
-                            return <Options optionName={types.graduateType} key={index}/>
-                        })}
-                    </select>
+                    <h2 className={styles.title}>졸업 구분</h2>
+                    <div className={styles.inputPart}>
+                        <input type="number" style={{width: 50}}/> 년
+                        <select className={styles.optionalBtn}>
+                            {months.map((month, index) => {
+                                return <Options optionName={month} key={index}/>
+                            })}
+                        </select> 월
+                        <select className={styles.optionalBtn}>
+                            {this.state.graduationOptions.map((types, index) => {
+                                return <Options optionName={types.graduateType} key={index}/>
+                            })}
+                        </select>
+                    </div>
                 </div>
                 <div className={styles.typeDiv}>
-                    <h3>전형 구분</h3>
+                    <h2 className={styles.title}>전형 구분</h2>
                     <select>
                         {this.state.localOptions.map((localType, index) => {
                             return <Options optionName={localType.localType} key={index}/>
