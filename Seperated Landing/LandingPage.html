@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DSM-입학전형</title>
+        <meta charset="utf-8">
+        <meta name="author" content="JungYunJae">
+        <meta name="title" content="DSM EntryPage">
+        <meta name="description" content="2018학년도 DSM 입학 전형 페이지-랜딩 부분">
+        <meta name="keywords" content="DSM 입학전형, 웹, 2018학년도, 랜딩 페이지">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta property="og:site_name" content="EntryDSM Landing Page">
+        <meta property="og:title" content="EntryDSM">
+        <meta property="og:description" content="2018학년도 DSM 입학전형 페이지 중 랜딩 부분입니다.">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300|Poiret+One" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <link href="LandingPage.css" rel="stylesheet" type="text/css">
+        <script src="LandingPage.js" type="text/javascript">
+        </script>
+<!--
+        <style media="Screen" type="text/css">
+            
+        </style>
+-->
+    </head>
+    <body>
+        <header>
+            <div id="Header_Image_Cover">
+                <div id="LogoAndNav">
+                    <div id="LogoImage">
+                        <img src="ImageFiles/logo.png" id="Logo" draggable=false;>
+                        <div id="LogoTitle">
+                            DaeDeok SoftWare Meister HighSchool
+                        </div>
+                    </div>
+                    <div id="Header_Navigation">
+                        <ul>
+                            <li>Home</li>
+                            <li>Contact</li>
+                            <li>Main</li>
+                            <li>About Us</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="Header_MainPart">
+                    <div class="Main_TwoParts">
+                        <div id="Main_Title">
+                            2018 DSM ADMISSION<br>LANDING PAGE
+                        </div>
+                        <div id="Main_UnderLine"></div>
+                        <div id="Sub_Title">
+                            2018학년도 DSM 입학전형 페이지입니다. 영 마이스터(Young Meister) 인재를 양성하며,<br>창의, 열정, 배려가 넘치는 여러분을 기다리고 있습니다.
+                        </div>
+                        <div id="ToMainBox">
+                            MAIN PAGE
+                        </div>
+                    </div>
+                    <div class="Main_TwoParts" id="White_OpacityBox">
+                        <div id="WhiteBox_Title">
+                            About Our Development!
+                        </div>
+                        <div id="BoxesCover">
+                            <div class="FourBoxes">
+                                <div class="MainNumbers">
+                                    012
+                                </div>
+                                <div class="NumbersExplain">
+                                    Programmers
+                                </div>
+                            </div>
+                            <div class="FourBoxes">
+                                <div class="MainNumbers">
+                                    04
+                                </div>
+                                <div class="NumbersExplain">
+                                    Started Month
+                                </div>
+                            </div>
+                            <div class="FourBoxes">
+                                <div class="MainNumbers">
+                                    09
+                                </div>
+                                <div class="NumbersExplain">
+                                    Finished Month
+                                </div>
+                            </div>
+                            <div class="FourBoxes">
+                                <div class="MainNumbers">
+                                    28
+                                </div>
+                                <div class="NumbersExplain">
+                                    Development
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <section>
+            <div id="ExploreLanding">
+                <div id="Explore_Title">
+                    2018 DSM 입학전형
+                </div>
+                <div id="Explore_Line"></div>
+                <div id="Explore_Explain">
+                    완전히 새로워진 2018학년도 DSM 입학전형 페이지입니다!<br>
+                    추가 문구는 웹페이지 개발이 끝난 후 다시 수정하도록 하겠습니다. 할 말이 없네요.<br>
+                    정말 레알 밥도둑 입니다. 형님덜. 인정하십니까. 급식체 너무 좋구염.앙 기모찌.
+                </div>
+                <div id="Explore_Button" onclick="fnMove()";>
+                    <div id="Explore_Text">
+                        EXPLORE!
+                    </div>
+                </div>
+            </div>
+            
+            <article id="Part">
+                <div id="Article_Title">
+                    About DSM
+                </div>
+                <div id="Article_Line"></div>
+                <div id="Article_Images_Cover">
+                    <div class="Article_Images">
+                        <img src="ImageFiles/School.png" class="ExImages" draggable=false;>
+                        <div class="Article_ImageTitle">
+                            SCHOOL
+                        </div>
+                        <div class="Article_Image_Explain">
+                            한 학년 당 80명의 학생들이 있으며,<br>
+                            영 마이스터(Young Meister)로 거듭나게<br>
+                            하기 위해 많은 노력을 기울이고 있습니다.
+                        </div>
+                    </div>
+                    <div class="Article_Images">
+                        <img src="ImageFiles/Study.png" class="ExImages" draggable=false;>
+                        <div class="Article_ImageTitle">
+                            STUDY
+                        </div>
+                        <div class="Article_Image_Explain">
+                            SW 개발과, 정보 보안과, 임베디드 SW,<br>
+                            총 3가지 과로 구성이 되어 있으며,<br>학생들은 각 과에 맞는 공부를 하고 있습니다.  
+                        </div>
+                    </div>
+                    <div class="Article_Images" id="Article_ToBottom1">
+                        <img src="ImageFiles/Library.png" class="ExImages" draggable=false;>
+                        <div class="Article_ImageTitle">
+                            LIBRARY
+                        </div>
+                        <div class="Article_Image_Explain">
+                            도서관에는 정말 다양한 종류의 SW 책들이<br>
+                            배치되어 있습니다. 학생들은 자신이 원하는<br>
+                            종류의 책을 빌리고 공부할 수 있습니다.
+                        </div>
+                    </div>
+                    <div class="Article_Images">
+                        <img src="ImageFiles/Diploma.png" class="ExImages" draggable=false;>
+                        <div class="Article_ImageTitle"
+                             style="padding-left:1rem;">
+                            COMPETITION
+                        </div>
+                        <div class="Article_Image_Explain">
+                            SW를 비롯한 다양한 대회가 준비되어 있고,<br>
+                            학생들은 자신의 실력을 향상시키기 위해<br>
+                            참가하여 수상을 하기도 합니다.
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <!-- 그림 설명 6개 -->
+            <article id="Article_Real_Main">
+                <div class="Main_Explain_Boxes">
+                    <img src="ImageFiles/LoginForm.png" class="Explain_Images" draggable=false;>
+                    <div class="Explain_Images_Main">
+                        Simple Login.
+                    </div>
+                    <div class="Explain_Images_Sub">
+                        여기에 뭘 쓴지는 나중에 바꾸니까 지금은 아무것도 안 건드릴거에요.<br>
+                        이 부분 채워넣으려면 뭐라도 써야해서 이런식으로 글쓰는 겁니다. 햄토리.<br>
+                        보고 웃지마시고 뭘 채워넣어야 할지는 석진이 형이 해줄거라 믿어요.
+                    </div>
+                </div>
+                <div class="Main_Explain_Boxes"
+                     style="background-color:#f5f5f5;">
+                    <img src="ImageFiles/PersonInfo.png" class="Explain_Images2" draggable=false;>
+                    <div class="Explain_Images_Main2">
+                        Person Information
+                    </div>
+                    <div class="Explain_Images_Sub2">
+                        여기에 뭘 쓴지는 나중에 바꾸니까 지금은 아무것도 안 건드릴거에요.<br>
+                        이 부분 채워넣으려면 뭐라도 써야해서 이런식으로 글쓰는 겁니다. 햄토리.<br>
+                        보고 웃지마시고 뭘 채워넣어야 할지는 석진이 형이 해줄거라 믿어요.
+                    </div>
+                </div>
+                <div class="Main_Explain_Boxes">
+                    <img src="ImageFiles/Introduce.png" class="Explain_Images" draggable=false;>
+                    <div class="Explain_Images_Main">
+                        Introduce And Study
+                    </div>
+                    <div class="Explain_Images_Sub">
+                        여기에 뭘 쓴지는 나중에 바꾸니까 지금은 아무것도 안 건드릴거에요.<br>
+                        이 부분 채워넣으려면 뭐라도 써야해서 이런식으로 글쓰는 겁니다. 햄토리.<br>
+                        보고 웃지마시고 뭘 채워넣어야 할지는 석진이 형이 해줄거라 믿어요.
+                    </div>
+                </div>
+                <div class="Main_Explain_Boxes"                    style="background-color:#f5f5f5;">
+                    <img src="ImageFiles/Preview.png" class="Explain_Images2" draggable=false;>
+                    <div class="Explain_Images_Main2">
+                        Preview Pages.
+                    </div>
+                    <div class="Explain_Images_Sub2">
+                        여기에 뭘 쓴지는 나중에 바꾸니까 지금은 아무것도 안 건드릴거에요.<br>
+                        이 부분 채워넣으려면 뭐라도 써야해서 이런식으로 글쓰는 겁니다. 햄토리.<br>
+                        보고 웃지마시고 뭘 채워넣어야 할지는 석진이 형이 해줄거라 믿어요.
+                    </div>
+                </div>
+                <div class="Main_Explain_Boxes">
+                    <img src="ImageFiles/Receipt.png" class="Explain_Images" draggable=false;>
+                    <div class="Explain_Images_Main">
+                        Receipt Check.
+                    </div>
+                    <div class="Explain_Images_Sub">
+                        여기에 뭘 쓴지는 나중에 바꾸니까 지금은 아무것도 안 건드릴거에요.<br>
+                        이 부분 채워넣으려면 뭐라도 써야해서 이런식으로 글쓰는 겁니다. 햄토리.<br>
+                        보고 웃지마시고 뭘 채워넣어야 할지는 석진이 형이 해줄거라 믿어요.
+                    </div>
+                </div>
+                <div class="Main_Explain_Boxes"
+                     style="background-color:#f5f5f5;">
+                    <img src="ImageFiles/Print.png" class="Explain_Images2" draggable=false;>
+                    <div class="Explain_Images_Main2">
+                        Print Information.
+                    </div>
+                    <div class="Explain_Images_Sub2">
+                        여기에 뭘 쓴지는 나중에 바꾸니까 지금은 아무것도 안 건드릴거에요.<br>
+                        이 부분 채워넣으려면 뭐라도 써야해서 이런식으로 글쓰는 겁니다. 햄토리.<br>
+                        보고 웃지마시고 뭘 채워넣어야 할지는 석진이 형이 해줄거라 믿어요.
+                    </div>
+                </div>
+            </article>
+        </section>
+        <footer>
+            <div id="Privacy">
+                <div class="Privacy_Sub">
+                    (34111)대전광역시 유성구 가정북로 76(장동 23-9)<br>
+                    교무실 ☎ : 042-866-8822, 교무실 Fax : 042-867-9900, 행정실 ☎ : 042-866-8885, 행정실 Fax : 042-863-4308
+                    <br>
+                    사업자 등록 번호 314-83-01600 / 기관 메일 dsmhs@korea.kr
+                    <br><br>
+                    Copyright&#9400; 대덕소프트웨어마이스터고등학교. All rights reserved.
+                    
+                </div>
+            </div>
+        </footer>
+<!--
+        <script type="text/javascript">
+            
+        </script>
+-->
+    </body>
+</html>

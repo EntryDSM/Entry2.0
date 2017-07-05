@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>개인정보입력</title>
+        <link rel="stylesheet" href="Input2.css">
+        <script src="Input2.js"></script>
+    </head>
+    <body>
+        <div id="frame">
+            <div id="sidemenu"></div>
+            <div id="title">
+             <h1>인적사항</h1>
+            </div>
+            <div id="contents">
+                <div id="area_photo">
+                    <input type="file" id="attachfile" onchange="previewFile()"></input>
+                    <img src="file.png" id="IDPhoto"></img>
+                    <!--Icon made by [Interaction Assets] from www.flaticon.com -->
+                </div>
+                <div id="area_info1">
+                    성명: 
+                    <input type="text" id="name" class="c1" readonly></input><br>
+                    성별: 
+                    <input type="radio" id="male" name="sex" value="남" class="c1">남
+                    <input type="radio" id="female" name="sex" value="여" class="c1">여<br>
+                    <input type="text" id="grade" maxlength="1"></input> 학년
+                    <input type="text" id="class" class="c1" maxlength="2"></input> 반<br>
+                    보호자명: 
+                    <input type="text" id="parent_name" class="c1"></input><br>
+                    중학교코드:
+                    <input type="text" id="school_code" class="c1"></input>
+                    <button id="btn_findschool">학교찾기</button> <br>
+                    중학교명:
+                    <input type="text" id="school_name" class="c1"></input><br>
+                    학교연락처:
+                    <input type="text" id="school_tel" class="c1"></input><br>
+                </div>
+                <div id="area_info2">
+                    본인휴대폰번호:
+                    <input type="text" id="my_tel" class="c2"></input>
+                    보호자휴대폰번호:
+                    <input type="text" id="parent_tel" class="c2"></input><br>
+                    이메일:
+                    <input type="text" id="mail_address" class="c2" readonly></input>
+                    <br>
+                    생년월일: 
+                    <input type="text" id="year" class="c2" maxlength="4"></input> 년
+                    <input type="text" id="month" class="c2" maxlength="2"></input> 월
+                    <input type="text" id="day" class="c2" maxlength="2"></input> 일
+                    <br>
+                    주소:
+                    <input type="text" id="base_address" class="c2"></input>
+                    <button id="btn_findaddress">주소찾기</button> <br>
+                    <input type="text" id="detail_address"></input>
+                </div>
+                <button id="nextpage">성적입력 ></button>
+            </div>
+            <div id="footer"></div>
+        </div>
+    </body>
+</html>

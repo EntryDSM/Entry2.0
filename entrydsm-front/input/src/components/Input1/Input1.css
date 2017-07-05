@@ -1,0 +1,30 @@
+.InputTitle{
+    margin-left: 10px;
+}
+
+input[type=text]::-ms-clear {
+    display: none;
+}
+
+.generalInput{
+    margin: 15px 0px 15px 0px;
+    font-size: 15px;
+}
+
+.inputContent{
+    float: left;
+    width: calc(100% - 270px);
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+#nextBtn{
+    border: 0.5px;
+    background: lightblue;
+    border-radius: 20px;
+}
+
+#nextBtn:hover{
+    background: lightseagreen;
+    color: white;
+}
