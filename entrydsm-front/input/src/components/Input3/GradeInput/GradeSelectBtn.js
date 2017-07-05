@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import BtnGroup from './BtnGroup';
 import styles from './GradeInput.css';
 
 class GradeSelectBtn extends Component{
@@ -23,6 +22,14 @@ class GradeSelectBtn extends Component{
                     return(<BtnGroup group={grades.grade} key={i}/>);
                 })}
             </td>
+        );
+    }
+}
+
+class BtnGroup extends Component{
+    render(){
+        return (
+            <div className={styles.btnGroupChild}>{this.props.group}</div>
         );
     }
 }
