@@ -20,8 +20,8 @@ class Input3 extends Component{
                     <InputHeader now={"성적 입력"} />
                 </div>
                 <GTinfo />
-                <Volunteer />
                 <Attend />
+                <Volunteer />
                 <GradeInput />
             </div>
         );
