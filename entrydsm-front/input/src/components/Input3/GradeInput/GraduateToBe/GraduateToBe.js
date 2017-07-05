@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import styles from './GraduateToBe.css';
 
 class GraduateToBe extends Component{
     constructor(props){
@@ -32,6 +33,19 @@ class GraduateToBe extends Component{
                     return <SubjectsInfo name={semester} key={index} />
                 })}
             </tr>
+            <NotPass />
+            {this.state.subjectsList.map((subjects, index) => {
+                var btnGroups = [];
+                for(var i=0; i<5; i++){
+                    if(i === 0){
+                        btnGroups.push(<SubjectsInfo name={subjects.name} key={index}/>)
+                    }
+                    btnGroups.push(<GradeSelectBtn key={i + 6}/>);
+                }
+                return (
+                    <tr key={index}>{btnGroups}</tr>
+                );
+            })}
         </tbody>
     }
 }
@@ -48,6 +62,45 @@ class StudentGrade extends Component{
     render(){
         return(
             <td className={styles.stdGrade}>{this.props.semester}</td>
+        );
+    }
+}
+
+class NotPass extends Component{
+    render(){
+        var checkBoxs = [];
+        for(var i=0; i<5; i++){
+            if(i === 0) checkBoxs.push(<th key={i + 6}>미이수 여부</th>);
+            checkBoxs.push(<CheckBox key={i}/>);
+        }
+        return (
+            <tr>
+                {checkBoxs}
+            </tr>
+        );
+    }
+}
+
+class CheckBox extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            isChecked: true
+        };
+        this.toggleChange = this.toggleChange.bind(this);
+    }
+
+    toggleChange(){
+        this.setState({
+            isChecked: !this.state.isChecked
+        });
+    }
+
+    render(){
+        return (
+            <td>
+                <span><input type="checkbox" className={styles.checkBox} checked={this.state.isChecked} onChange={this.toggleChange}/></span>
+            </td>
         );
     }
 }

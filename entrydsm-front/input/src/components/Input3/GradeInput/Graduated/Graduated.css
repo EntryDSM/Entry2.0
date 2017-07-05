@@ -2,3 +2,9 @@
     padding-left: 43px;
     width: 50px;
 }
+
+.checkBox{
+    display: block;
+    margin: 15px;
+    margin-left: 68px;
+}
