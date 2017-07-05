@@ -27,26 +27,28 @@ class GraduateToBe extends Component{
     }
 
     render(){
-        <tbody>
-            <tr>
-                {this.state.semesters.map((semester, index) => {
-                    return <SubjectsInfo name={semester} key={index} />
-                })}
-            </tr>
-            <NotPass />
-            {this.state.subjectsList.map((subjects, index) => {
-                var btnGroups = [];
-                for(var i=0; i<5; i++){
-                    if(i === 0){
-                        btnGroups.push(<SubjectsInfo name={subjects.name} key={index}/>)
+        return(
+            <tbody>
+                <tr>
+                    {this.state.semesters.map((semester, index) => {
+                        return <StudentGrade semester={semester.name} key={index} />
+                    })}
+                </tr>
+                <NotPass />
+                {this.state.subjectsList.map((subjects, index) => {
+                    var btnGroups = [];
+                    for(var i=0; i<5; i++){
+                        if(i === 0){
+                            btnGroups.push(<SubjectsInfo name={subjects.name} key={index}/>)
+                        }
+                        btnGroups.push(<GradeSelectBtn key={i + 7}/>);
                     }
-                    btnGroups.push(<GradeSelectBtn key={i + 6}/>);
-                }
-                return (
-                    <tr key={index}>{btnGroups}</tr>
-                );
-            })}
-        </tbody>
+                    return (
+                        <tr key={index}>{btnGroups}</tr>
+                    );
+                })}
+            </tbody>
+        );
     }
 }
 
@@ -101,6 +103,39 @@ class CheckBox extends Component{
             <td>
                 <span><input type="checkbox" className={styles.checkBox} checked={this.state.isChecked} onChange={this.toggleChange}/></span>
             </td>
+        );
+    }
+}
+
+class GradeSelectBtn extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            btnGroup: [
+                {grade: "A", key: 0},
+                {grade: "B", key: 1},
+                {grade: "C", key: 2},
+                {grade: "D", key: 3},
+                {grade: "E", key: 4}
+            ]
+        }
+    }
+
+    render(){
+        return (
+            <td className={styles.btnGroupParent}>
+                {this.state.btnGroup.map((grades, i) => {
+                    return(<BtnGroup group={grades.grade} key={i}/>);
+                })}
+            </td>
+        );
+    }
+}
+
+class BtnGroup extends Component{
+    render(){
+        return (
+            <div className={styles.btnGroupChild}>{this.props.group}</div>
         );
     }
 }

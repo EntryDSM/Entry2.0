@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Graduated from './Graduated/Graduated';
+import GraduateToBe from './GraduateToBe/GraduateToBe';
 import styles from './GradeInput.css';
 
 class GradeInput extends Component{
@@ -7,6 +8,7 @@ class GradeInput extends Component{
         return (
             <table className={styles.gradeInputTable}>
                 <Graduated />
+                <GraduateToBe />
             </table>
         );        
     }

@@ -3,25 +3,3 @@
     padding-top: 30px;
 }
 
-.btnGroupChild{
-    display: inline-block;
-    border-radius: 100%;
-    width: 25px;
-    line-height: 1.6;
-    text-align: center;
-    cursor: pointer;
-}
-
-.btnGroupChild:hover{
-    border-radius: 100%;
-    background-color: skyblue;
-    transition:0.5s;
-    transition-timing-function:linear;
-}
-
-.btnGroupParent{
-    padding-left: 15px;
-    padding-right: 15px; 
-    padding-bottom: 5px;
-}
-
