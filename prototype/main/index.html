@@ -10,46 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-            var typeChartData = google.visualization.arrayToDataTable([
-                ['전형', '지원자 수'],
-                ['일반전형', 189],
-                ['마이스터 인재 전형', 53],
-                ['사회 통합 전형', 43],
-                ['국가 유공자 전형', 6]
-            ]);
-            var hometownChartData = google.visualization.arrayToDataTable([
-                ['지역', '지원자 수'],
-                ['전국', 184],
-                ['대전', 107]
-            ]);
-
-            var typeChartOptions = {
-                title: '전형별 지원자 수',
-                fontSize: 11,
-                colors: ['#1fcecb', '#ec4863', '#ffda66', '#a73e5c'],
-            };
-            var hometownChartOptions = {
-                title: '지역별 지원자 수',
-                fontSize: 11,
-                colors: ['#1fcecb', '#ec4863'],
-            }
-
-            var typeChart = new google.visualization.PieChart(document.getElementById('piechart'));
-            var hometownChart = new google.visualization.PieChart(document.getElementById('hometown-chart'))
-            var typeBarChart = new google.visualization.ColumnChart(document.getElementById('type-barchart'));
-            var hometownBarChart = new google.visualization.ColumnChart(document.getElementById('hometown-barchart'));
-
-            typeChart.draw(typeChartData, typeChartOptions);
-            hometownChart.draw(hometownChartData, hometownChartOptions);
-            typeBarChart.draw(typeChartData, typeChartOptions);
-            hometownBarChart.draw(hometownChartData, hometownChartOptions);
-        }
-    </script>
+   
     <title>Document</title>
 </head>
 
@@ -74,7 +35,7 @@
                         <span>원수접수</span><br>
                         <img src="./write-icon.png" alt="write-icon" class="icon">
                     </div>
-                    <span style="font-size:18rem;font-weight:lighter;">|</span>
+                    
                     <div>
                         <span>접수조회</span><br>
                         <img src="./search-icon.png" alt="search-icon" class="icon" draggable="false">
