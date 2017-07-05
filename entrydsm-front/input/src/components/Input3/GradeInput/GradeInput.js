@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Graduated from './Graduated';
+import Graduated from './Graduated/Graduated';
 import styles from './GradeInput.css';
 
 class GradeInput extends Component{
