@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import GradeSelectBtn from '../GradeSelectBtn';
-import BtnGroup from '../BtnGroup';
 import NotPass from '../NotPass';
 import styles from './Graduated.css';
 
