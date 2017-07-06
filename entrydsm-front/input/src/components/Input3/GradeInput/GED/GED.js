@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import styles from './GED.css';
 
 class GED extends Component{
     constructor(props){
@@ -28,7 +29,7 @@ class GED extends Component{
         }
 
         return(
-            <tbody>
+            <tbody className={styles.gradeInputTables}>
                 <tr>
                     {this.state.subjects.map((subject, index) => {
                         return <Subject name={subject.name} key={index}/>

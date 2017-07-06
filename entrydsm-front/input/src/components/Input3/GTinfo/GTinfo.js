@@ -6,8 +6,8 @@ class GTinfo extends Component{
         super(props);
         this.state = {
             graduationOptions: [
-                {graduateType: "졸업"},
                 {graduateType: "졸업 예정"},
+                {graduateType: "졸업"},
                 {graduateType: "검정고시"}
             ],
             localOptions: [
@@ -62,6 +62,30 @@ class GTinfo extends Component{
                 </div>
             </div>
         );
+    }
+
+    componentDidMount(){
+        let gradeInputTables = Array.from(document.querySelectorAll("table > tbody"));
+        let graduationType = Array.from(document.querySelectorAll('div > select'))[1];
+        graduationType.addEventListener('change', () => {
+            switch(graduationType.value){
+                case "졸업": 
+                    gradeInputTables[0].style.display = "table-row-group";
+                    gradeInputTables[1].style.display = "none";
+                    gradeInputTables[2].style.display = "none";
+                    break;
+                case "졸업 예정":
+                    gradeInputTables[0].style.display = "none";
+                    gradeInputTables[1].style.display = "table-row-group";
+                    gradeInputTables[2].style.display = "none";
+                    break;
+                case "검정고시":
+                    gradeInputTables[0].style.display = "none";
+                    gradeInputTables[1].style.display = "none";
+                    gradeInputTables[2].style.display = "table-row-group";
+                    break;
+            }
+        })
     }
 }
 

@@ -1,3 +1,7 @@
+.gradeInputTables{
+    display: none;
+}
+
 .stdGrade{
     padding-left: 43px;
     width: 50px;

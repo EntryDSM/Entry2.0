@@ -29,7 +29,7 @@ class Graduated extends Component{
 
     render(){
         return (
-            <tbody>
+            <tbody className={styles.gradeInputTables}>
                 <tr>
                     {this.state.semesters.map((semester, index) => {
                         return <StudentGrade semester={semester.name} key={index} />
