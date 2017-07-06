@@ -19,9 +19,16 @@ class Input3 extends Component{
                 <div className={styles.inputTitle}>
                     <InputHeader now={"성적 입력"} />
                 </div>
-                <GTinfo />
-                <Attend />
-                <Volunteer />
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><GTinfo /></td><td rowSpan={2}><Attend /></td>
+                        </tr>
+                        <tr>
+                            <td><Volunteer /></td>
+                        </tr>
+                    </tbody>
+                </table>
                 <GradeInput />
             </div>
         );
@@ -31,10 +38,12 @@ class Input3 extends Component{
         var buttons = document.querySelectorAll('table > tbody > tr > td > div');
         Array.from(buttons).forEach((btn, index) => {
             btn.addEventListener('click', () => {
-                Array.from(btn.parentElement.children).forEach((children) => {
-                    children.style.background = "none";
-                });
-                btn.style.background = '#87CEEB';
+                if(btn.children.length === 0){
+                    Array.from(btn.parentElement.children).forEach((children) => {
+                        children.style.background = "none";
+                    });
+                    btn.style.background = '#87CEEB';   
+                }
             });
         })
     }

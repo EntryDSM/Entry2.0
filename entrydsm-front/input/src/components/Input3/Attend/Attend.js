@@ -17,7 +17,7 @@ class Attend extends Component{
     render(){
         return(
             <div className={styles.attendDiv}>
-                <h1>출석 성적</h1>
+                <h2 id={styles.attendTitle}>출석 성적</h2>
                 {this.state.unauthorizedDays.map((unauthorizedDays, index) => {
                     return <UnauthorizedDay unauthorizedDayType={unauthorizedDays.name} key={index}/>
                 })}
@@ -29,7 +29,7 @@ class Attend extends Component{
 class UnauthorizedDay extends Component{
     render(){
         return(
-            <p>{this.props.unauthorizedDayType} <input className={styles.dayInput} type="number"/></p>
+            <p className={styles.UnauthorizedDayInput}>{this.props.unauthorizedDayType} <input className={styles.dayInput} type="number"/></p>
         );
     }
 }

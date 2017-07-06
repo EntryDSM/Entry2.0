@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import styles from './Volunteer.css';
-import { Circle } from 'rc-progress';
 
 class Volunteer extends Component{
     constructor(props){
@@ -23,12 +22,9 @@ class Volunteer extends Component{
 
     render(){
         return (
-            <div id={styles.volunteerDiv}>
-                <Circle percent={this.state.volGrade * 1.66} strokeWidth="5" strokeColor="#2cb573"/>
-                <div className={styles.volGrade}> 
-                    <p>봉사 시간</p>
-                    <input type="text" className={styles.volGradeInput} value={this.state.volGrade} onChange={this.gradeChange}/>
-                </div>
+            <div className={styles.volGrade}> 
+                <h2>봉사 시간</h2>
+                <input type="text" className={styles.volGradeInput} value={this.state.volGrade} onChange={this.gradeChange}/> 시간
             </div>
         );
     }

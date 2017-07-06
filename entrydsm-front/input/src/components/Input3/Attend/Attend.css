@@ -1,7 +1,18 @@
+#attendTitle{
+    margin: 0px;
+    padding-bottom: 10px;
+}
+
 .attendDiv{
-    width: 200px;
-    float: right;
-    padding-right: 150px;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.UnauthorizedDayInput{
+    margin: 0px;
+    padding-top: 10px;
+    line-height: 2.5;
+    font-size: 19px;
 }
 
 .dayInput{
