@@ -32,13 +32,13 @@ exports.login = (req, res) => {
 
 
 var auth = (database, email, password, callback) => {
-    database.Model.findByEmail(email, (err, results) => {
+    database.userModel.findByEmail(email, (err, results) => {
         if (err) {
             callback(err, null);
             return;
         }
         if (results.length > 0) {
-            var user = new database.Model({
+            var user = new database.userModel({
                 email: email
             });
             var authpassword = user.authenticate(password, results[0]._doc.salt, results[0]._doc.hash_password);
@@ -86,7 +86,7 @@ exports.adduser = (req, res) => {
 };
 
 var checkEmail = function (Docs, email, callback) {
-    Docs.Model.findByEmail(email, function (err, check) {
+    Docs.userModel.findByEmail(email, function (err, check) {
         if (check == false) {
             callback(null);
         } else {
@@ -97,7 +97,7 @@ var checkEmail = function (Docs, email, callback) {
 };
 
 var addUser = (database, name, email, password, unemail, check, callback) => {
-    var user = new database.Model({
+    var user = new database.userModel({
         "owner": name,
         "email": email,
         "password": password,
@@ -119,7 +119,7 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
 exports.sendemail = (req, res) => {
     var email = req.params.email;
     var database = req.app.get('database');
-    database.Model.findByEmail(email, (err, enemail) => {
+    database.userModel.findByEmail(email, (err, enemail) => {
         console.log('enemail' + enemail);
         var con = require('../../confi.json');
         var sender = 'EntryDsm < syeutyu123@gmail.com >';
@@ -172,7 +172,7 @@ exports.unemail = (req, res) => {
     authunemail(req, res, unemail, (checkemail) => {
         console.log('checkemail ' + checkemail)
         if (checkemail) {
-            database.Model.update({}, {
+            database.userModel.update({}, {
                 "$set": {
                     "check": true
                 }
@@ -192,13 +192,13 @@ exports.unemail = (req, res) => {
 var authunemail = (req, res, unemail, callback) => {
     var database = req.app.get('database');
     //DB 모델 메소드 정의 후 비교후 값 리턴
-    database.Model.findunemail(unemail, (err, checked) => {
+    database.userModel.findunemail(unemail, (err, checked) => {
         if (err) {
             console.log(err);
         }
         if (checked != null) {
             console.log(checked[0]._doc.salt);
-            database.Model.authEnemail(unemail, checked[0]._doc.email, checked[0]._doc.salt, (archive) => {
+            database.userModel.authEnemail(unemail, checked[0]._doc.email, checked[0]._doc.salt, (archive) => {
                 if (archive) {
                     checked[0]._doc.check = true;
                     callback(checked);
@@ -214,7 +214,7 @@ exports.findEmail = function (req, res) {
     let database = req.app.get('database');
     let name = req.query.name;
     var arr = [];
-    database.Model.findByUser(name, (err, find) => {
+    database.userModel.findByUser(name, (err, find) => {
         if (err) {
             console.log(err);
         }
@@ -240,7 +240,7 @@ exports.sendfindemail = (req,res) => {
     var email = req.body.email;
     console.log(email);
     var database = req.app.get('database');
-    database.Model.findByEmail(email, (err, enemail) => {
+    database.userModel.findByEmail(email, (err, enemail) => {
         var con = require('../../confi.json');
         var sender = 'EntryDsm < syeutyu123@gmail.com >';
         var receiver = email;
@@ -287,7 +287,7 @@ exports.sendfindemail = (req,res) => {
 exports.checkmail = (req,res) =>{
     var database = req.app.get('database');
     var salt = req.params.salt;
-    database.Model.findSalt(salt,(err,inSalt)=>{
+    database.userModel.findSalt(salt,(err,inSalt)=>{
         if(inSalt){
             console.log('렌더링 시작');
             res.render('view4', {
@@ -305,9 +305,9 @@ exports.changepassword = (req, res) => {
     if(password === newpassword){
         res.send('<script>alert("비밀번호가 맞지않습니다.")</script>')
     }
-    database.Model.findByEmail(userid, (err,findid)=>{
+    database.userModel.findByEmail(userid, (err,findid)=>{
         if(findid){
-            database.Model.update({}, {
+            database.userModel.update({}, {
                 "$set": {
                     "check": true
                 }

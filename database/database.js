@@ -23,12 +23,10 @@ function createSchema(app, config) {
     var schemaLen = config.db_schemas.length;
 
     for (var i = 0; i < schemaLen; i++) {
-        var curItem = config.db_schemas[i];
-
-        var curSchema = require(curItem.file).createSchema(mongoose);
-        var curModel = mongoose.model(curItem.collection, curSchema);
-        database[curItem.schemaName] = curSchema;
-        database[curItem.modelName] = curModel;
+        let schemaInfo = config.db_schemas[i];
+        let model = require(schemaInfo.file);
+        let modelName = schemaInfo.modelName;
+        database[modelName] = model;
     }
     app.set('database', database);
 }
