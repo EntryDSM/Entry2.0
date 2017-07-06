@@ -1,16 +1,22 @@
-function previewFile() {
-  var preview = document.querySelector('img');
-  var file    = document.querySelector('input[type=file]').files[0];
-  var reader  = new FileReader();
+import React, {Component} from 'react';
+import InputHeader from '../InputHeader/InputHeader';
+import styles from './Input2.css';
+import InputInfo from './InputInfo/InputInfo';
+import UploadImage from './UploadImage/UploadImage'
+import InputLayout from '../InputLayout/InputLayout';
 
-  reader.onloadend = function () {
-    preview.src = reader.result;
-  }
-
-  if (file) {
-    reader.readAsDataURL(file);
-  } else {
-    preview.src = "file.png";
-  }
-
+class Input2 extends Component {
+    
+    render(){
+        return(
+            <div id={styles.contents}>
+                <div className={styles.inputTitle}>
+                    <InputHeader now={"인적 사항"} />
+                </div>
+                <InputInfo />
+            </div>
+        );
+    }
 }
+
+export default Input2;

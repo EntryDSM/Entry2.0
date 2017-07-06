@@ -1,0 +1,15 @@
+#attachfile {
+    width: 84%;
+    height: 88%;
+    position: absolute;
+    opacity: 0;
+}
+
+#IDPhoto {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    line-height: 35vh;
+}
+
