@@ -8,11 +8,12 @@ Schema.createSchema = function (mongoose) {
     email: String,
     salt: {
       type: String,
-      required: true
+      required: true,
+      unique:true
     },
     check: Boolean,
-    hash_password: String,
-    hash_email: String
+    hash_password: {type : String,unique : true},
+    hash_email: {type : String,unique : true}
   });
   DocsSchema.virtual('password').set(function (password) {
     console.log('virtual password');
@@ -30,37 +31,33 @@ Schema.createSchema = function (mongoose) {
     }
   });
 
+  DocsSchema.static('findByUser', function (name,callback){
+  return this.find({
+      owner : name
+    }, callback);
+  });
   DocsSchema.method('makesalt', function () {
     return Math.round((new Date().valueOf() * Math.random())) + '';
   });
 
-  DocsSchema.method('authenticate', function (text, inSalt, hash_password) {
+DocsSchema.method('authenticate', function (text, inSalt, hash_password) {
     if (inSalt) {
       return this.enpassword(text, inSalt) === hash_password;
     } else {
       return this.enpassword(text) === this.hash_password;
     }
   });
-  DocsSchema.static('authEnemail', function (unemail, Email,Salt, callback) {
+DocsSchema.static('authEnemail', function (unemail, Email,Salt, callback) {
     callback(this.unemailmethod(Email,Salt) === unemail);
   });
-  // DocsSchema.virtual('uncheck').set(function(){
-  //   this.check = this.makecheck();
-  // }).get(function(){
-  //   return this.check;
-  // })
 
-  // DocsSchema.method('makecheck',function(){
-  //   return true;
-  // })
-
-  DocsSchema.static('findunemail', function (hash_email, callback) {
+DocsSchema.static('findunemail', function (hash_email, callback) {
     return this.find({
       hash_email: hash_email
     }, callback);
   });
 
-  DocsSchema.virtual('unemail').set(function (unemail) {
+DocsSchema.virtual('unemail').set(function (unemail) {
     console.log('virtual unemail');
     this._unemail = unemail;
        this.salt = this.makesalt();
@@ -74,22 +71,26 @@ DocsSchema.method('unemailmethod', function (unemail) {
     return crypto.createHmac('sha1', this.salt).update(unemail).digest('hex');
   });
 
-  DocsSchema.static('unemailmethod', function (Email,Salt) {
+DocsSchema.static('unemailmethod', function (Email,Salt) {
     return crypto.createHmac('sha1', Salt).update(Email).digest('hex');
   });
-  DocsSchema.static('findByEmail', function (email, callback) {
+DocsSchema.static('findByEmail', function (email, callback) {
     return this.find({
       email: email
     }, callback);
   });
 
-  DocsSchema.method('findEmail', function (email, callback) {
+DocsSchema.method('findEmail', function (email, callback) {
     return this.find({
       email: email
     }, callback);
   });
 
-
+DocsSchema.static('findSalt', function (salt, callback) {
+    return this.find({
+      salt: salt
+    }, callback);
+  });
 
   var ApplySchema = new mongoose.Schema({
     submit_number: Number,

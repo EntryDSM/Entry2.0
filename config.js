@@ -9,16 +9,5 @@ module.exports = {
         }
         //file:스키마 파일 , collection:컬렉션 이름 지정,
         //schemaName:반환된 객체를 어떤 속성이름으로할껀지 , modelName:모델 객체를 만든후 어떤이름
-    ],
-    route_info: [{
-        file: './user',
-        path: '/login',
-        method: 'login',
-        type: 'post'
-    }, {
-        file: './user',
-        path: '/adduser',
-        method: 'adduser',
-        type: 'post'
-    }]
+    ]
 }
