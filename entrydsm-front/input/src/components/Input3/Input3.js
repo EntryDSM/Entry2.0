@@ -4,7 +4,6 @@ import styles from './Input3.css';
 import GradeInput from './GradeInput/GradeInput';
 import Volunteer from './Volunteer/Volunteer';
 import Attend from './Attend/Attend';
-import GTinfo from './GTinfo/GTinfo';
 import GraduationInfo from './GraduationInfo/GraduationInfo';
 import TypeInfo from './TypeInfo/TypeInfo';
 import InputLayout from '../InputLayout/InputLayout';
