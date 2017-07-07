@@ -67,22 +67,24 @@ class GTinfo extends Component{
     componentDidMount(){
         let gradeInputTables = Array.from(document.querySelectorAll("table > tbody"));
         let graduationType = Array.from(document.querySelectorAll('div > select'))[1];
+        console.log(graduationType);
+        console.log(gradeInputTables);
         graduationType.addEventListener('change', () => {
             switch(graduationType.value){
                 case "졸업": 
-                    gradeInputTables[0].style.display = "table-row-group";
-                    gradeInputTables[1].style.display = "none";
-                    gradeInputTables[2].style.display = "none";
-                    break;
-                case "졸업 예정":
-                    gradeInputTables[0].style.display = "none";
                     gradeInputTables[1].style.display = "table-row-group";
                     gradeInputTables[2].style.display = "none";
+                    gradeInputTables[3].style.display = "none";
                     break;
-                case "검정고시":
-                    gradeInputTables[0].style.display = "none";
+                case "졸업 예정":
                     gradeInputTables[1].style.display = "none";
                     gradeInputTables[2].style.display = "table-row-group";
+                    gradeInputTables[3].style.display = "none";
+                    break;
+                case "검정고시":
+                    gradeInputTables[1].style.display = "none";
+                    gradeInputTables[2].style.display = "none";
+                    gradeInputTables[3].style.display = "table-row-group";
                     break;
             }
         })
