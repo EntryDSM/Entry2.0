@@ -6,22 +6,25 @@ class Attend extends Component{
         super(props);
         this.state = {
             unauthorizedDays: [
-                {name: "전체 무단 결석 일수 :"},
-                {name: "전체 무단 지각 일수 :"},
-                {name: "전체 무단 조퇴 일수 :"},
-                {name: "전체 무단 결과 일수 :"}
+                {name: "전체 무단 결석 일수"},
+                {name: "전체 무단 지각 일수"},
+                {name: "전체 무단 조퇴 일수"},
+                {name: "전체 무단 결과 일수"}
             ]
         }
     }
 
     render(){
         return(
-            <div className={styles.attendDiv}>
-                <h2 id={styles.attendTitle}>출석 성적</h2>
-                {this.state.unauthorizedDays.map((unauthorizedDays, index) => {
-                    return <UnauthorizedDay unauthorizedDayType={unauthorizedDays.name} key={index}/>
-                })}
-            </div>
+            <td>
+                <table>
+                    <tbody>
+                        {this.state.unauthorizedDays.map((unauthorizedDays, index) => {
+                            return <UnauthorizedDay unauthorizedDayType={unauthorizedDays.name} key={index}/>
+                        })}
+                    </tbody>
+                </table>
+            </td>
         );
     }
 }
@@ -29,7 +32,14 @@ class Attend extends Component{
 class UnauthorizedDay extends Component{
     render(){
         return(
-            <p className={styles.UnauthorizedDayInput}>{this.props.unauthorizedDayType} <input className={styles.dayInput} type="number"/></p>
+            <tr>
+                <td className={styles.td_title}>
+                    {this.props.unauthorizedDayType}
+                </td>
+                <td className={styles.td_content}>
+                    <input type="number" />
+                </td>
+            </tr>
         );
     }
 }

@@ -22,10 +22,16 @@ class Volunteer extends Component{
 
     render(){
         return (
-            <div className={styles.volGrade}> 
-                <h2>봉사 시간</h2>
-                <input type="text" className={styles.volGradeInput} value={this.state.volGrade} onChange={this.gradeChange}/> 시간
-            </div>
+            <td>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td className={styles.td_title}>시간</td>
+                            <td className={styles.td_content}><input type="text" value={this.state.volGrade} onChange={this.gradeChange}/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
         );
     }
 }
