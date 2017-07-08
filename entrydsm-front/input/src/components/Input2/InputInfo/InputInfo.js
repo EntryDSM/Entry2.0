@@ -13,6 +13,13 @@ class InputInfo extends Component {
                         <td className={styles.td_space} rowSpan="6"><UploadImage /></td>
                     </tr>
                     <tr>
+                        <td className={styles.td_title}>성별</td>
+                        <td className={styles.td_content}>
+                            <input type="radio" name="sex" className={styles.input_style}/>남
+                            <input type="radio" name="sex" className={styles.input_style}/>여
+                        </td>
+                    </tr>
+                    <tr>
                         <td className={styles.td_title}>생년월일</td>
                         <td className={styles.td_content}>
                             <input type="text" className={styles.input_style} id={styles.year}/>년 
