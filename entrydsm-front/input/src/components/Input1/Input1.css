@@ -11,6 +11,7 @@ input[type=text]::-ms-clear {
 }
 
 .inputPart{
+    width: 900px;
     padding: 20px;
 }
 
@@ -79,4 +80,6 @@ input[type=text]::-ms-clear {
 #inputTable{
     padding-left: 20px;
     border-collapse: collapse;
+    border-top: 2px solid #c4daff;
+    border-bottom: 2px solid #c4daff;
 }
