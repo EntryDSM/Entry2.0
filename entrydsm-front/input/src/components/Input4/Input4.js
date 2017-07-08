@@ -11,9 +11,9 @@ class Input4 extends Component {
                 <InputHeader now={"자기소개서 및 학업계획서"} />
                 <div id={styles.area}>
                     <h4 className={styles.h4_style}>자기소개서</h4>
-                    <WritingArea counter={()=>{count++}} />
+                    <WritingArea />
                     <h4 className={styles.h4_style}>학업계획서</h4>
-                    <WritingArea counter={()=>{count++}} />
+                    <WritingArea />
                 </div>
             </div>
         );
