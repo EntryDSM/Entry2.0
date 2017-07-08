@@ -30,10 +30,9 @@
 
 .td_space{
     width: 220px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 30px;
+    padding: 4px;
     font-size: 14px;
+    text-align: center;
     border: 1px solid #ebebea;
     border-top: 1px solid #c4daff;
 }
