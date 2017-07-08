@@ -1,6 +1,6 @@
 let router = require('express').Router();
 let logic = require('./logic');
 
-router.route('/vaildation').get(logic.vaildationCheck);
+router.route('/validation').get(logic.validation);
 
 module.exports = router;

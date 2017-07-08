@@ -1,6 +1,8 @@
 let mongoose = require('mongoose');
 let schema = require('../schemas/user');
+let crypto = require('crypto');
 let model = {};
+
 schema.virtual('password').set(function (password) {
     console.log('virtual password');
     this._password = password;

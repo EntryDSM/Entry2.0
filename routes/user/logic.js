@@ -5,7 +5,7 @@ exports.login = (req, res) => {
     var email = req.body.email || req.query.email;
     var password = req.body.password || req.query.password;
     var Docs = req.app.get('database');
-    if (Docs.db) {
+    if (Docs.connection) {
         auth(Docs, email, password, (err, docs) => {
             if (err) {
                 console.log(err.stack);
@@ -63,7 +63,7 @@ exports.adduser = (req, res) => {
     var check;
     var Docs = req.app.get('database');
 
-    if (Docs.db) {
+    if (Docs.connection) {
         checkEmail(Docs, email, function (find) {
             if (find === null) {
                 addUser(Docs, name, email, password, unemail, check, (err, add) => {

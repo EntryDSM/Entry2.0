@@ -8,15 +8,15 @@ function connect(app, config) {
 
     mongoose.Promise = global.Promise;
     mongoose.connect(config.db_url);
-    database.db = mongoose.connection;
-    database.db.on('error', console.error.bind(console, 'mongoose connection error.'));
-    database.db.on('open', function () {
+    database.connection = mongoose.connection;
+    database.connection.on('error', console.error.bind(console, 'mongoose connection error.'));
+    database.connection.on('open', function () {
         console.log('데이터베이스에 연결되었습니다. : ' + config.db_url);
 
         createSchema(app, config);
 
     });
-    database.db.on('disconnected', connect);
+    database.connection.on('disconnected', connect);
 }
 
 function createSchema(app, config) {
@@ -27,6 +27,7 @@ function createSchema(app, config) {
         let model = require(schemaInfo.file);
         let modelName = schemaInfo.modelName;
         database[modelName] = model;
+        console.log(modelName+" -> "+model.collection.name);
     }
     app.set('database', database);
 }
