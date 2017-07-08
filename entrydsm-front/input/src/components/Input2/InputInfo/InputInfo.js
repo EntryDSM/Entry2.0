@@ -74,6 +74,7 @@ class InputInfo extends Component {
                         </td>
                     </tr>
                 </table>
+                <button id={styles.nextBtn} type="button">성적 입력</button>
             </div>
         );
     }
