@@ -16,6 +16,7 @@
     "express-session": "^1.15.3",
     "mongoose": "^4.10.5",
     "nodemailer": "^4.0.1",
-    "nodemailer-smtp-pool": "^2.8.3"
+    "nodemailer-smtp-pool": "^2.8.3",
+    "styliner": "^1.0.3"
   }
 }
