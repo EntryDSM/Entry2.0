@@ -7,24 +7,76 @@ input[type=text]::-ms-clear {
 }
 
 .generalInput{
-    margin: 15px 0px 15px 0px;
     font-size: 15px;
+}
+
+.inputPart{
+    padding: 20px;
 }
 
 .inputContent{
     float: left;
+    padding: 15px 0px 15px 0px;
     width: calc(100% - 270px);
-    padding-left: 20px;
-    padding-top: 20px;
+}
+
+.emailInput{
+    width: 80px;
 }
 
 #nextBtn{
     border: 0.5px;
-    background: lightblue;
-    border-radius: 20px;
+    background:linear-gradient(to right, rgba(44,181,115,0.85), rgba(51,204,231,0.85));
+    width: 188px;
+    height: 50px;
+    font-size: 13px;
+    color: white;
+    margin: 20px;
 }
 
 #nextBtn:hover{
-    background: lightseagreen;
-    color: white;
+    cursor: pointer;
+}
+
+.td_content{
+    width: 220px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 3%;
+    font-size: 14px;
+    border-bottom: 1px solid #ebebea;
+}
+
+.td_title{
+    width: 100px;
+    font-size: 14px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 2%;
+    background: #fbfbfa;
+    color: #7d7d7b;
+    border-bottom: 1px solid #ebebea;
+}
+
+.input_style{
+    font-size: 14px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 1%;
+}
+
+.emailSelect{
+    border: solid 1px;
+    height: 20px;
+    margin-left: 10px;
+    border-radius: 0%;
+}
+
+.nameInput{
+    width: 60px;
+}
+
+#inputTable{
+    padding-left: 20px;
+    border-collapse: collapse;
 }
