@@ -44,9 +44,11 @@
   -webkit-box-align: start;
           align-items: flex-start;
 }
+.time {
+  transition: 0.5s;
+}
 .time:hover {
   transform:scale(1.5);
-  transition: 0.5s;
 }
 #agenda_wrap .agenda_container .agenda_phase .time {
   width: 50px;
