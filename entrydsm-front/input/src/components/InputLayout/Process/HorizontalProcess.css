@@ -2,6 +2,7 @@
 #agenda_wrap {
   background-size: cover;
   background-position: center;
+  color: white;
 }
 #agenda_wrap .agenda-header {
   width: 100%;
