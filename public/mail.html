@@ -1,9 +1,16 @@
-   <style>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--<title>Checking Email</title>-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:800" rel="stylesheet">
+        <style media="screen" type="text/css">
+            /*@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);*/
             #EmailCover{
                 width:55rem;
                 height:28.5rem;
                 /*border-bottom:2px solid black;*/
-                border:1px solid gray;
+                border:1px solid darkgray;
                 margin:0 auto;
                 margin-top:5rem;
                 border-radius:5px;
@@ -33,10 +40,31 @@
                 font-weight:bold;
                 color:#333333;
             }
-            #EmailCover #ClickButton{width:30rem;height:6rem;background:linear-gradient(to right, rgb(44,181,115), rgb(51,204,231)); margin-left:2.5rem;margin-top:3rem; border-radius:10px; display:table; cursor:pointer; } #ClickButton #ButtonText{color:white;display:table-cell; vertical-align: middle;text-align:center; font-family:"Montserrat"; letter-spacing:1px; word-spacing:2px; font-size:2rem; }
+            #EmailCover #ClickButton{
+                width:30rem;
+                height:6rem;
+                background:linear-gradient(to right, rgb(44,181,115), rgb(51,204,231));
+                margin-left:2.5rem;
+                margin-top:3rem;
+                border-radius:10px;
+                display:table;
+                cursor:pointer;
+            }
+            #ClickButton #ButtonText{
+                color:white;
+                display:table-cell;
+                vertical-align: middle;
+                text-align:center;
+                font-family:"Montserrat";
+                letter-spacing:1px;
+                word-spacing:2px;
+                font-size:2rem;
+            }
         </style>
+    </head>
+    <body>
         <div id="EmailCover">
-            <img src="https://scontent-icn1-1.xx.fbcdn.net/v/t34.0-12/19142146_1827248010924506_1038302564_n.png?oh=5529b183b457fc685804d9c35b675083&oe=59439DAD" id="DSM_Logo">
+            <img src="ImageFiles/DSM%20Logo.png" id="DSM_Logo">
             <div id="Explain_Title">
                 Check your Email to join
             </div>
@@ -45,7 +73,9 @@
             </div>
             <form action="">
                 <div id="ClickButton">
-                    <div id="ButtonText">Check Now</div>
+                   <a href= "/unemail/name"> <div id="ButtonText">Check Now</div> </a>
                 </div>
-            </form>
+            </form>    
         </div>
+    </body>
+</html>
