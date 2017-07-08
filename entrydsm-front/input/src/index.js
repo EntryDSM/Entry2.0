@@ -3,4 +3,4 @@ import ReactDOM from 'react-dom';
 import { Input1, Input2, Input3, Input4, InputLayout, Footer }  from './components';
 
 const rootContent = document.getElementById('root');
-ReactDOM.render(<div><InputLayout /><Input2 /><Footer /></div>, rootContent);
+ReactDOM.render(<div><InputLayout /><Input4 /><Footer /></div>, rootContent);
