@@ -30,13 +30,3 @@ class WritingArea extends Component{
 }
 
 export default WritingArea;
-
-{/*<textarea id="self-introducing" class="Wfull MT10" maxlength="1600" rows="19" cols="88" placeholder="여기에 자기소개서를 입력하세요." required></textarea>
-<p class="count">(0/1600)</p>*/}
-
-// var siCounter = document.querySelector("#self-introducing ~ .count");
-// var siTextbox = document.getElementById("self-introducing");
-
-// siTextbox.addEventListener("input", function() {
-//     siCounter.textContent = "(" + this.value.length + "/" + 1600 + ")";
-//   });
