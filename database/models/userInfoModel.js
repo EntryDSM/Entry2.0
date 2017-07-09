@@ -8,8 +8,6 @@ function makeMessage(comment) {
 }
 
 function profileImageSrcValidation(src, messages) {
-    console.log("=====profileImageSrcValidation=====");
-    console.log('../../profileImages' + src);
 
     // 프로필 이미지 경로 값이 null일 때
     if (src == null) {
@@ -21,15 +19,12 @@ function profileImageSrcValidation(src, messages) {
     try {
         let profile = fs.readFileSync('../../profileImages/' + src);
     } catch (err) {
-        console.log(err);
         messages.push(makeMessage('증명사진을 등록해주세요'));
     }
 
 };
 
 function gradeValidation(grade, messages) {
-    console.log("=====gradeValidation=====");
-    console.log(grade);
 
     // 학년 값이 null일 때
     if (grade == null) {
@@ -60,17 +55,13 @@ function classValidation(Class, messages) {
 };
 
 function sexValidation(sex, messages) {
-    console.log('=====sexValidation=====');
     if (sex == null) messages.push("<a href='" + url + "'>성별을 입력해주세요.</a>");
     else if (sex != '남자' && sex != '여자') messages.push("<a href='" + url + "'>성별을 입력해주세요. 현재 성별 : " + sex + "</a>");
 };
 
-function protectorNameValidation(protectorName, messages) {
+function protectorValidation(protectorName, protectorTel, messages) {
     if (protectorName == null) messages.push("<a href='" + url + "'>부모님 성함을 입력해주세요.</a>");
     // 한글도 정규식으로 거를 수 있나? :: 이름에 숫자가 들어가는걸 거를 수 있을까?
-};
-
-function protectorTelValidation(protectorTel, messages) {
     if (protectorTel == null) messages.push("<a href='" + url + "'>보호자 전화번호를 입력해주세요.</a>");
 };
 
@@ -104,27 +95,34 @@ schema.static('validation', function (key, callback) {
     this.findOne({
         "salt": key
     }, function (err, doc) {
+
+        // 일치하는 계정을 찾는 과정에서 오류가 발생했을 때
         if (err) {
-            throw err;
+            callback(null);
+            return;
         }
 
         let messages = response.messages;
 
+        // 성공적으로 계정을 찾음
         if (doc != null) {
-            console.log(doc.profileImageSrc)
-            console.log(doc);
             profileImageSrcValidation(doc.profileImageSrc, messages);
             gradeValidation(doc.grade, messages);
             classValidation(doc.class, messages);
-            protectorNameValidation(doc.protectorName, messages);
-            protectorTelValidation(doc.protectorTel, messages)
+            sexValidation(doc.sex, messages);
+            protectorValidation(doc.protectorName, doc.protectorTel, messages);
+            phoneNumValidation(doc.phoneNum, messages);
             schoolValidation(doc.schoolName, doc.schoolTel, messages);
             birthValidation(doc.birth, messages);
             addressValidation(doc.addressBase, doc.addressDetail, messages);
             postNumberValidation(doc.postNumber, messages);
             callback(response);
         }
-        // else 일치하는 계정이 없을 때 (발생 할까?)
+
+        // 일치하는 계정을 찾지못함
+        else {
+            callback(null);
+        }
     });
 });
 

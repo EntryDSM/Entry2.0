@@ -21,27 +21,34 @@ exports.validation = (req, res) => {
     };
 
     if (db.connection) {
-        let infoPromise = new Promise(
-            function (resolve, reject) {
-                try{
+        let infoPromise = new Promise(function (resolve, reject) {
+
+            try {
                 db.userInfoModel.validation(req.session.key, result => {
-                    let resultObject = {
-                        "res": res,
-                        "result": result,
-                        "response": response,
-                        "page": result.page
-                    }
-                    if (result != null) {
-                        resolve(resultObject);
-                    } else {
+
+                    // validation과정에서 오류 발생
+                    if (result == null) {
                         reject(res);
+                        return;
+                    } else {
+                        // validation을 성공적으로 마침
+                        let resultObject = {
+                            "res": res,
+                            "result": result,
+                            "response": response,
+                            "page": result.page
+                        }
+
+                        resolve(resultObject);
                     }
                 });
-            }catch(err){
-                    console.log("ERROR OCCURRED");
-                    reject(res);
-                }
-            });
+            } catch (err) {
+                // Syntax오류 등 각종 오류 Catch
+
+
+                reject(res);
+            }
+        });
         // let scorePromise = new Promise(
         //     function(resolve, reject){
         //         db.userInfoModel.validation(req.session.key, result => {
@@ -61,26 +68,36 @@ exports.validation = (req, res) => {
         //         });
         //     });
 
-        // let introducePromise = new Promise(
-        //     function(resolve, reject){
-        //         db.userInfoModel.validation(req.session.key, result => {
-        //             console.log(result);
-        //             console.log(result.messages != null);
+        let introducePromise = new Promise(function (resolve, reject) {
 
-        //             if(result != null) {
-        //                 resolve({
-        //                 "res" : res,
-        //                 "result" : result, 
-        //                 "response" : response,
-        //                 "page" : result.page });
-        //             }
-        //             else {
-        //                 reject(result.page);
-        //             }
-        //         });
-        //     });
+            try {
+                db.userIntroduceModel.validation(req.session.key, result => {
 
-        Promise.all([infoPromise]).then(validationResolve, validationReject);
+                    // validation과정에서 오류 발생
+                    if (result == null) {
+                        reject(res);
+                        return;
+                    } else {
+                        // validation을 성공적으로 마침
+                        let resultObject = {
+                            "res": res,
+                            "result": result,
+                            "response": response,
+                            "page": result.page
+                        }
+
+                        resolve(resultObject);
+                    }
+                });
+            } catch (err) {
+                // Syntax오류 등 각종 오류 Catch
+
+
+                reject(res);
+            }
+        });
+
+        Promise.all([infoPromise, introducePromise]).then(validationResolve, validationReject);
 
     }
 }
@@ -89,10 +106,14 @@ exports.validation = (req, res) => {
 function validationResolve(resultObject) {
 
     console.log('=================resolved=================');
-    for (var i = 0; i < 1; i++) {
-        let res = resultObject[i].res;
-        let result = resultObject[i].result;
-        let response = resultObject[i].response;
+    let res;
+    let result;
+    let response;
+    console.log(resultObject);
+    for (var i = 0; i < 2; i++) {
+        res = resultObject[i].res;
+        result = resultObject[i].result;
+        response = resultObject[i].response;
         let page = resultObject[i].page;
         if (result.messages.length > 0) {
             response.pageValidation[page] = false;
@@ -101,16 +122,17 @@ function validationResolve(resultObject) {
             }
         } else response.pageValidation[page] = true;
 
-        if (page === 'first') {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-            res.end(JSON.stringify(response));
-        }
     }
+
+    res.writeHead(200, {
+        'Content-Type': 'application/json'
+    });
+    res.end(JSON.stringify(response));
+
 }
 
 function validationReject(res) {
+    console.log('=================rejected=================');
     res.writeHead(400);
     res.end();
 }
