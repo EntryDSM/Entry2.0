@@ -2,7 +2,7 @@ var nodemailer = require('nodemailer');
 var smtpPool = require('nodemailer-smtp-pool');
 var fs = require('fs');
 var Styliner = require('styliner');
-
+let rootPath = require('../../config').getRootPath();
 
 exports.login = (req, res) => {
     var email = req.body.email || req.query.email;
@@ -171,9 +171,9 @@ var authunemail = (req, res, unemail, callback) => {
 //회원가입시 입력받은 이메일로 메일전송
 exports.sendemail = (req, res) => {
     var email = req.params.email;
-    let baseDir = 'c:/Users/user/Desktop/dsmtest/public/mail.html';
+    let baseDir = rootPath+'/public/mail.html';
     var database = req.app.get('database');
-
+    
     database.userModel.findByEmail(email, (err, enemail) => {
         var num = enemail[0]._doc.hash_email;
         fs.readFile(baseDir, 'utf8', function (err, data) {

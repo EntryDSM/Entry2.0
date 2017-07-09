@@ -2,22 +2,22 @@ let mongoose = require('mongoose');
 let schema = require('../schemas/userInfo');
 let fs = require('fs');
 let url = require('../../config').getPageUrl('input1');
+let rootPath = require('../../config').getRootPath();
 
 function makeMessage(comment) {
     return "<a href='" + url + "'>" + comment + "</a>";
 }
 
 function profileImageSrcValidation(src, messages) {
-
     // 프로필 이미지 경로 값이 null일 때
     if (src == null) {
         messages.push(makeMessage('증명사진을 등록해주세요'));
         return;
     }
 
-    // 프로필 이미지 경로로 파일을 불러들일 수 없을 때 (현재 항상 불러들일 수 없는 이슈 발생함)
+    // 프로필 이미지 경로로 파일을 불러들일 수 없을 때 (상대경로로는 불러들일 수 없음)
     try {
-        let profile = fs.readFileSync('../../profileImages/' + src);
+        let profile = fs.readFileSync(rootPath + '/profileImages/' + src);
     } catch (err) {
         messages.push(makeMessage('증명사진을 등록해주세요'));
     }

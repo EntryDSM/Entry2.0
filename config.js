@@ -35,4 +35,8 @@ config.getPageUrl = function (name) {
     return null;
 }
 
+config.getRootPath = function(){
+    return __dirname;
+}
+
 module.exports = config;
