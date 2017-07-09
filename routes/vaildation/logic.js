@@ -109,7 +109,7 @@ function validationResolve(resultObject) {
     let res;
     let result;
     let response;
-    console.log(resultObject);
+
     for (var i = 0; i < 2; i++) {
         res = resultObject[i].res;
         result = resultObject[i].result;
