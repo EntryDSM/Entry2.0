@@ -105,7 +105,6 @@ exports.validation = (req, res) => {
 // resolve, reject가 공통적인 역할을 하니까 function 하나로 빼자.
 function validationResolve(resultObject) {
 
-    console.log('=================resolved=================');
     let res;
     let result;
     let response;
@@ -132,7 +131,6 @@ function validationResolve(resultObject) {
 }
 
 function validationReject(res) {
-    console.log('=================rejected=================');
-    res.writeHead(400);
+    res.writeHead(500);
     res.end();
 }
