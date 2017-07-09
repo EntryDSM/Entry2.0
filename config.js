@@ -1,6 +1,6 @@
 
 let config = {
-    server_port: 8080,
+    server_port: 8081,
     db_url: 'mongodb://localhost:27017/local',
     db_schemas: [{
             "file": './models/userModel',
@@ -34,5 +34,10 @@ config.getPageUrl = function (name) {
     }
     return null;
 }
+
+config.getRootPath = function(){
+    return __dirname;
+ }
+ 
 
 module.exports = config;
