@@ -31,7 +31,11 @@ class InputInfo extends Component {
                         <tr>
                             <td className={styles.td_title}>학반</td>
                             <td className={styles.td_content}>
-                                <input type="text" className={styles.input_style} id={styles.grade}/>학년 
+                                <select className={styles.input_style}>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>학년
                                 <input type="text" className={styles.input_style} id={styles.class}/>반 
                             </td>
                         </tr>
