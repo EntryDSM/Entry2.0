@@ -6,7 +6,7 @@ class UploadImage extends Component {
         return(
             <div className={styles.div_style}>
                 <img src={require('../file.png')} id={styles.IDPhoto}/>
-                <input type="file" id={styles.attachfile} onChange="previewFile"/>
+                <input type="file" id={styles.attachfile}/>
                 {/*Icon made by [Interaction Assets] from www.flaticon.com -->*/}
             </div>
         )
