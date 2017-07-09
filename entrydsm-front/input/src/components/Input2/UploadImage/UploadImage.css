@@ -1,16 +1,15 @@
 .div_style {
     width: 180px;
     height: 240px;
-    border: 1px solid black;  
     padding: 20px;
 }
 
 #attachfile {
-    border:1px solid black;
     width: 180px;
     height: 240px;
     position: relative;
     top: -240px;
+    opacity: 0;
 }
 
 #IDPhoto {
