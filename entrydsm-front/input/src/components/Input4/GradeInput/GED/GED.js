@@ -23,29 +23,27 @@ class GED extends Component{
     }
 
     render(){
-        var inputs = [];
-        for(let i=0; i<5; i++){
-            inputs.push(<td key={i}><input type="number"/></td>)
-        }
-
         return(
-            <tbody className={styles.gradeInputTables}>
-                <tr>
-                    {this.state.subjects.map((subject, index) => {
-                        return <Subject name={subject.name} key={index}/>
-                    })}
-                    <td>
-                        <select>
-                            {this.state.optionalSubjects.map((subject, index) => {
-                                return <option key={index}>{subject.name}</option>
-                            })}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    {inputs}
-                </tr>
-            </tbody>
+            <div id={styles.GEDTable}>
+                <div className={styles.table_title}>검정고시</div>
+                <table>
+                    <tbody>
+                        {this.state.subjects.map((subject, index) => {
+                            return <Subject name={subject.name} key={index}/>
+                        })}
+                        <tr>
+                            <td id={styles.td_option}>
+                                <select id={styles.optionalSubjects}>
+                                    {this.state.optionalSubjects.map((subject, index) => {
+                                        return <option key={index}>{subject.name}</option>
+                                    })}
+                                </select>
+                            </td>
+                            <td id={styles.td_content}><input type="number" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         );
     }
 }
@@ -53,9 +51,10 @@ class GED extends Component{
 class Subject extends Component{
     render(){
         return(
-            <td>
-                {this.props.name}
-            </td>
+            <tr>
+                <td id={styles.td_title} className={styles.subjectName}>{this.props.name}</td>
+                <td id={styles.td_content}><input type="number" /></td>
+            </tr>
         );
     }
 }

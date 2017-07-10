@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import InputHeader from '../InputHeader/InputHeader';
 import styles from './Input4.css';
 import GradeInput from './GradeInput/GradeInput';
+import GED from './GradeInput/GED/GED';
 import Volunteer from './Volunteer/Volunteer';
 import Attend from './Attend/Attend';
 import InputLayout from '../InputLayout/InputLayout';
@@ -21,6 +22,7 @@ class Input3 extends Component{
                     <Attend />
                 </div>
                 <GradeInput />
+                <GED />
                 <button className={styles.nextBtn} type="button">이전</button>
                 <button className={styles.nextBtn} type="button">다음</button>
             </div>

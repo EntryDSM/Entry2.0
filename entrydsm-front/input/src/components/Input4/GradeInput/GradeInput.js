@@ -10,7 +10,6 @@ class GradeInput extends Component{
             <table id={styles.gradeInputTable}>
                 <Graduated />
                 <GraduateToBe />
-                <GED />
             </table>
         );        
     }
