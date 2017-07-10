@@ -17,27 +17,9 @@ class Input3 extends Component{
     render(){
         return(
             <div id={styles.contents}>
-                <div className={styles.inputTitle}>
-                    <InputHeader now={"성적 입력"} />
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>졸업구분</td>
-                            <td>전형구분</td>
-                            <td>봉사시간</td>
-                            <td>출석성적</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <GraduationInfo />
-                            <TypeInfo />
-                            <Volunteer />
-                            <Attend />
-                        </tr>
-                    </tbody>
-                </table>
+                <InputHeader now={"성적 입력"} />
+                <Volunteer />
+                <Attend />
                 <GradeInput />
             </div>
         );

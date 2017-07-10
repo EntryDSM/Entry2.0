@@ -22,7 +22,8 @@ class Volunteer extends Component{
 
     render(){
         return (
-            <td>
+            <div>
+                <div>봉사시간</div>
                 <table>
                     <tbody>
                         <tr>
@@ -31,7 +32,7 @@ class Volunteer extends Component{
                         </tr>
                     </tbody>
                 </table>
-            </td>
+            </div>
         );
     }
 }
