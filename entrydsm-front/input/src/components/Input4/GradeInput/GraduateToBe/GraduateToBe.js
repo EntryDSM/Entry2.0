@@ -28,7 +28,7 @@ class GraduateToBe extends Component{
 
     render(){
         return(
-            <tbody>
+            <tbody id={styles.graduateToBeTable}>
                 <tr>
                     {this.state.semesters.map((semester, index) => {
                         return <StudentGrade semester={semester.name} key={index} />
@@ -63,7 +63,7 @@ class SubjectsInfo extends Component{
 class StudentGrade extends Component{
     render(){
         return(
-            <td id={styles.stdGrade}>{this.props.semester}</td>
+            <td className={styles.stdGrade}>{this.props.semester}</td>
         );
     }
 }

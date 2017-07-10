@@ -29,7 +29,7 @@ class Graduated extends Component{
 
     render(){
         return (
-            <tbody className={styles.gradeInputTables}>
+            <tbody id={styles.graduatedTable}>
                 <tr>
                     {this.state.semesters.map((semester, index) => {
                         return <StudentGrade semester={semester.name} key={index} />
@@ -56,7 +56,7 @@ class Graduated extends Component{
 class SubjectsInfo extends Component{
     render(){
         return (
-            <th>{this.props.name}</th>
+            <td className={styles.td_title}>{this.props.name}</td>
         );
     }
 }
@@ -101,8 +101,8 @@ class CheckBox extends Component{
 
     render(){
         return (
-            <td>
-                <span><input type="checkbox" className={styles.checkBox} checked={this.state.isChecked} onChange={this.toggleChange}/></span>
+            <td className={styles.checkBox}>
+                <span><input type="checkbox" checked={this.state.isChecked} onChange={this.toggleChange}/></span>
             </td>
         );
     }
@@ -124,7 +124,7 @@ class GradeSelectBtn extends Component{
 
     render(){
         return (
-            <td className={styles.btnGroupParent}>
+            <td id={styles.td_content}>
                 {this.state.btnGroup.map((grades, i) => {
                     return(<BtnGroup group={grades.grade} key={i}/>);
                 })}
