@@ -1,0 +1,94 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    outline: none;
+    /*                overflow-x: hidden;*/
+    font-family: sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    min-width: 828px;
+    background-color:#e6e6e6;
+/*    background-color:#4affdd;*/
+/*    background:linear-gradient(to right, #4affdd, #2ffad4);*/
+}
+
+#CheckedBox {
+    position:relative;
+    width: 40rem;
+    height: 22.5rem;
+    background-color: white;
+    margin: 0 auto;
+    top: 11rem;
+    border-radius: 7.5px;
+    box-shadow: 0 0 5px darkgray;
+}
+
+#TextBox {
+    width: 100%;
+    height: 70%;
+    background-color: #38CDB1;
+    border-radius: 7.5px 7.5px 0 0;
+    font-size: 0;
+}
+
+#TextBox .SeperateBox {
+    height: 100%;
+    display: inline-block;
+}
+
+#TextBox #MainTextBox {
+    width: 70%;
+}
+
+#TextBox #ImageBox {
+    width: 30%;
+}
+
+h1 {
+    font-size: 1.75rem;
+    font-family: 'Noto Sans KR';
+    font-weight: normal;
+    color: white;
+    letter-spacing: 2px;
+    padding-left: 2.5rem;
+    padding-top: 5rem;
+}
+
+h2 {
+    font-size: 0.9rem;
+    font-family: 'Noto Sans KR';
+    color: white;
+    font-weight: normal;
+    letter-spacing: 2px;
+    padding-left: 2.5rem;
+    padding-top: 1rem;
+}
+#ImageBox #CheckImage {
+    width: 7rem;
+    position: relative;
+    top: 1.25rem;
+    left: 0.5rem;
+}
+
+#SubBox {
+    width: 100%;
+    height: 30%;
+    background-color: #ecf0f1;
+    border-radius: 0 0 7.5px 7.5px;
+}
+
+#test{
+    width:50px;
+    height:50px;
+    background-color:black;
+    color:white;
+}
+

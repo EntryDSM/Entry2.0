@@ -1,0 +1,117 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    outline: none;
+    /*                overflow-x: hidden;*/
+    font-family: sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    min-width: 828px;
+    background-color: #f4f4f4;
+}
+
+#LogoPart {
+    width: 200px;
+    height: 90px;
+    margin: 0 auto;
+    top: 2.75rem;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-family: 'Montserrat';
+    color: #505050;
+    margin-top: 4.75rem;
+}
+
+#PwChangeBox {
+    width: 40rem;
+    height: 22.5rem;
+    background-color: white;
+    margin: 0 auto;
+    margin-top: 2rem;
+    border-radius: 7.5px;
+    box-shadow: 0 0 3px darkgray;
+}
+
+#PwChangeBox #PwChangeForm {
+    width: 87.5%;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 0.75rem;
+}
+
+h2 {
+    font-family: 'Noto Sans KR';
+    color: #424242;
+    font-weight: normal;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-align: center;
+    padding-top: 1rem;
+}
+
+h3 {
+    font-size: 0.8rem;
+    font-family: 'Noto Sans KR';
+    font-weight: normal;
+    letter-spacing: 2px;
+    color: #272727;
+    padding-top: 2.5rem;
+}
+
+#PwChangeBox .MainInput {
+    box-shadow: 0 0 4px darkgray inset;
+    border-radius: 3px;
+    display: block;
+    width: 65%;
+    height: 2.25rem;
+    margin-top: 0.5rem;
+    margin-left: -2.5px;
+    padding-left: 5px;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+}
+
+
+/*
+        #PwCheck{
+            border-bottom:2px solid rgba(44,181,115,0.85);
+            border-radius:3px 3px 0 0px !important;
+        }
+*/
+
+#PwChangeForm #SaveButton {
+    width: 100%;
+    height: 3.1rem;
+    margin: 0 auto;
+    background: linear-gradient(to right, rgba(44, 181, 115, 0.85), rgba(51, 204, 231, 0.85));
+    border-radius: 2px;
+    margin-top: 2rem;
+    margin-left: -3.5px;
+    box-shadow: 0 0 5px darkgray;
+    display: table;
+}
+
+#SaveButton #SaveText {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+    font-family: 'Noto Sans KR';
+    font-weight: normal;
+    letter-spacing: 3px;
+    font-size: 1rem;
+    cursor: pointer;
+}
