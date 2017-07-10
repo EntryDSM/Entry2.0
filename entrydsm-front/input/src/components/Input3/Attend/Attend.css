@@ -21,6 +21,10 @@
     font-size: 18px;
 }
 
+.attendTable{
+    margin-top: 20px;
+}
+
 .td_content{
     width: 150px;
     padding-top: 1%;

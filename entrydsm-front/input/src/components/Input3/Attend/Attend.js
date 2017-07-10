@@ -16,7 +16,8 @@ class Attend extends Component{
 
     render(){
         return(
-            <td>
+            <div className={styles.attendTable}>
+                <div>출석성적</div>
                 <table>
                     <tbody>
                         {this.state.unauthorizedDays.map((unauthorizedDays, index) => {
@@ -24,7 +25,7 @@ class Attend extends Component{
                         })}
                     </tbody>
                 </table>
-            </td>
+            </div>
         );
     }
 }
