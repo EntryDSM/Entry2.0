@@ -1,0 +1,41 @@
+let mongoose = require('mongoose');
+
+let schema = mongoose.Schema({
+    user: String,
+    submit_number: Number,
+    exam_number: Number,
+    school_code: Number,
+    school_name: String,
+    hometeacher: String,
+    name: String,
+    birthday: Date,
+    sex: String,
+    post_number: String,
+    address_base: String,
+    address_detail: String,
+    parent_name: String,
+    parent_tel: String,
+    school_tel: String,
+    my_tel: String,
+    graduate_type: String,
+    graduate_year: String,
+    graduate_month: String,
+    region_type: String,
+    apply_base_type: String,
+    apply_detail_type: String,
+    score_sum: Number,
+    final_sum: Number,
+    member_image: String,
+    introduce: String,
+    studyplan: String,
+    grade_number: Number,
+    class_number: Number,
+    graduate_score: String,
+    apply_status: Number,
+    pay_status: Number,
+    document_status: Number,
+    insertdate: Date,
+    updatedate: Date
+});
+
+module.exports = schema;

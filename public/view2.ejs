@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Input2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<%
+
+var year = '', month = '', day = '';
+if(data.birthday){
+    console.log(data);
+    birth = new Date(data.birthday);
+    year = birth.getFullYear();
+    month = parseInt(birth.getMonth() + 1);
+    day = birth.getDate();
+}
+
+var sex = {
+    man: '',
+    woman: ''
+};
+sex[data.sex] = 'checked';
+%>
+
+<body>
+    <form method="POST" action="<%='/step1/' + key%>" enctype="multipart/form-data">
+        <img src="<%=data.member_image%>">
+        사진 : <input type="file" name="member_image" accept="image/*"><br>
+        성명 : <input type="text" name="student_name" value="<%=data.name%>" readonly><br>
+        학년 : <input type="text" name="grade" value="<%=data.grade_number%>">
+         반 : <input type="text" name="class" value="<%=data.class_number%>" ><br>
+        학교명 : <input type="text" name="school_name" value="<%=data.school_name%>">
+        학교코드 : <input type="text" name="school_code" value="<%=data.school_code%>"><br>
+         보호자명 : <input type="text" name="parent_name" value="<%=data.parent_name%>" ><br>
+          생년월일 : <input type="text" name="year" value="<%=year%>" >년
+        <input type="text" name="month" value="<%=month%>" >월
+        <input type="text" name="date" value="<%=day%>" >일<br>
+         성별 : <input type="radio" name="sex" value="man" <%=sex['man']%>>남
+        <input type="radio" name="sex" value="woman" <%=sex['woman']%>>여<br>
+         주소 : <input type="text" name="address_base" value="<%=data.address_base%>" ><input type="text" name="address_detail" value="<%=data.address_detail%>" ><br>
+         보호자연락처 : <input type="text" name="parent_tel" value="<%=data.parent_tel%>"><br>
+         학교연락처 : <input type="text" name="school_tel" value="<%=data.school_tel%>"><br>
+        <input type="submit" name="submit" value="다음">
+        <input type="hidden" name="_method" value="put">
+    </form>
+</body>
+
+</html>
