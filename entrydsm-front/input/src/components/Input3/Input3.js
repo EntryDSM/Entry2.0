@@ -18,8 +18,10 @@ class Input3 extends Component{
         return(
             <div id={styles.contents}>
                 <InputHeader now={"성적 입력"} />
-                <Volunteer />
-                <Attend />
+                <div id={styles.volunteerAttendWrapper}>
+                    <Volunteer />
+                    <Attend />
+                </div>
                 <GradeInput />
             </div>
         );
