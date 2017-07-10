@@ -74,17 +74,13 @@ h3 {
     box-shadow: 0 0 4px darkgray inset;
     border-radius: 3px;
     display: block;
-    width: 40%;
+    width: 65%;
     height: 2.25rem;
     margin-top: 0.5rem;
     margin-left: -2.5px;
     padding-left: 5px;
     letter-spacing: 2px;
     font-size: 0.75rem;
-}
-
-#EmailInput {
-    width: 65% !important;
 }
 
 #ChangeButton {
