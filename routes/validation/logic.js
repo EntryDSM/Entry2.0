@@ -44,8 +44,6 @@ exports.validation = (req, res) => {
                 });
             } catch (err) {
                 // Syntax오류 등 각종 오류 Catch
-
-
                 reject(res);
             }
         });
@@ -75,6 +73,7 @@ exports.validation = (req, res) => {
 
                     // validation과정에서 오류 발생
                     if (result == null) {
+                        console.log("result == null");
                         reject(res);
                         return;
                     } else {
@@ -91,8 +90,6 @@ exports.validation = (req, res) => {
                 });
             } catch (err) {
                 // Syntax오류 등 각종 오류 Catch
-
-
                 reject(res);
             }
         });

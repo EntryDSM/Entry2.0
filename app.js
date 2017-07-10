@@ -10,7 +10,7 @@ var crypto = require('crypto');
 var app = express();
 
 let userRouter = require('./routes/user/router');
-let vaildationRoouter = require('./routes/vaildation/router');
+let validationRoouter = require('./routes/validation/router');
 
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
@@ -28,9 +28,9 @@ app.use(session({
 app.use(bodyparser.json());
 
 app.use('/',userRouter);
-app.use('/',vaildationRoouter);
+app.use('/',validationRoouter);
 
 app.listen(config.server_port, function () {
-    console.log(config.server_port + 'ON');
+    console.log(config.server_port + ' ON');
     database.init(app, config);
 });
