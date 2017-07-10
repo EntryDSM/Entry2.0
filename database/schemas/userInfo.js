@@ -2,20 +2,20 @@ let mongoose = require('mongoose');
 
 let schema = mongoose.Schema({
     salt: { type: String, required: true, unique : true },
-    profileImageSrc : {type : String, default : null},
-    sex : { type : String, default : null },
+    profileImageSrc : {type : String, default : ""},
+    sex : { type : String, default : "" },
     grade : { type : Number, default : null },
     class : { type : Number, default : null },
-    protectorName : { type : String, default : null },
-    protectorTel : { type : Number, default : null },
-    phoneNum : { type : Number, default : null },
+    protectorName : { type : String, default : "" },
+    protectorTel : { type : String, default : "" },
+    phoneNum : { type : String, default : "" },
     schoolCode : { type : Number, default : null },
-    schoolName : { type : String, default : null },
-    schoolTel : { type : Number, default : null },
-    birth : { type : String, default : null },
-    addressBase : { type : String, default : null },
-    addressDetail : { type : String, default : null },
-    postNumber : { type : Number, default : null }
+    schoolName : { type : String, default : "" },
+    schoolTel : { type : String, default : "" },
+    birth : { type : String, default : "" },
+    addressBase : { type : String, default : "" },
+    addressDetail : { type : String, default : "" },
+    postNumber : { type : String, default : "" }
 });
 
 module.exports = schema;

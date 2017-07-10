@@ -6,7 +6,6 @@ var session = require('express-session');
 var database = require('./database/database');
 var bodyparser = require('body-parser');
 var crypto = require('crypto');
-
 var app = express();
 
 let userRouter = require('./routes/user/router');
@@ -19,16 +18,18 @@ app.use('/public', static(path.join(__dirname, '/public')));
 app.use(bodyparser.urlencoded({
     extended: false
 }));
+
+//세션 설정필요
 app.use(session({
-    key : 'entrykey',
+    key: 'entrykey',
     secret: 'secret',
-    resave:false
+    resave: false
 }));
 
 app.use(bodyparser.json());
 
-app.use('/',userRouter);
-app.use('/',vaildationRoouter);
+app.use('/', userRouter);
+app.use('/', vaildationRoouter);
 
 app.listen(config.server_port, function () {
     console.log(config.server_port + 'ON');

@@ -35,7 +35,7 @@ exports.login = (req, res) => {
 }
 
 //정보를 찾고 비밀번호가 DB의 정보와 동일한지 판단 하는 auth메소드
-var auth = (database, email, password, callback) => { 
+var auth = (database, email, password, callback) => {
     database.userModel.findByEmail(email, (err, results) => {
         if (err) {
             callback(err, null);
@@ -173,7 +173,7 @@ exports.sendemail = (req, res) => {
     var email = req.params.email;
     let baseDir = rootPath+'/public/mail.html';
     var database = req.app.get('database');
-    
+
     database.userModel.findByEmail(email, (err, enemail) => {
         var num = enemail[0]._doc.hash_email;
         fs.readFile(baseDir, 'utf8', function (err, data) {
@@ -262,8 +262,8 @@ exports.findEmail = function (req, res) {
                 var chec = pemail.join(""); //문자열 변환
                 arr[i] = chec.concat('@' + result[1]); //이메일형식으로 변환
             }
-        } 
-        
+        }
+
         else {
             res.send('<script>alert("입력하신 이름에 해당하는 아이디는 존재하지 않습니다.");</script>')
         }
@@ -348,7 +348,7 @@ exports.checkmail = (req, res) => {
             res.render('view4', {
                 id: inSalt[0]._doc.email
             });
-        } 
+        }
         else {
             res.send('<script>alert("해당 링크는 존재하지 않습니다.");</script>')
         }
@@ -375,7 +375,7 @@ exports.changepassword = (req, res) => {
             });
 
             var pwChange = user.hash_password;
-            
+
             database.userModel.update({}, {
                 "$set": {
                     "hash_password": pwChange
@@ -385,29 +385,10 @@ exports.changepassword = (req, res) => {
             }, () => {
                 res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
             });
-        } 
+        }
         else {
             res.send('<script>alert("입력하신 이메일이 존재하지 않습니다.");</script>')
         }
     })
-
-}
-
-exports.demo = (req,res) =>{
-    let sex = req.parms.sex;
-    let grade = req.params.grade;
-    let sclass = req.params.class;
-    let protectorName = req.params.protectorName;
-    let schoolCode = req.params.schoolCode;
-    let schoolName = req.params.schoolName;
-    let schoolTel = req.params.schoolTel;
-    let protectorTel = req.params.protectorTel;
-    let phoneNum = req.params.phoneNum;
-    let birth = req.params.birth;
-    let address = req.params.address;
-    let stuCode = req.params.stuCode;
-    let name = req.params.name;
-    let registration = req.params.registration;
-    
 
 }

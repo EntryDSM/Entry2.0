@@ -58,7 +58,7 @@ exports.validation = (req, res) => {
         //             if(result != null) {
         //                 resolve({
         //                 "res" : res,
-        //                 "result" : result, 
+        //                 "result" : result,
         //                 "response" : response,
         //                 "page" : result.page });
         //             }

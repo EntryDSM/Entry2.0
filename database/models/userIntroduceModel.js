@@ -17,7 +17,7 @@ function planValidation(plan, messages) {
 schema.static('validation', function (key, callback) {
     let response = {
         messages: [],
-        page: 'first'
+        page: 'third'
     };
 
     this.findOne({
