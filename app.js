@@ -6,10 +6,13 @@ var session = require('express-session');
 var database = require('./database/database');
 var bodyparser = require('body-parser');
 var crypto = require('crypto');
+var methodOverride = require('method-override');
+var fileUpload = require('express-fileupload');
 var app = express();
 
 let userRouter = require('./routes/user/router');
-let vaildationRoouter = require('./routes/vaildation/router');
+let applydataRouter = require('./routes/applydata/router');
+let validationRoouter = require('./routes/validation/router');
 
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
@@ -28,8 +31,14 @@ app.use(session({
 
 app.use(bodyparser.json());
 
+app.use(methodOverride('_method'));
+app.use(fileUpload());
+
+app.use('/images', static(path.join(__dirname, '/images')));
+
 app.use('/', userRouter);
-app.use('/', vaildationRoouter);
+app.use('/', applydataRouter);
+app.use('/', validationRoouter);
 
 app.listen(config.server_port, function () {
     console.log(config.server_port + 'ON');

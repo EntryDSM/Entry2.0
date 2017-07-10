@@ -3,6 +3,7 @@ var smtpPool = require('nodemailer-smtp-pool');
 var fs = require('fs');
 var Styliner = require('styliner');
 let rootPath = require('../../config').getRootPath();
+let server_domain = require('../../config').getServerDomain();
 
 exports.login = (req, res) => {
     var email = req.body.email || req.query.email;
@@ -107,9 +108,37 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
         if (err) {
             callback(err, null);
             return;
-        }
+        }else{
+            database.userModel.usercount(function (err, docs) {
+                if(err){
+                    callback(err, null);
+                    return;
+                }else{
+                    var count = docs.length;
 
-        callback(null, user);
+                    var date = new Date();
+
+                    var submit_number = parseInt(date.getFullYear()) * 1000 + count;
+
+                    var applydata = new database.applydataModel({
+                        "user": user.salt,
+                        "submit_number": submit_number,
+                        "name": name,
+                        "insertdate": date,
+                        "updatedate": date
+                    });
+
+                    applydata.save((err) => {
+                        if (err) {
+                            callback(err, null);
+                            return;
+                        }else{
+                            callback(null, true);
+                        }
+                    });
+                }
+            });
+        }
     });
 };
 
@@ -182,7 +211,8 @@ exports.sendemail = (req, res) => {
 
             styliner.processHTML(data).then((htmlfile) => { //css 적용후 htmlfile코드 반환
 
-                var htmldata = htmlfile.replace('name', num); //a태그로 특수한 키를 줘야하기에 name값을 num으로 변환
+                var htmldata = htmlfile.replace('@name', num); //a태그로 특수한 키를 줘야하기에 name값을 num으로 변환
+                htmldata = htmldata.replace('@host', server_domain);
 
                 if (err) {
                     console.log(err);
@@ -277,7 +307,7 @@ exports.findEmail = function (req, res) {
 exports.sendfindemail = (req, res) => {
     var email = req.body.email;
     // 비밀번호 메일변경 나오면 html코드로 넣기
-    let baseDir = 'c:/Users/user/Desktop/dsmtest/public/mail.html';
+    let baseDir = rootPath + '/public/mail.html';
     var database = req.app.get('database');
 
     database.userModel.findByEmail(email, (err, enemail) => {
@@ -288,7 +318,8 @@ exports.sendfindemail = (req, res) => {
 
             styliner.processHTML(data).then((htmlfile) => {
                 //이메일 양식 나올시 a태그의 /unemail 부분을 checkpw이부분으로 변환 필요
-                var htmldata = htmlfile.replace('name', num);
+                var htmldata = htmlfile.replace('@name', num);
+                htmldata = htmldata.replace('@host', server_domain);
 
                 if (err) {
                     console.log(err);

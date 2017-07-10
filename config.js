@@ -13,6 +13,10 @@ let config = {
         {
             "file": './models/userIntroduceModel',
             "modelName": 'userIntroduceModel'
+        },
+        {
+            "file": './models/applydataModel',
+            "modelName": 'applydataModel'
         }
         // file : schema path
         // modelName : schema model name
@@ -26,6 +30,7 @@ let config = {
         "url" : "/input3"
     }
     ],
+    server_domain: 'http://localhost'
 }
 
 config.getPageUrl = function (name) {
@@ -37,6 +42,10 @@ config.getPageUrl = function (name) {
 
 config.getRootPath = function(){
     return __dirname;
+}
+
+config.getServerDomain = function(){
+  return this.server_domain + ':' + this.server_port;
 }
 
 module.exports = config;
