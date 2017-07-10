@@ -1,5 +1,7 @@
-.gradeInputTable{
+#gradeInputTable{
     width: 1150px;
     padding-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 
