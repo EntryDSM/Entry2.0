@@ -21,19 +21,21 @@ class Input3 extends Component{
                     <Attend />
                 </div>
                 <GradeInput />
+                <button className={styles.nextBtn} type="button">이전</button>
+                <button className={styles.nextBtn} type="button">다음</button>
             </div>
         );
     }
 
     componentDidMount(){
-        var buttons = document.querySelectorAll('table > tbody > tr > td > div');
+        var buttons = document.querySelectorAll('#td_content > div');
         Array.from(buttons).forEach((btn, index) => {
             btn.addEventListener('click', () => {
                 if(btn.children.length === 0){
                     Array.from(btn.parentElement.children).forEach((children) => {
                         children.style.background = "none";
                     });
-                    btn.style.background = '#87CEEB';   
+                    btn.style.background = '#d3d3d3';   
                 }
             });
         })

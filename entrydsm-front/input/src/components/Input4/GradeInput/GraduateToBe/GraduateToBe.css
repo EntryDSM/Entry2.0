@@ -1,18 +1,15 @@
-.stdGrade{
-    padding-left: 43px;
-    width: 50px;
+#stdGrade{
+    text-align: center;
 }
 
-.checkBox{
-    display: block;
-    margin: 15px;
-    margin-left: 68px;
+#checkBox{
+    text-align: center;
 }
 
 .btnGroupChild{
     display: inline-block;
     border-radius: 100%;
-    width: 25px;
+    width: 22px;
     line-height: 1.6;
     text-align: center;
     cursor: pointer;
@@ -20,7 +17,7 @@
 
 .btnGroupChild:hover{
     border-radius: 100%;
-    background-color: skyblue;
+    background-color: #d3d3d3;
     transition:0.5s;
     transition-timing-function:linear;
 }
@@ -29,4 +26,23 @@
     padding-left: 15px;
     padding-right: 15px; 
     padding-bottom: 5px;
+}
+
+#td_title{
+    width: 50px;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    background: #fbfbfa;
+    color: #7d7d7b;
+    border-bottom: 1px solid #ebebea;
+}
+
+#td_content{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    font-size: 14px;
+    border-bottom: 1px solid #ebebea;
 }
