@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import styles from './GraduateToBe.css';
+import innerStyles from './GraduateToBe.css';
+import styles from '../../Input4.css';
+import classnames from 'classnames';
 
 class GraduateToBe extends Component{
     constructor(props){
@@ -28,7 +30,7 @@ class GraduateToBe extends Component{
 
     render(){
         return(
-            <tbody id={styles.graduateToBeTable}>
+            <tbody id={innerStyles.graduate_to_be_table}>
                 <tr>
                     {this.state.semesters.map((semester, index) => {
                         return <StudentGrade semester={semester.name} key={index} />
@@ -55,7 +57,7 @@ class GraduateToBe extends Component{
 class SubjectsInfo extends Component{
     render(){
         return (
-            <td id={styles.td_title}>{this.props.name}</td>
+            <td className={styles.subject}>{this.props.name}</td>
         );
     }
 }
@@ -63,7 +65,7 @@ class SubjectsInfo extends Component{
 class StudentGrade extends Component{
     render(){
         return(
-            <td className={styles.stdGrade}>{this.props.semester}</td>
+            <td className={styles.std_grade}>{this.props.semester}</td>
         );
     }
 }
@@ -72,7 +74,7 @@ class NotPass extends Component{
     render(){
         var checkBoxs = [];
         for(var i=0; i<5; i++){
-            if(i === 0) checkBoxs.push(<th key={i + 6}>미이수 여부</th>);
+            if(i === 0) checkBoxs.push(<td className={classnames(styles.not_pass_title, styles.grade_table_title)} key={i + 6}>미이수 여부</td>);
             checkBoxs.push(<CheckBox key={i}/>);
         }
         return (
@@ -100,7 +102,7 @@ class CheckBox extends Component{
 
     render(){
         return (
-            <td id={styles.checkBox}>
+            <td className={styles.check_box}>
                 <span><input type="checkbox" checked={this.state.isChecked} onChange={this.toggleChange}/></span>
             </td>
         );
@@ -123,7 +125,7 @@ class GradeSelectBtn extends Component{
 
     render(){
         return (
-            <td id={styles.td_content}>
+            <td className={styles.select_grade}>
                 {this.state.btnGroup.map((grades, i) => {
                     return(<BtnGroup group={grades.grade} key={i}/>);
                 })}
@@ -135,7 +137,7 @@ class GradeSelectBtn extends Component{
 class BtnGroup extends Component{
     render(){
         return (
-            <div className={styles.btnGroupChild}>{this.props.group}</div>
+            <div className={styles.btn_group_child}>{this.props.group}</div>
         );
     }
 }

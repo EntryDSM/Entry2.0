@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import styles from './Attend.css';
+import innerStyles from './Attend.css';
+import styles from '../Input4.css';
 
 class Attend extends Component{
     constructor(props){
@@ -16,9 +17,9 @@ class Attend extends Component{
 
     render(){
         return(
-            <div className={styles.attendTable}>
-                <div className={styles.table_title}>출석성적</div>
-                <table>
+            <div id={innerStyles.attend_table}>
+                <div className={styles.grade_table_title}>출석성적</div>
+                <table className={styles.grade_table}>
                     <tbody>
                         {this.state.unauthorizedDays.map((unauthorizedDays, index) => {
                             return <UnauthorizedDay unauthorizedDayType={unauthorizedDays.name} key={index}/>
@@ -34,11 +35,11 @@ class UnauthorizedDay extends Component{
     render(){
         return(
             <tr>
-                <td className={styles.td_title}>
+                <td id={innerStyles.unauthorized_title} className={styles.grade_td_title}>
                     {this.props.unauthorizedDayType}
                 </td>
-                <td className={styles.td_content}>
-                    <input type="number" />
+                <td className={styles.grade_td_content}>
+                    <input id={innerStyles.unauthorized_input} type="number" />
                 </td>
             </tr>
         );

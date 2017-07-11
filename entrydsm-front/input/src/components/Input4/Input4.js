@@ -23,14 +23,16 @@ class Input3 extends Component{
                 </div>
                 <GradeInput />
                 <GED />
-                <button className={styles.nextBtn} type="button">이전</button>
-                <button className={styles.nextBtn} type="button">다음</button>
+                <div id={styles.move}>
+                    <button className={styles.nextBtn} type="button">이전</button>
+                    <button className={styles.nextBtn} type="button">다음</button>
+                </div>
             </div>
         );
     }
 
     componentDidMount(){
-        var buttons = document.querySelectorAll('#td_content > div');
+        var buttons = document.querySelectorAll('.select_grade > div');
         Array.from(buttons).forEach((btn, index) => {
             btn.addEventListener('click', () => {
                 if(btn.children.length === 0){

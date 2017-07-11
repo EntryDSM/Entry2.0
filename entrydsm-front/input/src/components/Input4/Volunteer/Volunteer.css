@@ -1,35 +1,13 @@
-.volGrade{
-    padding-top: 10px;
+#volunteer_div{
+    width: 200px;
+    margin-bottom: 30px;
 }
 
-.volGradeInput{
-    font-size: 18px;
-    width: 40px;
-}
-
-.td_content{
-    width: 100px;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 3%;
-    font-size: 14px;
-    border-bottom: 1px solid #ebebea;
-}
-
-.td_title{
+#volunteer_title{
     width: 50px;
-    font-size: 14px;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 2%;
-    background: #fbfbfa;
-    color: #7d7d7b;
-    border-bottom: 1px solid #ebebea;
 }
 
-.table_title{
-    font-size: 18px;
-    font-weight: bold;
-    padding-left: 3px;
-    padding-bottom: 3px;
+#volunteer_input{
+    width: 45px;
+    font-size: 14px;
 }

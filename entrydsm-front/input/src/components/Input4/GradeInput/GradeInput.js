@@ -7,7 +7,7 @@ import styles from './GradeInput.css';
 class GradeInput extends Component{
     render(){
         return (
-            <table id={styles.gradeInputTable}>
+            <table id={styles.grade_input_table}>
                 <Graduated />
                 <GraduateToBe />
             </table>
