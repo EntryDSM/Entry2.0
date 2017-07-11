@@ -17,6 +17,10 @@ let config = {
         {
             "file": './models/applydataModel',
             "modelName": 'applydataModel'
+        },
+        {
+            "file": './models/schoolModel',
+            "modelName": 'schoolModel'
         }
         // file : schema path
         // modelName : schema model name
