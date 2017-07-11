@@ -1,5 +1,6 @@
 
 let config = {
+
     server_port: 8080,
     db_url: 'mongodb://localhost:27017/EntryDSM',
     db_schemas: [{
@@ -42,4 +43,5 @@ config.getRootPath = function(){
 config.getServerDomain = function(){
   return this.server_domain + ':' + this.server_port;
 }
+
 module.exports = config;

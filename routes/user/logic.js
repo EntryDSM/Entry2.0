@@ -1,15 +1,15 @@
-var nodemailer = require('nodemailer');
-var smtpPool = require('nodemailer-smtp-pool');
-var fs = require('fs');
-var Styliner = require('styliner');
+let nodemailer = require('nodemailer');
+let smtpPool = require('nodemailer-smtp-pool');
+let fs = require('fs');
+let Styliner = require('styliner');
 let rootPath = require('../../config').getRootPath();
 let server_domain = require('../../config').getServerDomain();
 
 
 exports.login = (req, res) => {
-    var email = req.body.email || req.query.email;
-    var password = req.body.password || req.query.password;
-    var Docs = req.app.get('database');
+    let email = req.body.email || req.query.email;
+    let password = req.body.password || req.query.password;
+    let Docs = req.app.get('database');
 
     if (Docs.connection) {
         auth(Docs, email, password, (err, docs) => {
@@ -114,7 +114,11 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
                 if (err) {
                     callback(err, null);
                     return;
-                } else {
+                } else { <<
+                    <<
+                    <<
+                    <
+                    HEAD
                     // var count = docs.length;
 
                     // var date = new Date();
@@ -137,13 +141,39 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
                     //         callback(null, true);
                     //     }
                     // });
-                    callback(null, true);
+                    callback(null, true); ===
+                    ===
+                    =
+                    var count = docs.length;
+
+                    var date = new Date();
+
+                    var submit_number = parseInt(date.getFullYear()) * 1000 + count;
+
+                    var applydata = new database.applydataModel({
+                        "user": user.salt,
+                        "submit_number": submit_number,
+                        "name": name,
+                        "insertdate": date,
+                        "updatedate": date
+                    });
+
+                    applydata.save((err) => {
+                        if (err) {
+                            callback(err, null);
+                            return;
+                        } else {
+                            callback(null, true);
+                        }
+                    }); >>>
+                    >>>
+                    >
+                    2635 d0a624097e35ca1085be4f6bc14a9a575ea1
                 }
             });
-        }
+        };
     });
-};
-
+}
 //입력받은 이메일중 check값이 true인지 false인지 체크해주는 메소드
 var checkEmail = function (Docs, email, callback) {
     Docs.userModel.findByEmail(email, function (err, check) {
@@ -161,6 +191,11 @@ exports.unemail = (req, res) => {
     var database = req.app.get('database');
     var unemail = req.params.email;
 
+    <<
+    <<
+    <<
+    <
+    HEAD
     authunemail(req, res, unemail, (checkemail) => {
         if (checkemail) {
             // hash_email을 통해 유저 조회
@@ -252,7 +287,6 @@ exports.sendemail = (req, res) => {
     var email = req.params.email;
     let baseDir = rootPath + '/public/mail.html';
     var database = req.app.get('database');
-
     database.userModel.findByEmail(email, (err, enemail) => {
         var num = enemail[0]._doc.hash_email;
         fs.readFile(baseDir, 'utf8', function (err, data) {
@@ -345,6 +379,7 @@ exports.findEmail = function (req, res) {
         } else {
             res.send('<script>alert("입력하신 이름에 해당하는 아이디는 존재하지 않습니다.");</script>')
         }
+
 
         res.send(arr);
 
@@ -440,8 +475,9 @@ exports.changepassword = (req, res) => {
     var password = req.body.password;
     var newpassword = req.body.newpassword;
 
+
     if (password != newpassword) {
-        res.send('<script>alert("비밀번호가 맞지않습니다.")</script>')
+        res.send('<script>alert("비밀번호가 맞지않습니다.")</script>');
     }
     database.userModel.findByEmail(userid, (err, findid) => {
 
@@ -467,5 +503,81 @@ exports.changepassword = (req, res) => {
             res.send('<script>alert("입력하신 이메일이 존재하지 않습니다.");</script>')
         }
     })
+
+}
+
+exports.demo = (req, res) => {
+    if (req.session.key) {
+        console.log(req.session);
+        let id = req.session.key;
+        let database = req.app.get('database');
+        database.userInfoModel.findUserInfo(id, (err, check) => {
+            if (check) {
+                let ImageBuffer = fs.readFileSync(rootPath + '/profileImages/' + check[0]._doc.profileImageSrc);
+                check["Image"] = ImageBuffer;
+                console.log(check);
+                res.writeHead(200, {
+                    'Content-Type': 'application/json'
+                });
+                res.end(JSON.stringify(check));
+            } else {
+                res.send('<a>alert("사용자의 데이터를 찾을수가 없습니다.")</a>');
+            }
+        });
+    }
+}
+
+
+exports.schoolcode = (req, res) => {
+
+    let database = req.app.get('database');
+    let office = req.query.government; //교육청이름
+    let school = req.query.name; //중학교이름
+    let arr = [];
+    console.log(office + ',' + school);
+
+    if (!school) {
+        console.log('시작')
+        database.schoolModel.findgovernment(office, (err, find) => {
+            if (err) {
+                res.writeHead(401, {
+                    'Content-Type': 'text/html;charset=utf8'
+                });
+                res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+            }
+
+            if (find) {
+
+                for (var i = 0; i < find.length; i++) {
+                    arr[i] = JSON.stringify(find[i])
+                }
+                res.json(arr);
+                res.end();
+            }
+        })
+    } else {
+        let count = 0;
+        console.log(typeof school);
+        console.log('실행');
+
+        database.schoolModel.findgovernment(office, (err, find) => {
+            console.log('실행');
+            if (err) {
+                res.writeHead(401, {
+                    'Content-Type': 'text/html;charset=utf8'
+                });
+                res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+            }
+            if (find) {
+                for (let i = 0; i < find.length; i++) {
+                    if (find[i].name === school) {
+                        arr[count] = find[i];
+                        count++;
+                    }
+                }
+                res.json(arr);
+            }
+        })
+    }
 
 }
