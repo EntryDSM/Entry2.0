@@ -1,24 +1,47 @@
 import React, {Component} from 'react';
 import InputHeader from '../InputHeader/InputHeader';
 import styles from './Input4.css';
-import WritingArea from './WritingArea/WritingArea'
+import GradeInput from './GradeInput/GradeInput';
+import GED from './GradeInput/GED/GED';
+import Volunteer from './Volunteer/Volunteer';
+import Attend from './Attend/Attend';
 import InputLayout from '../InputLayout/InputLayout';
 
-class Input4 extends Component {
+class Input3 extends Component{
+    componentWillMount(){
+        document.body.style.margin = 0;
+        document.body.style.padding = 0;
+    }
+
     render(){
         return(
             <div id={styles.contents}>
-                <InputHeader now={"자기소개서 및 학업계획서"} />
-                <div id={styles.area}>
-                    <h4 className={styles.h4_style}>자기소개서</h4>
-                    <WritingArea />
-                    <h4 className={styles.h4_style}>학업계획서</h4>
-                    <WritingArea />
+                <InputHeader now={"성적 입력"} />
+                <div id={styles.volunteerAttendWrapper}>
+                    <Volunteer />
+                    <Attend />
                 </div>
+                <GradeInput />
+                <GED />
+                <button className={styles.nextBtn} type="button">이전</button>
+                <button className={styles.nextBtn} type="button">다음</button>
             </div>
         );
     }
+
+    componentDidMount(){
+        var buttons = document.querySelectorAll('#td_content > div');
+        Array.from(buttons).forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                if(btn.children.length === 0){
+                    Array.from(btn.parentElement.children).forEach((children) => {
+                        children.style.background = "none";
+                    });
+                    btn.style.background = '#d3d3d3';   
+                }
+            });
+        })
+    }
 }
 
-export default Input4;
-
+export default Input3;
