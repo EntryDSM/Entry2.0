@@ -2,6 +2,7 @@
 #agenda_wrap {
   background-size: cover;
   background-position: center;
+  color: white;
 }
 #agenda_wrap .agenda-header {
   width: 100%;
@@ -43,6 +44,12 @@
   -ms-flex-align: start;
   -webkit-box-align: start;
           align-items: flex-start;
+}
+.time {
+  transition: 0.5s;
+}
+.time:hover {
+  transform:scale(1.5);
 }
 #agenda_wrap .agenda_container .agenda_phase .time {
   width: 50px;
