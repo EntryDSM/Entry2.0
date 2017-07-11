@@ -114,11 +114,7 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
                 if (err) {
                     callback(err, null);
                     return;
-                } else { <<
-                    <<
-                    <<
-                    <
-                    HEAD
+                } else {
                     // var count = docs.length;
 
                     // var date = new Date();
@@ -141,34 +137,7 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
                     //         callback(null, true);
                     //     }
                     // });
-                    callback(null, true); ===
-                    ===
-                    =
-                    var count = docs.length;
-
-                    var date = new Date();
-
-                    var submit_number = parseInt(date.getFullYear()) * 1000 + count;
-
-                    var applydata = new database.applydataModel({
-                        "user": user.salt,
-                        "submit_number": submit_number,
-                        "name": name,
-                        "insertdate": date,
-                        "updatedate": date
-                    });
-
-                    applydata.save((err) => {
-                        if (err) {
-                            callback(err, null);
-                            return;
-                        } else {
-                            callback(null, true);
-                        }
-                    }); >>>
-                    >>>
-                    >
-                    2635 d0a624097e35ca1085be4f6bc14a9a575ea1
+                    callback(null, true);
                 }
             });
         };
@@ -191,11 +160,6 @@ exports.unemail = (req, res) => {
     var database = req.app.get('database');
     var unemail = req.params.email;
 
-    <<
-    <<
-    <<
-    <
-    HEAD
     authunemail(req, res, unemail, (checkemail) => {
         if (checkemail) {
             // hash_email을 통해 유저 조회
@@ -206,7 +170,7 @@ exports.unemail = (req, res) => {
                 owner: 1
             }, function (err, doc) {
                 // 유저의 암호화값, 이름을 통해 새 빈 문서 생성&저장
-                new database.applyDataModel(makeEmptyDocument(doc.salt, doc.owner)).save();
+                new database.applyDataModel(database.applyDataModel.createEmptyDocument(doc.salt, doc.owner)).save();
             });
 
 
@@ -226,41 +190,6 @@ exports.unemail = (req, res) => {
 
 };
 
-let makeEmptyDocument = function (salt, owner) {
-    let document = {
-        "user": salt,
-        "name": owner,
-        "score": {
-            "semester": [],
-            "scores": [null, null, null, null],
-            "choose": {
-                "subject": "",
-                "score": null
-            },
-
-        },
-        "attend": {
-            "absence": null,
-            "lateness": null,
-            "earlyLeave": null,
-            "subjectEscape": null
-        }
-
-    };
-    let inItem = {
-        "pass": true,
-        "grade": null
-    }
-    for (var i = 0; i < 6; i++) {
-        let item = [];
-        for (var j = 0; j < 6; j++) {
-            item.push(inItem);
-        }
-        document.score.semester.push(item);
-    }
-
-    return document;
-}
 // check값 true로 변환후 콜백
 var authunemail = (req, res, unemail, callback) => {
     var database = req.app.get('database');

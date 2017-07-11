@@ -89,7 +89,7 @@ schema.static('validation', function (id, callback) {
                 introduceValidation(user.introduce, introduceMessages);
                 studyPlanValidation(user.studyPlan, introduceMessages);
                 console.log(user.graduateType + " : " + typeof user.graduateType);
-                
+
 
                 // 학생 졸업 유형에 따른 개별적 요소 검사 :: 졸업 예정
                 if (user.graduateType === 'Will') {
@@ -298,6 +298,41 @@ function scoreValidationForBlack(score, messages) {
     }
 }
 
+schema.static('createEmptyDocument', function (salt, owner) {
+    let document = {
+        "user": salt,
+        "name": owner,
+        "score": {
+            "semester": [],
+            "scores": [null, null, null, null],
+            "choose": {
+                "subject": "",
+                "score": null
+            },
+
+        },
+        "attend": {
+            "absence": null,
+            "lateness": null,
+            "earlyLeave": null,
+            "subjectEscape": null
+        }
+
+    };
+    let inItem = {
+        "pass": true,
+        "grade": null
+    }
+    for (var i = 0; i < 6; i++) {
+        let item = [];
+        for (var j = 0; j < 7; j++) {
+            item.push(inItem);
+        }
+        document.score.semester.push(item);
+    }
+
+    return document;
+});
 // function score
 model = mongoose.model('applyData', schema);
 
