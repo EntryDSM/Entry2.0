@@ -3,6 +3,8 @@ var smtpPool = require('nodemailer-smtp-pool');
 var fs = require('fs');
 var Styliner = require('styliner');
 let rootPath = require('../../config').getRootPath();
+let server_domain = require('../../config').getServerDomain();
+
 
 exports.login = (req, res) => {
     var email = req.body.email || req.query.email;
@@ -35,7 +37,7 @@ exports.login = (req, res) => {
 }
 
 //정보를 찾고 비밀번호가 DB의 정보와 동일한지 판단 하는 auth메소드
-var auth = (database, email, password, callback) => { 
+var auth = (database, email, password, callback) => {
     database.userModel.findByEmail(email, (err, results) => {
         if (err) {
             callback(err, null);
@@ -107,9 +109,38 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
         if (err) {
             callback(err, null);
             return;
-        }
+        } else {
+            database.userModel.usercount(function (err, docs) {
+                if (err) {
+                    callback(err, null);
+                    return;
+                } else {
+                    // var count = docs.length;
 
-        callback(null, user);
+                    // var date = new Date();
+
+                    // var submit_number = parseInt(date.getFullYear()) * 1000 + count;
+
+                    // var applydata = new database.applyDataModel({
+                    //     "user": user.salt,
+                    //     "submit_number": submit_number,
+                    //     "name": name,
+                    //     "insertdate": date,
+                    //     "updatedate": date
+                    // });
+
+                    // applydata.save((err) => {
+                    //     if (err) {
+                    //         callback(err, null);
+                    //         return;
+                    //     }else{
+                    //         callback(null, true);
+                    //     }
+                    // });
+                    callback(null, true);
+                }
+            });
+        }
     });
 };
 
@@ -132,6 +163,19 @@ exports.unemail = (req, res) => {
 
     authunemail(req, res, unemail, (checkemail) => {
         if (checkemail) {
+            // hash_email을 통해 유저 조회
+            database.userModel.findOne({
+                "hash_email": unemail
+            }, {
+                salt: 1,
+                owner: 1
+            }, function (err, doc) {
+                // 유저의 암호화값, 이름을 통해 새 빈 문서 생성&저장
+                new database.applyDataModel(makeEmptyDocument(doc.salt, doc.owner)).save();
+            });
+
+
+            // check => true로 변환
             database.userModel.update({}, {
                 "$set": {
                     "check": true
@@ -147,6 +191,41 @@ exports.unemail = (req, res) => {
 
 };
 
+let makeEmptyDocument = function (salt, owner) {
+    let document = {
+        "user": salt,
+        "name": owner,
+        "score": {
+            "semester": [],
+            "scores": [null, null, null, null],
+            "choose": {
+                "subject": "",
+                "score": null
+            },
+
+        },
+        "attend": {
+            "absence": null,
+            "lateness": null,
+            "earlyLeave": null,
+            "subjectEscape": null
+        }
+
+    };
+    let inItem = {
+        "pass": true,
+        "grade": null
+    }
+    for (var i = 0; i < 6; i++) {
+        let item = [];
+        for (var j = 0; j < 6; j++) {
+            item.push(inItem);
+        }
+        document.score.semester.push(item);
+    }
+
+    return document;
+}
 // check값 true로 변환후 콜백
 var authunemail = (req, res, unemail, callback) => {
     var database = req.app.get('database');
@@ -171,9 +250,9 @@ var authunemail = (req, res, unemail, callback) => {
 //회원가입시 입력받은 이메일로 메일전송
 exports.sendemail = (req, res) => {
     var email = req.params.email;
-    let baseDir = rootPath+'/public/mail.html';
+    let baseDir = rootPath + '/public/mail.html';
     var database = req.app.get('database');
-    
+
     database.userModel.findByEmail(email, (err, enemail) => {
         var num = enemail[0]._doc.hash_email;
         fs.readFile(baseDir, 'utf8', function (err, data) {
@@ -182,7 +261,8 @@ exports.sendemail = (req, res) => {
 
             styliner.processHTML(data).then((htmlfile) => { //css 적용후 htmlfile코드 반환
 
-                var htmldata = htmlfile.replace('name', num); //a태그로 특수한 키를 줘야하기에 name값을 num으로 변환
+                var htmldata = htmlfile.replace('@name', num); //a태그로 특수한 키를 줘야하기에 name값을 num으로 변환
+                htmldata = htmldata.replace('@host', server_domain);
 
                 if (err) {
                     console.log(err);
@@ -262,9 +342,7 @@ exports.findEmail = function (req, res) {
                 var chec = pemail.join(""); //문자열 변환
                 arr[i] = chec.concat('@' + result[1]); //이메일형식으로 변환
             }
-        } 
-        
-        else {
+        } else {
             res.send('<script>alert("입력하신 이름에 해당하는 아이디는 존재하지 않습니다.");</script>')
         }
 
@@ -277,7 +355,7 @@ exports.findEmail = function (req, res) {
 exports.sendfindemail = (req, res) => {
     var email = req.body.email;
     // 비밀번호 메일변경 나오면 html코드로 넣기
-    let baseDir = 'c:/Users/user/Desktop/dsmtest/public/mail.html';
+    let baseDir = rootPath + '/public/mail.html';
     var database = req.app.get('database');
 
     database.userModel.findByEmail(email, (err, enemail) => {
@@ -288,7 +366,8 @@ exports.sendfindemail = (req, res) => {
 
             styliner.processHTML(data).then((htmlfile) => {
                 //이메일 양식 나올시 a태그의 /unemail 부분을 checkpw이부분으로 변환 필요
-                var htmldata = htmlfile.replace('name', num);
+                var htmldata = htmlfile.replace('@name', num);
+                htmldata = htmldata.replace('@host', server_domain);
 
                 if (err) {
                     console.log(err);
@@ -329,7 +408,7 @@ exports.sendfindemail = (req, res) => {
                         }
                         transporter.close();
                     });
-                     res.send('<script>alert("입력하신 이메일로 메일이 전송되었습니다."); location.href ="/public/view3.html"</script>');
+                    res.send('<script>alert("입력하신 이메일로 메일이 전송되었습니다."); location.href ="/public/view3.html"</script>');
                 }
             });
         });
@@ -348,8 +427,7 @@ exports.checkmail = (req, res) => {
             res.render('view4', {
                 id: inSalt[0]._doc.email
             });
-        } 
-        else {
+        } else {
             res.send('<script>alert("해당 링크는 존재하지 않습니다.");</script>')
         }
     })
@@ -375,7 +453,7 @@ exports.changepassword = (req, res) => {
             });
 
             var pwChange = user.hash_password;
-            
+
             database.userModel.update({}, {
                 "$set": {
                     "hash_password": pwChange
@@ -385,8 +463,7 @@ exports.changepassword = (req, res) => {
             }, () => {
                 res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
             });
-        } 
-        else {
+        } else {
             res.send('<script>alert("입력하신 이메일이 존재하지 않습니다.");</script>')
         }
     })

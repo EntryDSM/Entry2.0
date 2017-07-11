@@ -8,6 +8,6 @@ let schema = mongoose.Schema({
     check: Boolean,
     hash_password: {type : String,unique : true},
     hash_email: {type : String,unique : true}
-});
+},{ collection : 'user'});
 
 module.exports = schema;

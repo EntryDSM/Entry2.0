@@ -93,6 +93,10 @@ schema.static('findSalt', function (salt, callback) {
     }, callback);
 });
 
+schema.static('usercount', function (callback) {
+    return this.find({}, callback);
+});
+
 
 model = mongoose.model('user', schema);
 

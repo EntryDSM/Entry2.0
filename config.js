@@ -1,31 +1,31 @@
 
 let config = {
     server_port: 8080,
-    db_url: 'mongodb://localhost:27017/local',
+    db_url: 'mongodb://localhost:27017/EntryDSM',
     db_schemas: [{
             "file": './models/userModel',
             "modelName": 'userModel'
         },
         {
-            "file": './models/userInfoModel',
-            "modelName": 'userInfoModel'
-        },
-        {
-            "file": './models/userIntroduceModel',
-            "modelName": 'userIntroduceModel'
+            "file": './models/applyDataModel',
+            "modelName": 'applyDataModel'
         }
         // file : schema path
         // modelName : schema model name
     ],
     pages: [{
-        "name": "input2",
-        "url": "/input2"
+        "name": "info",
+        "url": "/info"
     },
     {
-        "name" : "input3",
-        "url" : "/input3"
-    }
-    ],
+        "name" : "score",
+        "url" : "/score"
+    },
+    {
+        "name" : "introduce",
+        "url" : "/introduce"
+    }],
+    server_domain: 'http://localhost'
 }
 
 config.getPageUrl = function (name) {
@@ -39,4 +39,7 @@ config.getRootPath = function(){
     return __dirname;
 }
 
+config.getServerDomain = function(){
+  return this.server_domain + ':' + this.server_port;
+}
 module.exports = config;
