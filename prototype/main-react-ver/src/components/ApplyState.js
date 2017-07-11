@@ -11,10 +11,8 @@ class ApplyState extends Component {
             <section id="apply-state">
                 <div id="charts" style={{ backgroundColor: "#cadeff" }}>
                     <h1>접수 현황</h1>
-                    <div id="piechart" style={{ width: "calc(100vw / 4)", height: 30 + "rem", display: "inline-block" }}></div>
-                    <div id="hometown-chart" style={{ width: "calc(100vw / 4)", height: 30 + "rem", display: "inline-block" }}></div>
-                    <div id="type-barchart" style={{ width: "calc(100vw / 4)", height: 30 + "rem", display: "inline-block" }}></div>
-                    <div id="hometown-barchart" style={{ width: "calc(100vw / 4)", height: 30 + "rem", display: "inline-block" }}></div>
+                    <div id="piechart" style={{ width: "calc(100vw / 2)", height: 80+ "vh", display: "inline-block" }}></div>
+                    <div id="hometown-chart" style={{ width: "calc(100vw / 2)", height: 80+ "vh", display: "inline-block" }}></div>
                 </div>
             </section>
         )

@@ -44,26 +44,26 @@
 
       var typeChartOptions = {
         title: '전형별 지원자 수',
-        fontSize: 11,
+        fontSize: 30,
+        legend : {postion:'top',textStyle:{color:'#999',fontSize:16}},
+        chartArea:{width:"200%",height:"200%",left:"25%",top:"10%"},
         colors: ['#1fcecb', '#ec4863', '#ffda66', '#a73e5c'],
       };
+
       var hometownChartOptions = {
         title: '지역별 지원자 수',
-        fontSize: 11,
+        fontSize: 32,
+        legend : {postion:'top',textStyle:{color:'#999',fontSize:16}},
+        chartArea:{width:"200%",height:"200%",left:"25%",top:"10%"},
         colors: ['#1fcecb', '#ec4863'],
       }
 
       var typeChart = new google.visualization.PieChart(document.getElementById('piechart'));
       var hometownChart = new google.visualization.PieChart(document.getElementById('hometown-chart'))
-      var typeBarChart = new google.visualization.ColumnChart(document.getElementById('type-barchart'));
-      var hometownBarChart = new google.visualization.ColumnChart(document.getElementById('hometown-barchart'));
 
       typeChart.draw(typeChartData, typeChartOptions);
       hometownChart.draw(hometownChartData, hometownChartOptions);
-      typeBarChart.draw(typeChartData, typeChartOptions);
-      hometownBarChart.draw(hometownChartData, hometownChartOptions);
-      console.log(data);
-      console.log(typeBarChart);
+
     }
   </script>
   <title>React App</title>

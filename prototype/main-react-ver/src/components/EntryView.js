@@ -23,10 +23,11 @@ const HeaderLeft = () => {
 }
 
 const LogoAndTitle = (props) => {
+
     return (
         <div id="logo">
             <img src={props.logoURL} alt="logo" />
-            <br /><br /><br />
+            <br />
             <span>{props.title}</span>
         </div>
     )
@@ -36,8 +37,8 @@ const Apply = () => {
     return (
         <nav id="apply">
             <IconMenu title="원서접수" iconURL="./imgs/write-icon.png" />
-            <span style={{fontSize: 18+"rem",fontWeight:"lighter"}}>|</span>
-            <IconMenu title="접수조회" iconURL="./imgs/search-icon.png" />
+            <span style={{fontSize: 10+"rem",fontWeight:"lighter"}}>|</span>
+            <IconMenu title="조회&수정" iconURL="./imgs/search-icon.png" />
         </nav>
     )
 }
