@@ -493,3 +493,4 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
             }
 
         }
+}
