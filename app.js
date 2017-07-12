@@ -12,7 +12,7 @@ var app = express();
 
 let userRouter = require('./routes/user/router');
 let applydataRouter = require('./routes/applydata/router');
-let QnARouter = require('./routes/applydata/router');
+let QnARouter = require('./routes/QnA/router');
 
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');

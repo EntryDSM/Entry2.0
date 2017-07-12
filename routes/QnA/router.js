@@ -9,31 +9,35 @@ var User = require("../../database/models/userModel"); //user 모델
 var Content = require("../../database/models/QnAContentModel"); //게시글 모델
 var router = express.Router();
 
+function ()
+
 //질문 조회 + 검색
 router.get('/question', function(request, response) {
-    var keyword = request.params.keyword.ToLowerCase();
-    var author = request.params.author.ToLowerCase();
     var searchData;
+    var responseData = {};
     
-    //찾으려는 데이터 범위 
-    if (!keyword) {
-        searchData = Content.find({author: {$regex: new RegExp(author, "i")}});
-        return searchData;
-    }
-    if (!author) {
-        searchData = Content.find({content: {$regex: new RegExp(keyword, "i")}})
-        return searchData
-    }
-    if (author && keyword) {
-        searchData = Content.find({content: {$regex: new RegExp(keyword, "i")},
-         author: {$regex: new RegExp(author, "i")}})
-    }
+    //찾으려는 데이터 범위
     if (!author && !keyword) {
-        searchData = Content.find({})
+        searchData = Content.find({});
+    }
+    else {
+        var keyword = request.params.keyword.ToLowerCase();
+        var author = request.params.author.ToLowerCase();
+        if (!keyword) {
+            searchData = Content.find({author: {$regex: new RegExp(author, "i")}});
+            return searchData;
+        }
+        if (!author) {
+            searchData = Content.find({content: {$regex: new RegExp(keyword, "i")}})
+            return searchData
+        }
+        if (author && keyword) {
+            searchData = Content.find({content: {$regex: new RegExp(keyword, "i")},
+            author: {$regex: new RegExp(author, "i")}})
+        }
     }
     
     //조회 결과를 JSON배열로 반환한다
-    var responseData = {};
     searchData.sort({date:-1}).exec(function(err, rawContents) {
         if (err) throw err;
         if (rawContents.length > 0) {
@@ -143,3 +147,5 @@ router.delete('/question', function(request, response) {
         response.sendStatus(400);
     }
 })
+
+module.exports = router;
