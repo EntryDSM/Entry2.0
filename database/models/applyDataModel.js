@@ -340,6 +340,7 @@ schema.static('findUserInfo',function(id,callback){
     return this.find({"user":id},callback);
 })
 
+
 // function score
 model = mongoose.model('applyData', schema);
 

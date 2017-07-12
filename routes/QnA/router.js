@@ -9,7 +9,7 @@ var User = require("../../database/models/userModel"); //user 모델
 var Content = require("../../database/models/QnAContentModel"); //게시글 모델
 var router = express.Router();
 
-function ()
+//function ()
 
 //질문 조회 + 검색
 router.get('/question', function(request, response) {

@@ -399,37 +399,37 @@ exports.checkmail = (req, res) => {
 
 //ejs에서 비밀번호 변경을위해 입력받은데이터로 모델 생성후 비밀번호 업데이트
 exports.changepassword = (req, res) => {
-        var database = req.app.get('database');
-        var userid = req.body.userid;
-        var password = req.body.password;
-        var newpassword = req.body.newpassword;
+    var database = req.app.get('database');
+    var userid = req.body.userid;
+    var password = req.body.password;
+    var newpassword = req.body.newpassword;
 
-        if (password != newpassword) {
-            res.send('<script>alert("비밀번호가 맞지않습니다.")</script>')
-        }
-        database.userModel.findByEmail(userid, (err, findid) => {
-
-            if (findid) {
-                console.log(findid[0]._doc.salt)
-                var user = new database.userModel({
-                    "password": password,
-                    "salt": findid[0]._doc.salt
-                });
-
-                var pwChange = user.hash_password;
-
-                database.userModel.update({}, {
-                    "$set": {
-                        "hash_password": pwChange
-                    }
-                }, {
-                    multi: true
-                }, () => {
-                    res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
-                });
-            } else {
-                res.send('<script>alert("입력하신 이메일이 존재하지 않습니다.");</script>')
-            }
-        })
-
+    if (password != newpassword) {
+        res.send('<script>alert("비밀번호가 맞지않습니다.")</script>')
     }
+    database.userModel.findByEmail(userid, (err, findid) => {
+
+        if (findid) {
+            console.log(findid[0]._doc.salt)
+            var user = new database.userModel({
+                "password": password,
+                "salt": findid[0]._doc.salt
+            });
+
+            var pwChange = user.hash_password;
+
+            database.userModel.update({}, {
+                "$set": {
+                    "hash_password": pwChange
+                }
+            }, {
+                multi: true
+            }, () => {
+                res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
+            });
+        } else {
+            res.send('<script>alert("입력하신 이메일이 존재하지 않습니다.");</script>')
+        }
+    })
+
+}
