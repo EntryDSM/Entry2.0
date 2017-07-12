@@ -114,3 +114,47 @@ function saveImageData(src, dst){
     return false;
   }
 }
+
+exports.validation = (req, res) => {
+    if (!req.session.key) {
+        res.writeHead(401, {
+            'Content-Type': 'text/html;charset=utf8'
+        });
+        res.write("<script>alert('권한이 없습니다. 로그인해주세요');</script>");
+        res.write("<script>location.href='/public/login.html';</script>");
+        res.end();
+        return;
+    }
+
+    let database = req.app.get('database');
+
+    // database connection is exist
+    if(database.connection){
+
+        // validation
+        database.applyDataModel.validation(req.session.key, function(response){
+            if(response === 400){
+                res.writeHead(400, {'Content-Type' : 'text/plain;charset=utf8'});
+                res.write('일치하는 사용자 찾을 수 없음');
+                res.end();
+            }
+            else if(response === 412){
+                res.writeHead(412, {'Content-Type' : 'text/plain;charset=utf8'});
+                res.write('전형 유형을 선택하지 않음');
+                res.end();
+            }
+            else if(response){
+                res.writeHead(200, {'Content-Type' : 'application/json;charset=utf8'});
+                res.write(JSON.stringify(response));
+                res.end();
+            }
+            
+        });
+    }
+
+    // database connection is not exist
+    else{
+        res.writeHead(500);
+        res.end();
+    }
+}
