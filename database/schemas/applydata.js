@@ -32,8 +32,6 @@ let schema = mongoose.Schema({
     class: { type : Number, default : null },
     graduateScore: { type : String, default : "" },
     applyStatus: { type : Boolean, default : false },
-    payStatus: { type : Number, default : 0 },
-    documentStatus: { type : Number, default : 0 },
     createDate : { type : Date, default : Date.now() },
     updateDate: { type : Date, default : Date.now() }
 }, {collection : 'applyData'});
@@ -105,9 +103,7 @@ introduce : 자기소개서
 studyPlan : 학업계획서
 grade : 학년 (졸업예정, 졸업자는 3으로 고정)
 class : 반 
-applyStatus : 원서 접수 여부 
-payStatus : 원서로 제출 여부
-documentStatus : 원서 인쇄물 제출 여부
+applyStatus : 원서 접수 여부
 createDate : 문서가 만들어진 날짜
 updateDate : 수정 날짜 (시간)
 */
