@@ -46,7 +46,7 @@ class GraduateToBe extends Component{
                         btnGroups.push(<GradeSelectBtn key={i + 7}/>);
                     }
                     return (
-                        <tr key={index}>{btnGroups}</tr>
+                        <tr className="subject_content" key={index}>{btnGroups}</tr>
                     );
                 })}
             </tbody>
@@ -78,7 +78,7 @@ class NotPass extends Component{
             checkBoxs.push(<CheckBox key={i}/>);
         }
         return (
-            <tr>
+            <tr className="not_pass">
                 {checkBoxs}
             </tr>
         );
@@ -88,22 +88,12 @@ class NotPass extends Component{
 class CheckBox extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            isChecked: true
-        };
-        this.toggleChange = this.toggleChange.bind(this);
-    }
-
-    toggleChange(){
-        this.setState({
-            isChecked: !this.state.isChecked
-        });
     }
 
     render(){
         return (
             <td className={styles.check_box}>
-                <span><input type="checkbox" checked={this.state.isChecked} onChange={this.toggleChange}/></span>
+                <span><input type="checkbox" name="whole_checkbox"/></span>
             </td>
         );
     }
@@ -129,6 +119,9 @@ class GradeSelectBtn extends Component{
                 {this.state.btnGroup.map((grades, i) => {
                     return(<BtnGroup group={grades.grade} key={i}/>);
                 })}
+                <div className={styles.is_pass_check}>
+                    미이수 여부<input type="checkbox" name="not_pass_check"/>
+                </div>
             </td>
         );
     }

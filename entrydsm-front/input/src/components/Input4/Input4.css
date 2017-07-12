@@ -100,3 +100,8 @@
     border-top: 1px solid #c4daff;
     border-bottom: 1px solid #c4daff;
 }
+
+.is_pass_check{
+    padding-top: 3px;
+    font-size: 5px;
+}

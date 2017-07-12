@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import innerStyles from './Graduated.css';
 import styles from '../../Input4.css';
+import classnames from 'classnames';
 
 class Graduated extends Component{
     constructor(props){
@@ -74,11 +75,11 @@ class NotPass extends Component{
     render(){
         var checkBoxs = [];
         for(var i=0; i<6; i++){
-            if(i === 0) checkBoxs.push(<th className={styles.not_pass_title} key={i + 7}>미이수 여부</th>);
+            if(i === 0) checkBoxs.push(<th className={classnames(styles.not_pass_title, styles.grade_table_title)} key={i + 7}>미이수 여부</th>);
             checkBoxs.push(<CheckBox key={i}/>);
         }
         return (
-            <tr>
+            <tr className="not_pass">
                 {checkBoxs}
             </tr>
         );
