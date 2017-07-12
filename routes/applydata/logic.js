@@ -158,3 +158,30 @@ exports.validation = (req, res) => {
         res.end();
     }
 }
+
+//미리보기 양식 데이터 전송 
+
+exports.demo = (req, res) => {
+  if (req.session.key) {
+    let id = req.session.key;
+    let database = req.app.get('database');
+    database.applyDataModel.findUserInfo(id, (err, check) => {
+      console.log('session key ' + id)
+      if (check) {
+        console.log(check);
+        let ImageBuffer = fs.readFileSync(rootPath + '/profileImages/' + check[0]._doc.memberImage);
+        check["Image"] = ImageBuffer;
+
+        res.writeHead(200, {
+          'Content-Type': 'application/json'
+        });
+
+        res.end(JSON.stringify(check));
+
+
+      } else {
+        res.send('<a>alert("사용자의 데이터를 찾을수가 없습니다.")</a>');
+      }
+    });
+  }
+}
