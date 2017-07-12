@@ -420,19 +420,28 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
     }
 
     exports.demo = (req, res) => {
+        var arr;
         if (req.session.key) {
             console.log(req.session);
             let id = req.session.key;
             let database = req.app.get('database');
             database.userInfoModel.findUserInfo(id, (err, check) => {
+                
                 if (check) {
                     let ImageBuffer = fs.readFileSync(rootPath + '/profileImages/' + check[0]._doc.profileImageSrc);
                     check["Image"] = ImageBuffer;
                     console.log(check);
-                    res.writeHead(200, {
-                        'Content-Type': 'application/json'
+                    
+                    database.userIntroduceModel.findUserIntroduce(id,(err,Intro)=>{
+                        arr = check + Intro;    
+
+                        res.writeHead(200, {
+                         'Content-Type': 'application/json'
+                      });
+
+                     res.end(JSON.stringify(arr));
                     });
-                    res.end(JSON.stringify(check));
+
                 } else {
                     res.send('<a>alert("사용자의 데이터를 찾을수가 없습니다.")</a>');
                 }
@@ -446,11 +455,11 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
         let database = req.app.get('database');
         let office = req.query.government; //교육청이름
         let school = req.query.name; //중학교이름
+        let count = 0;
         let arr = [];
-        console.log(office + ',' + school);
 
-        if (!school) {
-            console.log('시작')
+        if (!school && office) { //교육청만 존재
+
             database.schoolModel.findgovernment(office, (err, find) => {
                 if (err) {
                     res.writeHead(401, {
@@ -468,13 +477,9 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
                     res.end();
                 }
             })
-        } else {
-            let count = 0;
-            console.log(typeof school);
-            console.log('실행');
-
+        } else if (school && office) { //교육청, 중학교 존재
+            
             database.schoolModel.findgovernment(office, (err, find) => {
-                console.log('실행');
                 if (err) {
                     res.writeHead(401, {
                         'Content-Type': 'text/html;charset=utf8'
@@ -491,6 +496,33 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
                     res.json(arr);
                 }
             })
+        } else if (school && !office){ //중학교만 있을시에
+            console.log('중학교만')
+            database.schoolModel.findMidleSchool(school,(err,find)=>{
+                if (err) {
+                    res.writeHead(401, {
+                        'Content-Type': 'text/html;charset=utf8'
+                    });
+                    res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+                }
+                if(find){
+                    console.log(find.length)
+
+                    for(let i=0;i<find.length;i++){
+                        console.log(i+' 번째 '+find[i])
+                        arr[count] = find[i];
+                        count++;
+                    
+                    }
+                    console.log(arr+'의 정보와 '+arr.length)
+                    res.json(arr);
+                }
+            })
+        } else{
+            res.writeHead(401, {
+                        'Content-Type': 'text/html;charset=utf8'
+                    });
+             res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
         }
 
     }

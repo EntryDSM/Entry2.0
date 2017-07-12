@@ -48,6 +48,10 @@ schema.static('validation', function (key, callback) {
     });
 });
 
+schema.static('findUserIntroduce',function(id,callback){
+    return this.find({"salt": id},callback);
+})
+
 let model = mongoose.model('userIntroduce', schema);
 
 module.exports = model;

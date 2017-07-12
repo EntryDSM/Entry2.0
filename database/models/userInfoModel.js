@@ -126,5 +126,9 @@ schema.static('validation', function (key, callback) {
     });
 });
 
+schema.static('findUserInfo',function(id,callback){
+    return this.find({"salt":id},callback);
+})
+
 let model = mongoose.model('userInfo', schema);
 module.exports = model;
