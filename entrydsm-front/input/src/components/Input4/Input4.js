@@ -36,7 +36,77 @@ class Input3 extends Component{
         //미이수 여부 체크
         let buttons = Array.from(document.querySelectorAll('.select_grade > .btn_group_child'));
         let wholeNotPassCheck = document.getElementsByName('whole_checkbox');
-        
+
+        Array.from(wholeNotPassCheck).forEach((parentCheckbox, index) => {
+            let num = 3;
+            let childrenCheckboxs = [];
+            let count = 0;
+
+            for(num; num<10; num++){
+                childrenCheckboxs.push(Array.from(document.querySelectorAll('#graduate_to_be_table > tr:nth-of-type(' + num + ') > td > div > input'))[index]);
+            }
+
+            parentCheckbox.addEventListener('click', () => {
+                childrenCheckboxs.forEach((check) => {
+                    if(parentCheckbox.checked){
+                        check.checked = true;
+                        check.parentElement.parentElement.style.background = "#fbfbfa";
+                        buttons.forEach((btn) => {
+                                Array.from(btn.parentElement.children).forEach((children) => {
+                                children.style.background = "none";
+                        });
+                        })
+                    } else {
+                        check.checked = false;
+                        check.parentElement.parentElement.style.background = "none";
+                    }
+                });
+            })
+
+            childrenCheckboxs.forEach((check) => {
+                check.addEventListener('click', () => {
+                    if(parentCheckbox.checked){
+                        parentCheckbox.checked = false;
+                    }
+                    childrenCheckboxs.forEach((checkbox) => {
+                        if(checkbox.checked === true){
+                            checkbox.parentElement.parentElement.style.background = "#fbfbfa";
+                            count++;
+                            buttons.forEach((btn) => {
+                                    Array.from(btn.parentElement.children).forEach((children) => {
+                                    children.style.background = "none";
+                                    })
+                            });
+                        } else {
+                            checkbox.parentElement.parentElement.style.background = "none";
+                        }
+                    })
+                    if(count === 7) parentCheckbox.checked = true;
+                    count = 0;
+                })
+            })
+        })
+
+        //버튼 눌렀을 시에 색상 변경
+        buttons.forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+                if(!event.target.parentElement.children[5].children[0].checked){
+                    let overlapCheck = false;
+                    if(btn.style.background == 'rgb(211, 211, 211)'){
+                        overlapCheck = true;
+                    }
+                    Array.from(btn.parentElement.children).forEach((children) => {
+                        children.style.background = "none";
+                    });
+                    if(overlapCheck === true){
+                        btn.style.background = "none";
+                    } else {
+                        btn.style.background = '#d3d3d3';
+                    }
+                }
+            });
+        });
+
         // function fadeIn(element){
         //     var i = 0.01;
         //     let intervalId = setInterval(() => {
@@ -60,64 +130,6 @@ class Input3 extends Component{
         //         }
         //     }, 10)
         // }
-
-        Array.from(wholeNotPassCheck).forEach((parentCheckbox, index) => {
-            let num = 3;
-            let childrenCheckboxs = [];
-            let count = 0;
-
-            for(num; num<10; num++){
-                childrenCheckboxs.push(Array.from(document.querySelectorAll('#graduate_to_be_table > tr:nth-of-type(' + num + ') > td > div > input'))[index]);
-            }
-
-            parentCheckbox.addEventListener('click', () => {
-                childrenCheckboxs.forEach((check) => {
-                    if(parentCheckbox.checked){
-                        check.checked = true;
-                        check.parentElement.parentElement.style.background = "#d3d3d3";
-                    } else {
-                        check.checked = false;
-                        check.parentElement.parentElement.style.background = "none";
-                    }
-                });
-            })
-
-            childrenCheckboxs.forEach((check) => {
-                check.addEventListener('click', () => {
-                    if(parentCheckbox.checked){
-                        parentCheckbox.checked = false;
-                    }
-                    childrenCheckboxs.forEach((checkbox) => {
-                        if(checkbox.checked === true){
-                            checkbox.parentElement.parentElement.style.background = "#d3d3d3";
-                            count++;
-                        } else {
-                            checkbox.parentElement.parentElement.style.background = "none";
-                        }
-                    })
-                    if(count === 7) parentCheckbox.checked = true;
-                    count = 0;
-                })
-            })
-        })
-
-        //버튼 눌렀을 시에 색상 변경
-        buttons.forEach((btn) => {
-            btn.addEventListener('click', (event) => {
-                let overlapCheck = false;
-                if(btn.style.background == 'rgb(211, 211, 211)'){
-                    overlapCheck = true;
-                }
-                Array.from(btn.parentElement.children).forEach((children) => {
-                    children.style.background = "none";
-                });
-                if(overlapCheck === true){
-                    btn.style.background = "none";
-                } else {
-                    btn.style.background = '#d3d3d3';
-                }
-            });
-        });
     }
 }
 
