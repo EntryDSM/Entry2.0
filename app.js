@@ -12,6 +12,7 @@ var app = express();
 
 let userRouter = require('./routes/user/router');
 let applydataRouter = require('./routes/applydata/router');
+let QnARouter = require('./routes/applydata/router');
 
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
@@ -37,6 +38,7 @@ app.use('/images', static(path.join(__dirname, '/images')));
 
 app.use('/', userRouter);
 app.use('/', applydataRouter);
+app.use('/', QnARouter);
 
 app.listen(config.server_port, function () {
     console.log(config.server_port + ' ON');
