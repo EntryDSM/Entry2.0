@@ -6,7 +6,6 @@ let schema = mongoose.Schema({
     exam_number: Number,
     school_code: Number,
     school_name: String,
-    hometeacher: String,
     name: String,
     birthday: Date,
     sex: String,

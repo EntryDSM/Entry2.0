@@ -29,7 +29,6 @@ sex[data.sex] = 'checked';
     <form method="POST" action="<%='/step1/' + key%>" enctype="multipart/form-data">
         <img src="<%=data.member_image%>">
         사진 : <input type="file" name="member_image" accept="image/*"><br>
-        성명 : <input type="text" name="student_name" value="<%=data.name%>" readonly><br>
         학년 : <input type="text" name="grade" value="<%=data.grade_number%>">
          반 : <input type="text" name="class" value="<%=data.class_number%>" ><br>
         학교명 : <input type="text" name="school_name" value="<%=data.school_name%>">
@@ -41,6 +40,7 @@ sex[data.sex] = 'checked';
          성별 : <input type="radio" name="sex" value="man" <%=sex['man']%>>남
         <input type="radio" name="sex" value="woman" <%=sex['woman']%>>여<br>
          주소 : <input type="text" name="address_base" value="<%=data.address_base%>" ><input type="text" name="address_detail" value="<%=data.address_detail%>" ><br>
+         본인연락처 : <input type="text" name="my_tel" value="<%=data.my_tel%>"></br>
          보호자연락처 : <input type="text" name="parent_tel" value="<%=data.parent_tel%>"><br>
          학교연락처 : <input type="text" name="school_tel" value="<%=data.school_tel%>"><br>
         <input type="submit" name="submit" value="다음">
