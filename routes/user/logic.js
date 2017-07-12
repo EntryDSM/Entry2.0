@@ -399,114 +399,145 @@ exports.checkmail = (req, res) => {
 
 //ejs에서 비밀번호 변경을위해 입력받은데이터로 모델 생성후 비밀번호 업데이트
 exports.changepassword = (req, res) => {
-    var database = req.app.get('database');
-    var userid = req.body.userid;
-    var password = req.body.password;
-    var newpassword = req.body.newpassword;
+        var database = req.app.get('database');
+        var userid = req.body.userid;
+        var password = req.body.password;
+        var newpassword = req.body.newpassword;
 
-
-    if (password != newpassword) {
-        res.send('<script>alert("비밀번호가 맞지않습니다.")</script>');
-    }
-    database.userModel.findByEmail(userid, (err, findid) => {
-
-        if (findid) {
-            console.log(findid[0]._doc.salt)
-            var user = new database.userModel({
-                "password": password,
-                "salt": findid[0]._doc.salt
-            });
-
-            var pwChange = user.hash_password;
-
-            database.userModel.update({}, {
-                "$set": {
-                    "hash_password": pwChange
-                }
-            }, {
-                multi: true
-            }, () => {
-                res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
-            });
-        } else {
-            res.send('<script>alert("입력하신 이메일이 존재하지 않습니다.");</script>')
+        if (password != newpassword) {
+            res.send('<script>alert("비밀번호가 맞지않습니다.")</script>')
         }
-    })
+        database.userModel.findByEmail(userid, (err, findid) => {
 
-}
-
-exports.demo = (req, res) => {
-    if (req.session.key) {
-        console.log(req.session);
-        let id = req.session.key;
-        let database = req.app.get('database');
-        database.userInfoModel.findUserInfo(id, (err, check) => {
-            if (check) {
-                let ImageBuffer = fs.readFileSync(rootPath + '/profileImages/' + check[0]._doc.profileImageSrc);
-                check["Image"] = ImageBuffer;
-                console.log(check);
-                res.writeHead(200, {
-                    'Content-Type': 'application/json'
+            if (findid) {
+                console.log(findid[0]._doc.salt)
+                var user = new database.userModel({
+                    "password": password,
+                    "salt": findid[0]._doc.salt
                 });
-                res.end(JSON.stringify(check));
+
+                var pwChange = user.hash_password;
+
+                database.userModel.update({}, {
+                    "$set": {
+                        "hash_password": pwChange
+                    }
+                }, {
+                    multi: true
+                }, () => {
+                    res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
+                });
             } else {
-                res.send('<a>alert("사용자의 데이터를 찾을수가 없습니다.")</a>');
-            }
-        });
-    }
-}
-
-
-exports.schoolcode = (req, res) => {
-
-    let database = req.app.get('database');
-    let office = req.query.government; //교육청이름
-    let school = req.query.name; //중학교이름
-    let arr = [];
-    console.log(office + ',' + school);
-
-    if (!school) {
-        console.log('시작')
-        database.schoolModel.findgovernment(office, (err, find) => {
-            if (err) {
-                res.writeHead(401, {
-                    'Content-Type': 'text/html;charset=utf8'
-                });
-                res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
-            }
-
-            if (find) {
-
-                for (var i = 0; i < find.length; i++) {
-                    arr[i] = JSON.stringify(find[i])
-                }
-                res.json(arr);
-                res.end();
+                res.send('<script>alert("입력하신 이메일이 존재하지 않습니다.");</script>')
             }
         })
-    } else {
-        let count = 0;
-        console.log(typeof school);
-        console.log('실행');
 
-        database.schoolModel.findgovernment(office, (err, find) => {
-            console.log('실행');
-            if (err) {
-                res.writeHead(401, {
-                    'Content-Type': 'text/html;charset=utf8'
-                });
-                res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
-            }
-            if (find) {
-                for (let i = 0; i < find.length; i++) {
-                    if (find[i].name === school) {
+    }
+
+    exports.demo = (req, res) => {
+        var arr;
+        if (req.session.key) {
+            console.log(req.session);
+            let id = req.session.key;
+            let database = req.app.get('database');
+            database.userInfoModel.findUserInfo(id, (err, check) => {
+                
+                if (check) {
+                    let ImageBuffer = fs.readFileSync(rootPath + '/profileImages/' + check[0]._doc.profileImageSrc);
+                    check["Image"] = ImageBuffer;
+                    console.log(check);
+                    
+                    database.userIntroduceModel.findUserIntroduce(id,(err,Intro)=>{
+                        arr = check + Intro;    
+
+                        res.writeHead(200, {
+                         'Content-Type': 'application/json'
+                      });
+
+                     res.end(JSON.stringify(arr));
+                    });
+
+                } else {
+                    res.send('<a>alert("사용자의 데이터를 찾을수가 없습니다.")</a>');
+                }
+            });
+        }
+    }
+
+
+    exports.schoolcode = (req, res) => {
+
+        let database = req.app.get('database');
+        let office = req.query.government; //교육청이름
+        let school = req.query.name; //중학교이름
+        let count = 0;
+        let arr = [];
+
+        if (!school && office) { //교육청만 존재
+
+            database.schoolModel.findgovernment(office, (err, find) => {
+                if (err) {
+                    res.writeHead(401, {
+                        'Content-Type': 'text/html;charset=utf8'
+                    });
+                    res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+                }
+
+                if (find) {
+
+                    for (var i = 0; i < find.length; i++) {
+                        arr[i] = JSON.stringify(find[i])
+                    }
+                    res.json(arr);
+                    res.end();
+                }
+            })
+        } else if (school && office) { //교육청, 중학교 존재
+            
+            database.schoolModel.findgovernment(office, (err, find) => {
+                if (err) {
+                    res.writeHead(401, {
+                        'Content-Type': 'text/html;charset=utf8'
+                    });
+                    res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+                }
+                if (find) {
+                    for (let i = 0; i < find.length; i++) {
+                        if (find[i].name === school) {
+                            arr[count] = find[i];
+                            count++;
+                        }
+                    }
+                    res.json(arr);
+                }
+            })
+        } else if (school && !office){ //중학교만 있을시에
+            console.log('중학교만')
+            database.schoolModel.findMidleSchool(school,(err,find)=>{
+                if (err) {
+                    res.writeHead(401, {
+                        'Content-Type': 'text/html;charset=utf8'
+                    });
+                    res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+                }
+                if(find){
+                    console.log(find.length)
+
+                    for(let i=0;i<find.length;i++){
+                        console.log(i+' 번째 '+find[i])
                         arr[count] = find[i];
                         count++;
+                    
                     }
+                    console.log(arr+'의 정보와 '+arr.length)
+                    res.json(arr);
                 }
-                res.json(arr);
-            }
-        })
-    }
+            })
+        } else{
+            res.writeHead(401, {
+                        'Content-Type': 'text/html;charset=utf8'
+                    });
+             res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+        }
 
-}
+    }
