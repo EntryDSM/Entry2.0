@@ -5,7 +5,7 @@ let schema = mongoose.Schema({
     government : {type : String ,default :""},
     name : {type : String,default :""},
     fullGoverment : {type:String , default: ""}
-});
+},{collection : 'schoolCode'});
 
 
 module.exports = schema

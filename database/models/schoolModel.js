@@ -6,5 +6,5 @@ schema.static('findgovernment',function(office,callback){
 });
 
 
-let model = mongoose.model('schoolCodes', schema);
+let model = mongoose.model('schoolCode', schema);
 module.exports = model;
