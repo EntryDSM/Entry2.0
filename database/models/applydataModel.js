@@ -91,34 +91,36 @@ schema.static('validation', function (id, callback) {
                 console.log(user.graduateType + " : " + typeof user.graduateType);
 
 
-                // 학생 졸업 유형에 따른 개별적 요소 검사 :: 졸업 예정
-                if (user.graduateType === 'Will') {
-                    console.log('ddd');
-                    schoolValidation(user.schoolName, user.schoolTel, infoMessages);
-                    classValidation(user.class, infoMessages);
-                    attendValidation(user.attend, scoreMessages);
-                    scoreValidationForWill(user.score, scoreMessages);
-                    console.log(response);
-                    resolve(response);
-                }
+                switch (user.graduateType) {
 
-                // 학생 졸업 유형에 따른 개별적 요소 검사 :: 졸업
-                else if (user.graduateType === 'Done') {
-                    schoolValidation(user.schoolName, user.schoolTel, infoMessages);
-                    classValidation(user.class, infoMessages);
-                    attendValidation(user.attend, scoreMessages);
-                    scoreValidationForDone(user.score, scoreMessages);
-                    resolve(response);
-                }
+                    // 학생 졸업 유형에 따른 개별적 요소 검사 :: 졸업 예정
+                    case 'Will':
+                        schoolValidation(user.schoolName, user.schoolTel, infoMessages);
+                        classValidation(user.class, infoMessages);
+                        attendValidation(user.attend, scoreMessages);
+                        scoreValidationForWill(user.score, scoreMessages);
+                        resolve(response);
+                        break;
 
-                // 학생 졸업 유형에 따른 개별적 요소 검사 :: 검정고시
-                else if (user.graduateType == 'Black') {
-                    scoreValidationForBlack(user.score, scoreMessages);
-                    resolve(response);
-                }
-                // 졸업 유형을 선택하지 않았을 때 reject() 호출
-                else reject();
+                        // 학생 졸업 유형에 따른 개별적 요소 검사 :: 졸업
+                    case 'Done':
+                        schoolValidation(user.schoolName, user.schoolTel, infoMessages);
+                        classValidation(user.class, infoMessages);
+                        attendValidation(user.attend, scoreMessages);
+                        scoreValidationForDone(user.score, scoreMessages);
+                        resolve(response);
+                        break;
 
+                        // 학생 졸업 유형에 따른 개별적 요소 검사 :: 검정고시
+                    case 'Black':
+                        scoreValidationForBlack(user.score, scoreMessages);
+                        resolve(response);
+                        break;
+
+                        // 졸업 유형을 선택하지 않았을 때 reject() 호출
+                    default:
+                        reject();
+                }
             });
 
             validation.then(function (response) {
