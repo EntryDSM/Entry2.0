@@ -30,8 +30,8 @@ class GraduateToBe extends Component{
 
     render(){
         return(
-            <tbody id={innerStyles.graduate_to_be_table}>
-                <tr>
+            <tbody id={innerStyles.will_table}>
+                <tr id="will_semester">
                     {this.state.semesters.map((semester, index) => {
                         return <StudentGrade semester={semester.name} key={index} />
                     })}
@@ -46,7 +46,7 @@ class GraduateToBe extends Component{
                         btnGroups.push(<GradeSelectBtn key={i + 7}/>);
                     }
                     return (
-                        <tr className="subject_content" key={index}>{btnGroups}</tr>
+                        <tr className="will_subjects" key={index}>{btnGroups}</tr>
                     );
                 })}
             </tbody>
@@ -78,7 +78,7 @@ class NotPass extends Component{
             checkBoxs.push(<CheckBox key={i}/>);
         }
         return (
-            <tr className="not_pass">
+            <tr id="will_not_pass">
                 {checkBoxs}
             </tr>
         );
@@ -93,7 +93,7 @@ class CheckBox extends Component{
     render(){
         return (
             <td className={styles.check_box}>
-                <span><input type="checkbox" name="whole_checkbox"/></span>
+                <input type="checkbox" name="whole_checkbox"/>
             </td>
         );
     }
@@ -115,7 +115,7 @@ class GradeSelectBtn extends Component{
 
     render(){
         return (
-            <td className={styles.select_grade}>
+            <td className={innerStyles.will_select_grade}>
                 {this.state.btnGroup.map((grades, i) => {
                     return(<BtnGroup group={grades.grade} key={i}/>);
                 })}
@@ -130,7 +130,7 @@ class GradeSelectBtn extends Component{
 class BtnGroup extends Component{
     render(){
         return (
-            <div className={styles.btn_group_child}>{this.props.group}</div>
+            <div className={innerStyles.will_select_grade_child}>{this.props.group}</div>
         );
     }
 }

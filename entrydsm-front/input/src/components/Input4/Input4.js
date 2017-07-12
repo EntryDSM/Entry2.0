@@ -7,7 +7,7 @@ import Volunteer from './Volunteer/Volunteer';
 import Attend from './Attend/Attend';
 import InputLayout from '../InputLayout/InputLayout';
 
-class Input3 extends Component{
+class Input4 extends Component{
     componentWillMount(){
         document.body.style.margin = 0;
         document.body.style.padding = 0;
@@ -32,105 +32,20 @@ class Input3 extends Component{
     }
 
     componentDidMount(){
+        let willSelectGradeBtn = Array.from(document.querySelectorAll('.will_select_grade > .will_select_grade_child'));
+        let didSelectGradeBtn = Array.from(document.querySelectorAll('did_select_grade > .did_select_grade_child'));
+        let willNotPass = Array.from(document.querySelectorAll('#will_not_pass > td'));
+        let didNotPass = Array.from(document.querySelectorAll('#did_not_pass > td'));
+        let willSubjects = Array.from(document.querySelectorAll('.will_subjects'));
+        let didSubjects = Array.from(document.querySelectorAll('.did_subjects'));
 
-        //미이수 여부 체크
-        let buttons = Array.from(document.querySelectorAll('.select_grade > .btn_group_child'));
-        let wholeNotPassCheck = document.getElementsByName('whole_checkbox');
-
-        Array.from(wholeNotPassCheck).forEach((parentCheckbox, index) => {
-            let num = 3;
-            let childrenCheckboxs = [];
-            let count = 0;
-
-            for(num; num<10; num++){
-                childrenCheckboxs.push(Array.from(document.querySelectorAll('#graduate_to_be_table > tr:nth-of-type(' + num + ') > td > div > input'))[index]);
-            }
-
-            parentCheckbox.addEventListener('click', () => {
-                childrenCheckboxs.forEach((check) => {
-                    if(parentCheckbox.checked){
-                        check.checked = true;
-                        check.parentElement.parentElement.style.background = "#fbfbfa";
-                        buttons.forEach((btn) => {
-                                Array.from(btn.parentElement.children).forEach((children) => {
-                                children.style.background = "none";
-                        });
-                        })
-                    } else {
-                        check.checked = false;
-                        check.parentElement.parentElement.style.background = "none";
-                    }
-                });
-            })
-
-            childrenCheckboxs.forEach((check) => {
-                check.addEventListener('click', () => {
-                    if(parentCheckbox.checked){
-                        parentCheckbox.checked = false;
-                    }
-                    childrenCheckboxs.forEach((checkbox) => {
-                        if(checkbox.checked === true){
-                            checkbox.parentElement.parentElement.style.background = "#fbfbfa";
-                            count++;
-                            buttons.forEach((btn) => {
-                                    Array.from(btn.parentElement.children).forEach((children) => {
-                                    children.style.background = "none";
-                                    })
-                            });
-                        } else {
-                            checkbox.parentElement.parentElement.style.background = "none";
-                        }
-                    })
-                    if(count === 7) parentCheckbox.checked = true;
-                    count = 0;
-                })
-            })
-        })
-
-        //버튼 눌렀을 시에 색상 변경
-        buttons.forEach((btn) => {
-            btn.addEventListener('click', (event) => {
-                if(!event.target.parentElement.children[5].children[0].checked){
-                    let overlapCheck = false;
-                    if(btn.style.background == 'rgb(211, 211, 211)'){
-                        overlapCheck = true;
-                    }
-                    Array.from(btn.parentElement.children).forEach((children) => {
-                        children.style.background = "none";
-                    });
-                    if(overlapCheck === true){
-                        btn.style.background = "none";
-                    } else {
-                        btn.style.background = '#d3d3d3';
-                    }
-                }
+        console.log(willSelectGradeBtn);
+        willSelectGradeBtn.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                
             });
         });
-
-        // function fadeIn(element){
-        //     var i = 0.01;
-        //     let intervalId = setInterval(() => {
-        //         var num = 1 - i;
-        //         element.opacity = num;
-        //         i += 0.01
-        //         if(num <= 0.5){
-        //             clearInterval(intervalId);
-        //         }
-        //     }, 10)
-        // }
-
-        // function fadeOut(element){
-        //     var i = 0.01;
-        //     let intervalId = setInterval(() => {
-        //         var num = 0.5 + i;
-        //         element.opacity = num;
-        //         i += 0.01
-        //         if(num >= 1){
-        //             clearInterval(intervalId);
-        //         }
-        //     }, 10)
-        // }
     }
 }
 
-export default Input3;
+export default Input4;
