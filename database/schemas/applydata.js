@@ -30,7 +30,6 @@ let schema = mongoose.Schema({
     studyPlan: { type : String, default : "" },
     grade: { type : Number, default : null },
     class: { type : Number, default : null },
-    graduateScore: { type : String, default : "" },
     applyStatus: { type : Boolean, default : false },
     createDate : { type : Date, default : Date.now() },
     updateDate: { type : Date, default : Date.now() }
