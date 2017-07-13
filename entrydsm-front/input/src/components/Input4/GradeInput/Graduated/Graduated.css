@@ -127,6 +127,7 @@ input:checked + .slider:before {
 .notpassedArea {
     background: #ebebea;
     transition: .1s;
+    color: grey;
 }
 
 #did_table {
