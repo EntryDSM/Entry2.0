@@ -557,7 +557,6 @@ footer #Privacy {
     section #Article_Real_Main {
         height: 2150px;
     }
-    /* 여기부터의 반응형은 야매로 한 느낌이 들어서 좀 찝찝하지만 결과는 제대로 나옴. 내년에 새로 다시 짜거나 수정을 전체적으로 해야겠음. */
     .Main_Explain_Boxes .Explain_Images {
         display: block;
         margin-left: 17.5rem;

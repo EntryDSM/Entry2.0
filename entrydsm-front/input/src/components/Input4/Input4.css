@@ -87,11 +87,6 @@
     transition-timing-function:linear;
 }
 
-.select_grade{
-    text-align: center;
-    border-bottom: 1px solid #ebebea;
-}
-
 .not_pass_title{
     text-align: left;
 }
