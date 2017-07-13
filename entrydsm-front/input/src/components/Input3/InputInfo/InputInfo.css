@@ -29,7 +29,7 @@
 }
 
 .td_space{
-    width: 220px;
+    width: 150px;
     padding: 4px;
     font-size: 14px;
     text-align: center;
@@ -37,12 +37,23 @@
     border-top: 1px solid #c4daff;
 }
 
+.btn_style {
+    background-color: #c4daff;
+    border:none;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+#btn_findschool{
+    padding-top: 4px;
+    padding-bottom: 5px;
+}
 
 .input_style{
     font-size: 14px;
     margin-left: 10px;
     margin-right: 10px;
-    padding: 1%;
+    padding: 5px;
 }
 
 #year{
@@ -74,26 +85,14 @@
     width: 180px;
 }
 
-.btn_style{
-    font-size: 14px;
-    padding-left: 3%;
-    padding-right: 3%;
-    padding-top: 1%;
-    padding-bottom: 1.2%;
-}
-
-#btn_findschool{
-    background: #c4daff;
-    border-style: none;   
-}
-
 #base_address{
     width: 500px;
+    float:left;
 }
 
 #detail_address{
-    width: 607px;
-    margin-top: 1%;
+    width: 603px;
+    margin-top: 10px;
 }
 
 #tr_address {
@@ -107,11 +106,12 @@
 #nextBtn{
     border: 0.5px;
     background:linear-gradient(to right, rgba(44,181,115,0.85), rgba(51,204,231,0.85));
-    width: 188px;
+    width: 188px ;
     height: 50px;
     font-size: 13px;
     color: white;
     margin-top: 20px;
+    
 }
 
 #nextBtn:hover{

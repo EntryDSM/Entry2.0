@@ -3,6 +3,7 @@ import InputHeader from '../InputHeader/InputHeader';
 import styles from './Input3.css';
 import InputInfo from './InputInfo/InputInfo';
 import UploadImage from './UploadImage/UploadImage'
+import Address from './Address/Address';
 import InputLayout from '../InputLayout/InputLayout';
 
 class Input3 extends Component {
