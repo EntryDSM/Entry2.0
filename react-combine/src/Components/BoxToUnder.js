@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../cssFiles/BoxToUnder.css';
+import '../css/BoxToUnder.css';
 
 class BoxToUnder extends React.Component{
     render(){

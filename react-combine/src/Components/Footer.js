@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../cssFiles/Footer.css';
+import '../css/Footer.css';
 
 class Footer extends React.Component{
     render(){

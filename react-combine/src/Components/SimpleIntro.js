@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../cssFiles/SimpleIntro.css';
+import '../css/SimpleIntro.css';
 
 class SimpleIntro extends React.Component{
     render(){
@@ -15,28 +15,28 @@ class SimpleIntro extends React.Component{
                             ImageExplain1 : "한 학년 당 80명의 학생들이 있으며",
                             ImageExplain2 : "영 마이스터(Young Meister)로 거듭나게",
                             ImageExplain3 : "하기 위해 많은 노력을 기울이고 있습니다.",
-                            ImageUrl : require("../ImageFiles/School.png")
+                            ImageUrl : require("../images/School.png")
                         },
                         {
                             ImageTitle : "STUDY",
                             ImageExplain1 : "SW 개발과, 정보 보안과, 임베디드 SW",
                             ImageExplain2 : "총 3가지 과로 구성이 되어 있으며,",
                             ImageExplain3 : "학생들은 각 과에 맞는 공부를 하고 있습니다.",
-                            ImageUrl : require("../ImageFiles/Study.png")
+                            ImageUrl : require("../images/Study.png")
                         },
                         {
                             ImageTitle : "LIBRARY",
                             ImageExplain1 : "도서관에는 정말 다양한 종류의 SW 책들이",
                             ImageExplain2 : "배치되어 있습니다. 학생들은 자신이 원하는",
                             ImageExplain3 : "종류의 책을 빌리고 공부할 수 있습니다.",
-                            ImageUrl : require("../ImageFiles/Library.png")
+                            ImageUrl : require("../images/Library.png")
                         },
                         {
                             ImageTitle : "COMPETITION",
                             ImageExplain1 : "SW를 비롯한 다양한 대회가 준비되어 있고,",
                             ImageExplain2 : "학생들은 자신의 실력을 향상시키기 위해",
                             ImageExplain3 : "참가하여 수상을 하기도 합니다.",
-                            ImageUrl : require("../ImageFiles/Diploma.png")
+                            ImageUrl : require("../images/Diploma.png")
                         }
                     ]
                 }/>

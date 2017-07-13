@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../cssFiles/HeaderView.css';
+import '../css/HeaderView.css';
 
 class HeaderView extends React.Component{
     componentDidMount(){
@@ -30,7 +30,7 @@ const NavigationBar = () =>{
 const LogoImagePart = () =>{
     return(
         <div id="LogoImage">
-            <img src={require('../ImageFiles/logo.png')} id="Logo"/>
+            <img src={require('../images/logo.png')} id="Logo"/>
             <LogoTitlePart schoolName= "DaeDeok SoftWare Meister HighSchool"/>
         </div>
     );
@@ -135,7 +135,7 @@ const WhiteBoxesPart = () =>{
                         },
                         {
                             MainNumber: "28",
-                            NumberExplain: "Development"
+                            NumberExplain: "Duration"
                         }
                     ]
                 }/>

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BoxToUnder from '../Components/BoxToUnder';
-import HeaderView from '../Components/HeaderView';
-import SimpleIntro from '../Components/SimpleIntro';
-import MainIntro from '../Components/MainIntro';
-import Footer from '../Components/Footer';
+import BoxToUnder from '../components/BoxToUnder';
+import HeaderView from '../components/HeaderView';
+import SimpleIntro from '../components/SimpleIntro';
+import MainIntro from '../components/MainIntro';
+import Footer from '../components/Footer';
 
 
 class App extends React.Component{

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../cssFiles/MainIntro.css';
+import '../css/MainIntro.css';
 
 class MainIntro extends React.Component{
     render(){
