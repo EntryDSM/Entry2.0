@@ -7,7 +7,7 @@ import Volunteer from './Volunteer/Volunteer';
 import Attend from './Attend/Attend';
 import InputLayout from '../InputLayout/InputLayout';
 
-class Input3 extends Component{
+class Input4 extends Component{
     componentWillMount(){
         document.body.style.margin = 0;
         document.body.style.padding = 0;
@@ -32,18 +32,20 @@ class Input3 extends Component{
     }
 
     componentDidMount(){
-        var buttons = document.querySelectorAll('.select_grade > div');
-        Array.from(buttons).forEach((btn, index) => {
-            btn.addEventListener('click', () => {
-                if(btn.children.length === 0){
-                    Array.from(btn.parentElement.children).forEach((children) => {
-                        children.style.background = "none";
-                    });
-                    btn.style.background = '#d3d3d3';   
-                }
+        let willSelectGradeBtn = Array.from(document.querySelectorAll('.will_select_grade > .will_select_grade_child'));
+        let didSelectGradeBtn = Array.from(document.querySelectorAll('did_select_grade > .did_select_grade_child'));
+        let willNotPass = Array.from(document.querySelectorAll('#will_not_pass > td'));
+        let didNotPass = Array.from(document.querySelectorAll('#did_not_pass > td'));
+        let willSubjects = Array.from(document.querySelectorAll('.will_subjects'));
+        let didSubjects = Array.from(document.querySelectorAll('.did_subjects'));
+
+        console.log(willSelectGradeBtn);
+        willSelectGradeBtn.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                
             });
-        })
+        });
     }
 }
 
-export default Input3;
+export default Input4;

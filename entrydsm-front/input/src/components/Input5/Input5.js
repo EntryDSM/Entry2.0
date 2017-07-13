@@ -4,7 +4,7 @@ import styles from './Input5.css';
 import WritingArea from './WritingArea/WritingArea'
 import InputLayout from '../InputLayout/InputLayout';
 
-class Input4 extends Component {
+class Input5 extends Component {
     render(){
         return(
             <div id={styles.contents}>
@@ -20,5 +20,5 @@ class Input4 extends Component {
     }
 }
 
-export default Input4;
+export default Input5;
 

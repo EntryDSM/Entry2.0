@@ -1,3 +1,24 @@
-#graduated_table{
+#did_table{
     display: none;
+}
+
+.did_select_btn_child{
+    display: inline-block;
+    border-radius: 100%;
+    width: 25px;
+    line-height: 1.6;
+    text-align: center;
+    cursor: pointer;
+}
+
+.did_select_btn_child:hover{
+    border-radius: 100%;
+    background-color: #d3d3d3;
+    transition:0.5s;
+    transition-timing-function:linear;
+}
+
+.did_select_grade{
+    text-align: center;
+    border-bottom: 1px solid #ebebea;
 }
