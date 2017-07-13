@@ -1,4 +1,6 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
 
 @keyframes biggerIcon{
     0%{
@@ -211,7 +213,8 @@ body{
 #main-page #school-intro .description h1{
     font-size: 3rem;
     background: rgba(0, 0, 0, 0);
-    font-weight: normal;
+    font-family: 'Nanum Gothic';
+    font-weight: bold;
     color: #000;
     text-align: left;
     padding-left: 12rem;
@@ -223,9 +226,9 @@ body{
     margin-top: 4rem;
 }
 #main-page #school-intro .description pre{
-    padding-left: 13rem;
+    padding-left: 12rem;
     font-size: 2.2rem;
-    font-weight: lighter;
+    font-weight: normal;
     text-align: left;
     line-height: 1.4;
     margin-top: 0;

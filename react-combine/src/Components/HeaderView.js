@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
 import '../css/HeaderView.css';
 
 class HeaderView extends React.Component{
@@ -108,9 +109,11 @@ const SubTitle = (props) =>{
 
 const MainBox = (props) =>{
     return(
+        <Link to="/Main">
         <div id="ToMainBox">
             {props.BoxTitle}
         </div>
+        </Link>
     );
 }
 

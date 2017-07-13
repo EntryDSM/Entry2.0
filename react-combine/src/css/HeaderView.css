@@ -197,3 +197,7 @@
     font-size:1.1rem;
     overflow:hidden;
 }
+
+a{
+    text-decoration: none;
+}
