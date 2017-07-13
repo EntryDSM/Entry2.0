@@ -171,13 +171,13 @@ exports.validation = (req, res) => {
 //미리보기 양식 데이터 전송 
 
 exports.demo = (req, res) => {
-  let infoArr={};
-  let principalArr={};
-  let somkeArr={};
+  let infoArr = {};
+  let principalArr = {};
+  let somkeArr = {};
   let tab = req.query.tab || req.params.tab;
 
   console.log('실행');
-  
+
   if (req.session.key) {
 
     let id = req.session.key;
@@ -185,103 +185,152 @@ exports.demo = (req, res) => {
 
     database.applyDataModel.findUserInfo(id, (err, check) => {
 
-        console.log('session key ' + id)
+      console.log('session key ' + id)
 
-        if (check) {
+      if (check) {
 
-          let imageBuffer = fs.readFileSync(rootPath + '/profileImages/' + check[0]._doc.memberImage);
-          check["image"] = imageBuffer;
-          
-          if (tab === "userInfo") {
+        let imageBuffer = fs.readFileSync(rootPath + '/profileImages/' + check[0]._doc.memberImage);
+        check["image"] = imageBuffer;
+
+        if (tab === "userInfo") {
           console.log('실행');
           let fullAddress = check[0]._doc.addressBase + check[0]._doc.addressDetail;
           let school = check[0]._doc.schoolName.split('중학교');
           console.log(school);
-          
-           infoArr["memberImage"] =  check[0]._doc.memberImage //이미지경로
-           infoArr["sex"] =  check[0]._doc.sex  //성별
-           infoArr["grade"] = check[0]._doc.grade  //학년
-           infoArr["class"] = check[0]._doc.class //반
-           infoArr["parentName"] = check[0]._doc.parentName //부모님이름 
-           infoArr["schoolCode"] = check[0]._doc.schoolCode //학교코드
-           infoArr["schoolName"] = school //학교이름
-           infoArr["schoolTel"] = check[0]._doc.schoolTel //학교번호
-           infoArr["myTel"] = check[0]._doc.myTel //내번호
-           infoArr["parentTel"] = check[0]._doc.parentTel //부모님번호 
-           infoArr["birthday"] = check[0]._doc.birthday //생일
-           infoArr["fullAddress"] = fullAddress //주소
-           infoArr["submitNumber"] = check[0]._doc.submitNumber //접수번호
-           infoArr["examNumber"] = check[0]._doc.examNumber //수험번호
-           infoArr["name"] = check[0]._doc.name //이름
-           infoArr["applyBaseType"] = check[0]._doc.applyBaseType //전형구분
+
+          infoArr["memberImage"] = check[0]._doc.memberImage //이미지경로
+          infoArr["sex"] = check[0]._doc.sex //성별
+          infoArr["grade"] = check[0]._doc.grade //학년
+          infoArr["class"] = check[0]._doc.class //반
+          infoArr["parentName"] = check[0]._doc.parentName //부모님이름 
+          infoArr["schoolCode"] = check[0]._doc.schoolCode //학교코드
+          infoArr["schoolName"] = school //학교이름
+          infoArr["schoolTel"] = check[0]._doc.schoolTel //학교번호
+          infoArr["myTel"] = check[0]._doc.myTel //내번호
+          infoArr["parentTel"] = check[0]._doc.parentTel //부모님번호 
+          infoArr["birthday"] = check[0]._doc.birthday //생일
+          infoArr["fullAddress"] = fullAddress //주소
+          infoArr["submitNumber"] = check[0]._doc.submitNumber //접수번호
+          infoArr["examNumber"] = check[0]._doc.examNumber //수험번호
+          infoArr["name"] = check[0]._doc.name //이름
+          infoArr["applyBaseType"] = check[0]._doc.applyBaseType //전형구분
 
           // 성적은 영훈이형 계산처리하고 넣을게요
           // infoArr["score"] = check[0]._doc.score //이름
           // 현재 출석 칼럼이 존재하지않음
           infoArr["volunteer"] = check[0]._doc.volunteer //봉사시간
 
-          
-        console.log(infoArr + '이 출력됨 ');
 
-        res.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
-        res.end(JSON.stringify(infoArr));
+          console.log(infoArr + '이 출력됨 ');
 
-      } else if (tab === "introduce") {
+          res.writeHead(200, {
+            'Content-Type': 'application/json'
+          });
+          res.end(JSON.stringify(infoArr));
 
-        console.log('1번 ')
-        res.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
+        } else if (tab === "introduce") {
 
-        res.end(JSON.stringify(check[0]._doc.introduce));
+          console.log('1번 ')
+          res.writeHead(200, {
+            'Content-Type': 'application/json'
+          });
 
-      } else if (tab === "studyPlan") {
-        console.log('3번 ')
-        res.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
+          res.end(JSON.stringify(check[0]._doc.introduce));
 
-        res.end(JSON.stringify(check[0]._doc.studyPlan));
+        } else if (tab === "studyPlan") {
+          console.log('3번 ')
+          res.writeHead(200, {
+            'Content-Type': 'application/json'
+          });
 
-      } else if (tab === "principal") {
-        let school = check[0]._doc.schoolName.split('중학교');
+          res.end(JSON.stringify(check[0]._doc.studyPlan));
+
+        } else if (tab === "principal") {
+          let school = check[0]._doc.schoolName.split('중학교');
           console.log(school);
 
-        principalArr["name"] = check[0]._doc.name
-        principalArr["class"] =check[0]._doc.class
-        principalArr["schoolName"] =check[0]._doc.school
+          principalArr["name"] = check[0]._doc.name
+          principalArr["class"] = check[0]._doc.class
+          principalArr["schoolName"] = check[0]._doc.school
 
-        console.log('4번 ' + principalArr)
+          console.log('4번 ' + principalArr)
 
-        res.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
+          res.writeHead(200, {
+            'Content-Type': 'application/json'
+          });
 
-        res.end(JSON.stringify(principalArr));
+          res.end(JSON.stringify(principalArr));
 
-      } else if (tab === "noSmoke") {
-        let fullAddress = check[0]._doc.addressBase + check[0]._doc.addressDetail;
+        } else if (tab === "noSmoke") {
+          let fullAddress = check[0]._doc.addressBase + check[0]._doc.addressDetail;
 
-        somkeArr["name"] = check[0]._doc.name
-        somkeArr["examNumber"] = check[0]._doc.examNumber
-        somkeArr["myTel"] = check[0]._doc.myTel
-        somkeArr["schoolName"] = check[0]._doc.schoolName
-        somkeArr["fullAddress"] = fullAddress
+          somkeArr["name"] = check[0]._doc.name
+          somkeArr["examNumber"] = check[0]._doc.examNumber
+          somkeArr["myTel"] = check[0]._doc.myTel
+          somkeArr["schoolName"] = check[0]._doc.schoolName
+          somkeArr["fullAddress"] = fullAddress
 
-        console.log('5번 ' + somkeArr)
+          console.log('5번 ' + somkeArr)
 
-        res.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
+          res.writeHead(200, {
+            'Content-Type': 'application/json'
+          });
 
-        res.end(JSON.stringify(somkeArr));
+          res.end(JSON.stringify(somkeArr));
+        }
+      } else {
+        res.send('<script>alert("미리보기를 할 수 없습니다.");</script>')
       }
-    }
-    else {
-      res.send('<script>alert("미리보기를 할수없습니다.");</script>')
-    }
-  });
+    });
+  }
 }
+
+
+exports.intro = (req, res) => {
+
+  console.log('자소서,학업계획서 저장 함수 실행');
+  let database = req.app.get('database');
+  let self = req.body.self; //자기소개서
+  let plan = req.body.plan; //학업계획서
+
+  if (req.session.key) {
+
+    let userId = req.session.key;
+    console.log(userId + '로 접속');
+
+    database.applyDataModel.findUserInfo(userId, function (err, user) {
+
+      if (err) {
+        res.writeHead(400);
+      }
+
+      if (user) {
+        database.applyDataModel.update({"user": req.session.key }, 
+
+        {"$set": { "introduce": self,"studyPlan": plan}}, 
+        
+        { multi: true}, (err, output) => {
+        
+          if (err) {
+            res.writeHead(400);
+            res.send('학업계획서, 자기소개서 저장 실패');
+            res.end();
+            return;
+          }
+
+          if (output) {
+            res.writeHead(200);
+            console.log('데이터 업데이트 성공')
+            res.end();
+          }
+        });
+
+      } else {
+        res.writeHead(400);
+        res.send('학업계획서, 자기소개서 저장 실패');
+      }
+
+    })
+  }
+
 }
