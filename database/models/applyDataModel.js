@@ -4,6 +4,35 @@ let crypto = require('crypto');
 let config = require('../../config');
 let model = {};
 
+schema.static('updateApplyType', function(id, newData, callback){
+    return this.updateOne({
+        user: id
+    }, {
+        $set: {
+            regionType: newData.local,
+            applyBaseType: newData.type,
+            applyDetailType: newData.typeDetail,
+            graduateType: newData.graduate,
+            graduateYear: newData.date
+        }
+    }, callback);
+});
+
+schema.static('selectApplyType', function(id, callback){
+    let query = this.findOne({
+        user: id
+    }).select({
+        regionType: true,
+        applyBaseType: true,
+        applyDetailType: true,
+        graduateType: true,
+        graduateYear: true,
+        _id: false
+    });
+
+    return query.exec(callback);
+});
+
 schema.static('updatepersonal', function (id, newData, callback) {
     var month = newData.month < 10 ? '0' + newData.month : newData.month;
     var date = newData.date < 10 ? '0' + newData.date : newData.date;
@@ -337,7 +366,7 @@ schema.static('createEmptyDocument', function (salt, owner) {
 
 schema.static('findUserInfo',function(id,callback){
     return this.find({"user":id},callback);
-})
+});
 
 
 // function score

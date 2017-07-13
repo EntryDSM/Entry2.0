@@ -1,10 +1,66 @@
 var fs = require('fs');
 var rootPath = require('../../config').getRootPath();
 
+// save(update) type of applicant.(input1)
+exports.saveType = (req, res) => {
+  let updatedData = req.body;
+  let userkey = req.params.userid;
+  let Docs = req.app.get('database');
+
+  if(Docs.connection){
+    saveApplyType(Docs, userkey, updatedData, (err, result) => {
+      if(err){
+        console.error(err);
+      }else{
+        console.log('전형 수정 완료');
+        res.redirect('/step2/' + userkey);
+      }
+    });
+  }
+}
+
+// load(select) type of applicant.(input1)
+exports.loadType = (req, res) => {
+  let userkey = req.params.userid;
+  let Docs = req.app.get('database');
+
+  if(Docs.connection){
+    loadApplyType(Docs, userkey, (err, result) => {
+      if(err){
+        console.error(err);
+      }else{
+        console.log('전형 불러우기 완료');
+        res.send(result);
+      }
+    });
+  }
+}
+
+var saveApplyType = (database, userkey, data, callback) => {
+  database.applyDataModel.updateApplyType(userkey, data, (err, result) => {
+    if(err){
+      callback(err, null);
+    }else{
+      callback(null, result);
+    }
+  });
+}
+
+var loadApplyType = (database, userkey, callback) {
+  database.applyDataModel.selectApplyType(userkey, (err, result) => {
+    if(err){
+      callback(err, null);
+    }else{
+      callback(null, result);
+    }
+  });
+}
+
+// save(update) applydata.(input2)
 exports.save = (req, res) => {
-  var updatedData = req.body;
-  var userkey = req.params.userid;
-  var Docs = req.app.get('database');
+  let updatedData = req.body;
+  let userkey = req.params.userid;
+  let Docs = req.app.get('database');
 
   // update image.
   var imagePath = '',
@@ -91,7 +147,7 @@ var loadpersonal = (database, key, callback) => {
   });
 }
 
-function saveImage(database, id, src, dst, callback) {
+var saveImage = (database, id, src, dst, callback) => {
   database.applydataModel.updateimage(id, dst, (err, docs) => {
     if (err) {
       callback(err, null);
@@ -105,7 +161,7 @@ function saveImage(database, id, src, dst, callback) {
   });
 }
 
-function saveImageData(src, dst) {
+var saveImageData = (src, dst) => {
   if (src != null && src != '') {
     src.mv(rootPath + dst, (err) => {
       if (err) {
@@ -177,111 +233,128 @@ exports.demo = (req, res) => {
   let tab = req.query.tab || req.params.tab;
 
   console.log('실행');
+  try {
+    if (req.session.key) {
 
-  if (req.session.key) {
+      let id = req.session.key;
+      let database = req.app.get('database');
 
-    let id = req.session.key;
-    let database = req.app.get('database');
+      database.applyDataModel.findUserInfo(id, (err, check) => {
 
-    database.applyDataModel.findUserInfo(id, (err, check) => {
+        console.log('session key ' + id)
 
-      console.log('session key ' + id)
+        if (check) {
 
-      if (check) {
+          let imageBuffer = fs.readFileSync(rootPath + '/profileImages/' + check[0]._doc.memberImage);
+          check["image"] = imageBuffer;
 
-        let imageBuffer = fs.readFileSync(rootPath + '/profileImages/' + check[0]._doc.memberImage);
-        check["image"] = imageBuffer;
+          if (tab === "userInfo") {
 
-        if (tab === "userInfo") {
-          console.log('실행');
-          let fullAddress = check[0]._doc.addressBase + check[0]._doc.addressDetail;
-          let school = check[0]._doc.schoolName.split('중학교');
-          console.log(school);
+            console.log('userInfo Start');
+            let fullAddress = check[0]._doc.addressBase + check[0]._doc.addressDetail;
 
-          infoArr["memberImage"] = check[0]._doc.memberImage //이미지경로
-          infoArr["sex"] = check[0]._doc.sex //성별
-          infoArr["grade"] = check[0]._doc.grade //학년
-          infoArr["class"] = check[0]._doc.class //반
-          infoArr["parentName"] = check[0]._doc.parentName //부모님이름 
-          infoArr["schoolCode"] = check[0]._doc.schoolCode //학교코드
-          infoArr["schoolName"] = school //학교이름
-          infoArr["schoolTel"] = check[0]._doc.schoolTel //학교번호
-          infoArr["myTel"] = check[0]._doc.myTel //내번호
-          infoArr["parentTel"] = check[0]._doc.parentTel //부모님번호 
-          infoArr["birthday"] = check[0]._doc.birthday //생일
-          infoArr["fullAddress"] = fullAddress //주소
-          infoArr["submitNumber"] = check[0]._doc.submitNumber //접수번호
-          infoArr["examNumber"] = check[0]._doc.examNumber //수험번호
-          infoArr["name"] = check[0]._doc.name //이름
-          infoArr["applyBaseType"] = check[0]._doc.applyBaseType //전형구분
-
-          // 성적은 영훈이형 계산처리하고 넣을게요
-          // infoArr["score"] = check[0]._doc.score //이름
-          // 현재 출석 칼럼이 존재하지않음
-          infoArr["volunteer"] = check[0]._doc.volunteer //봉사시간
+            console.log('총 주소 : ' + fullAddress);
+            let school = check[0]._doc.schoolName.split('중학교');
 
 
-          console.log(infoArr + '이 출력됨 ');
+            infoArr["memberImage"] = check[0]._doc.memberImage //이미지경로
+            infoArr["sex"] = check[0]._doc.sex //성별
+            infoArr["grade"] = check[0]._doc.grade //학년
+            infoArr["class"] = check[0]._doc.class //반
+            infoArr["parentName"] = check[0]._doc.parentName //부모님이름 
+            infoArr["schoolCode"] = check[0]._doc.schoolCode //학교코드
+            infoArr["schoolName"] = school //학교이름
+            infoArr["schoolTel"] = check[0]._doc.schoolTel //학교번호
+            infoArr["myTel"] = check[0]._doc.myTel //내번호
+            infoArr["parentTel"] = check[0]._doc.parentTel //부모님번호 
+            infoArr["birthday"] = check[0]._doc.birthday //생일
+            infoArr["fullAddress"] = fullAddress //주소
+            infoArr["submitNumber"] = check[0]._doc.submitNumber //접수번호
+            infoArr["examNumber"] = check[0]._doc.examNumber //수험번호
+            infoArr["name"] = check[0]._doc.name //이름
+            infoArr["applyBaseType"] = check[0]._doc.applyBaseType //전형구분
+            // 성적은 영훈이형 계산처리하고 넣을게요
+            // infoArr["score"] = check[0]._doc.score //이름
+            // 현재 출석 칼럼이 존재하지않음
+            infoArr["volunteer"] = check[0]._doc.volunteer //봉사시간
 
-          res.writeHead(200, {
-            'Content-Type': 'application/json'
-          });
-          res.end(JSON.stringify(infoArr));
+            res.writeHead(200, {
+              'Content-Type': 'application/json'
+            });
+            res.end(JSON.stringify(infoArr));
 
-        } else if (tab === "introduce") {
 
-          console.log('1번 ')
-          res.writeHead(200, {
-            'Content-Type': 'application/json'
-          });
 
-          res.end(JSON.stringify(check[0]._doc.introduce));
+          } else if (tab === "introduce") {
 
-        } else if (tab === "studyPlan") {
-          console.log('3번 ')
-          res.writeHead(200, {
-            'Content-Type': 'application/json'
-          });
+            console.log('introduce Strat ')
+            res.writeHead(200, {
+              'Content-Type': 'application/json'
+            });
 
-          res.end(JSON.stringify(check[0]._doc.studyPlan));
+            res.end(JSON.stringify(check[0]._doc.introduce));
 
-        } else if (tab === "principal") {
-          let school = check[0]._doc.schoolName.split('중학교');
-          console.log(school);
 
-          principalArr["name"] = check[0]._doc.name
-          principalArr["class"] = check[0]._doc.class
-          principalArr["schoolName"] = check[0]._doc.school
 
-          console.log('4번 ' + principalArr)
+          } else if (tab === "studyPlan") {
 
-          res.writeHead(200, {
-            'Content-Type': 'application/json'
-          });
+            console.log('studyPlan Strat ')
 
-          res.end(JSON.stringify(principalArr));
+            res.writeHead(200, {
+              'Content-Type': 'application/json'
+            });
 
-        } else if (tab === "noSmoke") {
-          let fullAddress = check[0]._doc.addressBase + check[0]._doc.addressDetail;
+            res.end(JSON.stringify(check[0]._doc.studyPlan));
 
-          somkeArr["name"] = check[0]._doc.name
-          somkeArr["examNumber"] = check[0]._doc.examNumber
-          somkeArr["myTel"] = check[0]._doc.myTel
-          somkeArr["schoolName"] = check[0]._doc.schoolName
-          somkeArr["fullAddress"] = fullAddress
 
-          console.log('5번 ' + somkeArr)
 
-          res.writeHead(200, {
-            'Content-Type': 'application/json'
-          });
+          } else if (tab === "principal") {
 
-          res.end(JSON.stringify(somkeArr));
+            console.log('principal Strat ')
+
+            let school = check[0]._doc.schoolName.split('중학교');
+            console.log(school[0]);
+
+
+            principalArr["name"] = check[0]._doc.name
+            principalArr["class"] = check[0]._doc.class
+            principalArr["schoolName"] = school[0]
+
+
+            res.writeHead(200, {
+              'Content-Type': 'application/json'
+            });
+
+            res.end(JSON.stringify(principalArr));
+
+          } else if (tab === "noSmoke") {
+
+            console.log('noSmoke Strat ')
+
+            let fullAddress = check[0]._doc.addressBase + check[0]._doc.addressDetail;
+
+            console.log('총 주소 : ' + fullAddress);
+
+            somkeArr["name"] = check[0]._doc.name
+            somkeArr["examNumber"] = check[0]._doc.examNumber
+            somkeArr["myTel"] = check[0]._doc.myTel
+            somkeArr["schoolName"] = check[0]._doc.schoolName
+            somkeArr["fullAddress"] = fullAddress
+
+            res.writeHead(200, {
+              'Content-Type': 'application/json'
+            });
+
+            res.end(JSON.stringify(somkeArr));
+          } 
+
         }
-      } else {
-        res.send('<script>alert("미리보기를 할 수 없습니다.");</script>')
-      }
-    });
+      });
+    }
+  } catch (err) {
+    console.log(err)
+    res.writeHead(400);
+    res.end();
   }
 }
 
@@ -293,44 +366,63 @@ exports.intro = (req, res) => {
   let self = req.body.self; //자기소개서
   let plan = req.body.plan; //학업계획서
 
-  if (req.session.key) {
+  try {
+    if (req.session.key) {
+      
+      console.log(self+','+plan+'로 업데이트');
 
-    let userId = req.session.key;
-    console.log(userId + '로 접속');
+      let userId = req.session.key;
+      
+      console.log(userId + '로 접속');
 
-    database.applyDataModel.findUserInfo(userId, function (err, user) {
+      database.applyDataModel.findUserInfo(userId, function (err, user) {
 
-      if (err) {
-        res.writeHead(400);
-      }
+        if (err) {
+          res.writeHead(400);
+        }
 
-      if (user) {
-        database.applyDataModel.update({"user": req.session.key }, 
+        if (user) {
+          database.applyDataModel.update({
+              "user": req.session.key
+            },
 
-        {"$set": { "introduce": self,"studyPlan": plan}}, 
-        
-        { multi: true}, (err, output) => {
-        
-          if (err) {
-            res.writeHead(400);
-            res.send('학업계획서, 자기소개서 저장 실패');
-            res.end();
-            return;
-          }
+            {
+              "$set": {
+                "introduce": self,
+                "studyPlan": plan
+              }
+            },
 
-          if (output) {
-            res.writeHead(200);
-            console.log('데이터 업데이트 성공')
-            res.end();
-          }
-        });
+            {
+              multi: true
+            }, (err, output) => {
 
-      } else {
-        res.writeHead(400);
-        res.send('학업계획서, 자기소개서 저장 실패');
-      }
+              if (err) {
+                res.writeHead(400);
+                res.send('학업계획서, 자기소개서 저장 실패');
+                res.end();
+                return;
+              }
 
-    })
+              if (output) {
+                res.writeHead(200);
+                console.log('데이터 업데이트 성공')
+                res.end();
+              }
+            });
+
+        }
+           else {
+          res.writeHead(400);
+          res.send('학업계획서, 자기소개서 저장 실패');
+        }
+
+      })
+    }
+
+  } catch (err) {
+    console.log(err)
+    res.writeHead(400);
+    res.end();
   }
-
 }
