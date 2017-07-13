@@ -1,17 +1,17 @@
-footer{
+#landing-page footer{
     width:100%;
     height:200px;
     background-color:#242729;
 }
 
-footer #Privacy{
+#landing-page footer #Privacy{
     width:60%;
     height:100%;
     margin-left:15rem;
     padding-top:1rem;
 }
 
-#Privacy #Privacy_Sub{
+#landing-page #Privacy #Privacy_Sub{
     color:floralwhite;
     font-size:0.85rem;
     line-height:1.5;

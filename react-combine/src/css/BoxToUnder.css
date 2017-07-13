@@ -1,10 +1,10 @@
-#ExploreLanding{
+#landing-page #ExploreLanding{
     width:100%;
     height:350px;
     background-color:#282828;
 }
 
-#ExploreLanding #Explore_Title{
+#landing-page #ExploreLanding #Explore_Title{
     color:white;
     font-family: 'Noto Sans KR', sans-serif;
     text-align:center;
@@ -13,7 +13,7 @@
     margin-top:3rem;
 }
 
-#ExploreLanding #Explore_Line{
+#landing-page #ExploreLanding #Explore_Line{
     width:5rem;
     height:4px;
     background-color:white;
@@ -21,7 +21,7 @@
     margin-top:1rem;
 }
 
-#ExploreLanding #Explore_Explain{
+#landing-page #ExploreLanding #Explore_Explain{
     color:white;
     font-family:'Noto Sans KR', sans-serif;
     font-weight:normal;
@@ -31,7 +31,7 @@
     font-size:0.9rem;
 }
 
-#ExploreLanding #Explore_Button{
+#landing-page #ExploreLanding #Explore_Button{
     width:10.15rem;
     height:3.5rem;
     background-color:#EA466A;
@@ -43,7 +43,7 @@
     display:table;
 }
 
-#ExploreLanding #Explore_Button #Explore_Text{
+#landing-page #ExploreLanding #Explore_Button #Explore_Text{
     text-align: center;
     color:white;
     font-weight:bold;

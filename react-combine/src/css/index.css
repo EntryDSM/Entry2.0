@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-* {
+#landing-page * {
     /* 공통 */
     -ms-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -13,7 +13,8 @@
     font-family: sans-serif;
 }
 
-body{
+
+#landing-page{
     width:100%;
     height:auto;
     margin:0 auto;
@@ -22,22 +23,22 @@ body{
 }
 
 @media all and (min-width:400px) {
-    #FirstArticle {
+    #landing-page #FirstArticle {
         height: 900px;
     }
-    #FirstArticle #Article_Images_Cover {
+    #landing-page #FirstArticle #Article_Images_Cover {
         height: 750px;
     }
-    #SecondArticle {
+    #landing-page #SecondArticle {
         height: 3000px;
     }
-    .Main_Explain_Boxes .Explain_Images,
-    .Main_Explain_Boxes .Explain_Images2 {
+    #landing-page .Main_Explain_Boxes .Explain_Images,
+    #landing-page .Main_Explain_Boxes .Explain_Images2 {
         margin: 0 auto;
         margin-top: 2rem;
     }
-    #SecondArticle .Explain_Images_Main,
-    #SecondArticle .Explain_Images_Sub {
+    #landing-page #SecondArticle .Explain_Images_Main,
+    #landing-page #SecondArticle .Explain_Images_Sub {
         width: 100%;
         bottom: 0rem;
         margin: 0 auto;
@@ -46,8 +47,8 @@ body{
         line-height: 1.5;
         margin-right: 4.1rem;
     }
-    #SecondArticle .Explain_Images_Main2,
-    #SecondArticle .Explain_Images_Sub2 {
+    #landing-page #SecondArticle .Explain_Images_Main2,
+    #landing-page #SecondArticle .Explain_Images_Sub2 {
         width: 100%;
         text-align: center;
         margin: 0 auto;
@@ -59,41 +60,41 @@ body{
 }
 
 @media all and (min-width:1295.1px) {
-    #FirstArticle {
+    #landing-page #FirstArticle {
         height: 530px;
     }
-    #FirstArticle #Article_Images_Cover {
+    #landing-page #FirstArticle #Article_Images_Cover {
         height: 350px;
         overflow: hidden;
     }
-    #SecondArticle {
+    #landing-page #SecondArticle {
         height: 2150px;
     }
-    .Main_Explain_Boxes .Explain_Images {
+    #landing-page .Main_Explain_Boxes .Explain_Images {
         display: block;
         margin-left: 17.5rem;
         margin-top: 3.25rem;
     }
-    .Main_Explain_Boxes .Explain_Images2 {
+    #landing-page .Main_Explain_Boxes .Explain_Images2 {
         display: block;
         margin-right: 11rem;
         margin-top: 3.25rem;
     }
-    #SecondArticle .Explain_Images_Main {
+    #landing-page #SecondArticle .Explain_Images_Main {
         width: 55%;
         bottom: 14rem;
         padding-left: 8rem;
         line-height: 1.35;
         text-align: left;
     }
-    #SecondArticle .Explain_Images_Main2 {
+    #landing-page #SecondArticle .Explain_Images_Main2 {
         width: 60%;
         float: left;
         text-align: left;
         margin-top: -15rem;
         margin-left: 13.5rem;
     }
-    #SecondArticle .Explain_Images_Sub {
+    #landing-page #SecondArticle .Explain_Images_Sub {
         width: 55%;
         bottom: 11rem;
         padding-left: 8rem;
@@ -101,7 +102,7 @@ body{
         text-align: left;
         margin-top: -1.25rem;
     }
-    #SecondArticle .Explain_Images_Sub2 {
+    #landing-page #SecondArticle .Explain_Images_Sub2 {
         width: 60%;
         float: left;
         text-align: left;

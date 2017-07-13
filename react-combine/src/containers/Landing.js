@@ -11,7 +11,7 @@ import BackCss from '../css/index.css';
 class App extends React.Component{
    render(){
        return(
-            <div>
+            <div id="landing-page">
                 <HeaderView/>
                 <BoxToUnder/>
                 <SimpleIntro/>

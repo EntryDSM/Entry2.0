@@ -1,4 +1,4 @@
-header{
+#landing-page header{
     width:100%;
     height:750px;
     background: url(../images/TestBackground2.jpg);
@@ -7,7 +7,7 @@ header{
     background-repeat: no-repeat;
 }
 
-header #Header_Image_Cover{
+#landing-page header #Header_Image_Cover{
     position:absolute;
     width:100%;
     height:750px;
@@ -17,14 +17,14 @@ header #Header_Image_Cover{
     min-width:850px; /* 나중에 코드 중복 체크 */
 }
 
-#Header_Image_Cover #LogoAndNav{
+#landing-page #Header_Image_Cover #LogoAndNav{
     width:100%;
     height:110px;
     overflow:hidden;
     margin-top:30px;
 }
 
-#LogoAndNav #LogoImage{
+#landing-page #LogoAndNav #LogoImage{
     width:270px;
     height:70px;
     margin-left: 7rem;
@@ -32,12 +32,12 @@ header #Header_Image_Cover{
     overflow:hidden;
 }
 
-#LogoAndNav #LogoImage #Logo{
+#landing-page #LogoAndNav #LogoImage #Logo{
     width:170px;
     display:block;
 }
 
-#LogoAndNav #LogoImage #LogoTitle{
+#landing-page #LogoAndNav #LogoImage #LogoTitle{
     font-size:0.65rem;
     text-align: left;
     color: white;
@@ -45,7 +45,7 @@ header #Header_Image_Cover{
     font-weight:bold;
 }
 
-#LogoAndNav #Header_Navigation{
+#landing-page #LogoAndNav #Header_Navigation{
     position:relative;
     width:380px;
     height:50px;
@@ -55,7 +55,7 @@ header #Header_Image_Cover{
     overflow:hidden;
 }
 
-#Header_Navigation ul li{
+#landing-page #Header_Navigation ul li{
     float:left;
     color:white;
     padding-left:1.7rem;
@@ -65,12 +65,12 @@ header #Header_Image_Cover{
     overflow:hidden;
 }
 
-#Header_Navigation ul li:hover{
+#landing-page #Header_Navigation ul li:hover{
     cursor:pointer;
     font-weight:bold;
 }
 
-#Header_Image_Cover #Header_MainPart{
+#landing-page #Header_Image_Cover #Header_MainPart{
     width:85.675%;
     height:70%;
     margin:0 auto;
@@ -79,13 +79,13 @@ header #Header_Image_Cover{
     margin-top:10px;
 }
 
-#Header_MainPart #Title_Part{
+#landing-page #Header_MainPart #Title_Part{
     width:50%;
     height:100%;
     display:inline-block;
 }
 
-#Title_Part #Main_Title{
+#landing-page #Title_Part #Main_Title{
     font-size:2.2rem;
     color:white;
     font-family: 'Montserrat';
@@ -94,14 +94,14 @@ header #Header_Image_Cover{
     padding-top:7.5rem;
 }
 
-#Title_Part #Main_UnderLine{
+#landing-page #Title_Part #Main_UnderLine{
     width:7.5rem;
     height:2.25px;
     margin-top:0.65rem;
     background-color:white;
 }
 
-#Title_Part #Sub_Title{
+#landing-page #Title_Part #Sub_Title{
     font-size:0.9rem;
     color:white;
     font-family: 'Noto Sans KR', sans-serif;
@@ -110,7 +110,7 @@ header #Header_Image_Cover{
     line-height:1.75;
 }
 
-#Title_Part #ToMainBox{
+#landing-page #Title_Part #ToMainBox{
     width:10rem;
     height:2.75rem;
     border:1px solid white;
@@ -126,19 +126,19 @@ header #Header_Image_Cover{
     transition:1.2s;
 }
 
-#Title_Part #ToMainBox:hover{
+#landing-page #Title_Part #ToMainBox:hover{
     cursor:pointer;
     letter-spacing: 5px;
 }
 
-#Header_MainPart #White_OpacityBox{
+#landing-page #Header_MainPart #White_OpacityBox{
     width:50%;
     height:100%;
     display:inline-block;
     background-color: #83DAD0;
 }
 
-#White_OpacityBox #WhiteBox_Title{
+#landing-page #White_OpacityBox #WhiteBox_Title{
     font-size:2rem;
     color:white;
     text-align: center;
@@ -147,14 +147,14 @@ header #Header_Image_Cover{
     padding-top: 5rem;
 }
 
-#White_OpacityBox #BoxesCover{
+#landing-page #White_OpacityBox #BoxesCover{
     width:90%;
     height:60%;
     margin:0 auto;
     margin-top:2rem;
 }
 
-#BoxesCover .FourBoxes{
+#landing-page #BoxesCover .FourBoxes{
     width:49.75%;
     height:49.5%;
     float:left;
@@ -163,7 +163,7 @@ header #Header_Image_Cover{
     transition:1.2s;
 }
 
-.FourBoxes .MainNumbers{
+#landing-page .FourBoxes .MainNumbers{
     font-size:2.5rem;
     color:#66BEB4;
     text-align: center;
@@ -173,7 +173,7 @@ header #Header_Image_Cover{
     padding-top:1.875rem;
 }
 
-.FourBoxes .NumbersExplain{
+#landing-page .FourBoxes .NumbersExplain{
     font-size:0.8rem;
     color:#66BEB4;
     font-family:'Montserrat';
@@ -183,17 +183,17 @@ header #Header_Image_Cover{
     padding-top:0.5rem;
 }
 
-.FourBoxes:hover{
+#landing-page .FourBoxes:hover{
     cursor:default;
     background-color: #69c4b9 !important;
 }
 
-.FourBoxes:hover .MainNumbers,
-.FourBoxes:hover .NumbersExplain{
+#landing-page .FourBoxes:hover .MainNumbers,
+#landing-page .FourBoxes:hover .NumbersExplain{
     color:white;
 }
 
-.FourBoxes:hover .NumbersExplain{
+#landing-page .FourBoxes:hover .NumbersExplain{
     font-size:1.1rem;
     overflow:hidden;
 }
