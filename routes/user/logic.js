@@ -234,7 +234,7 @@ exports.sendemail = (req, res) => {
                 if (enemail) {
 
                     var con = require('../../confi.json');
-                    var sender = 'EntryDsm < syeutyu123@gmail.com >';
+                    var sender = 'EntryDsm < syeuty@gmail.com >';
                     var receiver = email;
                     var mailTitle = 'Mail test';
 
@@ -340,7 +340,7 @@ exports.sendfindemail = (req, res) => {
                 if (enemail) {
 
                     var con = require('../../confi.json');
-                    var sender = 'EntryDsm < syeutyu123@gmail.com >';
+                    var sender = 'EntryDsm < syeuty@gmail.com >';
                     var receiver = email;
                     var mailTitle = 'Mail test';
 
