@@ -230,6 +230,8 @@ exports.demo = (req, res) => {
   let infoArr = {};
   let principalArr = {};
   let somkeArr = {};
+  let introArr = {};
+  let planArr = {};
   let tab = req.query.tab || req.params.tab;
 
   console.log('실행');
@@ -251,7 +253,7 @@ exports.demo = (req, res) => {
           if (tab === "userInfo") {
 
             console.log('userInfo Start');
-            let fullAddress = check[0]._doc.addressBase + check[0]._doc.addressDetail;
+            let fullAddress = check[0]._doc.addressBase+" "+ check[0]._doc.addressDetail;
 
             console.log('총 주소 : ' + fullAddress);
             let school = check[0]._doc.schoolName.split('중학교');
@@ -259,11 +261,10 @@ exports.demo = (req, res) => {
 
             infoArr["memberImage"] = check[0]._doc.memberImage //이미지경로
             infoArr["sex"] = check[0]._doc.sex //성별
-            infoArr["grade"] = check[0]._doc.grade //학년
             infoArr["class"] = check[0]._doc.class //반
             infoArr["parentName"] = check[0]._doc.parentName //부모님이름 
             infoArr["schoolCode"] = check[0]._doc.schoolCode //학교코드
-            infoArr["schoolName"] = school //학교이름
+            infoArr["schoolName"] = school[0] //학교이름
             infoArr["schoolTel"] = check[0]._doc.schoolTel //학교번호
             infoArr["myTel"] = check[0]._doc.myTel //내번호
             infoArr["parentTel"] = check[0]._doc.parentTel //부모님번호 
@@ -277,7 +278,7 @@ exports.demo = (req, res) => {
             // infoArr["score"] = check[0]._doc.score //이름
             // 현재 출석 칼럼이 존재하지않음
             infoArr["volunteer"] = check[0]._doc.volunteer //봉사시간
-
+            infoArr["attendance"] = check[0]._doc.attendance //출석
             res.writeHead(200, {
               'Content-Type': 'application/json'
             });
@@ -286,25 +287,25 @@ exports.demo = (req, res) => {
 
 
           } else if (tab === "introduce") {
-
             console.log('introduce Strat ')
+            introArr["introduce"] = check[0]._doc.introduce;
             res.writeHead(200, {
               'Content-Type': 'application/json'
             });
 
-            res.end(JSON.stringify(check[0]._doc.introduce));
+            res.end(JSON.stringify(introArr));
 
 
 
           } else if (tab === "studyPlan") {
 
             console.log('studyPlan Strat ')
-
+            planArr = check[0]._doc.studyPlan
             res.writeHead(200, {
               'Content-Type': 'application/json'
             });
 
-            res.end(JSON.stringify(check[0]._doc.studyPlan));
+            res.end(JSON.stringify(planArr));
 
 
 
@@ -331,7 +332,7 @@ exports.demo = (req, res) => {
 
             console.log('noSmoke Strat ')
 
-            let fullAddress = check[0]._doc.addressBase + check[0]._doc.addressDetail;
+            let fullAddress = check[0]._doc.addressBase+" "+ check[0]._doc.addressDetail;
 
             console.log('총 주소 : ' + fullAddress);
 
