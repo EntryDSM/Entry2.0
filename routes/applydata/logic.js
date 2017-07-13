@@ -224,7 +224,7 @@ exports.validation = (req, res) => {
   }
 }
 
-//미리보기 양식 데이터 전송 
+//미리보기 양식 데이터 전송
 
 exports.demo = (req, res) => {
   let infoArr = {};
@@ -262,23 +262,27 @@ exports.demo = (req, res) => {
             infoArr["memberImage"] = check[0]._doc.memberImage //이미지경로
             infoArr["sex"] = check[0]._doc.sex //성별
             infoArr["class"] = check[0]._doc.class //반
-            infoArr["parentName"] = check[0]._doc.parentName //부모님이름 
+            infoArr["parentName"] = check[0]._doc.parentName //부모님이름
             infoArr["schoolCode"] = check[0]._doc.schoolCode //학교코드
             infoArr["schoolName"] = school[0] //학교이름
             infoArr["schoolTel"] = check[0]._doc.schoolTel //학교번호
-            infoArr["myTel"] = check[0]._doc.myTel //내번호
-            infoArr["parentTel"] = check[0]._doc.parentTel //부모님번호 
-            infoArr["birthday"] = check[0]._doc.birthday //생일
-            infoArr["fullAddress"] = fullAddress //주소
-            infoArr["submitNumber"] = check[0]._doc.submitNumber //접수번호
-            infoArr["examNumber"] = check[0]._doc.examNumber //수험번호
+            infoArr["phoneNum"] = check[0]._doc.myTel //내번호
+            infoArr["parentTel"] = check[0]._doc.parentTel //부모님번호
+            infoArr["birth"] = check[0]._doc.birthday //생일
+            infoArr["address"] = fullAddress //주소
+            infoArr["registration"] = check[0]._doc.submitNumber //접수번호
+            infoArr["examine"] = check[0]._doc.examNumber //수험번호
             infoArr["name"] = check[0]._doc.name //이름
             infoArr["applyBaseType"] = check[0]._doc.applyBaseType //전형구분
+            infoArr["applyDetailType"] = check[0]._doc.applyDetailType //전형 자세히 구분
+            infoArr["regionType"] = check[0]._doc.regionType // 지역구분
             // 성적은 영훈이형 계산처리하고 넣을게요
             // infoArr["score"] = check[0]._doc.score //이름
             // 현재 출석 칼럼이 존재하지않음
             infoArr["volunteer"] = check[0]._doc.volunteer //봉사시간
             infoArr["attendance"] = check[0]._doc.attendance //출석
+            infoArr["graduateType"] = check[0]._doc.grade //졸업구분
+            
             res.writeHead(200, {
               'Content-Type': 'application/json'
             });
@@ -347,7 +351,7 @@ exports.demo = (req, res) => {
             });
 
             res.end(JSON.stringify(somkeArr));
-          } 
+          }
 
         }
       });
@@ -369,11 +373,11 @@ exports.intro = (req, res) => {
 
   try {
     if (req.session.key) {
-      
+
       console.log(self+','+plan+'로 업데이트');
 
       let userId = req.session.key;
-      
+
       console.log(userId + '로 접속');
 
       database.applyDataModel.findUserInfo(userId, function (err, user) {
