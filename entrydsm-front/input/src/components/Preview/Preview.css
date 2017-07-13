@@ -34,7 +34,7 @@
     padding: 14px 16px;
     transition: 0.3s;
 
-    width: calc(100% / 3);
+    width: calc(100% / 5);
 }
 
 /* Change background color of buttons on hover */
@@ -53,7 +53,7 @@
     border: 1px solid #ccc;
     border-top: none;
     width: 60rem;
-    height: 90rem;
+    height: 87rem;
     margin-bottom: 30px;
 }
 
@@ -63,4 +63,32 @@
 
 #header-area {
     margin-left: -20px;
+}
+
+.printButton {
+    background-color: inherit;
+    border: 1px solid grey;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    background-color: #ccc;
+
+    width: 16rem;
+    margin-left: 22rem;
+    margin-bottom: 50px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #section-to-print, #section-to-print * {
+    visibility: visible;
+  }
+  #section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }
