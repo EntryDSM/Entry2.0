@@ -12,37 +12,52 @@ var router = express.Router();
 //function ()
 
 //질문 조회 + 검색
-router.get('/question', function(request, response) {
+router.get('/question', function (request, response) {
     var searchData;
     var responseData = {};
-    
+
     //찾으려는 데이터 범위
     if (!author && !keyword) {
         searchData = Content.find({});
-    }
-    else {
+    } else {
         var keyword = request.params.keyword.ToLowerCase();
         var author = request.params.author.ToLowerCase();
         if (!keyword) {
-            searchData = Content.find({author: {$regex: new RegExp(author, "i")}});
+            searchData = Content.find({
+                author: {
+                    $regex: new RegExp(author, "i")
+                }
+            });
             return searchData;
         }
         if (!author) {
-            searchData = Content.find({content: {$regex: new RegExp(keyword, "i")}})
+            searchData = Content.find({
+                content: {
+                    $regex: new RegExp(keyword, "i")
+                }
+            })
             return searchData
         }
         if (author && keyword) {
-            searchData = Content.find({content: {$regex: new RegExp(keyword, "i")},
-            author: {$regex: new RegExp(author, "i")}})
+            searchData = Content.find({
+                content: {
+                    $regex: new RegExp(keyword, "i")
+                },
+                author: {
+                    $regex: new RegExp(author, "i")
+                }
+            })
         }
     }
-    
+
     //조회 결과를 JSON배열로 반환한다
-    searchData.sort({date:-1}).exec(function(err, rawContents) {
+    searchData.sort({
+        date: -1
+    }).exec(function (err, rawContents) {
         if (err) throw err;
         if (rawContents.length > 0) {
             var index = 1;
-            rawContents.forEach(function(item) {
+            rawContents.forEach(function (item) {
                 index++;
                 responseData.push({
                     index: index,
@@ -52,19 +67,19 @@ router.get('/question', function(request, response) {
                 });
                 response.status(200).send(responseData);
             });
-        } 
+        }
     });
 });
 
 //질문 등록
-router.post('/question', function(request, response) {
+router.post('/question', function (request, response) {
     var currentUser = request.user; //현재 유저
 
     //세션이 아니라면 로그인 페이지로 리다이렉트
     if (!currentUser) {
         response.redirect('/public/login.html'); // 
     }
-    
+
     //타이틀과 내용이 없다면 400 반환
     if (!request.body.title || !request.body.content) {
         response.status(400).send("Entries must have a title and a body");
@@ -73,7 +88,7 @@ router.post('/question', function(request, response) {
 
     //DB에 콘텐츠 업로드
     var newContent = new Content({
-        index: Content.length+1,
+        index: Content.length + 1,
         title: request.body.title,
         contents: request.body.content,
         date: new Date(),
@@ -86,7 +101,7 @@ router.post('/question', function(request, response) {
 });
 
 //질문 수정
-router.put('/question', function(request, response) {
+router.put('/question', function (request, response) {
     var currentUser = request.user //현재 유저
 
     // 로그인돤 상태가 아니라면 로그인 화면으로 리다이렉트
@@ -96,8 +111,12 @@ router.put('/question', function(request, response) {
     }
 
     //찾으려는 글이 있는지
-    if (Content.find({index: request.body.index})) {
-        var findOne = Content.find({index: request.body.index});
+    if (Content.find({
+            index: request.body.index
+        })) {
+        var findOne = Content.find({
+            index: request.body.index
+        });
         //찾은 글의 작성자가 현재 사용자와 같은지
         if (findOne.author != currentUser) {
             response.sendStatus(401);
@@ -105,19 +124,18 @@ router.put('/question', function(request, response) {
 
         //체크 통과하면 콘텐츠 업데이트
         Content.update({
-            title: request.body.title, 
+            title: request.body.title,
             contents: request.body.content
         })
 
         response.sendStatus(200);
-    }
-    else{
+    } else {
         response.sendStatus(400);
     }
 })
 
 //질문 삭제
-router.delete('/question', function(request, response) {
+router.delete('/question', function (request, response) {
     var currentUser = request.user
     // 로그인돤 상태가 아니라면 로그인 화면으로 리다이렉트
     if (!currentUser) {
@@ -125,27 +143,88 @@ router.delete('/question', function(request, response) {
     }
 
     //찾으려는 글이 있는지
-    if (Content.find({index: request.body.index})) {
-        var findOne = Content.find({index: request.body.index});
+    if (Content.find({
+            index: request.body.index
+        })) {
+        var findOne = Content.find({
+            index: request.body.index
+        });
         //찾은 글의 작성자가 현재 사용자와 같은지
         if (findOne.author != currentUser) {
             response.sendStatus(400);
         }
         //체크 통과하면 삭제
-        Content.remove({index: request.body.index});
+        Content.remove({
+            index: request.body.index
+        });
 
         //삭제하면 DB인덱스 재할당
         var index = 1;
-        Content.find({}).sort({date:1}).exec(function(err, rawContents) {
-            rawContents.forEach(function(item) {
-                item.update({index: index});
+        Content.find({}).sort({
+            date: 1
+        }).exec(function (err, rawContents) {
+            rawContents.forEach(function (item) {
+                item.update({
+                    index: index
+                });
             })
         });
         response.sendStatus(200);
-    }
-    else{
+    } else {
         response.sendStatus(400);
     }
 })
+
+router.get('/myqna', function (req, res) {
+    if (!req.session.key) {
+        res.writeHead(401, {
+            'Content-Type': 'text/html;charset=utf8'
+        });
+        res.write("<script>alert('권한이 없습니다. 로그인해주세요');</script>");
+        res.write("<script>location.href='/public/login.html';</script>");
+        res.end();
+        return;
+    } else {
+        let database = req.app.get('database');
+
+        // database connection is exist
+        if (database.connection) {
+            let response = [];
+            // validation
+            database.QnAContentModel.find({
+                author: req.session.key
+            }, function (err, docs) {
+                let object;
+                if (docs.length === 0) {
+
+                    res.json(response);
+                    res.end();
+                    return;
+                }
+                for (var i = 0; i < docs.length; i++) {
+                    object = {
+                        "index": docs[i].index,
+                        "title": docs[i].title,
+                        "date": docs[i].date
+                    }
+                    response.push(object);
+                    if (i === docs.length - 1) {
+
+                        res.json(response);
+                        res.end();
+                        return;
+                    }
+                }
+
+            });
+        }
+
+        // database connection is not exist
+        else {
+            res.writeHead(500);
+            res.end();
+        }
+    }
+});
 
 module.exports = router;

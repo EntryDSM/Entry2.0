@@ -14,6 +14,10 @@ let config = {
         {
             "file" : './models/schoolModel',
             "modelName" : 'schoolModel'
+        },
+        {
+            "file" : './models/QnAContentModel',
+            "modelName" : 'QnAContentModel'
         }
         // file : schema path
         // modelName : schema model name

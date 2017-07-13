@@ -6,6 +6,6 @@ var schema = mongoose.Schema({
     contents: String,
     date: {type: Date, default: Date.now},
     author: String
-});
+},{collection : 'QnAContent'});
 
 module.exports = schema;

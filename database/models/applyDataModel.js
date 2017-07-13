@@ -88,7 +88,6 @@ schema.static('validation', function (id, callback) {
                 // 모든 학생 원서의 공통적 요소 검사 :: 학생 자기소개서 / 학업계획서 
                 introduceValidation(user.introduce, introduceMessages);
                 studyPlanValidation(user.studyPlan, introduceMessages);
-                console.log(user.graduateType + " : " + typeof user.graduateType);
 
 
                 switch (user.graduateType) {

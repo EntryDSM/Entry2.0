@@ -40,7 +40,7 @@ app.use('/images', static(path.join(__dirname, '/images')));
 app.use('/', userRouter);
 app.use('/', applydataRouter);
 app.use('/', QnARouter);
-app.use('/',schoolRouter);
+app.use('/', schoolRouter);
 
 app.listen(config.server_port, function () {
     console.log(config.server_port + ' ON');
