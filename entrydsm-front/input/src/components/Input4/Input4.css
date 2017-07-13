@@ -88,6 +88,7 @@
 }
 
 .not_pass_title{
+    width: 128px;
     text-align: left;
 }
 
@@ -99,4 +100,14 @@
 .is_pass_check{
     padding-top: 3px;
     font-size: 5px;
+}
+
+#did_not_pass td {
+    background: #fbfbfa;
+}
+#did_semester td {
+    background: #fbfbfa;
+}
+#did_semester td:first-of-type {
+    background: transparent;
 }
