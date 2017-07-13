@@ -3,9 +3,10 @@ import InputHeader from '../InputHeader/InputHeader';
 import styles from './Input3.css';
 import InputInfo from './InputInfo/InputInfo';
 import UploadImage from './UploadImage/UploadImage'
+import Address from './Address/Address';
 import InputLayout from '../InputLayout/InputLayout';
 
-class Input2 extends Component {
+class Input3 extends Component {
     
     render(){
         return(
@@ -19,4 +20,4 @@ class Input2 extends Component {
     }
 }
 
-export default Input2;
+export default Input3;

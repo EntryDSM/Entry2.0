@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styles from './InputInfo.css';
-import UploadImage from '../UploadImage/UploadImage'
+import Address from '../Address/Address';
+import UploadImage from '../UploadImage/UploadImage';
 
 class InputInfo extends Component {
     render() {
@@ -73,8 +74,7 @@ class InputInfo extends Component {
                         <tr id={styles.tr_address}>
                             <td className={styles.td_title}>주소</td>
                             <td className={styles.td_content} colSpan="2">
-                                <input type="text" className={styles.input_style} id={styles.base_address}/>
-                                <button className={styles.btn_style} id={styles.btn_findschool}>주소찾기</button>
+                                <input type="text" className={styles.input_style} id={styles.base_address}/><Address />
                                 <input type="text" className={styles.input_style} id={styles.detail_address}/>
                             </td>
                         </tr>
