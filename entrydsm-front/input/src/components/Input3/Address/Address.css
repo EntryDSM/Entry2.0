@@ -1,9 +1,9 @@
 .modal_style{
     border-radius: 20px;   
     width: 800px;
-    height: 500px;
+    height: 600px;
     margin: auto;
-    margin-top: 220px;
+    margin-top: 100px;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
@@ -116,6 +116,56 @@
     border-left:none;
 }
 
-.d{
+.road_address{
     border:1px solid black;
+    padding: 8px;
+    width: 600px;
+    font-size: 14px;
+}
+
+.zipNo{
+    border:1px solid black;
+    padding: 8px;
+    width: 150px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.th_addr{
+    border:1px solid black;
+    text-align: center;
+    padding: 10px;
+}
+
+#table_addr{
+    border-collapse: collapse;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+#pagenum{
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#pagenum:hover{
+    color: #c4daff;
+    text-decoration: underline;
+}
+
+.btn_modalnext{
+    border:none;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    font-weight: bolder;
+    background:none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.btn_modalnext:hover{
+    cursor:pointer;
 }
