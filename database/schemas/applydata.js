@@ -18,7 +18,6 @@ let schema = mongoose.Schema({
     myTel: { type : String, default : "" },
     graduateType: { type : String, default : "" },
     graduateYear: { type : String, default : "" },
-    graduate_month: { type : String, default : "" },
     regionType: { type : String, default : "" },
     applyBaseType: { type : String, default : "" },
     applyDetailType: { type : String, default : "" },

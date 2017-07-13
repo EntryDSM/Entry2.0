@@ -1,10 +1,66 @@
 var fs = require('fs');
 var rootPath = require('../../config').getRootPath();
 
+// save(update) type of applicant.(input1)
+exports.saveType = (req, res) => {
+  let updatedData = req.body;
+  let userkey = req.params.userid;
+  let Docs = req.app.get('database');
+
+  if(Docs.connection){
+    saveApplyType(Docs, userkey, updatedData, (err, result) => {
+      if(err){
+        console.error(err);
+      }else{
+        console.log('전형 수정 완료');
+        res.redirect('/step2/' + userkey);
+      }
+    });
+  }
+}
+
+// load(select) type of applicant.(input1)
+exports.loadType = (req, res) => {
+  let userkey = req.params.userid;
+  let Docs = req.app.get('database');
+
+  if(Docs.connection){
+    loadApplyType(Docs, userkey, (err, result) => {
+      if(err){
+        console.error(err);
+      }else{
+        console.log('전형 불러우기 완료');
+        res.send(result);
+      }
+    });
+  }
+}
+
+var saveApplyType = (database, userkey, data, callback) => {
+  database.applyDataModel.updateApplyType(userkey, data, (err, result) => {
+    if(err){
+      callback(err, null);
+    }else{
+      callback(null, result);
+    }
+  });
+}
+
+var loadApplyType = (database, userkey, callback) {
+  database.applyDataModel.selectApplyType(userkey, (err, result) => {
+    if(err){
+      callback(err, null);
+    }else{
+      callback(null, result);
+    }
+  });
+}
+
+// save(update) applydata.(input2)
 exports.save = (req, res) => {
-  var updatedData = req.body;
-  var userkey = req.params.userid;
-  var Docs = req.app.get('database');
+  let updatedData = req.body;
+  let userkey = req.params.userid;
+  let Docs = req.app.get('database');
 
   // update image.
   var imagePath = '',
@@ -91,7 +147,7 @@ var loadpersonal = (database, key, callback) => {
   });
 }
 
-function saveImage(database, id, src, dst, callback) {
+var saveImage = (database, id, src, dst, callback) => {
   database.applydataModel.updateimage(id, dst, (err, docs) => {
     if (err) {
       callback(err, null);
@@ -105,7 +161,7 @@ function saveImage(database, id, src, dst, callback) {
   });
 }
 
-function saveImageData(src, dst) {
+var saveImageData = (src, dst) => {
   if (src != null && src != '') {
     src.mv(rootPath + dst, (err) => {
       if (err) {
