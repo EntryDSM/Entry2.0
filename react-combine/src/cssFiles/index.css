@@ -1,0 +1,111 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+    /* 공통 */
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    outline: none;
+    overflow-x: auto;
+    font-family: sans-serif;
+}
+
+body{
+    width:100%;
+    height:auto;
+    margin:0 auto;
+    min-width:850px;
+    position:relative;
+}
+
+@media all and (min-width:400px) {
+    #FirstArticle {
+        height: 900px;
+    }
+    #FirstArticle #Article_Images_Cover {
+        height: 750px;
+    }
+    #SecondArticle {
+        height: 3000px;
+    }
+    .Main_Explain_Boxes .Explain_Images,
+    .Main_Explain_Boxes .Explain_Images2 {
+        margin: 0 auto;
+        margin-top: 2rem;
+    }
+    #SecondArticle .Explain_Images_Main,
+    #SecondArticle .Explain_Images_Sub {
+        width: 100%;
+        bottom: 0rem;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 1rem;
+        line-height: 1.5;
+        margin-right: 4.1rem;
+    }
+    #SecondArticle .Explain_Images_Main2,
+    #SecondArticle .Explain_Images_Sub2 {
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+        padding: 0;
+        padding-top: 1.5rem;
+        letter-spacing: 3px;
+        line-height: 1.5;
+    }
+}
+
+@media all and (min-width:1295.1px) {
+    #FirstArticle {
+        height: 530px;
+    }
+    #FirstArticle #Article_Images_Cover {
+        height: 350px;
+        overflow: hidden;
+    }
+    #SecondArticle {
+        height: 2150px;
+    }
+    .Main_Explain_Boxes .Explain_Images {
+        display: block;
+        margin-left: 17.5rem;
+        margin-top: 3.25rem;
+    }
+    .Main_Explain_Boxes .Explain_Images2 {
+        display: block;
+        margin-right: 11rem;
+        margin-top: 3.25rem;
+    }
+    #SecondArticle .Explain_Images_Main {
+        width: 55%;
+        bottom: 14rem;
+        padding-left: 8rem;
+        line-height: 1.35;
+        text-align: left;
+    }
+    #SecondArticle .Explain_Images_Main2 {
+        width: 60%;
+        float: left;
+        text-align: left;
+        margin-top: -15rem;
+        margin-left: 13.5rem;
+    }
+    #SecondArticle .Explain_Images_Sub {
+        width: 55%;
+        bottom: 11rem;
+        padding-left: 8rem;
+        line-height: 1.5;
+        text-align: left;
+        margin-top: -1.25rem;
+    }
+    #SecondArticle .Explain_Images_Sub2 {
+        width: 60%;
+        float: left;
+        text-align: left;
+        margin-top: -10rem;
+        margin-left: 13.5rem;
+    }
+}
