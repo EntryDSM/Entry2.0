@@ -492,4 +492,6 @@ __pycache__/
 # By default, sensitive information, such as encrypted password
 # should be stored in the .pubxml.user file.
 
+confi.json
+
 # End of https://www.gitignore.io/api/node,linux,macos,windows,webstorm,visualstudio,visualstudiocode
