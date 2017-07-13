@@ -1,6 +1,5 @@
 let router = require('express').Router();
-let logic = require('./logic');
-
+let logic = require('./logic'); 
 router.route('/signin').post(logic.login); //로그인 라우팅
 router.route('/signup').post(logic.adduser); //회원가입 라우팅
 router.route('/check/:email').get(logic.sendemail); //회원가입시 확인 메일 보내기 라우팅
