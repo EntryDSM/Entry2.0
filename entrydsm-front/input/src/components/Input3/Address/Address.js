@@ -54,44 +54,35 @@ class Address extends Component {
                 
                 // 주소목록 바인딩
                 var array = new Array();
-                // document.querySelector("#addrResult").innerHTML = "<th class=\"th_addr\">" + "도로명 주소" + "</th>" + "<th class=\"th_addr\">" + "우편번호" + "</th>";
-                
                 var datas = [];
                 result.forEach(function(element) {
-                    datas.push({roadAddr:element.roadAddr, zipNo:element.zipNo});
-                    //var component = "<tr>" + "<td class=\"road_address\">" + element.roadAddr + "</td>" + "<td class=\"zipNo\">" + element.zipNo + "</td>" + "</tr>";
-                    //document.querySelector("#addrResult").innerHTML += component;
+                    datas.push(
+                        {
+                            roadAddr:element.roadAddr,
+                            zipNo:element.zipNo
+                        });
                 }, this);
-                console.log(datas);
                 that.setState({
                     addressData: datas
                 });
 
                 // // 페이지 목록
-                var startPage = parseInt((currentPage+5)/5);
+                var startPage =(parseInt((currentPage+4)/5) - 1) * 5 + 1;
                 var endPage;
                 if((startPage+4) > totalPage){
                     endPage = totalPage;
                 } else {
                     endPage = startPage + 4;
                 }
-                // var modalpage = document.getElementById("modalPage")
-                // modalpage.innerHTML = "";
                 
                 datas = [];
                 if(startPage != 1) {
                     datas.push("<");
-                    // var pagenum = "<a href=\"#\" class=\"btn_modalnext\">" + "<" + "</a>";
-                    // modalpage.innerHTML += pagenum;
                 }
 
-                // console.log(startPage);
-                // console.log(endPage);
                 var i;
                 for(i=startPage; i<=endPage; i++) {
                     datas.push(i);
-                    // var pagenum = "<a href=\"#\" class=\"btn_modalnext\">" + i + "</a>";
-                    // modalpage.innerHTML += pagenum;
                 }
                 console.log('datas',datas);
 
@@ -104,14 +95,6 @@ class Address extends Component {
                     pageData: datas
                 });
                 
-                // // a tag event
-                // document.querySelectorAll(".btn_modalnext").forEach(function(element) {
-                //     element.addEventListener("click", function(event){
-                //         var pageNo = parseInt(element.innerHTML);
-                //         this.searchAddress;
-                        
-                //     })
-                // })
             })
             .catch(function (error) {
                 console.log(error);
