@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../css/SignUp.css';
 import SignUpInput from '../components/SignUpInput';
+import InputHeader from '../components/InputHeader';
 
 class Input1 extends Component{
     constructor(props){
