@@ -30,7 +30,7 @@ function searchData(findData, response) {
             response.status(200).send([]);
         }
     });
-} // <== 데이터 반환 함수 구성 (콜백용)
+} // <== 데이터 반환 함수 
 
 //질문 조회 + 검색
 router.get('/question', function (request, response) {
@@ -39,24 +39,24 @@ router.get('/question', function (request, response) {
     var keyword = request.query.keyword;
     var author = request.query.author;
 
-    console.log("Search Query : keyword=" + keyword + ', author=' + author);
+    console.log("Search Query : keyword=" + keyword + ', author=' + author); //어떤 쿼리를 받았는지
 
     //찾으려는 데이터 범위
-    if (!author && !keyword) {
+    if (!author && !keyword) { //전체조회
         findData = Content.find({});
         searchData(findData, response);
-        console.log("전체조회")
+        
         return;
     }
     else {
-        if (!keyword) {
+        if (!keyword) { //작성자로 찾기
             findData = Content.find({ author: { $regex: new RegExp(author, "i") } });
             console.log(findData.title);
             searchData(findData, response);
 
             return;
         }
-        if (!author) {
+        if (!author) { //키워드로 찾기
             findData = Content.find({ content: { $regex: new RegExp(keyword, "i") } });
             searchData(findData, response);
 
@@ -71,9 +71,9 @@ router.get('/question', function (request, response) {
 //질문 등록
 router.post('/question', function (request, response) {
     var currentUser = request.user; //현재 유저
-    var tempIndex = 1; // <==TODO!! 인덱스 할당이 문제
-
-    //세션이 아니라면 로그인 페이지로 리다이렉트
+    var tempIndex = 1; //새로 등록하는 글의 인덱스
+    
+    //로그인 되어 있지 않다면 로그인 페이지로
     if (!currentUser) {
         response.status(400).redirect('/public/login.html'); 
         return;
@@ -97,6 +97,7 @@ router.post('/question', function (request, response) {
     console.log("새로운 질문이 등록되었습니다. : \n" + newContent);
     newContent.save(() => { response.sendStatus(200) });
 
+    //인덱스 한칸씩 밀어서 재할당
     Content.find({}).sort({ date: -1 }).exec(function (err, rawContents) {
         if (err) throw err;
         if (rawContents.length > 0) {
@@ -175,12 +176,12 @@ router.delete('/question', function (request, response) {
         Content.remove({ index: request.body.index }, (err) => {
             response.sendStatus(200);
         });
-
-        //삭제하면 DB인덱스 재할당
     }
     else {
         response.sendStatus(400);
     }
+
+    //인덱스 당겨서 재할당
     Content.find({}).sort({ date: -1 }).exec(function (err, rawContents) {
         if (err) throw err;
         if (rawContents.length > 0) {
