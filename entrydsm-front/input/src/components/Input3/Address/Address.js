@@ -2,14 +2,19 @@ import React, {Component} from 'react';
 import styles from './Address.css';
 import axios from 'axios';
 import Modal from 'react-modal';
+import AddressTable from './AddressTable/AddressTable';
+import PageNumber from './PageNumber/PageNumber';
  
 class Address extends Component {
 
     constructor() {
         super();
-    
+        
+        this.Firstpage = 1;
         this.state = {
-        modalIsOpen: false
+            modalIsOpen: false,
+            addressData: null,
+            pageData: null
         };
     
         this.openModal = this.openModal.bind(this);
@@ -24,13 +29,12 @@ class Address extends Component {
     closeModal() {
         this.setState({modalIsOpen: false});
     }
-
     searchAddress(pagenum){
-        console.log("pagenum: " + pagenum);
+        var that = this;
         var currentPage = pagenum;
         var countPerPage = 10;
         var keyword = document.querySelector("#input_searchaddress").value;
-        console.log(keyword);
+        console.log('pagenum',pagenum);
         var confmKey = "U01TX0FVVEgyMDE3MDcxMzEwMTY1ODIyODQx";
         var resultType = "json";
 
@@ -50,13 +54,20 @@ class Address extends Component {
                 
                 // 주소목록 바인딩
                 var array = new Array();
-                document.querySelector("#addrResult").innerHTML = "<th class=\"th_addr\">" + "도로명 주소" + "</th>" + "<th class=\"th_addr\">" + "우편번호" + "</th>";
+                // document.querySelector("#addrResult").innerHTML = "<th class=\"th_addr\">" + "도로명 주소" + "</th>" + "<th class=\"th_addr\">" + "우편번호" + "</th>";
+                
+                var datas = [];
                 result.forEach(function(element) {
-                    var component = "<tr>" + "<td class=\"road_address\">" + element.roadAddr + "</td>" + "<td class=\"zipNo\">" + element.zipNo + "</td>" + "</tr>";
-                    document.querySelector("#addrResult").innerHTML += component;
+                    datas.push({roadAddr:element.roadAddr, zipNo:element.zipNo});
+                    //var component = "<tr>" + "<td class=\"road_address\">" + element.roadAddr + "</td>" + "<td class=\"zipNo\">" + element.zipNo + "</td>" + "</tr>";
+                    //document.querySelector("#addrResult").innerHTML += component;
                 }, this);
+                console.log(datas);
+                that.setState({
+                    addressData: datas
+                });
 
-                // 페이지 목록
+                // // 페이지 목록
                 var startPage = parseInt((currentPage+5)/5);
                 var endPage;
                 if((startPage+4) > totalPage){
@@ -64,34 +75,43 @@ class Address extends Component {
                 } else {
                     endPage = startPage + 4;
                 }
-                var modalpage = document.getElementById("modalPage")
-                modalpage.innerHTML = "";
+                // var modalpage = document.getElementById("modalPage")
+                // modalpage.innerHTML = "";
+                
+                datas = [];
                 if(startPage != 1) {
-                    var pagenum = "<a href=\"#\" class=\"btn_modalnext\">" + "<" + "</a>";
-                    modalpage.innerHTML += pagenum;
+                    datas.push("<");
+                    // var pagenum = "<a href=\"#\" class=\"btn_modalnext\">" + "<" + "</a>";
+                    // modalpage.innerHTML += pagenum;
                 }
 
-                console.log(startPage);
-                console.log(endPage);
+                // console.log(startPage);
+                // console.log(endPage);
                 var i;
                 for(i=startPage; i<=endPage; i++) {
-                    console.log("test : " + i);
-                    var pagenum = "<a href=\"#\" class=\"btn_modalnext\">" + i + "</a>";
-                    modalpage.innerHTML += pagenum;
+                    datas.push(i);
+                    // var pagenum = "<a href=\"#\" class=\"btn_modalnext\">" + i + "</a>";
+                    // modalpage.innerHTML += pagenum;
                 }
+                console.log('datas',datas);
 
                 if(endPage < totalPage) {
-                    var pagenum = "<a href=\"#\" class=\"btn_modalnext\">" + ">" + "</a>";
-                    modalpage.innerHTML += pagenum;
+                    datas.push(">");
                 }
+                console.log('datas',datas);
 
-                // a tag event
-                document.querySelectorAll(".btn_modalnext").forEach(function(element) {
-                    element.addEventListener("click", function(event){
-                        var pageNo = parseInt(element.innerHTML);
-                        this.searchAddress(pageNo);
-                    })
-                })
+                that.setState({
+                    pageData: datas
+                });
+                
+                // // a tag event
+                // document.querySelectorAll(".btn_modalnext").forEach(function(element) {
+                //     element.addEventListener("click", function(event){
+                //         var pageNo = parseInt(element.innerHTML);
+                //         this.searchAddress;
+                        
+                //     })
+                // })
             })
             .catch(function (error) {
                 console.log(error);
@@ -115,13 +135,11 @@ class Address extends Component {
                     </div>
                     <div id={styles.modal_contents}>
                         <input type="text" placeholder="검색어를 입력하세요 (반포대로 58, 독립기념관, 삼성동 25)" id={styles.input_searchaddress}/>
-                        <img id={styles.btn_searchaddress} src={require('../search.png')} onClick={()=> this.searchAddress(1)}/>
-                        <table id={styles.table_addr}>
-                            <tbody id="addrResult">
-                            </tbody>
-                        </table>
-                        <div id="modalPage"></div>
-                        <a onClick={()=> this.searchAddress(2)}>X</a>
+                        <img id={styles.btn_searchaddress} src={require('../search.png')} onClick={()=> this.searchAddress(this.Firstpage)}/>
+                        
+                        <AddressTable datas={this.state.addressData}/>
+                        <PageNumber datas={this.state.pageData} searchAddr={this.searchAddress} />
+                        
                     </div>
                 </Modal>
             </div>

@@ -1,0 +1,171 @@
+.modal_style{
+    border-radius: 20px;   
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    margin-top: 100px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    background-color: white;
+}
+
+#modal_header{
+    border-bottom: 2px solid #c4daff;
+}
+
+#btn_close{
+    background: none;
+    border-style: none;
+    font-size: 25px;
+    float: right;   
+}
+
+#btn_close:hover{
+    color: red;
+}
+
+#modal_contents{
+    text-align: center;
+}
+
+#btn_search{
+    width: 40px;
+    height: 40px;
+}
+
+.btn_style {
+    background-color: #c4daff;
+    border:none;
+}
+
+#btn_findaddress{
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.td_title2{
+    border-top:2px solid black;
+    border-bottom:2px solid black;
+    height: 50px;
+    padding: 8px;
+    text-align: center;
+}
+
+.td_result{
+    border-bottom:1px solid black;
+    height: 50px;
+    padding: 8px;
+    text-align: center;
+}
+
+#address_table{
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#input_searchaddress{
+    width: 750px;
+    font-size: 14px;
+    padding: 8px;
+    margin-top: 10px;
+    border:2px solid #003a99;
+    border-right: none;
+}
+
+.tr_result{
+    border-bottom: 2px red;
+}
+
+#address{
+    width: 800px;
+    text-align: left;
+}
+
+#postnum{
+    width: 200px;
+}
+
+.modal_page{
+    text-decoration: none;
+    margin-top: 100px;
+}
+
+.modal_page:hover{
+    text-decoration: underline;
+    color: blue;
+}
+
+.address_div{
+    float: left;
+}
+
+#btn_searchaddress{
+    width: 20px;
+    height: 20px;
+    float:right;
+    padding: 6px;
+    margin-top: 10px;
+    margin-right: 14px;border:2px solid #003a99;
+    border-left:none;
+}
+
+.road_address{
+    border:1px solid black;
+    padding: 8px;
+    width: 600px;
+    font-size: 14px;
+}
+
+.zipNo{
+    border:1px solid black;
+    padding: 8px;
+    width: 150px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.th_addr{
+    border:1px solid black;
+    text-align: center;
+    padding: 10px;
+}
+
+#table_addr{
+    border-collapse: collapse;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+#pagenum{
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#pagenum:hover{
+    color: #c4daff;
+    text-decoration: underline;
+}
+
+.btn_modalnext{
+    border:none;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    font-weight: bolder;
+    background:none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.btn_modalnext:hover{
+    cursor:pointer;
+}
