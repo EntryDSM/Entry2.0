@@ -27,7 +27,7 @@ function searchData(findData, response) {
             response.status(200).send(responseData);
         }
         else {
-            response.status(200).send("None");
+            response.status(200).send([]);
         }
     });
 } // <== 데이터 반환 함수 구성 (콜백용)
@@ -39,7 +39,7 @@ router.get('/question', function (request, response) {
     var keyword = request.query.keyword;
     var author = request.query.author;
 
-    console.log(keyword + ',' + author);
+    console.log("Search Query : keyword=" + keyword + ', author=' + author);
 
     //찾으려는 데이터 범위
     if (!author && !keyword) {
@@ -71,13 +71,13 @@ router.get('/question', function (request, response) {
 //질문 등록
 router.post('/question', function (request, response) {
     var currentUser = request.user; //현재 유저
-    var tempIndex = 0; // <==TODO!! 인덱스 할당이 문제
+    var tempIndex = 1; // <==TODO!! 인덱스 할당이 문제
 
     //세션이 아니라면 로그인 페이지로 리다이렉트
-    // if (!currentUser) {
-    //     response.status(400).redirect('/public/login.html'); 
-    //     return;
-    // }
+    if (!currentUser) {
+        response.status(400).redirect('/public/login.html'); 
+        return;
+    }
 
     //타이틀과 내용이 없다면 400 반환
     if (!request.body.title || !request.body.content) {
@@ -91,7 +91,7 @@ router.post('/question', function (request, response) {
         title: request.body.title,
         contents: request.body.content,
         date: new Date(),
-        author: "test"
+        author: currentUser
     });
 
     console.log("새로운 질문이 등록되었습니다. : \n" + newContent);
@@ -116,11 +116,11 @@ router.post('/question', function (request, response) {
 router.put('/question', function (request, response) {
     var currentUser = request.user //현재 유저
 
-    // 로그인돤 상태가 아니라면 로그인 화면으로 리다이렉트
-    //if (!currentUser) {
-    //   response.status(400).redirect('./public/login.html');
-    //   return;
-    //}
+    //로그인돤 상태가 아니라면 로그인 화면으로 리다이렉트
+    if (!currentUser) {
+      response.status(400).redirect('./public/login.html');
+      return;
+    }
 
     //찾으려는 글이 있는지
     if (Content.find({ index: request.body.index })) {
@@ -129,9 +129,10 @@ router.put('/question', function (request, response) {
             console.log(findOne.title);
         }
         //찾은 글의 작성자가 현재 사용자와 같은지
-        // if (findOne.author != currentUser) {
-        //     response.sendStatus(401);
-        // }
+        if (findOne.author != currentUser) {
+            response.sendStatus(401);
+            return;
+        }
 
         //체크 통과하면 콘텐츠 업데이트 update({"index" : 1},{$set : {title: "put"}});
         Content.update(
@@ -156,20 +157,20 @@ router.delete('/question', function (request, response) {
     var currentUser = request.user
     var index = 1;
     // 로그인돤 상태가 아니라면 로그인 화면으로 리다이렉트
-    //if (!currentUser) {
-    //    response.send(400).redirect('./public/login.html');
-    //    return;
-    //}
+    if (!currentUser) {
+       response.send(400).redirect('./public/login.html');
+       return;
+    }
 
     //찾으려는 글이 있는지
     if (Content.find({ index: request.body.index })) {
         var findOne = Content.find({ index: request.body.index });
         console.log(request.body.index);
         //찾은 글의 작성자가 현재 사용자와 같은지
-        // if (findOne.author != currentUser) {
-        //     response.sendStatus(400);
-        //     return;
-        // }
+        if (findOne.author != currentUser) {
+            response.sendStatus(400);
+            return;
+        }
         //체크 통과하면 삭제
         Content.remove({ index: request.body.index }, (err) => {
             response.sendStatus(200);
