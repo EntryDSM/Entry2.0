@@ -13,7 +13,7 @@ exports.saveType = (req, res) => {
         console.error(err);
       }else{
         console.log('전형 수정 완료');
-        res.redirect('/step2/' + userkey);
+        res.redirect('/user/info/' + userkey);
       }
     });
   }
@@ -29,8 +29,11 @@ exports.loadType = (req, res) => {
       if(err){
         console.error(err);
       }else{
-        console.log('전형 불러우기 완료');
-        res.send(result);
+        console.log('전형 불러오기 완료');
+        res.render('applytype', {
+          key: userkey,
+          data: result
+        });
       }
     });
   }
@@ -65,11 +68,11 @@ exports.save = (req, res) => {
   // update image.
   var imagePath = '',
     targetPath = '';
-  if (req.files.member_image) {
-    image = req.files.member_image;
-    targetPath = "\\images\\" + userkey + image.name.substring(image.name.lastIndexOf('.'));
+  if (req.files.memberImage != undefined) {
+    image = req.files.memberImage;
+    targetPath = "\\images\\" + userkey + '.jpg';
 
-    req.body.member_image = targetPath;
+    req.body.memberImage = targetPath;
 
     if (Docs.connection) {
       saveImage(Docs, userkey, image, targetPath, (err, result) => {
@@ -124,7 +127,7 @@ exports.load = (req, res) => {
 }
 
 var updatepersonal = (database, docId, data, callback) => {
-  database.applydataModel.updatepersonal(docId, data, (err, results) => {
+  database.applyDataModel.updatepersonal(docId, data, (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -135,7 +138,7 @@ var updatepersonal = (database, docId, data, callback) => {
 }
 
 var loadpersonal = (database, key, callback) => {
-  database.applydataModel.findOne({
+  database.applyDataModel.findOne({
     user: key
   }, (err, docs) => {
     if (err) {
@@ -148,7 +151,7 @@ var loadpersonal = (database, key, callback) => {
 }
 
 var saveImage = (database, id, src, dst, callback) => {
-  database.applydataModel.updateimage(id, dst, (err, docs) => {
+  database.applyDataModel.updateimage(id, dst, (err, docs) => {
     if (err) {
       callback(err, null);
     } else {
@@ -163,6 +166,7 @@ var saveImage = (database, id, src, dst, callback) => {
 
 var saveImageData = (src, dst) => {
   if (src != null && src != '') {
+    fs.unlinkSync(rootPath + dst);
     src.mv(rootPath + dst, (err) => {
       if (err) {
         console.error(err);
