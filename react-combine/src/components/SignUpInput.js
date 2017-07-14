@@ -11,24 +11,44 @@ class SignUpInput extends Component{
                                     <td className="td_title">{input.name}</td>
                                     <td className="td_content">
                                         <input type={input.type} className={input.className}/>
-                                        {/*<select className="emailSelect">
-                                            {this.state.emails.map((email, index) => {
+                                        <select className="emailSelect">
+                                            {this.props.emails.map((email, index) => {
                                                 return <Options name={email.name} key={index} />
                                             })}
-                                        </select>*/}
+                                        </select>
                                     </td>
                                 </tr>
+                    } else {
+                        return  <tr key={index}>
+                            <td className="td_title">{input.name}</td>
+                            <td className="td_content">
+                                <input type={input.type} className={input.className}/>
+                            </td>
+                        </tr>
                     }
-                    return  <tr key={index}>
-                                <td className="td_title">{input.name}</td>
-                                <td className="td_content">
-                                    <input type={input.type} className={input.className}/>
-                                </td>
-                            </tr>
                 })}
             </tbody>
         );
     }
+}
+
+SignUpInput.defaultProps = {
+    emails: [
+        {name: "gmail.com"},
+        {name: "naver.com"},
+        {name: "hanmail.net"},
+        {name: "hotmail.com"},
+        {name: "hanmir.com"},
+        {name: "nate.com"},
+        {name: "empar.com"},
+        {name: "korea.com"}
+    ]
+}
+
+const Options = () => {
+    return (
+        <option>{this.props.name}</option>
+    );
 }
 
 export default SignUpInput;
