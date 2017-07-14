@@ -54,85 +54,66 @@ class GraduateToBe extends Component{
     }
 }
 
-class SubjectsInfo extends Component{
-    render(){
-        return (
-            <td className={styles.subject}>{this.props.name}</td>
-        );
-    }
+const SubjectsInfo = () => {
+    return (
+        <td className={styles.subject}>{this.props.name}</td>
+    );
 }
 
-class StudentGrade extends Component{
-    render(){
-        return(
-            <td className={styles.std_grade}>{this.props.semester}</td>
-        );
-    }
+const StudentGrade = () => {
+    return(
+        <td className={styles.std_grade}>{this.props.semester}</td>
+    );
 }
 
-class NotPass extends Component{
-    render(){
-        var checkBoxs = [];
-        for(var i=0; i<5; i++){
-            if(i === 0) checkBoxs.push(<td className={classnames(styles.not_pass_title, styles.grade_table_title)} key={i + 6}>미이수 여부</td>);
-            checkBoxs.push(<CheckBox key={i}/>);
-        }
-        return (
-            <tr id="will_not_pass">
-                {checkBoxs}
-            </tr>
-        );
+const NotPass = () => {
+    var checkBoxs = [];
+    for(var i=0; i<5; i++){
+        if(i === 0) checkBoxs.push(<td className={classnames(styles.not_pass_title, styles.grade_table_title)} key={i + 6}>미이수 여부</td>);
+        checkBoxs.push(<CheckBox key={i}/>);
     }
+    return (
+        <tr id="will_not_pass">
+            {checkBoxs}
+        </tr>
+    );
 }
 
-class CheckBox extends Component{
-    constructor(props){
-        super(props);
-    }
-
-    render(){
-        return (
-            <td className={styles.check_box}>
-                <input type="checkbox" name="whole_checkbox"/>
-            </td>
-        );
-    }
+const CheckBox = () => {
+    return (
+        <td className={styles.check_box}>
+            <input type="checkbox" name="whole_checkbox"/>
+        </td>
+    );
 }
 
-class GradeSelectBtn extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            btnGroup: [
-                {grade: "A", key: 0},
-                {grade: "B", key: 1},
-                {grade: "C", key: 2},
-                {grade: "D", key: 3},
-                {grade: "E", key: 4}
-            ]
-        }
-    }
-
-    render(){
-        return (
-            <td className={innerStyles.will_select_grade}>
-                {this.state.btnGroup.map((grades, i) => {
-                    return(<BtnGroup group={grades.grade} key={i}/>);
-                })}
-                <div className={styles.is_pass_check}>
-                    미이수 여부<input type="checkbox" name="not_pass_check"/>
-                </div>
-            </td>
-        );
-    }
+const GradeSelectBtn = () => {
+    return (
+        <td className={innerStyles.will_select_grade}>
+            {this.state.btnGroup.map((grades, i) => {
+                return(<BtnGroup group={grades.grade} key={i}/>);
+            })}
+            <div className={styles.is_pass_check}>
+                미이수 여부<input type="checkbox" name="not_pass_check"/>
+            </div>
+        </td>
+    );
 }
 
-class BtnGroup extends Component{
-    render(){
-        return (
-            <div className={innerStyles.will_select_grade_child}>{this.props.group}</div>
-        );
-    }
+const BtnGroup = () => {
+    return (
+        <div className={innerStyles.will_select_grade_child}>{this.props.group}</div>
+    );
+}
+
+GradeSelectBtn.defaultProps = {
+    btnGroup: [
+        {grade: "A", key: 0},
+        {grade: "B", key: 1},
+        {grade: "C", key: 2},
+        {grade: "D", key: 3},
+        {grade: "E", key: 4}
+    ]
 }
 
 export default GraduateToBe;

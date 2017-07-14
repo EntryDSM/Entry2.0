@@ -1,0 +1,122 @@
+#contents{
+    width: calc(100% - 270px);
+    padding: 15px 0px 0px 15px;
+    float: left;
+}
+
+#volunteerAttendWrapper{
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+#move{
+    text-align: center;
+}
+
+#grade_input_table{
+    width: 1200px;
+    padding-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    border-collapse: collapse;
+}
+
+.nextBtn{
+    border: 0.5px;
+    background:linear-gradient(to right, rgba(44,181,115,0.85), rgba(51,204,231,0.85));
+    width: 188px;
+    height: 50px;
+    font-size: 13px;
+    color: white;
+    margin: 20px;
+}
+
+.nextBtn:hover{
+    cursor: pointer;
+}
+
+.grade_table_title{
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 3px;
+    padding-bottom: 3px;
+}
+
+.grade_td_title{
+    font-size: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    background: #fbfbfa;
+    color: #7d7d7b;
+    border-bottom: 1px solid #ebebea;
+}
+
+.grade_td_content{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #ebebea;
+}
+
+.subject{
+    width: 50px;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    background: #fbfbfa;
+    color: #7d7d7b;
+    border-bottom: 1px solid #ebebea;
+}
+
+.std_grade{
+    text-align: center;
+}
+
+.check_box{
+    text-align: center;
+}
+
+.btn_group_child{
+    display: inline-block;
+    border-radius: 100%;
+    width: 25px;
+    line-height: 1.6;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn_group_child:hover{
+    border-radius: 100%;
+    background-color: #d3d3d3;
+    transition:0.5s;
+    transition-timing-function:linear;
+}
+
+.not_pass_title{
+    width: 128px;
+    text-align: left;
+}
+
+.grade_table{
+    border-top: 1px solid #c4daff;
+    border-bottom: 1px solid #c4daff;
+}
+
+.is_pass_check{
+    padding-top: 3px;
+    font-size: 5px;
+}
+
+#did_not_pass td {
+    background: #fbfbfa;
+}
+#did_semester td {
+    background: #fbfbfa;
+}
+#did_semester td:first-of-type {
+    background: transparent;
+}
