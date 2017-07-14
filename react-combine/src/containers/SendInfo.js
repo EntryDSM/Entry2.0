@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import styles from '../css/FormIndex.css';
 import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
 import SendInfoBox from '../components/SendInfoBox';

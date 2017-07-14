@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import styles from '../css/FormTitle.css';
+import '../css/FormTitle.css';
 
 class LoginTitle extends React.Component{
     render(){

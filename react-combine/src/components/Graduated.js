@@ -141,7 +141,7 @@ const CheckBox = () => {
     );
 }
 
-const SwitchBox = () => {
+const SwitchBox = (props) => {
     return(
         <div className={classnames("switchArea", this.props.column)}>
             <div className="unFinTextArea">
@@ -157,7 +157,7 @@ const SwitchBox = () => {
     );
 }
 
-const GradeSelectBtn = () => {
+const GradeSelectBtn = (props) => {
     return (
         <td className="did_select_grade">
             <div className="is_pass_check">
@@ -173,7 +173,7 @@ const GradeSelectBtn = () => {
 }
 
 
-const BtnGroup = () => {
+const BtnGroup = (props) => {
     return (
         <div className="did_select_btn_child">{this.props.group}</div>
     );

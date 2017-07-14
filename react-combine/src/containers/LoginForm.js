@@ -1,10 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
 import LoginBox from '../components/LoginBox';
 import LoginSubBox from '../components/LoginSubBox';
-import styles from '../css/FormIndex.css';
 
 class LoginForm extends React.Component{
     render(){

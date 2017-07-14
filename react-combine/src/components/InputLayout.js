@@ -1,8 +1,9 @@
 import React from 'react';
-import Logo from './Logo';
-import Process from './Process';
+import '../css/InputLayout.css';
+import Footer from './Footer';
+import Sidebar from './Sidebar';
 
-class Sidebar extends React.Component{
+class InputLayout extends React.Component{
     componentWillMount(){
         document.body.style.margin = 0;
         document.body.style.padding = 0;
@@ -10,10 +11,12 @@ class Sidebar extends React.Component{
 
     render(){
         return(
-            <div className = "menu_area">
-                <Logo />
-                <Process />
+            <div id="wrapper">
+                <Sidebar/>
+                {this.props.children}
+                <Footer/>
             </div>
+
         );
     }
 
@@ -24,4 +27,4 @@ class Sidebar extends React.Component{
     }
 }
 
-export default Sidebar;
+export default InputLayout;

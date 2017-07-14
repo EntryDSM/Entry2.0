@@ -1,5 +1,4 @@
 import React from 'react';
-import Logo from './Logo';
 import Process from './Process';
 
 class Sidebar extends React.Component{
@@ -16,12 +15,14 @@ class Sidebar extends React.Component{
             </div>
         );
     }
+}
 
-    componentDidMount() {
-        var content = document.querySelector("#contents");
-        var menu = document.querySelector(".menu_area");
-        menu.style.height = content.clientHeight;
-    }
+const Logo = () => {
+    return (
+        <div className="logo_area">
+            <img src= {require('../images/nav-logo.png')} alt="nav-logo" className="LogoImage" />
+        </div>
+    );
 }
 
 export default Sidebar;

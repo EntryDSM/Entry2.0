@@ -47,7 +47,7 @@ SignUpInput.defaultProps = {
 
 const Options = (props) => {
     return (
-        <option>{this.props.name}</option>
+        <option>{props.name}</option>
     );
 }
 

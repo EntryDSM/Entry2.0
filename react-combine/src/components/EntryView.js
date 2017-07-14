@@ -66,7 +66,7 @@ const Thumbnail = (props) => {
                 <hr />
                 {props.listTitles.map((title, i) => {
                     if (i < 5)
-                        return (<li key={i}>{title}</li>)
+                        return (<li key={i}>{title}</li>);
                 })}
             </ul>
         </div>
