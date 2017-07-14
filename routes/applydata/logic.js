@@ -46,7 +46,7 @@ var saveApplyType = (database, userkey, data, callback) => {
   });
 }
 
-var loadApplyType = (database, userkey, callback) {
+var loadApplyType = (database, userkey, callback) => {
   database.applyDataModel.selectApplyType(userkey, (err, result) => {
     if(err){
       callback(err, null);
