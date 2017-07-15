@@ -1,0 +1,25 @@
+#table_addr{
+    border-collapse: collapse;
+}
+
+.th_addr{
+    border-top:2px solid black;
+    border-bottom:2px solid black;
+    text-align: center;
+    padding: 10px;
+}
+
+.road_address{
+    border-bottom:1px solid black;
+    padding: 8px;
+    width: 600px;
+    font-size: 14px;
+}
+
+.zipNo{
+    border-bottom:1px solid black;
+    padding: 8px;
+    width: 150px;
+    font-size: 14px;
+    text-align: center;
+}
