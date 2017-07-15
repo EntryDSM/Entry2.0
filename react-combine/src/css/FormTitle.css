@@ -1,4 +1,4 @@
-#login-form h1, #send-info h1{
+#login-form h1, #send-info h1, #pw-change h1{
     text-align: center;
     letter-spacing:4px;
     text-transform: uppercase;
@@ -9,4 +9,8 @@
 
 #send-info h1{
     padding-left:1rem;
+}
+
+#pw-change h1{
+    padding-left:0.35rem;
 }

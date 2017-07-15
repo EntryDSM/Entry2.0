@@ -4,6 +4,8 @@ import Landing from './containers/Landing';
 import MainPage from './containers/MainPage';
 import LoginForm from './containers/LoginForm';
 import SendInfo from './containers/SendInfo';
+import SendComplete from './containers/SendComplete';
+import ChangePw from './containers/ChangePw';
 
 import {
     Router,
@@ -20,5 +22,7 @@ ReactDOM.render(
             <Route path="/main" component={MainPage}/>
             <Route path="/login" component={LoginForm}/>
             <Route path="/sendInfo" component={SendInfo}/>
+            <Route path="/sendComplete" component={SendComplete}/>
+            <Route path="/changePw" component={ChangePw}/>
         </Route>
     </Router>, rootElement);
