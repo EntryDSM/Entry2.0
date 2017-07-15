@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './InputLayout.css';
-import Footer from '../Footer/Footer';
-import Sidebar from './Siderbar/Sidebar'
+import '../css/InputLayout.css';
+import Footer from './Footer';
+import Sidebar from './Sidebar';
 
 class InputLayout extends React.Component{
     componentWillMount(){

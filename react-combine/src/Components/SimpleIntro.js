@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import '../css/SimpleIntro.css';
 
 class SimpleIntro extends React.Component{
@@ -64,9 +63,8 @@ const ArticleImagesCover = (props) =>{
     return(
         <div id="Article_Images_Cover">
             {props.SimpleInfo.map((info, i) =>{
-                {console.log(info)}
                 return(
-                    <Article_Images key={i}
+                    <ArticleImages key={i}
                     ImageTitle = {info.ImageTitle}
                     ImageExplain1 = {info.ImageExplain1}
                     ImageExplain2 = {info.ImageExplain2}
@@ -78,10 +76,10 @@ const ArticleImagesCover = (props) =>{
     );
 }
 
-const Article_Images = (props) =>{
+const ArticleImages = (props) =>{
     return(
         <div className="Article_Images">
-            <img src={props.ImageUrl} className="ExImages" alt="Image"/>
+            <img src={props.ImageUrl} className="ExImages" alt="ExImage"/>
 
             <div className="Article_ImageTitle">
                 {props.ImageTitle}

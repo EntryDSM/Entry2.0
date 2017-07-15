@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import '../css/MainIntro.css';
 
 class MainIntro extends React.Component{
@@ -27,7 +26,7 @@ const MainInfoBoxes = (props) =>{
     if(props.Direction === "left"){
         return(
             <div className="Main_Explain_Boxes">
-                <img src={props.ImageUrl} className="Explain_Images"/>
+                <img src={props.ImageUrl} alt="Explain_Image" className="Explain_Images"/>
 
                 <div className="Explain_Images_Main">
                     {props.MainImageExplain}
@@ -46,7 +45,7 @@ const MainInfoBoxes = (props) =>{
     else{
         return(
             <div className="Main_Explain_Boxes">
-                <img src={props.ImageUrl} className="Explain_Images2"/>
+                <img src={props.ImageUrl} alt="ExImage2" className="Explain_Images2"/>
 
                 <div className="Explain_Images_Main2">
                     {props.MainImageExplain}
