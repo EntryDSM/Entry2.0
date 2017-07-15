@@ -3,7 +3,7 @@
     width: 800px;
     height: 600px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 150px;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
@@ -49,12 +49,14 @@
 }
 
 #input_searchaddress{
-    width: 750px;
+    width: 734px;
     font-size: 14px;
     padding: 8px;
-    margin-top: 10px;
-    border:2px solid #003a99;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border:2px solid #c4daff;
     border-right: none;
+    float: left;
 }
 
 #btn_searchaddress{
@@ -62,7 +64,7 @@
     height: 20px;
     float:right;
     padding: 6px;
-    margin-top: 10px;
-    margin-right: 14px;border:2px solid #003a99;
+    margin-top: 20px;
+    margin-right: 14px;border:2px solid #c4daff;
     border-left:none;
 }

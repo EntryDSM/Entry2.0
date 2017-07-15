@@ -12,8 +12,8 @@ class InfoInput extends React.Component {
     
     render(){
         return(
-            <div id={styles.contents}>
-                <div className={styles.inputTitle}>
+            <div id="contents">
+                <div className="inputTitle">
                     <InputHeader now={"인적 사항"} />
                 </div>
                 <InfoInputTable />

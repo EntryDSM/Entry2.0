@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import styles from '../css/LoginSubBox.css';
 
 class LoginSubBox extends React.Component{
 

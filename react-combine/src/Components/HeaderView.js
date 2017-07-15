@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import '../css/HeaderView.css';
 
@@ -12,7 +11,7 @@ class HeaderView extends React.Component{
             <header>
                 <div id="Header_Image_Cover">
                     <NavigationBar/>
-                    <Header_Main_Part/>
+                    <HeaderMainPart/>
                 </div>
             </header>
         );
@@ -23,7 +22,7 @@ const NavigationBar = () =>{
     return(
         <div id="LogoAndNav">
             <LogoImagePart/>
-            <Header_Navigation_Part menuList = {["Home", "Contact", "Main", "About DSM"]}/>
+            <HeaderNavigationPart menuList = {["Home", "Contact", "Main", "About DSM"]}/>
         </div>
     );
 }
@@ -31,7 +30,7 @@ const NavigationBar = () =>{
 const LogoImagePart = () =>{
     return(
         <div id="LogoImage">
-            <img src={require('../images/logo.png')} id="Logo"/>
+            <img src={require('../images/logo.png')} alt="logo" id="Logo"/>
             <LogoTitlePart schoolName= "DaeDeok SoftWare Meister HighSchool"/>
         </div>
     );
@@ -45,11 +44,10 @@ const LogoTitlePart = (props) =>{
     );
 }
 
-const Header_Navigation_Part = (props) =>{
+const HeaderNavigationPart = (props) =>{
     return(
         <div id="Header_Navigation">
             <ul>
-                {console.log(props.menuList)}
                 {props.menuList.map((menu, i) => {
                     return <li key={i}>{ menu }</li>
                 })}
@@ -58,7 +56,7 @@ const Header_Navigation_Part = (props) =>{
     );
 }
 
-const Header_Main_Part = () =>{
+const HeaderMainPart = () =>{
     return(
         <div id="Header_MainPart">
             <TitlePart/>
@@ -121,7 +119,7 @@ const WhiteBoxesPart = () =>{
     return(
         <div id="White_OpacityBox">
             <WhiteBoxTitle WhiteTitle= "About Out Development"/>
-            <Boxes_Cover 
+            <BoxesCover 
                 BoxesInfo = {
                     [
                         {
@@ -154,26 +152,21 @@ const WhiteBoxTitle = (props) =>{
     );
 }
 
-const Boxes_Cover = (props) =>{
+const BoxesCover = (props) =>{
     return(
         <div id="BoxesCover">
-
             {props.BoxesInfo.map((info, i) => {
-                {console.log(info)}
-
                 return (
-                    <Four_Boxes key={i}
+                    <FourBoxes key={i}
                     MainNumber = {info.MainNumber}
                     NumberExplain = {info.NumberExplain}/>
                 );
-
             })}
-
         </div>
     );
 }
 
-const Four_Boxes = (props) =>{
+const FourBoxes = (props) =>{
     return(
         <div className="FourBoxes">
 

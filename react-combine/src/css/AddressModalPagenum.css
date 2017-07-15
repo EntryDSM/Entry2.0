@@ -1,6 +1,5 @@
-.modal_page{
-    text-decoration: none;
-    margin-top: 100px;
+#modalPage{
+    margin-top: 20px;
 }
 
 .btn_modalnext{
@@ -10,10 +9,15 @@
     color: black;
     font-weight: bolder;
     background:none;
-    margin-left: 10px;
-    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;    
 }
 
 .btn_modalnext:hover{
     cursor:pointer;
+    background-color: #c4daff;
+    border-radius: 20px;
+    text-decoration: underline;
 }

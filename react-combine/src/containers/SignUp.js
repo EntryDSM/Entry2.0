@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import '../css/SignUp.css';
 import SignUpInput from '../components/SignUpInput';
+import InputHeader from '../components/InputHeader';
 
 class Input1 extends Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return(
-            <div className="inputContent">
+            <div id="contents">
                 <InputHeader now={"기본 정보"} />
                 <div className="inputPart">
                     <table id="inputTable">

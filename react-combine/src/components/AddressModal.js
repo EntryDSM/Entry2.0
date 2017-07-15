@@ -119,7 +119,7 @@ class AddressModal extends React.Component {
                     </div>
                     <div id="modal_contents">
                         <input type="text" placeholder="검색어를 입력하세요 (반포대로 58, 독립기념관, 삼성동 25)" id="input_searchaddress"/>
-                        <img id="btn_searchaddress" src={require('../search.png')} onClick={()=> this.searchAddress(this.Firstpage)}/>
+                        <img id="btn_searchaddress" src={require('../images/search.png')} onClick={()=> this.searchAddress(this.Firstpage)}/>
                         
                         <AddressModalTable datas={this.state.addressData}/>
                         <AddressModalPagenum datas={this.state.pageData} searchAddr={this.searchAddress} />

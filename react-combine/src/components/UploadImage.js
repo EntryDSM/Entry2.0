@@ -25,14 +25,14 @@ class UploadImage extends Component {
         if(file){
             reader.readAsDataURL(file);
         } else {
-            preview.src = require('../file.png');
+            preview.src = require('../images/file.png');
         }
     }
 
     render() {
         return(
             <div className="div_style">
-                <img src={require('../file.png')} id="IDPhoto"/>
+                <img src={require('../images/file.png')} id="IDPhoto"/>
                 <input type="file" id="attachfile" onChange={this.previewFile}/>
                 {/*Icon made by [Interaction Assets] from www.flaticon.com -->*/}
             </div>

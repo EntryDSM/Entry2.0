@@ -1,0 +1,94 @@
+#contents{
+    width: calc(100% - 270px);
+    padding: 15px 0px 0px 15px;
+    float: left;
+    font-size: 24px;
+}
+
+.h4_style{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#area {
+    width: 750px;
+    padding-left: 25px;
+    margin-top: 40px;
+}
+
+
+.tab {
+    width: 62rem;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tabButton {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+
+    width: calc(100% / 5);
+}
+
+/* Change background color of buttons on hover */
+.tabButton:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tabButton.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    padding: 6px 1rem;
+    border: 1px solid #ccc;
+    border-top: none;
+    width: 60rem;
+    height: 87rem;
+    margin-bottom: 30px;
+}
+
+#menu-area {
+    padding-left: 8rem;
+}
+
+#header-area {
+    margin-left: -20px;
+}
+
+.printButton {
+    background-color: inherit;
+    border: 1px solid grey;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    background-color: #ccc;
+
+    width: 16rem;
+    margin-left: 22rem;
+    margin-bottom: 50px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #section-to-print, #section-to-print * {
+    visibility: visible;
+  }
+  #section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

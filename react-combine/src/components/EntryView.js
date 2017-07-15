@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class EntryView extends Component {
     render() {
@@ -36,7 +37,9 @@ const LogoAndTitle = (props) => {
 const Apply = () => {
     return (
         <nav id="apply">
+            <Link to="/signup">
             <IconMenu title="원서접수" iconURL={require("../images/write-icon.png")} />
+            </Link>
             <span style={{fontSize: 10+"rem",fontWeight:"lighter"}}>|</span>
             <IconMenu title="조회&수정" iconURL={require("../images/search-icon.png")} />
         </nav>
@@ -63,7 +66,7 @@ const Thumbnail = (props) => {
                 <hr />
                 {props.listTitles.map((title, i) => {
                     if (i < 5)
-                        return (<li key={i}>{title}</li>)
+                        return (<li key={i}>{title}</li>);
                 })}
             </ul>
         </div>

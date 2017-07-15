@@ -1,9 +1,7 @@
 import React from 'react';
 import styles from './InputLayout.css';
-import Logo from './Logo/Logo';
-import Process from './Process/Process';
 import Footer from '../Footer/Footer';
-import Input3 from '../Input3/Input3'
+import Sidebar from './Siderbar/Sidebar'
 
 class InputLayout extends React.Component{
     componentWillMount(){
@@ -13,10 +11,12 @@ class InputLayout extends React.Component{
 
     render(){
         return(
-            <div className = {styles.menu_area}>
-                <Logo />
-                <Process />
+            <div id="wrapper">
+                <Sidebar/>
+                {this.props.children}
+                <Footer/>
             </div>
+
         );
     }
 
@@ -26,9 +26,5 @@ class InputLayout extends React.Component{
         menu.style.height = content.clientHeight;
     }
 }
-
-InputLayout.defaultProps = {
-    headerTitle: "명치 입력"
-};
 
 export default InputLayout;

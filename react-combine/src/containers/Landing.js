@@ -1,12 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import BoxToUnder from '../components/BoxToUnder';
 import HeaderView from '../components/HeaderView';
 import SimpleIntro from '../components/SimpleIntro';
 import MainIntro from '../components/MainIntro';
 import Footer from '../components/Footer';
-import BackCss from '../css/LandingIndex.css';
-
+import '../css/Landing.css';
 
 class App extends React.Component{
    render(){

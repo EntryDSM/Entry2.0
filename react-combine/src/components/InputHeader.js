@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from '../css/InputHeader.css';
+import React, {Component} from 'react';
+import '../css/InputHeader.css';
 
-class InputHeader extends React.Component{
+class InputHeader extends Component{
     render(){
         return(
             <div className="InputTitle">{this.props.now}</div>
