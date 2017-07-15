@@ -9,4 +9,4 @@ import Preview from './Preview';
 import SendInfo from './SendInfo';
 import SignUp from './SignUp';
 
-export { Classification, ㅣㄴGradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp };
+export { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp };

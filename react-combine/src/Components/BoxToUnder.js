@@ -2,6 +2,20 @@ import React from 'react';
 import '../css/BoxToUnder.css';
 
 class BoxToUnder extends React.Component{
+    componentDidMount(){
+        document.getElementById('Explore_Button')
+            .addEventListener('click', function(){
+                let body = document.querySelector('body');
+                let speed = 27.5;
+                let Anim = setInterval(function(){
+                    if(body.scrollTop > 1100){
+                        clearInterval(Anim);
+                    }else{
+                        body.scrollTop += speed;
+                    }
+                },15);
+            });
+    }
     render(){
         return(
             <div id="ExploreLanding">
