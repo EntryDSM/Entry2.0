@@ -1,0 +1,19 @@
+.modal_page{
+    text-decoration: none;
+    margin-top: 100px;
+}
+
+.btn_modalnext{
+    border:none;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    font-weight: bolder;
+    background:none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.btn_modalnext:hover{
+    cursor:pointer;
+}

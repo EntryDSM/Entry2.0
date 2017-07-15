@@ -1,0 +1,20 @@
+.th_addr{
+    border:1px solid black;
+    text-align: center;
+    padding: 10px;
+}
+
+.road_address{
+    border:1px solid black;
+    padding: 8px;
+    width: 600px;
+    font-size: 14px;
+}
+
+.zipNo{
+    border:1px solid black;
+    padding: 8px;
+    width: 150px;
+    font-size: 14px;
+    text-align: center;
+}
