@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/MainIntro.css';
 
 class MainIntro extends React.Component{
     render(){

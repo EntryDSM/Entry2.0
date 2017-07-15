@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import styles from '../css/UploadImage.css';
 
 class UploadImage extends Component {
 

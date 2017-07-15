@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "classnames": "^2.2.5",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-modal": "^2.2.2",

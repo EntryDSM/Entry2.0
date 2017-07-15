@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import CompleteCheckedBox from '../components/CompleteCheckedBox';
-import styles from '../css/FormIndex.css';
+import '../css/FormIndex.css';
+import '../css/CompleteCheckedBox.css';
 
 class SendComplete extends React.Component{
     render(){

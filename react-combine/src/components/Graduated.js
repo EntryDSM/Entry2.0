@@ -104,15 +104,15 @@ class Graduated extends Component{
     }
 }
 
-const SubjectsInfo = () => {
+const SubjectsInfo = (props) => {
     return (
-        <td className="subject">{this.props.name}</td>
+        <td className="subject">{props.name}</td>
     );
 }
 
-const StudentGrade = () => {
+const StudentGrade = (props) => {
     return(
-        <td className="std_grade">{this.props.semester}</td>
+        <td className="std_grade">{props.semester}</td>
     );
 }
 
@@ -143,9 +143,9 @@ const CheckBox = () => {
 
 const SwitchBox = (props) => {
     return(
-        <div className={classnames("switchArea", this.props.column)}>
+        <div className={classnames("switchArea", props.column)}>
             <div className="unFinTextArea">
-                <label>{this.props.textlabel}</label>
+                <label>{props.textlabel}</label>
             </div>
             <div className="unFinCheckArea">
                 <label className="switch">
@@ -164,7 +164,7 @@ const GradeSelectBtn = (props) => {
                     <SwitchBox textlabel="미이수" />
             </div>
             <div>
-                {this.props.btnGroup.map((grades, i) => {
+                {props.btnGroup.map((grades, i) => {
                     return(<BtnGroup group={grades.grade} key={i}/>);
                 })}
             </div>
@@ -175,7 +175,7 @@ const GradeSelectBtn = (props) => {
 
 const BtnGroup = (props) => {
     return (
-        <div className="did_select_btn_child">{this.props.group}</div>
+        <div className="did_select_btn_child">{props.group}</div>
     );
 }
 
