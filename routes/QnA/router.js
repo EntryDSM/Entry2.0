@@ -117,25 +117,15 @@ router.post('/question', function (request, response) {
 router.put('/question', function (request, response) {
     var currentUser = request.user //현재 유저
 
-    //로그인돤 상태가 아니라면 로그인 화면으로 리다이렉트
-    if (!currentUser) {
-      response.status(400).redirect('./public/login.html');
-      return;
-    }
-
-    //찾으려는 글이 있는지
-    if (Content.find({ index: request.body.index })) {
-        var findOne = Content.find({ index: request.body.index });
-        if (findOne) {
-            console.log(findOne.title);
+    Content.findOne({index: request.body.index}, function (err, res) {
+        if(!res){
+            response.sendStatus(404);
+            return;
         }
-        //찾은 글의 작성자가 현재 사용자와 같은지
-        if (findOne.author != currentUser) {
+        if (res.author != currentUser) {
             response.sendStatus(401);
             return;
         }
-
-        //체크 통과하면 콘텐츠 업데이트 update({"index" : 1},{$set : {title: "put"}});
         Content.update(
             { index: request.body.index },
             {
@@ -144,13 +134,16 @@ router.put('/question', function (request, response) {
                     contents: request.body.content
                 }
             }, (err) => {
-                response.sendStatus(200);
+                if(err) {
+                    response.sendStatus(400);
+                } else {
+                    response.sendStatus(200);
+                    console.log(err)
+                }
             }
         )
-    }
-    else {
-        response.sendStatus(400);
-    }
+
+    })
 })
 
 //질문 삭제
@@ -251,3 +244,23 @@ router.get('/myqna', function (req, res) {
 });
 
 module.exports = router;
+/*
+ *_______
+||       |
+|| 던*짐 |
+||_______|
+||
+⊂_ヽ 
+|| ＼＼  Λ＿Λ 
+||　 ＼ ('ㅅ')  두둠칫 
+||　　 >　⌒ヽ 
+* 　　/ 　 へ＼ 
+　　 /　　/　＼＼ 
+　　 ﾚ　ノ　　 ヽ_つ 
+　　/　/ 두둠칫 
+　 /　/| 
+　(　(ヽ 
+　|　|、＼ 
+　| 丿 ＼ ⌒) 
+　| |　　) / 
+(`ノ )　　Lﾉ */
