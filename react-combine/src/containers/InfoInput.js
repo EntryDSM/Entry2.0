@@ -1,9 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import NavigationBar from '../components/NavigationBar'
-import EntryView from '../components/EntryView'
-import SchoolIntro from '../components/SchoolIntro'
-import Footer from '../components/MainFooter'
 import InfoInputTable from '../components/InfoInputTable';
 import InputHeader from '../components/InputHeader';
 import '../css/InfoInput.css'

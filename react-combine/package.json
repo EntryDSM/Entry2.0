@@ -4,8 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+<<<<<<< HEAD
     "express": "^4.15.3",
     "path": "^0.12.7",
+=======
+    "classnames": "^2.2.5",
+>>>>>>> 032242721e79a358550eb4fdd3730de2ed81e163
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-modal": "^2.2.2",

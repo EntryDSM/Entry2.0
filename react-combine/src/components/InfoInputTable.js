@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import AddressModal from './AddressModal';
 import UploadImage from './UploadImage';
 import '../css/InfoInputTable.css';

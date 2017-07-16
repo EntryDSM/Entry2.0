@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
 import PwChangeBox from '../components/PwChangeBox';
-import styles from '../css/FormIndex.css';
+import '../css/FormIndex.css';
 
 class ChangePw extends React.Component{
     render(){

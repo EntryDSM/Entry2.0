@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/LogoPart.css';
 
 class LogoPart extends React.Component{
     render(){

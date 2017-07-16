@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import '../css/SignUp.css';
 import SignUpInput from '../components/SignUpInput';
 import InputHeader from '../components/InputHeader';
+import { Link } from 'react-router';
 
-class Input1 extends Component{
+class SignUp extends Component{
     render(){
         return(
             <div id="contents">
@@ -36,10 +37,12 @@ class Input1 extends Component{
                         }/>
                     </table>
                 </div>
-                <button id="nextBtn" type="button">인적 사항</button>
+                <Link to='/sendcomplete'>
+                    <button id="nextBtn" type="button">다음</button>
+                </Link>
             </div>
         );
     }
 }
 
-export default Input1;
+export default SignUp;

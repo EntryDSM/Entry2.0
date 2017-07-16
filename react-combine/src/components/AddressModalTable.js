@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import styles from '../css/AddressModalTable.css';
  
 class AddressModalTable extends Component {
 

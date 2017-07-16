@@ -1,6 +1,6 @@
 import React from 'react';
-import Logo from './Logo';
-import Process from './Process';
+import Logo from './Logo/Logo';
+import Process from './Process/Process';
 
 class Sidebar extends React.Component{
     componentWillMount(){

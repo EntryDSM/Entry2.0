@@ -3,6 +3,7 @@ import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
 import SendInfoBox from '../components/SendInfoBox';
 import '../css/SendInfo.css';
+import '../css/FormIndex.css';
 
 class SendInfo extends React.Component{
     render(){

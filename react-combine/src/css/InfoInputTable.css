@@ -117,3 +117,27 @@
 #nextBtn:hover{
     cursor: pointer;
 }
+
+
+/*UploadImage*/
+.div_style {
+    width: 180px;
+    height: 240px;
+    padding: 20px;
+}
+
+#attachfile {
+    width: 180px;
+    height: 240px;
+    position: relative;
+    top: -240px;
+    opacity: 0;
+}
+
+#IDPhoto {
+    width: 180px;
+    height: 240px;
+    border: none;
+    text-align: center;
+    position: relative;
+}
