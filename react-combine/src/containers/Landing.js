@@ -6,7 +6,7 @@ import MainIntro from '../components/MainIntro';
 import Footer from '../components/Footer';
 import '../css/Landing.css';
 
-class App extends React.Component{
+class Landing extends React.Component{
    render(){
        return(
             <div id="landing-page">
@@ -73,4 +73,4 @@ class App extends React.Component{
 
 }
 
-export default App;
+export default Landing;
