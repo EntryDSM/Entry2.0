@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "express": "^4.15.3",
+    "path": "^0.12.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-modal": "^2.2.2",

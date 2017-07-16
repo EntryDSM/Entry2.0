@@ -23,7 +23,7 @@ class InputLayout extends React.Component{
     componentDidMount() {
         var content = document.querySelector("#contents");
         var menu = document.querySelector(".menu_area");
-        menu.style.height = content.clientHeight;
+        // menu.style.height = content.clientHeight;
     }
 }
 
