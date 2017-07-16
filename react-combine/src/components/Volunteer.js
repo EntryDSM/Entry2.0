@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import innerStyles from './Volunteer.css';
-import styles from '../Input4.css';
 
 class Volunteer extends Component{
     constructor(props){
@@ -23,14 +21,14 @@ class Volunteer extends Component{
 
     render(){
         return (
-            <div id={innerStyles.volunteer_div}>
-                <div className={styles.grade_table_title}>봉사시간</div>
-                <table className={styles.grade_table}>
+            <div id="volunteer_div">
+                <div className="grade_table_title">봉사시간</div>
+                <table className="grade_table">
                     <tbody>
                         <tr>
-                            <td id={innerStyles.volunteer_title} className={styles.grade_td_title}>시간</td>
-                            <td className={styles.grade_td_content}>
-                                <input id={innerStyles.volunteer_input} type="number"/>
+                            <td id="volunteer_title">시간</td>
+                            <td id="volunteer_content">
+                                <input id="volunteer_input" type="number"/>
                             </td>
                         </tr>
                     </tbody>

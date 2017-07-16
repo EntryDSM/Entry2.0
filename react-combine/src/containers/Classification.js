@@ -3,6 +3,7 @@ import TypeAndMemo from '../components/TypeAndMemo';
 import DefaultInfo from '../components/DefaultInfo';
 import Graduate from '../components/Graduate';
 import SocietyDetail from '../components/SocietyDetail';
+import Button from '../components/Button';
 import '../css/Classification.css';
 
 class Classification extends Component {
@@ -52,6 +53,7 @@ class Classification extends Component {
                     isSocietySelected={this.state.typeOfApply==="society"}
                     typeOfSociety={this.state.typeOfSociety}
                     changeTypeOfSociety={this.changeStateValue} />
+                <Button router="/infoinput" buttonName="다음"/>
             </div>
         )
     }

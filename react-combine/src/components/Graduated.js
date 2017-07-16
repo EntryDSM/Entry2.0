@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import '../css/Graduated.css';
-import '../css/GradeInput.css';
 import classnames from 'classnames';
 
 class Graduated extends Component{
@@ -37,7 +35,6 @@ class Graduated extends Component{
                     var cellIndex = element.parentElement.parentElement.parentElement.parentElement.cellIndex + 1;
                     document.querySelectorAll(".did_subjects td:nth-of-type(" + cellIndex + ")").forEach(function(e) {
                         e.querySelector(".switch input").checked = element.checked;
-                        console.log(e);
                         if(element.checked) {
                             if(!hasClass(e, "notpassedArea"))
                                 e.className += " notpassedArea";

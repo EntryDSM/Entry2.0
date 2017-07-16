@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import WritingArea from '../components/WritingArea';
+import Button from '../components/Button';
 import '../css/Introduce.css';
 
 class Introduce extends Component {
@@ -14,6 +15,8 @@ class Introduce extends Component {
                     <h4 className="h4_style">학업계획서</h4>
                     <WritingArea />
                 </div>
+                <Button router="gradeinput" buttonName="이전"/>
+                <Button router="preview" buttonName="다음"/>
             </div>
         );
     }

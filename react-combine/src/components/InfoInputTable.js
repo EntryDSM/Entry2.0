@@ -1,12 +1,13 @@
 import React from 'react';
 import AddressModal from './AddressModal';
 import UploadImage from './UploadImage';
+import Button from './Button';
 import '../css/InfoInputTable.css';
 
 class InfoInputTable extends React.Component {
     render() {
         return(
-            <div id="divFirst">
+            <div id="info_input">
                 <table id="table">
                     <tbody>
                         <tr id="tr_name">
@@ -80,6 +81,7 @@ class InfoInputTable extends React.Component {
                         </tr>
                     </tbody>
                 </table>
+                <Button router="/gradeinput" buttonName="다음"/>
             </div>
         );
     }

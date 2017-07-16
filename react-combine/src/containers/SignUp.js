@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import '../css/SignUp.css';
 import SignUpInput from '../components/SignUpInput';
 import InputHeader from '../components/InputHeader';
-import { Link } from 'react-router';
+import Button from '../components/Button';
+import '../css/SignUp.css';
 
 class SignUp extends Component{
     render(){
         return(
             <div id="contents">
+                <div id="signUp">
                 <InputHeader now={"기본 정보"} />
                 <div className="inputPart">
                     <table id="inputTable">
@@ -37,9 +38,8 @@ class SignUp extends Component{
                         }/>
                     </table>
                 </div>
-                <Link to='/sendcomplete'>
-                    <button id="nextBtn" type="button">다음</button>
-                </Link>
+                <Button router="/sendcomplete" buttonName="다음"/>
+                </div>
             </div>
         );
     }
