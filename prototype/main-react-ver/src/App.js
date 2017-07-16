@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavigationBar from './components/NavigationBar'
 import EntryView from './components/EntryView'
 import SchoolIntro from './components/SchoolIntro'
-import Footer from './components/Footer'
+import Footer from './components/MainFooter'
 import './css/EntryView.css'
 import ApplyState from './components/ApplyState';
 
