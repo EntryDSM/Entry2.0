@@ -83,7 +83,7 @@
   body * {
     visibility: hidden;
   }
-  #preview #section-to-print, #section-to-print * {
+  #preview #section-to-print, #preview #section-to-print * {
     visibility: visible;
   }
   #preview #section-to-print {
@@ -182,7 +182,7 @@
     border: 1px solid black;
 }
 
-#preview #table tr, #table td, #table th {
+#preview #table tr, #preview #table td, #preview #table th {
     border: 1px solid black;
 }
 
