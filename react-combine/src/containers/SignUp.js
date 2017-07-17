@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
+import axios from 'axios';
 import '../css/SignUp.css';
 
 class SignUp extends Component{
@@ -14,6 +15,7 @@ class SignUp extends Component{
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
         this.getPassword = this.getPassword.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     getName(e){
@@ -32,6 +34,15 @@ class SignUp extends Component{
         this.setState({
             password: e.target.value
         })
+    }
+
+    submit(){
+        axios.post('/signup', {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password
+        }).then(response => {console.log(response)})
+        .catch(response => {console.log(response)});
     }
 
     render(){
@@ -70,7 +81,7 @@ class SignUp extends Component{
                         }/>
                     </table>
                 </div>
-                <Button router="/sendcomplete" buttonName="다음"/>
+                <Button onclick={this.submit} router="/sendcomplete" buttonName="다음"/>
                 </div>
             </div>
         );
