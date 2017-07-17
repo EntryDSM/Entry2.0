@@ -8,6 +8,41 @@ class PwChangeBox extends React.Component{
             </div>
         );
     }
+
+        componentDidMount(){
+        var firstPw = document.getElementById('PwCheck1');
+        var secondPw = document.getElementById('PwCheck2');
+        var clickBtn = document.getElementById('PwSaveButton');
+
+        secondPw.addEventListener('keyup', () => {
+            if(firstPw.value !== "" && secondPw.value !== ""){
+
+                if(firstPw.value === secondPw.value){
+                    secondPw.style.border = "2px solid rgb(56, 205, 177)";
+                }else{
+                    secondPw.style.border = "2px solid red";
+                }
+            }
+        });
+
+        clickBtn.addEventListener('click', () => {
+            if (firstPw.value === "" || secondPw.value === "") {
+                alert("비밀번호를 입력해주세요!");
+            }
+
+            else if (firstPw.value === secondPw.value) {
+                alert("저장되었습니다!");
+                //bdy.style.backgroundColor = "rgb(56, 205, 177)";
+                let ChangedValue = firstPw.value;
+                console.log("저장된 비밀번호: " + ChangedValue);
+            }
+
+            else {
+                alert("비밀번호를 확인해주세요!");
+                secondPw.value = secondPw.defaultValue;
+            }
+        });
+    }
 }
 
 class PwChangeForm extends React.Component{
@@ -60,6 +95,7 @@ class PwChangeForm extends React.Component{
                                 placeholder={info.InputTitle}
                                 value={this.state.pwValues[i]}
                                 onChange={this.changeValues.bind(this,i)}
+                                id={info.IdName}
                                  />
                         </div>
                     );
