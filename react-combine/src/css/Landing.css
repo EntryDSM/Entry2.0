@@ -395,6 +395,7 @@ a{
 }
 
 /* Responsive Part */
+
 @media all and (min-width:400px) {
     #landing-page #FirstArticle {
         height: 900px;
