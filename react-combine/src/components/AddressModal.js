@@ -7,8 +7,8 @@ import AddressModalPagenum from './AddressModalPagenum';
  
 class AddressModal extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         
         this.Firstpage = 1;
         this.state = {
@@ -35,7 +35,6 @@ class AddressModal extends React.Component {
         var currentPage = pagenum;
         var countPerPage = 10;
         var keyword = document.querySelector("#input_searchaddress").value;
-        console.log('pagenum',pagenum);
         var confmKey = "U01TX0FVVEgyMDE3MDcxMzEwMTY1ODIyODQx";
         var resultType = "json";
 
@@ -48,8 +47,7 @@ class AddressModal extends React.Component {
 
         axios.get(apiUrl)
             .then(function (response) {
-                console.log(response);
-                var result = response.data.results.juso;
+                var result = Array.from(response.data.results.juso);
                 var totalCount = response.data.results.common.totalCount;
                 var totalPage = totalCount / countPerPage;
                 
