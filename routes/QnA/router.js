@@ -191,7 +191,7 @@ router.delete('/question', function (request, response) {
 
 })
 
-router.get('/myqna', function (req, res) {
+router.get('/myquestion', function (req, res) {
     if (!req.session.key) {
         res.writeHead(401, {
             'Content-Type': 'text/html;charset=utf8'
