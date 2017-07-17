@@ -1,14 +1,22 @@
 #contents{
     width: calc(100% - 270px);
-    padding: 15px 0px 0px 15px;
+    height: 100%;
+    padding: 0px 0px 0px 15px;
     display: inline-block;
+    overflow-y: auto;
 }
 
 .menu_area {
     width: 250px;
-    height: 100%;
+    height: 10000px;
     background: #032650;
     float: left;
+    overflow-y: hidden;
+}
+
+#innerWrapper{
+  overflow: hidden;
+  height: 100vh;
 }
 
 /*Logo*/

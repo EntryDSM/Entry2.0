@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import PreviewHeader from '../components/PreviewHeader';
 import PreviewContent from '../components/PreviewContent';
+import Button from '../components/Button';
 import '../css/Preview.css';
 
 class Preview extends Component {
@@ -47,8 +48,8 @@ class Preview extends Component {
             window.print();
         }
         return(
-            <div id="preview">
-                <div id="contents">
+            <div id="contents">
+                <div id="preview">
                     <div id="menu-area">
                         <div id="header-area">
                             <InputHeader now={"미리보기"} />
@@ -58,9 +59,10 @@ class Preview extends Component {
                             <PreviewHeader datas={this.state.pageList} />
                             <PreviewContent target={this.props.targetPage} />
                         </div>
-
-                        <button className="printButton" onClick={printHandler}>출력하기</button>
+                        <button className="printButton" onClick={printHandler}>출력하기</button>                        
                     </div>
+                    <Button router='/introduce' buttonName="이전"/>
+                    <Button router='/' buttonName="다음"/>
                 </div>
             </div>
         );

@@ -1,10 +1,3 @@
-#preview #contents{
-    width: calc(100% - 270px);
-    padding: 15px 0px 0px 15px;
-    float: left;
-    font-size: 24px;
-}
-
 #preview .h4_style{
     margin-top: 10px;
     margin-bottom: 10px;
