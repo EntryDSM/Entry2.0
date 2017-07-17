@@ -91,7 +91,7 @@ class PwChangeForm extends React.Component{
                         <div key={i}>
                             <h3 id={info.InputForm}> {info.InfoTitle} </h3>
 
-                            <input type={info.InputType} className="PwInput"
+                            <input type={info.Type} className="PwInput"
                                 placeholder={info.InputTitle}
                                 value={this.state.pwValues[i]}
                                 onChange={this.changeValues.bind(this,i)}
