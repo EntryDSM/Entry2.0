@@ -4,3 +4,132 @@
     float: left;
     font-size: 24px;
 }
+
+/*InfoInputTable*/
+#info_input_table{
+    width: 900px;
+    padding: 30px;
+    margin-top: 100px;
+}
+
+#info_input_table #table{
+    border-collapse: collapse;
+}
+
+#info_input_table .td_title{
+    width: 200px;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    background: #fbfbfa;
+    color: #7d7d7b;
+    border-bottom: 1px solid #ebebea;
+}
+
+#info_input_table .td_content{
+    width: 500px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    font-size: 14px;
+    border-bottom: 1px solid #ebebea;
+}
+
+#info_input_table .td_space{
+    width: 150px;
+    padding: 4px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #ebebea;
+    border-top: 1px solid #c4daff;
+}
+
+#info_input_table .btn_style {
+    background-color: #c4daff;
+    border:none;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+#info_input_table #btn_findschool{
+    padding-top: 4px;
+    padding-bottom: 5px;
+}
+
+#info_input_table .input_style{
+    font-size: 14px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+#info_input_table #year{
+    width: 50px;
+    margin-right: 1%;
+}
+
+#info_input_table #month{
+    width: 30px;
+    margin-right: 1%;
+}
+
+#info_input_table #day{
+    width: 30px;
+    margin-right: 1%;
+}
+
+#info_input_table #grade{
+    width: 30px;
+    margin-right: 1%;
+}
+
+#info_input_table #class{
+    width: 30px;
+    margin-right: 1%;
+}
+
+#info_input #school_name{
+    width: 180px;
+}
+
+#info_input_table #base_address{
+    width: 500px;
+    float:left;
+}
+
+#info_input_table #detail_address{
+    width: 603px;
+    margin-top: 10px;
+}
+
+#info_input_table #tr_address {
+    border-bottom: 2px solid #c4daff;
+}
+
+#info_input_table #tr_name{
+    border-top: 2px solid #c4daff;
+}
+
+/*UploadImage*/
+#info_input_table .div_style {
+    width: 180px;
+    height: 240px;
+    padding: 20px;
+}
+
+#info_input_table #attachfile {
+    width: 180px;
+    height: 240px;
+    position: relative;
+    top: -240px;
+    opacity: 0;
+}
+
+#info_input_table #IDPhoto {
+    width: 180px;
+    height: 240px;
+    border: none;
+    text-align: center;
+    position: relative;
+}

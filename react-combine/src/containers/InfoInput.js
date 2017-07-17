@@ -7,11 +7,13 @@ class InfoInput extends React.Component {
     
     render(){
         return(
-            <div id="contents">
-                <div className="inputTitle">
-                    <InputHeader now={"인적 사항"} />
+            <div id="info_input">
+                <div id="contents">
+                    <div className="inputTitle">
+                        <InputHeader now={"인적 사항"} />
+                    </div>
+                    <InfoInputTable />
                 </div>
-                <InfoInputTable />
             </div>
         );
     }
