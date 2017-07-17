@@ -1,5 +1,5 @@
-/*LandingIndex*/
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+/*LandingIndex*/
 #landing-page * {
     /* 공통 */
     -ms-box-sizing: border-box;
@@ -20,95 +20,6 @@
     margin:0 auto;
     min-width:850px;
     position:relative;
-}
-
-@media all and (min-width:400px) {
-    #landing-page #FirstArticle {
-        height: 900px;
-    }
-    #landing-page #FirstArticle #Article_Images_Cover {
-        height: 750px;
-    }
-    #landing-page #SecondArticle {
-        height: 3000px;
-    }
-    #landing-page .Main_Explain_Boxes .Explain_Images,
-    #landing-page .Main_Explain_Boxes .Explain_Images2 {
-        margin: 0 auto;
-        margin-top: 2rem;
-    }
-    #landing-page #SecondArticle .Explain_Images_Main,
-    #landing-page #SecondArticle .Explain_Images_Sub {
-        width: 100%;
-        bottom: 0rem;
-        margin: 0 auto;
-        text-align: center;
-        padding-top: 1rem;
-        line-height: 1.5;
-        margin-right: 4.1rem;
-    }
-    #landing-page #SecondArticle .Explain_Images_Main2,
-    #landing-page #SecondArticle .Explain_Images_Sub2 {
-        width: 100%;
-        text-align: center;
-        margin: 0 auto;
-        padding: 0;
-        padding-top: 1.5rem;
-        letter-spacing: 3px;
-        line-height: 1.5;
-    }
-}
-
-@media all and (min-width:1295.1px) {
-    #landing-page #FirstArticle {
-        height: 530px;
-    }
-    #landing-page #FirstArticle #Article_Images_Cover {
-        height: 350px;
-        overflow: hidden;
-    }
-    #landing-page #SecondArticle {
-        height: 2150px;
-    }
-    #landing-page .Main_Explain_Boxes .Explain_Images {
-        display: block;
-        margin-left: 17.5rem;
-        margin-top: 3.25rem;
-    }
-    #landing-page .Main_Explain_Boxes .Explain_Images2 {
-        display: block;
-        margin-right: 11rem;
-        margin-top: 3.25rem;
-    }
-    #landing-page #SecondArticle .Explain_Images_Main {
-        width: 55%;
-        bottom: 14rem;
-        padding-left: 8rem;
-        line-height: 1.35;
-        text-align: left;
-    }
-    #landing-page #SecondArticle .Explain_Images_Main2 {
-        width: 60%;
-        float: left;
-        text-align: left;
-        margin-top: -15rem;
-        margin-left: 13.5rem;
-    }
-    #landing-page #SecondArticle .Explain_Images_Sub {
-        width: 55%;
-        bottom: 11rem;
-        padding-left: 8rem;
-        line-height: 1.5;
-        text-align: left;
-        margin-top: -1.25rem;
-    }
-    #landing-page #SecondArticle .Explain_Images_Sub2 {
-        width: 60%;
-        float: left;
-        text-align: left;
-        margin-top: -10rem;
-        margin-left: 13.5rem;
-    }
 }
 
 /*LandingBox*/
@@ -178,42 +89,6 @@
 
 #login-form #LoginButton #LoginText:hover{
     letter-spacing: 5px;
-}
-
-/*LandingSubBox*/
-#login-form #LoginSubBox{
-    width:40rem;
-    height:5rem;
-    background-color:white;
-    margin:0 auto;
-    border-radius: 7.5px;
-    margin-top: 1rem;
-    box-shadow: 0 0 3px darkgray;
-}
-
-#login-form #LoginSubBox h3{
-    color:#424242;
-    font-family: 'Noto Sans KR';
-    font-weight:normal;
-    text-align: center;
-    font-size:0.8rem;
-    letter-spacing: 1px;
-    padding-top:1.2rem;
-}
-
-#login-form #LoginSubBox a{
-    font-size:0.77rem;
-    letter-spacing: 0.5px;
-    text-decoration:none;
-    display: block;
-    text-align: center;
-    margin-top:5px;
-    color:#3571EB;
-    font-weight:bold;
-}
-
-#login-form a:hover{
-    text-decoration: underline !important;
 }
 
 /*HeaderView*/
@@ -419,4 +294,116 @@
 
 a{
     text-decoration: none;
+}
+
+/* Footer */
+#landing-page footer{
+    width:100%;
+    height:200px;
+    background-color:#242729;
+}
+
+#landing-page footer #Privacy{
+    width:60%;
+    height:100%;
+    margin-left:15rem;
+    padding-top:1rem;
+}
+
+#landing-page #Privacy #Privacy_Sub{
+    color:floralwhite;
+    font-size:0.85rem;
+    line-height:1.5;
+    word-spacing: 1.5px;
+    margin-top:2rem;
+}
+
+/* Responsive Part */
+@media all and (min-width:400px) {
+    #landing-page #FirstArticle {
+        height: 900px;
+    }
+    #landing-page #FirstArticle #Article_Images_Cover {
+        height: 750px;
+    }
+    #landing-page #SecondArticle {
+        height: 3000px;
+    }
+    #landing-page .Main_Explain_Boxes .Explain_Images,
+    #landing-page .Main_Explain_Boxes .Explain_Images2 {
+        margin: 0 auto;
+        margin-top: 2rem;
+    }
+    #landing-page #SecondArticle .Explain_Images_Main,
+    #landing-page #SecondArticle .Explain_Images_Sub {
+        width: 100%;
+        bottom: 0rem;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 1rem;
+        line-height: 1.5;
+        margin-right: 4.1rem;
+    }
+    #landing-page #SecondArticle .Explain_Images_Main2,
+    #landing-page #SecondArticle .Explain_Images_Sub2 {
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+        padding: 0;
+        padding-top: 1.5rem;
+        letter-spacing: 3px;
+        line-height: 1.5;
+    }
+}
+
+@media all and (min-width:1295.1px) {
+    #landing-page #FirstArticle {
+        height: 530px;
+    }
+    #landing-page #FirstArticle #Article_Images_Cover {
+        height: 350px;
+        overflow: hidden;
+    }
+    #landing-page #SecondArticle {
+        height: 2150px;
+    }
+    #landing-page .Main_Explain_Boxes .Explain_Images {
+        display: block;
+        margin-left: 17.5rem;
+        margin-top: 3.25rem;
+    }
+    #landing-page .Main_Explain_Boxes .Explain_Images2 {
+        display: block;
+        margin-right: 11rem;
+        margin-top: 3.25rem;
+    }
+    #landing-page #SecondArticle .Explain_Images_Main {
+        width: 55%;
+        bottom: 14rem;
+        padding-left: 8rem;
+        line-height: 1.35;
+        text-align: left;
+    }
+    #landing-page #SecondArticle .Explain_Images_Main2 {
+        width: 60%;
+        float: left;
+        text-align: left;
+        margin-top: -15rem;
+        margin-left: 13.5rem;
+    }
+    #landing-page #SecondArticle .Explain_Images_Sub {
+        width: 55%;
+        bottom: 11rem;
+        padding-left: 8rem;
+        line-height: 1.5;
+        text-align: left;
+        margin-top: -1.25rem;
+    }
+    #landing-page #SecondArticle .Explain_Images_Sub2 {
+        width: 60%;
+        float: left;
+        text-align: left;
+        margin-top: -10rem;
+        margin-left: 13.5rem;
+    }
 }
