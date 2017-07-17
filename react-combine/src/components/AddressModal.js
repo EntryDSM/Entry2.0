@@ -47,7 +47,7 @@ class AddressModal extends React.Component {
 
         axios.get(apiUrl)
             .then(function (response) {
-                var result = Array.from(response.data.results.juso);
+                var result = response.data.results.juso;
                 var totalCount = response.data.results.common.totalCount;
                 var totalPage = totalCount / countPerPage;
                 
