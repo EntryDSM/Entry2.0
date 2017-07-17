@@ -47,18 +47,20 @@ class Preview extends Component {
             window.print();
         }
         return(
-            <div id="contents">
-                <div id="menu-area">
-                    <div id="header-area">
-                        <InputHeader now={"미리보기"} />
-                    </div>
+            <div id="preview">
+                <div id="contents">
+                    <div id="menu-area">
+                        <div id="header-area">
+                            <InputHeader now={"미리보기"} />
+                        </div>
 
-                    <div id="section-to-print">
-                        <PreviewHeader datas={this.state.pageList} />
-                        <PreviewContent target={this.props.targetPage} />
-                    </div>
+                        <div id="section-to-print">
+                            <PreviewHeader datas={this.state.pageList} />
+                            <PreviewContent target={this.props.targetPage} />
+                        </div>
 
-                    <button className="printButton" onClick={printHandler}>출력하기</button>
+                        <button className="printButton" onClick={printHandler}>출력하기</button>
+                    </div>
                 </div>
             </div>
         );

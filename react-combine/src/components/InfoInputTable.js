@@ -1,7 +1,6 @@
 import React from 'react';
 import AddressModal from './AddressModal';
 import UploadImage from './UploadImage';
-import Button from './Button';
 
 class InfoInputTable extends React.Component {
     render() {
@@ -55,7 +54,7 @@ class InfoInputTable extends React.Component {
                         </tr>
                         <tr>
                             <td className="td_title">부모연락처</td>
-                            <td className="td_content">
+                            <td className="td_content" colSpan="2">
                                 <input type="text" className="input_style"/>
                             </td>
                         </tr>
@@ -80,7 +79,6 @@ class InfoInputTable extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                <Button router="/gradeinput" buttonName="다음"/>
             </div>
         );
     }

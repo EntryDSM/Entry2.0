@@ -1,6 +1,7 @@
 import React from 'react';
 import InfoInputTable from '../components/InfoInputTable';
 import InputHeader from '../components/InputHeader';
+import Button from '../components/Button';
 import '../css/InfoInput.css'
 
 class InfoInput extends React.Component {
@@ -13,6 +14,7 @@ class InfoInput extends React.Component {
                         <InputHeader now={"인적 사항"} />
                     </div>
                     <InfoInputTable />
+                    <Button router="/gradeinput" buttonName="다음"/>
                 </div>
             </div>
         );
