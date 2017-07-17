@@ -1,3 +1,9 @@
+#contents{
+    width: calc(100% - 270px);
+    padding: 15px 0px 0px 15px;
+    display: inline-block;
+}
+
 .menu_area {
     width: 250px;
     height: 100%;
@@ -260,8 +266,4 @@ footer #Privacy{
     font-size:0.8rem;
     line-height:1.5;
     word-spacing: 1.5px;
-}
-
-#contents{
-    display: inline-block;
 }

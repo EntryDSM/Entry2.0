@@ -4,6 +4,7 @@ import DefaultInfo from '../components/DefaultInfo';
 import Graduate from '../components/Graduate';
 import SocietyDetail from '../components/SocietyDetail';
 import Button from '../components/Button';
+import InputHeader from '../components/InputHeader';
 import '../css/Classification.css';
 
 class Classification extends Component {
@@ -30,30 +31,32 @@ class Classification extends Component {
 
     render() {
         return (
-            <div id="classification">
-                <h1>구분선택</h1>
-                <DefaultInfo
-                    isBlackTest={this.state.isBlackTest}
-                    changeIsBlackTest={this.changeStateValue}
-                    liveArea={this.state.liveArea}
-                    changeLiveArea={this.changeStateValue}
-                />
-                <Graduate
-                    changeGraduate={this.changeStateValue} 
-                    typeOfGraduate = {this.state.typeOfGraduate}
-                    graduateYear = {this.state.graduateYear}
-                    changeGraduateYear={this.changeStateValue}
+            <div id="contents">
+                <InputHeader now="구분선택"/>
+                <div id="classification">
+                    <DefaultInfo
+                        isBlackTest={this.state.isBlackTest}
+                        changeIsBlackTest={this.changeStateValue}
+                        liveArea={this.state.liveArea}
+                        changeLiveArea={this.changeStateValue}
                     />
-                <TypeAndMemo
-                    typeOfApply={this.state.typeOfApply}
-                    memo={this.state.memo}
-                    changeMemo={this.changeStateValue}
-                    changeTypeOfApply={this.changeStateValue} />
-                <SocietyDetail
-                    isSocietySelected={this.state.typeOfApply==="society"}
-                    typeOfSociety={this.state.typeOfSociety}
-                    changeTypeOfSociety={this.changeStateValue} />
-                <Button router="/infoinput" buttonName="다음"/>
+                    <Graduate
+                        changeGraduate={this.changeStateValue} 
+                        typeOfGraduate = {this.state.typeOfGraduate}
+                        graduateYear = {this.state.graduateYear}
+                        changeGraduateYear={this.changeStateValue}
+                        />
+                    <TypeAndMemo
+                        typeOfApply={this.state.typeOfApply}
+                        memo={this.state.memo}
+                        changeMemo={this.changeStateValue}
+                        changeTypeOfApply={this.changeStateValue} />
+                    <SocietyDetail
+                        isSocietySelected={this.state.typeOfApply==="society"}
+                        typeOfSociety={this.state.typeOfSociety}
+                        changeTypeOfSociety={this.changeStateValue} />
+                    <Button router="/infoinput" buttonName="다음"/>
+                </div>
             </div>
         )
     }
