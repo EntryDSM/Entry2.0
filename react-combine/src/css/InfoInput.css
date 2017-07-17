@@ -51,6 +51,11 @@
     padding-bottom: 5px;
 }
 
+#info_input_table #btn_findaddress{
+    width: 90px;
+    line-height: 16px;
+}
+
 #info_input_table .input_style{
     font-size: 14px;
     margin-left: 10px;

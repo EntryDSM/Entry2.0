@@ -2,11 +2,20 @@
     border-collapse: collapse;
 }
 
-.th_addr{
+#th_addr_road{
     border-top:2px solid black;
     border-bottom:2px solid black;
     text-align: center;
     padding: 10px;
+    width: 600px;
+}
+
+#th_addr_zip{
+    border-top:2px solid black;
+    border-bottom:2px solid black;
+    text-align: center;
+    padding: 10px;
+    width: 150px;
 }
 
 .road_address{
