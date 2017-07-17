@@ -296,28 +296,6 @@ a{
     text-decoration: none;
 }
 
-/* Footer */
-#landing-page footer{
-    width:100%;
-    height:200px;
-    background-color:#242729;
-}
-
-#landing-page footer #Privacy{
-    width:60%;
-    height:100%;
-    margin-left:15rem;
-    padding-top:1rem;
-}
-
-#landing-page #Privacy #Privacy_Sub{
-    color:floralwhite;
-    font-size:0.85rem;
-    line-height:1.5;
-    word-spacing: 1.5px;
-    margin-top:2rem;
-}
-
 /* Responsive Part */
 @media all and (min-width:400px) {
     #landing-page #FirstArticle {
