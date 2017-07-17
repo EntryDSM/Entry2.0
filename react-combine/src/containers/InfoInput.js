@@ -14,6 +14,7 @@ class InfoInput extends React.Component {
                         <InputHeader now={"인적 사항"} />
                     </div>
                     <InfoInputTable />
+                    <Button router="/classification" buttonName="이전"/>
                     <Button router="/gradeinput" buttonName="다음"/>
                 </div>
             </div>
