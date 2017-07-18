@@ -3,30 +3,32 @@
 }
 
 #th_addr_road{
-    border-top:2px solid black;
-    border-bottom:2px solid black;
+    /* border-top:2px solid black;
+    border-bottom:2px solid black; */
+    background-color: #fbfbfa;
     text-align: center;
     padding: 10px;
     width: 600px;
 }
 
 #th_addr_zip{
-    border-top:2px solid black;
-    border-bottom:2px solid black;
+    /* border-top:2px solid black;
+    border-bottom:2px solid black; */
+    background-color: #fbfbfa;
     text-align: center;
     padding: 10px;
     width: 150px;
 }
 
 .road_address{
-    border-bottom:1px solid black;
+    border-bottom:1px solid #c4daff;
     padding: 8px;
     width: 600px;
     font-size: 14px;
 }
 
 .zipNo{
-    border-bottom:1px solid black;
+    border-bottom:1px solid #c4daff;
     padding: 8px;
     width: 150px;
     font-size: 14px;

@@ -10,7 +10,7 @@ class InfoInputTable extends React.Component {
                     <tbody>
                         <tr id="tr_name">
                             <td className="td_title">성명</td>
-                            <td className="td_content"><input type="text" className="input_style"/></td>
+                            <td className="td_content"><input type="text" className="input_style" readOnly/></td>
                             <td className="td_space" rowSpan="6"><UploadImage /></td>
                         </tr>
                         <tr>
@@ -63,13 +63,13 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">이메일</td>
                             <td className="td_content" colSpan="2">
-                                <input type="text" className="input_style"/>@<input type="text" className="input_style"/>
+                                <input type="text" className="input_style" readOnly/>@<input type="text" className="input_style" readOnly/>
                             </td>
                         </tr>
                         <tr id="tr_address">
                             <td className="td_title">주소</td>
                             <td className="td_content" colSpan="2">
-                                <input type="text" className="input_style" id="base_address"/><AddressModal />
+                                <input type="text" className="input_style" id="base_address" readOnly/><AddressModal />
                                 <input type="text" className="input_style" id="detail_address"/>
                             </td>
                         </tr>
