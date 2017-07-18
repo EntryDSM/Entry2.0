@@ -31,11 +31,7 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">학반</td>
                             <td className="td_content">
-                                <select className="input_style">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select>학년
+                                &nbsp;&nbsp;&nbsp;3학년
                                 <input type="text" className="input_style" id="class"/>반 
                             </td>
                         </tr>
