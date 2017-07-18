@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../css/AddressModalTable.css';
  
 class AddressModalTable extends Component {
 
@@ -14,10 +15,10 @@ class AddressModalTable extends Component {
         if(this.props.datas != null) {
             tableHeader =
             <tr>
-                <th className="th_addr">
+                <th id="th_addr_road">
                     도로명 주소
                 </th>
-                <th className="th_addr">
+                <th id="th_addr_zip">
                     우편번호
                 </th>
             </tr>
@@ -31,8 +32,7 @@ class AddressModalTable extends Component {
                     </td>
                 </tr>)
             });
-
-        }
+        } 
 
         return (
             <table id="table_addr">
