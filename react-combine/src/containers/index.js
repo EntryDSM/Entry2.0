@@ -8,5 +8,7 @@ import MainPage from './MainPage';
 import Preview from './Preview';
 import SendInfo from './SendInfo';
 import SignUp from './SignUp';
+import SendComplete from './SendComplete';
+import ChangePw from './ChangePw';
 
-export { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp };
+export { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, SendComplete, ChangePw };

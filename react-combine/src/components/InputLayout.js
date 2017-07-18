@@ -12,19 +12,21 @@ class InputLayout extends React.Component{
     render(){
         return(
             <div id="wrapper">
-                <Sidebar/>
-                {this.props.children}
+                <div id="innerWrapper">
+                    <Sidebar/>
+                    {this.props.children}
+                </div>
                 <Footer/>
             </div>
 
         );
     }
 
-    componentDidMount() {
-        var content = document.querySelector("#contents");
-        var menu = document.querySelector(".menu_area");
-        // menu.style.height = content.clientHeight;
-    }
+    // componentDidMount() {
+    //     var content = document.querySelector("#contents");
+    //     var menu = document.querySelector(".menu_area");
+    //     menu.style.height = content.clientHeight;
+    // }
 }
 
 export default InputLayout;

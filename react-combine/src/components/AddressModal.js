@@ -4,11 +4,12 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import AddressModalTable from './AddressModalTable';
 import AddressModalPagenum from './AddressModalPagenum';
+import "babel-polyfill";
  
 class AddressModal extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         
         this.Firstpage = 1;
         this.state = {
@@ -29,13 +30,12 @@ class AddressModal extends React.Component {
     closeModal() {
         this.setState({modalIsOpen: false});
     }
-    
+
     searchAddress(pagenum){
         var that = this;
         var currentPage = pagenum;
         var countPerPage = 10;
         var keyword = document.querySelector("#input_searchaddress").value;
-        console.log('pagenum',pagenum);
         var confmKey = "U01TX0FVVEgyMDE3MDcxMzEwMTY1ODIyODQx";
         var resultType = "json";
 
@@ -48,7 +48,6 @@ class AddressModal extends React.Component {
 
         axios.get(apiUrl)
             .then(function (response) {
-                console.log(response);
                 var result = response.data.results.juso;
                 var totalCount = response.data.results.common.totalCount;
                 var totalPage = totalCount / countPerPage;
@@ -63,6 +62,7 @@ class AddressModal extends React.Component {
                             zipNo:element.zipNo
                         });
                 }, this);
+
                 that.setState({
                     addressData: datas
                 });
@@ -102,16 +102,17 @@ class AddressModal extends React.Component {
             });
     }
 
-     render() {
+    render() {
         return (
             <div className="address_div">
                 <button className="btn_style" id="btn_findaddress" onClick={this.openModal}>주소찾기</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
-                    onAfterOpen={this.afterOpenModal}
                     contentLabel="주소찾기"
                     className="modal_style">
+
+                    <p ref={notice=> this.notice = notice}></p>
     
                     <div id="modal_header">
                         <button id="btn_close" onClick={this.closeModal}>x</button>
@@ -120,7 +121,7 @@ class AddressModal extends React.Component {
                     <div id="modal_contents">
                         <input type="text" placeholder="검색어를 입력하세요 (반포대로 58, 독립기념관, 삼성동 25)" id="input_searchaddress"/>
                         <img id="btn_searchaddress" src={require('../images/search.png')} onClick={()=> this.searchAddress(this.Firstpage)}/>
-                        
+
                         <AddressModalTable datas={this.state.addressData}/>
                         <AddressModalPagenum datas={this.state.pageData} searchAddr={this.searchAddress} />
                         

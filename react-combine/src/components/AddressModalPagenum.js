@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
 import styles from '../css/AddressModalPagenum.css';
  
-class AddressModalPagenum extends Component {
-
-    constructor() {
-        super();
-    }
- 
+class AddressModalPagenum extends Component { 
      render() {
         var arr = [];
 

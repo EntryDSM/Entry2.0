@@ -8,6 +8,44 @@ class PwChangeBox extends React.Component{
             </div>
         );
     }
+
+    componentDidMount(){
+        var firstPw = document.getElementById('PwCheck1');
+        var secondPw = document.getElementById('PwCheck2');
+        var clickBtn = document.getElementById('PwSaveButton');
+
+        console.log("IE/Edge 출력 되나연?");
+
+        secondPw.addEventListener('keyup', () => {
+            if(firstPw.value !== "" && secondPw.value !== ""){
+
+                if(firstPw.value === secondPw.value){
+                    secondPw.style.border = "2px solid rgb(56, 205, 177)";
+                }else{
+                    secondPw.style.border = "2px solid red";
+                }
+            }
+        });
+
+        clickBtn.addEventListener('click', () => {
+            if (firstPw.value === "" || secondPw.value === "") {
+                alert("비밀번호를 입력해주세요!");
+            }
+
+            else if (firstPw.value === secondPw.value) {
+                alert("저장되었습니다!");
+                //bdy.style.backgroundColor = "rgb(56, 205, 177)";d
+                let ChangedValue = firstPw.value;
+                console.log("저장된 비밀번호: " + ChangedValue);
+            }
+
+            else {
+                alert("비밀번호를 확인해주세요!");
+                secondPw.value = "";
+                secondPw.style.border = 0;
+            }
+        });
+    }
 }
 
 class PwChangeForm extends React.Component{
@@ -43,7 +81,6 @@ class PwChangeForm extends React.Component{
         this.setState({
             pwValues: val
         });
-        console.log(this.state.pwValues);
     }
 
     render(){
@@ -56,10 +93,12 @@ class PwChangeForm extends React.Component{
                         <div key={i}>
                             <h3 id={info.InputForm}> {info.InfoTitle} </h3>
 
-                            <input type={info.InputType} className="PwInput"
+                            <input type={info.Type} className="PwInput"
                                 placeholder={info.InputTitle}
                                 value={this.state.pwValues[i]}
                                 onChange={this.changeValues.bind(this,i)}
+                                id={info.IdName}
+                                autoComplete = "off"
                                  />
                         </div>
                     );

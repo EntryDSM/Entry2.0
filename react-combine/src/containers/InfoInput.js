@@ -1,6 +1,7 @@
 import React from 'react';
 import InfoInputTable from '../components/InfoInputTable';
 import InputHeader from '../components/InputHeader';
+import Button from '../components/Button';
 import '../css/InfoInput.css'
 
 class InfoInput extends React.Component {
@@ -8,10 +9,14 @@ class InfoInput extends React.Component {
     render(){
         return(
             <div id="contents">
-                <div className="inputTitle">
-                    <InputHeader now={"인적 사항"} />
+                <div id="info_input">
+                    <div className="inputTitle">
+                        <InputHeader now={"인적 사항"} />
+                    </div>
+                    <InfoInputTable />
+                    <Button router="/classification" buttonName="이전"/>
+                    <Button router="/gradeinput" buttonName="다음"/>
                 </div>
-                <InfoInputTable />
             </div>
         );
     }

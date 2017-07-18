@@ -6,6 +6,7 @@ import MainIntro from '../components/MainIntro';
 import Footer from '../components/Footer';
 import '../css/Landing.css';
 
+
 class Landing extends React.Component{
    render(){
        return(

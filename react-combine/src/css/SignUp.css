@@ -2,40 +2,26 @@ input[type=text]::-ms-clear {
     display: none;
 }
 
-.generalInput{
+#signUp .generalInput{
     font-size: 15px;
 }
 
-.inputPart{
+#signUp .inputPart{
     width: 900px;
     padding: 20px;
 }
 
-.inputContent{
+#signUp .inputContent{
     float: left;
     padding: 15px 0px 15px 0px;
     width: calc(100% - 270px);
 }
 
-.emailInput{
+#signUp .emailInput{
     width: 80px;
 }
 
-#nextBtn{
-    border: 0.5px;
-    background:linear-gradient(to right, rgba(44,181,115,0.85), rgba(51,204,231,0.85));
-    width: 188px;
-    height: 50px;
-    font-size: 13px;
-    color: white;
-    margin: 20px;
-}
-
-#nextBtn:hover{
-    cursor: pointer;
-}
-
-.td_content{
+#signUp .td_content{
     width: 280px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -44,7 +30,7 @@ input[type=text]::-ms-clear {
     border-bottom: 1px solid #ebebea;
 }
 
-.td_title{
+#signUp .td_title{
     width: 150px;
     font-size: 14px;
     padding-top: 10px;
@@ -55,25 +41,25 @@ input[type=text]::-ms-clear {
     border-bottom: 1px solid #ebebea;
 }
 
-.input_style{
+#signUp .input_style{
     font-size: 14px;
     margin-left: 10px;
     margin-right: 10px;
     padding: 1%;
 }
 
-.emailSelect{
+#signUp .emailSelect{
     border: solid 1px;
     height: 20px;
     margin-left: 10px;
     border-radius: 0%;
 }
 
-.nameInput{
+#signUp .nameInput{
     width: 60px;
 }
 
-#inputTable{
+#signUp #inputTable{
     padding-left: 20px;
     border-collapse: collapse;
     border-top: 2px solid #c4daff;
