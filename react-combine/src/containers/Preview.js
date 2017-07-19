@@ -70,7 +70,7 @@ class Preview extends Component {
                         <button className="printButton" onClick={printHandler}>출력하기</button>                        
                     </div>
                     <Button router='/introduce' buttonName="이전"/>
-                    <Button router='/' buttonName="다음"/>
+                    <Button router='/finalsubmit' buttonName="다음"/>
                 </div>
             </div>
         );
