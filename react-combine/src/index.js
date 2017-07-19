@@ -19,7 +19,6 @@ ReactDOM.render(
             <IndexRoute component={Landing}/>  
             <Route path="/main" component={MainPage}/>
             <Route path="/login" component={LoginForm}/>
-
             <Route path="/sendinfo" component={SendInfo}/>
             <Route path="/sendcomplete" component={SendComplete}/>
             <Route path="/changepw" component={ChangePw}/>
