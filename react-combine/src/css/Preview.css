@@ -76,10 +76,10 @@
   body * {
     visibility: hidden;
   }
-  #preview #section-to-print, #preview #section-to-print * {
+  #preview .tabcontent, #preview .tabcontent * {
     visibility: visible;
   }
-  #preview #section-to-print {
+  #preview .tabcontent {
     position: absolute;
     left: 0;
     top: 0;
