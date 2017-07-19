@@ -77,8 +77,9 @@ class Graduated extends Component{
 
         document.querySelectorAll(".did_select_btn_child").forEach(function(element) {
             element.addEventListener('click', function(e) {
-                if(hasClass(element, "selectedGrade"))
+                if(hasClass(element, "selectedGrade")) {
                     removeClass(element, "selectedGrade");
+                }
                 else {
                     if(!hasClass(element.parentElement.parentElement, "notpassedArea")) {
                         element.parentElement.querySelectorAll(".did_select_btn_child").forEach(function(e) {
