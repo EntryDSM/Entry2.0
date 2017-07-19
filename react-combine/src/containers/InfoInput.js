@@ -8,8 +8,8 @@ class InfoInput extends React.Component {
     
     render(){
         return(
-            <div id="info_input">
-                <div id="contents">
+            <div id="contents">
+                <div id="info_input">
                     <div className="inputTitle">
                         <InputHeader now={"인적 사항"} />
                     </div>

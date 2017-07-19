@@ -4,7 +4,7 @@ import classnames from 'classnames';
 class Graduated extends Component{
     render(){
         return (
-                <tbody id="did_table">
+                <tbody id="did_table" className={this.props.visible}>
                     <NotPass />
                     <tr id="did_semester">
                         {this.props.semesters.map((semester, index) => {

@@ -14,7 +14,7 @@ class PreviewContent extends Component {
      render() {
         var content = null;
         if(true) {// this.props.target != null) {
-            switch("principal") {//this.props.target) {
+            switch(this.props.target) {
                 case "userInfo":
                     content = <UserInfo datas= {this.props.datas}/>;
                     break;

@@ -12,6 +12,8 @@ class Preview extends Component {
         this.state = {
             pageList: null
         };
+        
+        this.setPage = this.setPage.bind(this);
     }
 
     componentDidMount() {
@@ -19,27 +21,33 @@ class Preview extends Component {
             pageList: [
                 {
                     name: "입학 원서",
-                    url: ""
+                    target: "userInfo"
                 },
                 {
                     name: "자기 소개서",
-                    url: ""
+                    target: "self"
                 },
                 {
                     name: "학업 계획서",
-                    url: ""
+                    target: "plan"
                 },
                 {
                     name: "금연 서약서",
-                    url: ""
+                    target: "noSmoke"
                 },
                 {
                     name: "학교장 추천서",
-                    url: ""
+                    target: "principal"
                 }
             ],
-            targetPage: null
+            targetPage: "userInfo"
         });
+    }
+
+    setPage(target) {
+        this.setState( {
+            targetPage: target
+        })
     }
 
     render(){
@@ -56,8 +64,8 @@ class Preview extends Component {
                         </div>
 
                         <div id="section-to-print">
-                            <PreviewHeader datas={this.state.pageList} />
-                            <PreviewContent target={this.props.targetPage} />
+                            <PreviewHeader datas={this.state.pageList} setPage={this.setPage} />
+                            <PreviewContent target={this.state.targetPage} />
                         </div>
                         <button className="printButton" onClick={printHandler}>출력하기</button>                        
                     </div>
