@@ -46,6 +46,7 @@ class AddressModal extends React.Component {
         "&confmKey="+confmKey +
         "&resultType="+resultType;
 
+        alert("Entered!");
         axios.get(apiUrl)
             .then(function (response) {
                 var result = response.data.results.juso;
@@ -55,6 +56,7 @@ class AddressModal extends React.Component {
                 // 주소목록 바인딩
                 var array = new Array();
                 var datas = [];
+                console.log('response', response);
                 result.forEach(function(element) {
                     datas.push(
                         {

@@ -1,0 +1,71 @@
+.modal_style{
+    border-radius: 20px;   
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    margin-top: 50px;
+    padding-left: 30px;
+    padding-right: 30   px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    background-color: white;
+}
+
+#modal_header{
+    border-bottom: 2px solid #c4daff;
+}
+
+#btn_close{
+    background: none;
+    border-style: none;
+    font-size: 25px;
+    float: right;   
+}
+
+#btn_close:hover{
+    color: red;
+}
+
+#modal_contents{
+    text-align: center;
+}
+
+#btn_search{
+    width: 40px;
+    height: 40px;
+}
+
+.btn_style {
+    background-color: #c4daff;
+    border:none;
+}
+
+#btn_findschool{
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#input_searchschool{
+    width: 734px;
+    font-size: 14px;
+    padding: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border:2px solid #c4daff;
+    border-right: none;
+    float: left;
+}
+
+#btn_searchschool{
+    width: 20px;
+    height: 20px;
+    float:right;
+    padding: 6px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-right: 14px;border:2px solid #c4daff;
+    border-left:none;
+}

@@ -5,8 +5,6 @@ class AddressModalTable extends Component {
 
     constructor() {
         super();
-
-        this.show = this.show.bind(this);
     }
  
      render() {

@@ -47,8 +47,8 @@
 }
 
 #info_input_table #btn_findschool{
-    padding-top: 4px;
-    padding-bottom: 5px;
+    line-height: 16px;
+    width: 90px;
 }
 
 #info_input_table #btn_findaddress{
@@ -90,6 +90,7 @@
 
 #info_input #school_name{
     width: 180px;
+    float:left;
 }
 
 #info_input_table #base_address{
