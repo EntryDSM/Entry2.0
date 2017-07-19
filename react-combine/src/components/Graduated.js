@@ -4,7 +4,7 @@ import classnames from 'classnames';
 class Graduated extends Component{
     render(){
         return (
-                <tbody id="did_table">
+                <tbody id="did_table" className={this.props.visible}>
                     <NotPass />
                     <tr id="did_semester">
                         {this.props.semesters.map((semester, index) => {
@@ -77,8 +77,9 @@ class Graduated extends Component{
 
         document.querySelectorAll(".did_select_btn_child").forEach(function(element) {
             element.addEventListener('click', function(e) {
-                if(hasClass(element, "selectedGrade"))
+                if(hasClass(element, "selectedGrade")) {
                     removeClass(element, "selectedGrade");
+                }
                 else {
                     if(!hasClass(element.parentElement.parentElement, "notpassedArea")) {
                         element.parentElement.querySelectorAll(".did_select_btn_child").forEach(function(e) {
