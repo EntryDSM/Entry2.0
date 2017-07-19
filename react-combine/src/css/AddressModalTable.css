@@ -3,8 +3,6 @@
 }
 
 #th_addr_road{
-    /* border-top:2px solid black;
-    border-bottom:2px solid black; */
     background-color: #fbfbfa;
     text-align: center;
     padding: 10px;
@@ -12,8 +10,6 @@
 }
 
 #th_addr_zip{
-    /* border-top:2px solid black;
-    border-bottom:2px solid black; */
     background-color: #fbfbfa;
     text-align: center;
     padding: 10px;
@@ -33,4 +29,12 @@
     width: 150px;
     font-size: 14px;
     text-align: center;
+}
+
+#data_roadAddr{
+    color: black;
+}
+
+#data_roadAddr:hover{
+    color: blue;
 }

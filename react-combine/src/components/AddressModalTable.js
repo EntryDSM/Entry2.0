@@ -3,11 +3,12 @@ import '../css/AddressModalTable.css';
  
 class AddressModalTable extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
     }
- 
-     render() {
+
+    render() {
         var arr = [];
 
         var addressData = null;
@@ -25,7 +26,7 @@ class AddressModalTable extends Component {
             addressData = this.props.datas.map(function(data, index) {
                 return(<tr key={index}>
                     <td className="road_address">
-                        {data.roadAddr}
+                        <a href="#" className="data_roadAddr">{data.roadAddr}</a>
                     </td>
                     <td className="zipNo">
                         {data.zipNo}
@@ -41,8 +42,21 @@ class AddressModalTable extends Component {
                     {addressData}
                 </tbody>
             </table>
+            
         );
     }
+
+    componentDidUpdate() {
+        var i;
+
+        for(i=0; i<10; i++){
+            var input = document.getElementById("base_address");
+            var data = document.getElementsByClassName("data_roadAddr")[i];
+            input.value = data.textContent; 
+        }
+        this.setState({modalIsOpen: true});
+    }
+    
 }
 
 export default AddressModalTable;

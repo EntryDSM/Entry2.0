@@ -10,5 +10,6 @@ import SendInfo from './SendInfo';
 import SignUp from './SignUp';
 import SendComplete from './SendComplete';
 import ChangePw from './ChangePw';
+import FinalSubmit from './FinalSubmit';
 
-export { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, SendComplete, ChangePw };
+export { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, SendComplete, ChangePw, FinalSubmit };
