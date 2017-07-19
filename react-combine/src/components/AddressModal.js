@@ -46,7 +46,6 @@ class AddressModal extends React.Component {
         "&confmKey="+confmKey +
         "&resultType="+resultType;
 
-        alert("Entered!");
         axios.get(apiUrl)
             .then(function (response) {
                 var result = response.data.results.juso;

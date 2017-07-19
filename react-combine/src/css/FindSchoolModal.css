@@ -1,9 +1,9 @@
-.modal_style{
+ .modal_style{
     border-radius: 20px;   
     width: 800px;
     height: 600px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 150px;
     padding-left: 30px;
     padding-right: 30   px;
     padding-top: 10px;
@@ -68,4 +68,4 @@
     margin-right: 20px;
     margin-right: 14px;border:2px solid #c4daff;
     border-left:none;
-}
+} 

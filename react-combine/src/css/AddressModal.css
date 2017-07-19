@@ -3,13 +3,16 @@
     width: 800px;
     height: 600px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 150px;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.5);
     background-color: white;
+}
+
+.ReactModal__Overlay{
+    background-color: rgba(0,0,0,0.5) !important;
 }
 
 #modal_header{
