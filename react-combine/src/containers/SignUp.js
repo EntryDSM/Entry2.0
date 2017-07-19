@@ -37,10 +37,16 @@ class SignUp extends Component{
     }
 
     submit(){
-        axios.post('/signup', {
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password
+        axios({
+            method:'post',
+            url:'http://114.108.135.15:8080/signup',
+            data: {
+                name: this.state.name,
+                email: this.state.email +"@naver.com",
+                password: this.state.password
+            },
+            withCredentials: false,
+            headers: {"Access-Control-Allow-Origin": "http://114.108.135.15"}
         }).then(response => {console.log(response)})
         .catch(response => {console.log(response)});
     }
