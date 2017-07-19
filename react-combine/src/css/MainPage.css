@@ -1,7 +1,6 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-
 @keyframes biggerIcon{
     0%{
 
@@ -24,6 +23,10 @@ body{
     font-weight: normal;
 }
 
+#main-page a{
+    color: #fff;
+}
+
 #main-page #navigation-bar{
     display: block;
     position: fixed;
@@ -39,6 +42,11 @@ body{
     padding: 1.2rem;
     font-size: 1.3rem;
     cursor: pointer;
+}
+
+#main-page #navigation-bar span:nth-child(1){
+    float: left;
+    font-size: 24px;
 }
 #main-page header{
     width: 100%;
@@ -86,6 +94,51 @@ body{
     box-shadow: 0px 3px 3px #d5d5d5;
 }
 
+#main-page #renewal {
+    background: linear-gradient(to right bottom, rgba(44,181,115,0.85), rgba(51,204,231, 0.85));
+}
+
+#main-page #renewal #logo{
+    width: 256px;
+    margin : 70px 0 0 50px;
+}
+
+#main-page #renewal #logo+h1{
+    margin: 0;
+    margin-left: 50px;;
+}
+
+#main-page #renewal div:nth-child(1){
+    margin-left: 20px;
+}
+
+
+#main-page #renewal span{
+    font-size: 100px;
+    color: #fff;
+}
+
+#main-page #renewal h1{
+    margin: 0;
+    color: #fff;
+}
+
+#main-page #apply-menu{
+    width: 1000px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#main-page #renewal .icon{
+    width: 256px;
+}
+
+#main-page #renewal .icon-menu{
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
 #main-page #apply-state h1{
     text-align: center;
     margin: 0;
@@ -94,6 +147,15 @@ body{
     font-weight: bold;
     color: white;
     text-shadow: 0 1px 1px #999999;
+}
+
+#main-page #apply-state #charts>div{
+    display: inline-block;
+    width: 50%;
+}
+
+#main-page #apply-state #charts>div>div{
+    height: 600px;
 }
 
 #main-page header section h3{

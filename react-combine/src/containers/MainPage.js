@@ -4,6 +4,7 @@ import EntryView from '../components/EntryView'
 import SchoolIntro from '../components/SchoolIntro'
 import Footer from '../components/MainFooter'
 import ApplyState from '../components/ApplyState';
+import RenewalMain from '../components/RenewalMain';
 import '../css/MainPage.css'
 
 class MainPage extends Component {
@@ -11,7 +12,8 @@ class MainPage extends Component {
     return (
       <div id="main-page">
         <NavigationBar menuList={["메인화면","접수현황","학교소개","문의하기"]}/>
-        <EntryView />
+        {/* <EntryView /> */}
+        <RenewalMain />
         <ApplyState/>
         <SchoolIntro schoolInfos={
         [{
