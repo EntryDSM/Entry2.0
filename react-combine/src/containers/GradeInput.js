@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Graduate from '../components/Graduate';
+import Graduate from '../components/GraduateToBe';
 import Graduated from '../components/Graduated';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
@@ -13,8 +13,8 @@ class GradeInput extends Component{
         super(props);
         
         this.state = {
-            graduated: "hide",
-            graduate_to_be: null,
+            graduated: null,
+            graduate_to_be: "hide",
             black: null
         };
     }

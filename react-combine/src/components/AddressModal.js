@@ -47,8 +47,12 @@ class AddressModal extends React.Component {
         "&resultType="+resultType;
 
         alert("Entered!");
-        axios.get(apiUrl)
-            .then(function (response) {
+        axios({
+            method:'get',
+            url: apiUrl,
+            withCredentials: true
+        }).then(function (response) {
+                console.log('response', response);
                 var result = response.data.results.juso;
                 var totalCount = response.data.results.common.totalCount;
                 var totalPage = totalCount / countPerPage;
@@ -56,7 +60,6 @@ class AddressModal extends React.Component {
                 // 주소목록 바인딩
                 var array = new Array();
                 var datas = [];
-                console.log('response', response);
                 result.forEach(function(element) {
                     datas.push(
                         {
