@@ -4,17 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
-<<<<<<< HEAD
-    "express": "^4.15.3",
-    "path": "^0.12.7",
-    "classnames": "^2.2.5",
-=======
     "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "es3ify-loader": "^0.2.0",
     "express": "^4.15.3",
     "path": "^0.12.7",
->>>>>>> c720aaa88ce0d8edfff5e3e752a99aaeac15b304
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-file-input": "^0.2.5",
