@@ -9,11 +9,11 @@ schema.static('updateApplyType', function(id, newData, callback){
         user: id
     }, {
         $set: {
-            regionType: newData.local,
-            applyBaseType: newData.type,
-            applyDetailType: newData.typeDetail,
-            graduateType: newData.graduate,
-            graduateYear: newData.date
+            regionType: newData.regionType,
+            applyBaseType: newData.applyBaseType,
+            applyDetailType: newData.applyDetailType,
+            graduateType: newData.graduateType,
+            graduateYear: newData.graduateDate
         }
     }, callback);
 });
@@ -43,12 +43,13 @@ schema.static('updatepersonal', function (id, newData, callback) {
         $set: {
             schoolCode: newData.schoolCode,
             schoolName: newData.schoolName,
-            gradeNumber: newData.grade,
-            classNumber: newData.class,
+            grade: newData.grade,
+            class: newData.class,
             birthday: birth,
             sex: newData.sex,
             addressBase: newData.addressBase,
             addressDetail: newData.addressDetail,
+            postNumber: newData.postNumber,
             parentName: newData.parentName,
             parentTel: newData.parentTel,
             schoolTel: newData.schoolTel,

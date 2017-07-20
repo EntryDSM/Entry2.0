@@ -9,75 +9,74 @@ var User = require("../../database/models/userModel"); //user 모델
 var Content = require("../../database/models/QnAContentModel"); //게시글 모델
 var router = express.Router();
 
-//function ()
-
-//질문 조회 + 검색
-router.get('/question', function (request, response) {
-    var searchData;
-    var responseData = {};
-
-    //찾으려는 데이터 범위
-    if (!author && !keyword) {
-        searchData = Content.find({});
-    } else {
-        var keyword = request.params.keyword.ToLowerCase();
-        var author = request.params.author.ToLowerCase();
-        if (!keyword) {
-            searchData = Content.find({
-                author: {
-                    $regex: new RegExp(author, "i")
-                }
-            });
-            return searchData;
-        }
-        if (!author) {
-            searchData = Content.find({
-                content: {
-                    $regex: new RegExp(keyword, "i")
-                }
-            })
-            return searchData
-        }
-        if (author && keyword) {
-            searchData = Content.find({
-                content: {
-                    $regex: new RegExp(keyword, "i")
-                },
-                author: {
-                    $regex: new RegExp(author, "i")
-                }
-            })
-        }
-    }
-
-    //조회 결과를 JSON배열로 반환한다
-    searchData.sort({
-        date: -1
-    }).exec(function (err, rawContents) {
+function searchData(findData, response) {
+    var responseData = [];
+    findData.sort({ date: -1 }).exec(function (err, rawContents) {
         if (err) throw err;
         if (rawContents.length > 0) {
-            var index = 1;
+            var index = 0;
             rawContents.forEach(function (item) {
                 index++;
                 responseData.push({
                     index: index,
                     title: item.title,
-                    author: item.author,
-                    date: item.date
+                    content: item.contents,
+                    author: item.author
                 });
-                response.status(200).send(responseData);
             });
+            response.status(200).send(responseData);
+        }
+        else {
+            response.status(200).send([]);
         }
     });
+} // <== 데이터 반환 함수 
+
+//질문 조회 + 검색
+router.get('/question', function (request, response) {
+    var findData;
+    var responseData = [];
+    var keyword = request.query.keyword;
+    var author = request.query.author;
+
+    console.log("Search Query : keyword=" + keyword + ', author=' + author); //어떤 쿼리를 받았는지
+
+    //찾으려는 데이터 범위
+    if (!author && !keyword) { //전체조회
+        findData = Content.find({});
+        searchData(findData, response);
+        
+        return;
+    }
+    else {
+        if (!keyword) { //작성자로 찾기
+            findData = Content.find({ author: { $regex: new RegExp(author, "i") } });
+            console.log(findData.title);
+            searchData(findData, response);
+
+            return;
+        }
+        if (!author) { //키워드로 찾기
+            findData = Content.find({ content: { $regex: new RegExp(keyword, "i") } });
+            searchData(findData, response);
+
+            return;
+        }
+        else {
+            response.sendStatus(400);
+        }
+    }
 });
 
 //질문 등록
 router.post('/question', function (request, response) {
     var currentUser = request.user; //현재 유저
-
-    //세션이 아니라면 로그인 페이지로 리다이렉트
+    var tempIndex = 1; //새로 등록하는 글의 인덱스
+    
+    //로그인 되어 있지 않다면 로그인 페이지로
     if (!currentUser) {
-        response.redirect('/public/login.html'); // 
+        response.status(400).redirect('/public/login.html'); 
+        return;
     }
 
     //타이틀과 내용이 없다면 400 반환
@@ -88,94 +87,111 @@ router.post('/question', function (request, response) {
 
     //DB에 콘텐츠 업로드
     var newContent = new Content({
-        index: Content.length + 1,
+        index: tempIndex,
         title: request.body.title,
         contents: request.body.content,
         date: new Date(),
         author: currentUser
     });
 
-    newContent.save("next");
-    response.sendStatus(201);
-    response.redirect("/question");
+    console.log("새로운 질문이 등록되었습니다. : \n" + newContent);
+    newContent.save(() => { response.sendStatus(200) });
+
+    //인덱스 한칸씩 밀어서 재할당
+    Content.find({}).sort({ date: -1 }).exec(function (err, rawContents) {
+        if (err) throw err;
+        if (rawContents.length > 0) {
+            var index = 1;
+            rawContents.forEach(function (item) {
+                index++;
+                Content.update({ _id: item._id }, { $set: { index: index } }, (err, raw) => {
+                    console.log(item.id);
+                });
+            });
+            return;
+        }
+    });
 });
 
 //질문 수정
 router.put('/question', function (request, response) {
     var currentUser = request.user //현재 유저
 
-    // 로그인돤 상태가 아니라면 로그인 화면으로 리다이렉트
-    if (!currentUser) {
-        response.sendStatus(400);
-        response.redirect('./public/login.html');
-    }
-
-    //찾으려는 글이 있는지
-    if (Content.find({
-            index: request.body.index
-        })) {
-        var findOne = Content.find({
-            index: request.body.index
-        });
-        //찾은 글의 작성자가 현재 사용자와 같은지
-        if (findOne.author != currentUser) {
-            response.sendStatus(401);
+    Content.findOne({index: request.body.index}, function (err, res) {
+        if(!res){
+            response.sendStatus(404);
+            return;
         }
+        if (res.author != currentUser) {
+            response.sendStatus(401);
+            return;
+        }
+        Content.update(
+            { index: request.body.index },
+            {
+                $set: {
+                    title: request.body.title,
+                    contents: request.body.content
+                }
+            }, (err) => {
+                if(err) {
+                    response.sendStatus(400);
+                } else {
+                    response.sendStatus(200);
+                    console.log(err)
+                }
+            }
+        )
 
-        //체크 통과하면 콘텐츠 업데이트
-        Content.update({
-            title: request.body.title,
-            contents: request.body.content
-        })
-
-        response.sendStatus(200);
-    } else {
-        response.sendStatus(400);
-    }
+    })
 })
 
 //질문 삭제
 router.delete('/question', function (request, response) {
     var currentUser = request.user
+    var index = 1;
     // 로그인돤 상태가 아니라면 로그인 화면으로 리다이렉트
     if (!currentUser) {
-        response.send(400).redirect('./public/login.html');
+       response.send(400).redirect('./public/login.html');
+       return;
     }
 
     //찾으려는 글이 있는지
-    if (Content.find({
-            index: request.body.index
-        })) {
-        var findOne = Content.find({
-            index: request.body.index
-        });
+    if (Content.find({ index: request.body.index })) {
+        var findOne = Content.find({ index: request.body.index });
+        console.log(request.body.index);
         //찾은 글의 작성자가 현재 사용자와 같은지
         if (findOne.author != currentUser) {
             response.sendStatus(400);
+            return;
         }
         //체크 통과하면 삭제
-        Content.remove({
-            index: request.body.index
+        Content.remove({ index: request.body.index }, (err) => {
+            response.sendStatus(200);
         });
-
-        //삭제하면 DB인덱스 재할당
-        var index = 1;
-        Content.find({}).sort({
-            date: 1
-        }).exec(function (err, rawContents) {
-            rawContents.forEach(function (item) {
-                item.update({
-                    index: index
-                });
-            })
-        });
-        response.sendStatus(200);
-    } else {
+    }
+    else {
         response.sendStatus(400);
     }
+
+    //인덱스 당겨서 재할당
+    Content.find({}).sort({ date: -1 }).exec(function (err, rawContents) {
+        if (err) throw err;
+        if (rawContents.length > 0) {
+            var index = 0;
+            rawContents.forEach(function (item) {
+                index++;
+                Content.update({ _id: item._id }, { $set: { index: index } }, (err, raw) => {
+                    console.log(item.id);
+                });
+            });
+            return;
+        }
+    });
+
 })
 
-router.get('/myqna', function (req, res) {
+router.get('/myquestion', function (req, res) {
     if (!req.session.key) {
         res.writeHead(401, {
             'Content-Type': 'text/html;charset=utf8'
@@ -228,3 +244,23 @@ router.get('/myqna', function (req, res) {
 });
 
 module.exports = router;
+/*
+ *_______
+||       |
+|| 던*짐 |
+||_______|
+||
+⊂_ヽ 
+|| ＼＼  Λ＿Λ 
+||　 ＼ ('ㅅ')  두둠칫 
+||　　 >　⌒ヽ 
+* 　　/ 　 へ＼ 
+　　 /　　/　＼＼ 
+　　 ﾚ　ノ　　 ヽ_つ 
+　　/　/ 두둠칫 
+　 /　/| 
+　(　(ヽ 
+　|　|、＼ 
+　| 丿 ＼ ⌒) 
+　| |　　) / 
+(`ノ )　　Lﾉ */

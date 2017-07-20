@@ -6,7 +6,6 @@ var session = require('express-session');
 var database = require('./database/database');
 var bodyparser = require('body-parser');
 var crypto = require('crypto');
-var methodOverride = require('method-override');
 var fileUpload = require('express-fileupload');
 var app = express();
 
@@ -32,7 +31,7 @@ app.use(session({
 
 app.use(bodyparser.json());
 
-app.use(methodOverride('_method'));
+// app.use(require('express-method-override')('method_override_param_name'));
 app.use(fileUpload());
 
 app.use('/images', static(path.join(__dirname, '/images')));

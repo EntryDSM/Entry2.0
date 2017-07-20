@@ -13,7 +13,7 @@ exports.saveType = (req, res) => {
         console.error(err);
       }else{
         console.log('전형 수정 완료');
-        res.redirect('/step2/' + userkey);
+        res.redirect('/user/info/' + userkey);
       }
     });
   }
@@ -29,8 +29,11 @@ exports.loadType = (req, res) => {
       if(err){
         console.error(err);
       }else{
-        console.log('전형 불러우기 완료');
-        res.send(result);
+        console.log('전형 불러오기 완료');
+        res.render('applytype', {
+          key: userkey,
+          data: result
+        });
       }
     });
   }
@@ -46,7 +49,7 @@ var saveApplyType = (database, userkey, data, callback) => {
   });
 }
 
-var loadApplyType = (database, userkey, callback) {
+var loadApplyType = (database, userkey, callback) => {
   database.applyDataModel.selectApplyType(userkey, (err, result) => {
     if(err){
       callback(err, null);
@@ -65,11 +68,11 @@ exports.save = (req, res) => {
   // update image.
   var imagePath = '',
     targetPath = '';
-  if (req.files.member_image) {
-    image = req.files.member_image;
-    targetPath = "\\images\\" + userkey + image.name.substring(image.name.lastIndexOf('.'));
+  if (req.files.memberImage != undefined) {
+    image = req.files.memberImage;
+    targetPath = "\\images\\" + userkey + '.jpg';
 
-    req.body.member_image = targetPath;
+    req.body.memberImage = targetPath;
 
     if (Docs.connection) {
       saveImage(Docs, userkey, image, targetPath, (err, result) => {
@@ -124,7 +127,7 @@ exports.load = (req, res) => {
 }
 
 var updatepersonal = (database, docId, data, callback) => {
-  database.applydataModel.updatepersonal(docId, data, (err, results) => {
+  database.applyDataModel.updatepersonal(docId, data, (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -135,7 +138,7 @@ var updatepersonal = (database, docId, data, callback) => {
 }
 
 var loadpersonal = (database, key, callback) => {
-  database.applydataModel.findOne({
+  database.applyDataModel.findOne({
     user: key
   }, (err, docs) => {
     if (err) {
@@ -148,7 +151,7 @@ var loadpersonal = (database, key, callback) => {
 }
 
 var saveImage = (database, id, src, dst, callback) => {
-  database.applydataModel.updateimage(id, dst, (err, docs) => {
+  database.applyDataModel.updateimage(id, dst, (err, docs) => {
     if (err) {
       callback(err, null);
     } else {
@@ -163,6 +166,7 @@ var saveImage = (database, id, src, dst, callback) => {
 
 var saveImageData = (src, dst) => {
   if (src != null && src != '') {
+    fs.unlinkSync(rootPath + dst);
     src.mv(rootPath + dst, (err) => {
       if (err) {
         console.error(err);
@@ -234,7 +238,7 @@ exports.demo = (req, res) => {
   let planArr = {};
   let tab = req.query.tab || req.params.tab;
 
-  console.log('실행');
+  console.log('미리보기 실행');
   try {
     if (req.session.key) {
 
@@ -363,6 +367,37 @@ exports.demo = (req, res) => {
   }
 }
 
+exports.getdemo = (req,res)=>{
+  let getDemo = {};
+  console.log('자소서 , 학업계획서 조회 ');
+  let userId = req.session.key;
+  console.log(userId+'로 조회 합니다');
+  let database = req.app.get('database');
+  database.applyDataModel.findUserInfo(userId,function(err,data){
+    console.log(data+'찾은 데이터');
+
+    if(err){
+      console.log(err);
+      res.writeHead(400);
+      res.end();
+    }
+    if(data){
+      getDemo['self'] = data[0]._doc.self;
+      getDemo['plan'] = data[0]._doc.plan;
+
+      console.log(getDemo+'조회 완료');
+
+      res.writeHead(200, {
+              'Content-Type': 'application/json'
+            });
+
+            res.end(JSON.stringify(getDemo));
+
+    }
+
+  })
+}
+
 
 exports.intro = (req, res) => {
 
@@ -383,7 +418,9 @@ exports.intro = (req, res) => {
       database.applyDataModel.findUserInfo(userId, function (err, user) {
 
         if (err) {
+          console.log(err);
           res.writeHead(400);
+          res.end();
         }
 
         if (user) {
@@ -403,8 +440,8 @@ exports.intro = (req, res) => {
             }, (err, output) => {
 
               if (err) {
+                console.log(err);
                 res.writeHead(400);
-                res.send('학업계획서, 자기소개서 저장 실패');
                 res.end();
                 return;
               }
@@ -419,7 +456,8 @@ exports.intro = (req, res) => {
         }
            else {
           res.writeHead(400);
-          res.send('학업계획서, 자기소개서 저장 실패');
+          //res.send('학업계획서, 자기소개서 저장 실패');
+          res.end();
         }
 
       })
