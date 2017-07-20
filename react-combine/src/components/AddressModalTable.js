@@ -6,10 +6,18 @@ class AddressModalTable extends Component {
     constructor(props) {
         super(props);
 
+        this.setAddress = this.setAddress.bind(this);
+    }
+
+    setAddress(address) {
+        console.log("address", address);
+        document.querySelector("#base_address").value = address;
+        this.props.closeModal();
     }
 
     render() {
         var arr = [];
+        var that = this;
 
         var addressData = null;
         var tableHeader = null;
@@ -25,9 +33,7 @@ class AddressModalTable extends Component {
             </tr>
             addressData = this.props.datas.map(function(data, index) {
                 return(<tr key={index}>
-                    <td className="road_address">
-                        <a href="#" className="data_roadAddr">{data.roadAddr}</a>
-                    </td>
+                    <td className="road_address" onClick={() => that.setAddress(data.roadAddr)}>{data.roadAddr}</td>
                     <td className="zipNo">
                         {data.zipNo}
                     </td>
@@ -45,18 +51,6 @@ class AddressModalTable extends Component {
             
         );
     }
-
-    componentDidUpdate() {
-        var i;
-
-        for(i=0; i<10; i++){
-            var input = document.getElementById("base_address");
-            var data = document.getElementsByClassName("data_roadAddr")[i];
-            input.value = data.textContent; 
-        }
-        this.setState({modalIsOpen: true});
-    }
-    
 }
 
 export default AddressModalTable;

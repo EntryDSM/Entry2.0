@@ -46,13 +46,12 @@ class AddressModal extends React.Component {
         "&confmKey="+confmKey +
         "&resultType="+resultType;
 
-        alert("Entered!");
         axios({
-            method:'get',
+            method: "get",
             url: apiUrl,
-            withCredentials: true
+            withCredentials: false,
+            // headers: {"Access-Control-Allow-Origin": "http://www.juso.go.kr/"}
         }).then(function (response) {
-                console.log('response', response);
                 var result = response.data.results.juso;
                 var totalCount = response.data.results.common.totalCount;
                 var totalPage = totalCount / countPerPage;
@@ -127,7 +126,7 @@ class AddressModal extends React.Component {
                         <input type="text" placeholder="검색어를 입력하세요 (반포대로 58, 독립기념관, 삼성동 25)" id="input_searchaddress"/>
                         <img id="btn_searchaddress" src={require('../images/search.png')} onClick={()=> this.searchAddress(this.Firstpage)}/>
 
-                        <AddressModalTable datas={this.state.addressData}/>
+                        <AddressModalTable datas={this.state.addressData} closeModal={this.closeModal}/>
                         <AddressModalPagenum datas={this.state.pageData} searchAddr={this.searchAddress} />
                         
                     </div>

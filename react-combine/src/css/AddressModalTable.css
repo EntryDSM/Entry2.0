@@ -21,6 +21,12 @@
     padding: 8px;
     width: 600px;
     font-size: 14px;
+
+}
+
+.road_address:hover{
+    color: blue;
+    cursor: pointer;
 }
 
 .zipNo{
@@ -31,10 +37,10 @@
     text-align: center;
 }
 
-#data_roadAddr{
+/* #data_roadAddr{
     color: black;
 }
 
 #data_roadAddr:hover{
     color: blue;
-}
+} */
