@@ -12,6 +12,7 @@ schema.static('updateApplyType', function(id, newData, callback){
             regionType: newData.regionType,
             applyBaseType: newData.applyBaseType,
             applyDetailType: newData.applyDetailType,
+            applyNoteType: newData.applyNoteType,
             graduateType: newData.graduateType,
             graduateYear: newData.graduateDate
         }
