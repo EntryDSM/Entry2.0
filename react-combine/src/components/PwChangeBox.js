@@ -37,15 +37,6 @@ class PwChangeBox extends React.Component{
                 //bdy.style.backgroundColor = "rgb(56, 205, 177)";d
                 let ChangedValue = firstPw.value;
 
-                // axios({
-                //     method: "PUT",
-                //     url: "http://114.108.135.15:8080/account/password/change",
-                //     data: {
-                //         "password": ChangedValue,
-                //         "":
-                //     }
-                // })
-
                 console.log("저장된 비밀번호: " + ChangedValue);
             }
 
