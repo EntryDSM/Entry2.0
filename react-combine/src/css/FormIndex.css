@@ -7,6 +7,7 @@
     background-color:#F4F4F4;
     min-width:828px;
     position:fixed;
+    overflow-y:auto;
 }
 
 #complete-box{

@@ -46,13 +46,20 @@ class AddressModal extends React.Component {
         "&confmKey="+confmKey +
         "&resultType="+resultType;
 
+<<<<<<< HEAD
+=======
         alert("Entered!");
+>>>>>>> 0742a861c332caf9e2608926fe8490d6c9dd87a4
         axios({
-            method:'get',
+            method: "get",
             url: apiUrl,
-            withCredentials: true
+            withCredentials: false,
+            // headers: {"Access-Control-Allow-Origin": "http://www.juso.go.kr/"}
         }).then(function (response) {
+<<<<<<< HEAD
+=======
                 console.log('response', response);
+>>>>>>> 0742a861c332caf9e2608926fe8490d6c9dd87a4
                 var result = response.data.results.juso;
                 var totalCount = response.data.results.common.totalCount;
                 var totalPage = totalCount / countPerPage;
@@ -135,6 +142,20 @@ class AddressModal extends React.Component {
             </div>
         );
     }
+
+    // componentDidUpdate() {
+
+    //     var i;
+
+    //     var input = document.getElementById("base_address");
+    //     var data = document.getElementById("data_roadAddr");
+
+    //     function putting() {
+    //         input.value = data.textContent;
+    //     }
+
+    //     data.onclick 
+    // }
 }
 
 export default AddressModal;

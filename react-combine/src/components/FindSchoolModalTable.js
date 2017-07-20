@@ -42,8 +42,12 @@ class FindSchoolModalTable extends Component {
                         <th id="title_school_code">학교코드</th>
                     </tr>
                     <tr>
-                        <td className="td_school_name">ddd</td>
-                        <td className="td_school_code">ddd</td>
+                        <td className="td_school_name">장안중학교</td>
+                        <td className="td_school_code">C100001639</td>
+                    </tr>
+                    <tr>
+                        <td className="td_school_name">해솔중학교</td>
+                        <td className="td_school_code">J100006457</td>
                     </tr>
                 </tbody>
             </table>
