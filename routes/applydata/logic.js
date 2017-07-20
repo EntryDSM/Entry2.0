@@ -279,6 +279,7 @@ exports.demo = (req, res) => {
             infoArr["name"] = check[0]._doc.name //이름
             infoArr["applyBaseType"] = check[0]._doc.applyBaseType //전형구분
             infoArr["applyDetailType"] = check[0]._doc.applyDetailType //전형 자세히 구분
+            infoArr["applyNoteType"] = check[0]._doc.applyNoteType //전형 비고(특례입학, 유공자 자녀 등)
             infoArr["regionType"] = check[0]._doc.regionType // 지역구분
             // 성적은 영훈이형 계산처리하고 넣을게요
             // infoArr["score"] = check[0]._doc.score //이름
