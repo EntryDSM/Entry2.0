@@ -238,7 +238,7 @@ exports.demo = (req, res) => {
   let planArr = {};
   let tab = req.query.tab || req.params.tab;
 
-  console.log('실행');
+  console.log('미리보기 실행');
   try {
     if (req.session.key) {
 
@@ -367,6 +367,37 @@ exports.demo = (req, res) => {
   }
 }
 
+exports.getdemo = (req,res)=>{
+  let getDemo = {};
+  console.log('자소서 , 학업계획서 조회 ');
+  let userId = req.session.key;
+  console.log(userId+'로 조회 합니다');
+  let database = req.app.get('database');
+  database.applyDataModel.findUserInfo(userId,function(err,data){
+    console.log(data+'찾은 데이터');
+
+    if(err){
+      console.log(err);
+      res.writeHead(400);
+      res.end();
+    }
+    if(data){
+      getDemo['self'] = data[0]._doc.self;
+      getDemo['plan'] = data[0]._doc.plan;
+
+      console.log(getDemo+'조회 완료');
+
+      res.writeHead(200, {
+              'Content-Type': 'application/json'
+            });
+
+            res.end(JSON.stringify(getDemo));
+
+    }
+
+  })
+}
+
 
 exports.intro = (req, res) => {
 
@@ -387,7 +418,9 @@ exports.intro = (req, res) => {
       database.applyDataModel.findUserInfo(userId, function (err, user) {
 
         if (err) {
+          console.log(err);
           res.writeHead(400);
+          res.end();
         }
 
         if (user) {
@@ -407,8 +440,8 @@ exports.intro = (req, res) => {
             }, (err, output) => {
 
               if (err) {
+                console.log(err);
                 res.writeHead(400);
-                res.send('학업계획서, 자기소개서 저장 실패');
                 res.end();
                 return;
               }
@@ -423,7 +456,8 @@ exports.intro = (req, res) => {
         }
            else {
           res.writeHead(400);
-          res.send('학업계획서, 자기소개서 저장 실패');
+          //res.send('학업계획서, 자기소개서 저장 실패');
+          res.end();
         }
 
       })

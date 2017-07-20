@@ -1,20 +1,19 @@
     exports.schoolcode = (req, res) => {
-
+        console.log('학교 코드 조회 ');
         let database = req.app.get('database');
-        let office = req.query.government; //교육청이름
-        let school = req.query.name; //중학교이름
+        let office = req.query.department; //교육청이름
+        let school = req.query.schoolName; //중학교이름
         let count = 0;
         let arr = [];
 
+        console.log(office + ' : 교육청,  ' + school + ' : 중학교 이름 ');
         try {
-            if (!school && office) { //교육청만 존재
 
+            if (!school && office) { //교육청만 존재
+                console.log('교육청');
                 database.schoolModel.findgovernment(office, (err, find) => {
                     if (err) {
-                        res.writeHead(401, {
-                            'Content-Type': 'text/html;charset=utf8'
-                        });
-                        res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+                        res.writeHead(400);
                     }
 
                     if (find) {
@@ -26,14 +25,12 @@
                         res.end();
                     }
                 })
-            } else if (school && office) { //교육청, 중학교 존재
 
+            } else if (school && office) { //교육청, 중학교 존재
+                console.log('교육청 , 중학교');
                 database.schoolModel.findgovernment(office, (err, find) => {
                     if (err) {
-                        res.writeHead(401, {
-                            'Content-Type': 'text/html;charset=utf8'
-                        });
-                        res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+                        res.writeHead(400);
                     }
                     if (find) {
                         for (let i = 0; i < find.length; i++) {
@@ -42,17 +39,16 @@
                                 count++;
                             }
                         }
+                        console.log(arr);
                         res.json(arr);
                     }
                 })
+
             } else if (school && !office) { //중학교만 있을시에
                 console.log('중학교만')
                 database.schoolModel.findMidleSchool(school, (err, find) => {
                     if (err) {
-                        res.writeHead(401, {
-                            'Content-Type': 'text/html;charset=utf8'
-                        });
-                        res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+                        res.writeHead(400);
                     }
                     if (find) {
                         console.log(find.length)
@@ -67,11 +63,10 @@
                         res.json(arr);
                     }
                 })
+                
             } else {
-                res.writeHead(401, {
-                    'Content-Type': 'text/html;charset=utf8'
-                });
-                res.write('<script>alert("학교 검색중 오류 발생했습니다.")<script>');
+                res.writeHead(400);
+                res.end();
             }
 
         } catch (err) {
@@ -79,5 +74,5 @@
             res.writeHead(400);
             res.end();
         }
-        
+
     }
