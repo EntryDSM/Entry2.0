@@ -26,12 +26,13 @@ class LoginForm extends React.Component {
                 {
                     InfoTitle: "이메일(Email)",
                     InputTitle: "이메일을 입력해주세요.",
-                    Type: "email"
+                    Type: "email"     
                 },
                 {
                     InfoTitle: "비밀번호(Password)",
                     InputTitle: "비밀번호를 입력해주세요.",
-                    InputType: "password"
+                    InputType: "password",
+                    aText: "Forgot Password?"
                 }
             ],
             formsValues: [
@@ -56,7 +57,12 @@ class LoginForm extends React.Component {
                 {this.state.inputArray.map((info, i) => {
                     return (
                         <div key={i}>
-                            <h2> {info.InfoTitle} </h2>
+                            <h2> 
+                                {info.InfoTitle}
+                                <a href="#">
+                                    {info.aText}
+                                </a>
+                            </h2>
                             <input type={info.InputType} className="MainInput"
                                 placeholder={info.InputTitle}
                                 value={this.state.formsValues[i]}
