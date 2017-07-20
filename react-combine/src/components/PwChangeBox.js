@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class PwChangeBox extends React.Component{
     render(){
@@ -73,7 +74,26 @@ class PwChangeForm extends React.Component{
             pwValues: [
 
             ]
-        }
+        };
+        this.Authentication2 = this.Authentication2.bind(this);
+    }
+
+    Authentication2(){
+        axios({
+            method: "PUT",
+            url: "http://localhost:8080/account/password/change",
+            data: {
+                password: this.state.pwArray[0]
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://localhost:8080"
+            }
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (err) {
+            console.log(err);
+        });
     }
 
     changeValues( number,event ) {
@@ -105,15 +125,15 @@ class PwChangeForm extends React.Component{
                     );
                 })}
 
-                <PwSaveButton/>
+                <PwSaveButton onClick={this.Authentication2}/>
             </div>
         );
     }
 }
 
-const PwSaveButton = () =>{
+const PwSaveButton = (props) =>{
     return(
-        <div id="PwSaveButton" onClick={this.setPassword}>
+        <div id="PwSaveButton" onClick={props.onClick}>
             <PwSaveText text = "비밀번호 저장"/>
         </div>
     );
@@ -126,4 +146,5 @@ const PwSaveText = (props) =>{
         </div>
     );
 }
+
 export default PwChangeBox;
