@@ -470,3 +470,101 @@ exports.intro = (req, res) => {
     res.end();
   }
 }
+
+exports.status = (req, res) => {
+  console.log("등록 현황보기 실행");
+  let database = req.app.get('database');
+
+  // let daejeon = {
+  //   common: [],
+  //   special: {
+  //     meister: [],
+  //     social: {
+  //       equalOp: [],
+  //       diversity: []
+  //     }
+  //   }
+  // };
+
+  // let national = {
+  //   common: [],
+  //   special: {
+  //     meister: [],
+  //     social: {
+  //       equalOp: [],
+  //       diversity: []
+  //     }
+  //   }
+  // };
+
+  let typeData = [
+            ['전형', '지원자 수'],
+            ['일반전형'],
+            ['마이스터 인재 전형'],
+            ['사회 통합 전형'],
+            ['국가 유공자 전형']
+        ];
+
+  let areaData = [
+            ['지역', '지원자 수'],
+            ['대전'],
+            ['전국'],
+        ];
+
+  let allData = [areaData, typeData];
+
+  //대전지역 총합
+  database.applyDataModel.count({
+    applyStatus: true,
+    regionType: "inside"
+  }).count(function (err, count) {
+    allData[0][1].push(count);
+    console.log(count);
+  })
+
+  //전국 총합
+  database.applyDataModel.count({
+    applyStatus: true,
+    regionType: "outside"
+  }).count(function (err, count) {
+    allData[0][2].push(count);
+    console.log(count);
+  })
+
+  //일반전형
+  database.applyDataModel.count({
+    applyStatus: true,
+    applyBaseType: "common"
+  }).count(function (err, count) {
+    allData[1][1].push(count);
+    console.log(count);
+  })
+
+  //마이스터 전형
+  database.applyDataModel.count({
+    applyStatus: true,
+    applyBaseType: "meister"
+  }).count(function (err, count) {
+    allData[1][2].push(count);
+    console.log(count);
+  })
+
+  //사회통합
+  database.applyDataModel.count({
+    applyStatus: true,
+    applyBaseType: "social"
+  }).count(function (err, count) {
+    allData[1][3].push(count);
+    console.log(count);
+  })
+
+  //국가유공자
+  database.applyDataModel.count({
+    applyStatus: true,
+    applyBaseType: "veteran"
+  }).count(function (err, count) {
+    allData[1][4].push(count);
+    console.log(allData);
+    res.status(200).send(allData);
+  })
+}
