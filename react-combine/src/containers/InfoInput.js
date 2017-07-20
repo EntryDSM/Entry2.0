@@ -3,6 +3,7 @@ import InfoInputTable from '../components/InfoInputTable';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import '../css/InfoInput.css'
+import axios from 'axios';
 
 class InfoInput extends React.Component {
     
@@ -19,6 +20,10 @@ class InfoInput extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    componentDidMount() {
+        
     }
 }
 
