@@ -49,8 +49,8 @@ class LoginForm extends React.Component {
             url: "http://114.108.135.15:8080/signup",
             data: {
                 name: this.state.inputArray[0],
-                password: this.state.inputArray[1],
-                email: this.state.inputArray[2]
+                email: this.state.inputArray[1],
+                password: this.state.inputArray[2]
             },
             withCredentials: false,
             headers: {
