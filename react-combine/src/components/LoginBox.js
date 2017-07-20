@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../css/LoginBox.css';
 
 class LoginBox extends React.Component {
     render() {

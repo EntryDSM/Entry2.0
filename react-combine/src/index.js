@@ -4,6 +4,7 @@ import 'babel-polyfill';
 import { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, ChangePw, SendComplete, FinalSubmit } from './containers';
 import InputLayout from './components/InputLayout';
 
+
 import {
     Router,
     Route,
@@ -21,13 +22,13 @@ ReactDOM.render(
             <Route path="/sendinfo" component={SendInfo}/>
             <Route path="/sendcomplete" component={SendComplete}/>
             <Route path="/changepw" component={ChangePw}/>
+            <Route path="/introduce" component={Introduce}/>
             <Route path="/input" component={InputLayout}>
                 <Route path="/signup" component={SignUp}/>
                 <Route path="/sendcomplete" component={SendComplete}/>
                 <Route path="/classification" component={Classification}/>
                 <Route path="/infoinput" component={InfoInput}/>
                 <Route path="/gradeinput" component={GradeInput}/>
-                <Route path="/introduce" component={Introduce}/>
                 <Route path="/preview" component={Preview}/>
                 <Route path="/finalsubmit" component={FinalSubmit}/>
             </Route>
