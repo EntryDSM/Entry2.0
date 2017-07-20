@@ -57,7 +57,7 @@ router.get('/question', function (request, response) {
             return;
         }
         if (!author) { //키워드로 찾기
-            findData = Content.find({ content: { $regex: new RegExp(keyword, "i") } });
+            findData = Content.find({ contents: { $regex: new RegExp(keyword, "i") } });
             searchData(findData, response);
 
             return;
