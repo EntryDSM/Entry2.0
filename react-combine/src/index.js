@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-<<<<<<< HEAD
 import SendComplete from './containers/SendComplete';
 import ChangePw from './containers/ChangePw';
-import { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp } from './containers';
-=======
 import 'babel-polyfill';
-import { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, ChangePw, SendComplete, FinalSubmit } from './containers';
->>>>>>> 30db6e06e84be8075150bfdce498ea93dfc04185
+import { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, FinalSubmit } from './containers';
 import InputLayout from './components/InputLayout';
 
 
