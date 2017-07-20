@@ -12,6 +12,10 @@ schema.static('updateApplyType', function(id, newData, callback){
             regionType: newData.regionType,
             applyBaseType: newData.applyBaseType,
             applyDetailType: newData.applyDetailType,
+<<<<<<< HEAD
+=======
+            applyNoteType: newData.applyNoteType,
+>>>>>>> 6649a66a1fd1505d6c10a5c69897bacc5a4f3eba
             graduateType: newData.graduateType,
             graduateYear: newData.graduateDate
         }
@@ -25,6 +29,7 @@ schema.static('selectApplyType', function(id, callback){
         regionType: true,
         applyBaseType: true,
         applyDetailType: true,
+        applyNoteType: true,
         graduateType: true,
         graduateYear: true,
         _id: false

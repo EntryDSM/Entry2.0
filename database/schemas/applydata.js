@@ -21,6 +21,7 @@ let schema = mongoose.Schema({
     regionType: { type : String, default : "" },
     applyBaseType: { type : String, default : "" },
     applyDetailType: { type : String, default : "" },
+    applyNoteType: { type: String, default: "" },
     score : { type : JSON, default : null },
     attend : { type : JSON, default : null },
     volunteer : { type : Number, default : null },

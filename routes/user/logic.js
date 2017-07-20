@@ -19,18 +19,17 @@ exports.login = (req, res) => {
                 }
                 console.log(docs);
                 if (docs === null) {
-                    res.send('<script>alert("아이디 또는 비밀번호를 다시 확인하세요.");location.href="/public/view3.html"</script>');
+                    res.writeHead(400);
                 } else if (docs[0]._doc.check == true) {
-                    // Session 생성 코드
+
                     req.session.key = docs[0]._doc.salt;
-                    // res.send('<script>alert("로그인이 성공적으로 처리되었습니다");</script>');
-                    // 세션정보 ejs에서도 유지되는지 테스트 key변수에 세션 정보담아 처리
-                    res.render('main', {
-                        key: req.session.key
-                    });
+                    res.writeHead(200);
+                    res.end();
 
                 } else {
-                    res.send('<script>alert("회원가입 인증을 해주세요");location.href="/public/view3.html"</script>');
+                    res.writeHead(400);
+                    //res.end('회원가입 인증 필요');
+                    res.end();
                 };
             });
         }
@@ -75,6 +74,7 @@ exports.adduser = (req, res) => {
     var unemail = email; //이메일 암호화를 담아줄 변수
     var check; //Boolean 값으로 이메일 인증을 했는지 안했는지 체크해주는 변수
     var Docs = req.app.get('database');
+
     try {
         if (Docs.connection) {
             checkEmail(Docs, email, function (find) {
@@ -87,14 +87,18 @@ exports.adduser = (req, res) => {
                             return;
                         }
                         if (add) {
-                            res.send('<script>alert("회원가입 성공"); location.href = "/check/' + email + '"</script>');
+                            sendemail(req,res,email);
                         } else {
-                            res.send('<script>alert("회원가입 실패");</script>');
+                            res.writeHead(400);
+                           // res.end('회원가입 실패');
+                           res.end();
                         }
                     });
 
                 } else {
-                    res.send('<script>alert("이미 회원가입한 이메일 입니다!!");</script>');
+                    res.writeHead(400);
+                    //res.end('이미 회원가입한 이메일 입니다');
+                    res.end();
                 }
             });
 
@@ -205,7 +209,10 @@ exports.unemail = (req, res) => {
                 }, {
                     multi: true
                 }, () => {
-                    res.send('<script>alert("이메일 인증완료 로그인 해주세요"); location.href ="/public/view3.html"</script>');
+                    //res.send('<script>alert("이메일 인증완료 로그인 해주세요"); location.href ="/public/view3.html"</script>');
+                    console.log('메일 회원가입 인증 성공');
+                    res.writeHead(200);
+                    res.end();
                 });
 
             }
@@ -247,8 +254,7 @@ var authunemail = (req, res, unemail, callback) => {
 };
 
 //회원가입시 입력받은 이메일로 메일전송
-exports.sendemail = (req, res) => {
-    var email = req.params.email;
+let sendemail = (req, res,email) => {
     let baseDir = rootPath + '/public/mail.html';
     var database = req.app.get('database');
     database.userModel.findByEmail(email, (err, enemail) => {
@@ -271,7 +277,7 @@ exports.sendemail = (req, res) => {
                     }
 
                     if (enemail) {
-                        console.log('Send Email');
+                        console.log(email +' Send Email');
 
                         var con = require('../../confi.json');
                         var sender = 'EntryDsm < syeutyu123@gmail.com >';
@@ -308,12 +314,14 @@ exports.sendemail = (req, res) => {
                             }
                             transporter.close();
                         });
-                        res.redirect('/public/view3.html');
+                        //res.redirect('/public/view3.html');
+                        res.writeHead(200);
+                        res.end();
                     }
                 });
             });
         } catch (err) {
-            console.log('데이터 못찾음')
+            console.log(err);
             res.writeHead(400);
             res.end();
         }
@@ -322,6 +330,7 @@ exports.sendemail = (req, res) => {
 
 //이메일을 찾기위해 이름을 입력받고 해당되는 이메일 출력
 exports.findEmail = function (req, res) {
+    console.log('이메일 찾기');
     let database = req.app.get('database');
     let name = req.query.name;
     var arr = [];
@@ -350,10 +359,11 @@ exports.findEmail = function (req, res) {
                     arr[i] = chec.concat('@' + result[1]); //이메일형식으로 변환
                 }
             } else {
-                res.send('<script>alert("입력하신 이름에 해당하는 아이디는 존재하지 않습니다.");</script>')
+                //res.send('<script>alert("입력하신 이름에 해당하는 아이디는 존재하지 않습니다.");</script>')
+                res.writeHead(400);
+                res.end();
             }
-
-
+            console.log(arr+'아이디 찾음');
             res.send(arr);
 
         } catch (err) {
@@ -395,7 +405,7 @@ exports.sendfindemail = (req, res) => {
                         var con = require('../../confi.json');
                         var sender = 'EntryDsm < syeutyu123@gmail.com >';
                         var receiver = email;
-                        var mailTitle = 'Mail test';
+                        var mailTitle = 'Change Password';
 
                         var mailOptions = {
                             from: sender,
@@ -425,12 +435,14 @@ exports.sendfindemail = (req, res) => {
                             }
                             transporter.close();
                         });
-                        res.send('<script>alert("입력하신 이메일로 메일이 전송되었습니다."); location.href ="/public/view3.html"</script>');
+                        //res.send('<script>alert("입력하신 이메일로 메일이 전송되었습니다."); location.href ="/public/view3.html"</script>');
+                        res.writeHead(200);
+                        res.end();
                     }
                 });
             });
         } catch (err) {
-            console.log('데이터 못찾음')
+            console.log(err);
             res.writeHead(400);
             res.end();
         }
@@ -445,11 +457,15 @@ exports.checkmail = (req, res) => {
         database.userModel.findSalt(salt, (err, inSalt) => {
             if (inSalt) {
 
-                res.render('view4', {
-                    id: inSalt[0]._doc.email
-                });
+                // res.render('view4', {
+                //     id: inSalt[0]._doc.email
+                // });
+                res.writeHead(200);
+                res.end();
             } else {
-                res.send('<script>alert("해당 링크는 존재하지 않습니다.");</script>')
+                //res.send('<script>alert("해당 링크는 존재하지 않습니다.");</script>')
+                res.writeHead(400);
+                res.end();
             }
         })
     } catch (err) {
@@ -461,20 +477,17 @@ exports.checkmail = (req, res) => {
 //ejs에서 비밀번호 변경을위해 입력받은데이터로 모델 생성후 비밀번호 업데이트
 exports.changepassword = (req, res) => {
     var database = req.app.get('database');
-    var userid = req.body.userid;
+    var userId = req.body.userId;
     var password = req.body.password;
-    var newpassword = req.body.newpassword;
 
-    if (password != newpassword) {
-        res.send('<script>alert("비밀번호가 맞지않습니다.")</script>')
-    }
-    database.userModel.findByEmail(userid, (err, findid) => {
+    console.log(userId+'  로 접속');
+    database.userModel.findByEmail(userId, (err, findId) => {
         try {
-            if (findid) {
-                console.log(findid[0]._doc.salt)
+            if (findId) {
+                console.log(findId[0]._doc.salt)
                 var user = new database.userModel({
                     "password": password,
-                    "salt": findid[0]._doc.salt
+                    "salt": findId[0]._doc.salt
                 });
 
                 var pwChange = user.hash_password;
@@ -486,10 +499,16 @@ exports.changepassword = (req, res) => {
                 }, {
                     multi: true
                 }, () => {
-                    res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
+                    console.log('비밀번호 변경완료');
+                    //res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
+                    res.writeHead(200);
+                    res.end();
                 });
             } else {
-                res.send('<script>alert("입력하신 이메일이 존재하지 않습니다.");</script>')
+                // res.send('<script>alert("입력하신 이메일이 존재하지 않습니다.");</script>')
+                console.log('이메일이 존재하지않음')
+                res.writeHead(400);
+                res.end();
             }
         } catch (err) {
             console.log(err)
