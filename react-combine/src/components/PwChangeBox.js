@@ -36,6 +36,16 @@ class PwChangeBox extends React.Component{
                 alert("저장되었습니다!");
                 //bdy.style.backgroundColor = "rgb(56, 205, 177)";d
                 let ChangedValue = firstPw.value;
+
+                // axios({
+                //     method: "PUT",
+                //     url: "http://114.108.135.15:8080/account/password/change",
+                //     data: {
+                //         "password": ChangedValue,
+                //         "":
+                //     }
+                // })
+
                 console.log("저장된 비밀번호: " + ChangedValue);
             }
 
@@ -112,7 +122,7 @@ class PwChangeForm extends React.Component{
 
 const PwSaveButton = () =>{
     return(
-        <div id="PwSaveButton">
+        <div id="PwSaveButton" onClick={this.setPassword}>
             <PwSaveText text = "비밀번호 저장"/>
         </div>
     );
