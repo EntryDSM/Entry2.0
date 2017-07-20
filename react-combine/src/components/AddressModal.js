@@ -52,12 +52,6 @@ class AddressModal extends React.Component {
             withCredentials: false,
             // headers: {"Access-Control-Allow-Origin": "http://www.juso.go.kr/"}
         }).then(function (response) {
-<<<<<<< HEAD
-=======
-
-
-                console.log('response', response);
->>>>>>> 9a71ea2a74762ed1edd7315e738542647710dab9
                 var result = response.data.results.juso;
                 var totalCount = response.data.results.common.totalCount;
                 var totalPage = totalCount / countPerPage;
