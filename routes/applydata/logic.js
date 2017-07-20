@@ -3,8 +3,13 @@ var rootPath = require('../../config').getRootPath();
 
 // save(update) type of applicant.(input1)
 exports.saveType = (req, res) => {
+  if(typeof req.session.key === "undefined"){
+    res.status(401).end();
+    return;
+  }
+  let userkey = req.session.key;
   let updatedData = req.body;
-  let userkey = req.params.userid;
+  
   let Docs = req.app.get('database');
 
   if(Docs.connection){
@@ -21,7 +26,11 @@ exports.saveType = (req, res) => {
 
 // load(select) type of applicant.(input1)
 exports.loadType = (req, res) => {
-  let userkey = req.params.userid;
+  if(typeof req.session.key === "undefined"){
+    res.status(401).end();
+    return;
+  }
+  let userkey = req.session.key;
   let Docs = req.app.get('database');
 
   if(Docs.connection){
@@ -61,8 +70,13 @@ var loadApplyType = (database, userkey, callback) => {
 
 // save(update) applydata.(input2)
 exports.save = (req, res) => {
+  if(typeof req.session.key === "undefined"){
+    res.status(401).end();
+    return;
+  }
+  let userkey = req.session.key;
+
   let updatedData = req.body;
-  let userkey = req.params.userid;
   let Docs = req.app.get('database');
 
   // update image.
@@ -106,7 +120,11 @@ exports.save = (req, res) => {
 }
 
 exports.load = (req, res) => {
-  var userkey = req.params.userid;
+  if(typeof req.session.key === "undefined"){
+    res.status(401).end();
+    return;
+  }
+  let userkey = req.session.key;
   var Docs = req.app.get('database');
 
   if (Docs.connection) {
@@ -117,10 +135,7 @@ exports.load = (req, res) => {
           error: 'database personal data select failure'
         });
       } else {
-        res.render('view2', {
-          data: docs,
-          key: userkey
-        });
+        res.status(200).json(docs);
       }
     })
   }
@@ -182,12 +197,7 @@ var saveImageData = (src, dst) => {
 
 exports.validation = (req, res) => {
   if (!req.session.key) {
-    res.writeHead(401, {
-      'Content-Type': 'text/html;charset=utf8'
-    });
-    res.write("<script>alert('권한이 없습니다. 로그인해주세요');</script>");
-    res.write("<script>location.href='/public/login.html';</script>");
-    res.end();
+    res.writeHead(401).end();
     return;
   }
 
@@ -371,10 +381,14 @@ exports.demo = (req, res) => {
 exports.getdemo = (req,res)=>{
   let getDemo = {};
   console.log('자소서 , 학업계획서 조회 ');
-  let userId = req.session.key;
+  if(typeof req.session.key === "undefined"){
+    res.status(401).end();
+    return;
+  }
+  let userkey = req.session.key;
   console.log(userId+'로 조회 합니다');
   let database = req.app.get('database');
-  database.applyDataModel.findUserInfo(userId,function(err,data){
+  database.applyDataModel.findUserInfo(userKey,function(err,data){
     console.log(data+'찾은 데이터');
 
     if(err){
@@ -463,7 +477,9 @@ exports.intro = (req, res) => {
 
       })
     }
-
+    else{
+      res.status(401).end();
+    }
   } catch (err) {
     console.log(err)
     res.writeHead(400);

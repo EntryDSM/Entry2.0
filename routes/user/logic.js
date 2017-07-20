@@ -315,7 +315,7 @@ let sendemail = (req, res,email) => {
                             transporter.close();
                         });
                         //res.redirect('/public/view3.html');
-                        res.writeHead(200);
+                        res.writeHead(201);
                         res.end();
                     }
                 });
