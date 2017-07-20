@@ -22,9 +22,12 @@ class InfoInput extends React.Component {
         );
     }
 
-    componentDidMount() {
-        
-    }
+    // componentDidMount() {
+    //     axios({
+    //         method: "get",
+            
+    //     })
+    // }
 }
 
 export default InfoInput;
