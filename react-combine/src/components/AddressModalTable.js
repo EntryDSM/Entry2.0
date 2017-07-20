@@ -25,9 +25,7 @@ class AddressModalTable extends Component {
             </tr>
             addressData = this.props.datas.map(function(data, index) {
                 return(<tr key={index}>
-                    <td className="road_address">
-                        <a href="#" className="data_roadAddr">{data.roadAddr}</a>
-                    </td>
+                    <td className="road_address">{data.roadAddr}</td>
                     <td className="zipNo">
                         {data.zipNo}
                     </td>
@@ -46,17 +44,12 @@ class AddressModalTable extends Component {
         );
     }
 
-    componentDidUpdate() {
-        var i;
+    componentWillUpdate() {
+        var data = document.getElementsByClassName("road_address");
+        var input = document.getElementById("base_address");
 
-        for(i=0; i<10; i++){
-            var input = document.getElementById("base_address");
-            var data = document.getElementsByClassName("data_roadAddr")[i];
-            input.value = data.textContent; 
-        }
-        this.setState({modalIsOpen: true});
+
     }
-    
 }
 
 export default AddressModalTable;
