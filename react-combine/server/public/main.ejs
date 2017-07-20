@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <title>세션 테스트</title>
+</head>
+
+<body>
+    <% if(key) {%>
+        <%= key%>
+            
+            <a href="/">로그아웃</a>
+            <a href="<%='/classification/' + key%>">원서접수</a>
+            <a href="/preview?tab=userInfo">원서미리보기</a>
+            <a href="/preview?tab=introduce">자소서미리보기</a>
+            <a href="/preview?tab=studyPlan">계획미리보기</a>
+            <a href="/preview?tab=principal">추천미리보기</a>
+            <a href="/preview?tab=noSmoke">금연미리보기</a>
+
+            <% } else{%>
+                <a href="/public/view1.html">회원가입</a>
+                <%}%>
+</body>
+
+</html>
