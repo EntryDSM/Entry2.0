@@ -26,7 +26,6 @@ ReactDOM.render(
             <Route path="/introduce" component={Introduce}/>
             <Route path="/input" component={InputLayout}>
                 <Route path="/signup" component={SignUp}/>
-                <Route path="/sendcomplete" component={SendComplete}/>
                 <Route path="/classification" component={Classification}/>
                 <Route path="/infoinput" component={InfoInput}/>
                 <Route path="/gradeinput" component={GradeInput}/>

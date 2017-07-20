@@ -26,7 +26,7 @@ class LoginForm extends React.Component {
                 {
                     InfoTitle: "이메일(Email)",
                     InputTitle: "이메일을 입력해주세요.",
-                    Type: "text"
+                    Type: "email"
                 },
                 {
                     InfoTitle: "비밀번호(Password)",

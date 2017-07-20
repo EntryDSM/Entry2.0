@@ -15,7 +15,7 @@ const CheckedTextBox = () =>{
     return(
         <div id="TextBox">
             <MainTextBox title1 = "발송완료."
-                         title2 = "회원가입 인증 링크가 발송되었습니다."
+                         title2 = "귀하의 이메일로 회원가입 링크가 발송되었습니다."
                          title3 = "이메일을 확인해주세요."/>
             <ImageBox imageUrl = {require("../images/check.png")}/>
         </div>
