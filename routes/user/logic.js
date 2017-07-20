@@ -10,6 +10,7 @@ exports.login = (req, res) => {
     let email = req.body.email || req.query.email;
     let password = req.body.password || req.query.password;
     let Docs = req.app.get('database');
+    console.log('로그인 ');
     try {
         if (Docs.connection) {
             auth(Docs, email, password, (err, docs) => {
@@ -21,13 +22,15 @@ exports.login = (req, res) => {
                 if (docs === null) {
                     res.writeHead(400);
                 } else if (docs[0]._doc.check == true) {
-
+                    console.log('로그인 완료');
                     req.session.key = docs[0]._doc.salt;
                     res.writeHead(200);
+                    res.write("<script>location.href='/public/view2.html';</script>");
                     res.end();
 
                 } else {
                     res.writeHead(400);
+                    res.write("<script>location.href='/public/view3.html';</script>");
                     //res.end('회원가입 인증 필요');
                     res.end();
                 };
@@ -88,15 +91,14 @@ exports.adduser = (req, res) => {
                         }
                         if (add) {
                             sendemail(req,res,email);
-                        } else {
-                            res.writeHead(400);
-                           // res.end('회원가입 실패');
-                           res.end();
+                        } else{
+
                         }
                     });
 
                 } else {
                     res.writeHead(400);
+                    res.write("<script>location.href='/public/view1.html';</script>");
                     //res.end('이미 회원가입한 이메일 입니다');
                     res.end();
                 }
@@ -104,8 +106,9 @@ exports.adduser = (req, res) => {
 
         }
     } catch (err) {
-        console.log(err)
+        console.log(err);
         res.writeHead(400);
+        res.write("<script>location.href='/public/view1.html';</script>");
         res.end();
     }
 
@@ -212,6 +215,7 @@ exports.unemail = (req, res) => {
                     //res.send('<script>alert("이메일 인증완료 로그인 해주세요"); location.href ="/public/view3.html"</script>');
                     console.log('메일 회원가입 인증 성공');
                     res.writeHead(200);
+                    res.write("<script>location.href='/public/view3.html';</script>");
                     res.end();
                 });
 
@@ -261,6 +265,7 @@ let sendemail = (req, res,email) => {
 
         try {
             var num = enemail[0]._doc.hash_email;
+            console.log('send Email : '+enemail[0]._doc.hash_email)
 
             fs.readFile(baseDir, 'utf8', function (err, data) {
 
@@ -316,6 +321,7 @@ let sendemail = (req, res,email) => {
                         });
                         //res.redirect('/public/view3.html');
                         res.writeHead(200);
+                        res.write("<script>location.href='/public/view3.html';</script>");
                         res.end();
                     }
                 });
@@ -380,9 +386,9 @@ exports.sendfindemail = (req, res) => {
     
     var email = req.body.email;
     
-    // 비밀번호 메일변경 나오면 html코드로 넣기*******************
+    
 
-    let baseDir = rootPath + '/public/mail.html';
+    let baseDir = rootPath + '/public/passwordMail.html';
     var database = req.app.get('database');
 
     database.userModel.findByEmail(email, (err, enemail) => {
@@ -393,12 +399,11 @@ exports.sendfindemail = (req, res) => {
 
                 var styliner = new Styliner(baseDir);
 
-                styliner.processHTML(data).then((htmlfile) => {
 
+                styliner.processHTML(data).then((htmlfile) => {
+                    htmlfile = htmlfile.replace('@val', num);
                     console.log('비밀번호 찾기용 메일 전송');
 
-                    var htmldata = htmlfile.replace('@name', num);
-                    htmldata = htmldata.replace('@host', server_domain);
 
                     if (enemail) {
 
@@ -411,7 +416,7 @@ exports.sendfindemail = (req, res) => {
                             from: sender,
                             to: receiver,
                             subject: mailTitle,
-                            html: htmldata
+                            html: htmlfile
                         };
                         var transporter = nodemailer.createTransport(smtpPool({
                             service: con.mailer.service,
@@ -436,6 +441,7 @@ exports.sendfindemail = (req, res) => {
                             transporter.close();
                         });
                         //res.send('<script>alert("입력하신 이메일로 메일이 전송되었습니다."); location.href ="/public/view3.html"</script>');
+                        console.log(num+' 으로 값 보냄 ');
                         res.writeHead(200);
                         res.end();
                     }
@@ -449,18 +455,21 @@ exports.sendfindemail = (req, res) => {
     });
 }
 
-//비밀번호 변경을위해 해당되는 salt값을 이용해서 아이디값을 ejs로 렌더링후 출력
+//비밀번호 번경을 위해 어떤 사용자인지 검증하고 변경 페이지로 리다이렉트 
 exports.checkmail = (req, res) => {
+    let salt = req.params.email;
     var database = req.app.get('database');
-    var salt = req.params.salt;
+    console.log(salt+'값으로 비번변경 키로 사용이됨');
+    
     try {
         database.userModel.findSalt(salt, (err, inSalt) => {
             if (inSalt) {
 
-                // res.render('view4', {
-                //     id: inSalt[0]._doc.email
-                // });
+                req.session.key = inSalt[0]._doc.hash_email;
+
                 res.writeHead(200);
+                
+                res.write("<script>location.href='/public/passcheck.html';</script>");
                 res.end();
             } else {
                 //res.send('<script>alert("해당 링크는 존재하지 않습니다.");</script>')
@@ -474,14 +483,17 @@ exports.checkmail = (req, res) => {
         res.end();
     }
 }
-//ejs에서 비밀번호 변경을위해 입력받은데이터로 모델 생성후 비밀번호 업데이트
+
+
+// 비밀번호 변경을위해 입력받은데이터로 모델 생성후 비밀번호 업데이트
 exports.changepassword = (req, res) => {
     var database = req.app.get('database');
-    var userId = req.body.userId;
     var password = req.body.password;
+    let userId = req.session.key;
+    console.log(req.session);
+    console.log(userId+' 세션키가 비밀번호 변경까지 유지중입니다.');
 
-    console.log(userId+'  로 접속');
-    database.userModel.findByEmail(userId, (err, findId) => {
+    database.userModel.findSalt(userId, (err, findId) => {
         try {
             if (findId) {
                 console.log(findId[0]._doc.salt)
@@ -502,6 +514,7 @@ exports.changepassword = (req, res) => {
                     console.log('비밀번호 변경완료');
                     //res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
                     res.writeHead(200);
+                    res.write("<script>location.href='/public/view3.html';</script>");
                     res.end();
                 });
             } else {

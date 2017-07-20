@@ -7,6 +7,7 @@ var database = require('./database/database');
 var bodyparser = require('body-parser');
 var crypto = require('crypto');
 var fileUpload = require('express-fileupload');
+let morgan = require('morgan');
 var app = express();
 
 let userRouter = require('./routes/user/router');
@@ -17,6 +18,8 @@ let schoolRouter = require('./routes/school/router');
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
 
+
+app.use(morgan('dev'));
 app.use('/public', static(path.join(__dirname, '/public')));
 app.use(bodyparser.urlencoded({
     extended: false
