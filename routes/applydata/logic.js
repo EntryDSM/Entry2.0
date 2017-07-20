@@ -39,10 +39,7 @@ exports.loadType = (req, res) => {
         console.error(err);
       }else{
         console.log('전형 불러오기 완료');
-        res.render('applytype', {
-          key: userkey,
-          data: result
-        });
+        res.status(200).json(result).end();
       }
     });
   }
