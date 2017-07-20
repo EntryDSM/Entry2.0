@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
     Authentication() {
         axios({
             method: "POST",
-            url: "http://114.108.135.15:8080/signup",
+            url: "http://localhost:8080/signup",
             data: {
                 name: this.state.inputArray[0],
                 email: this.state.inputArray[1],
@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
             },
             withCredentials: false,
             headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15:8080"
+                "Access-Control-Allow-Origin": "http://localhost:8080"
             }
         }).then(function (response) {
             console.log(response);
@@ -110,25 +110,6 @@ const LoginText = (props) => {
             {props.text}
         </div>
     );
-}
-function Authentication() {
-    axios({
-        method: "POST",
-        url: "http://114.108.135.15:8080/signup",
-        data: {
-            name: "String",
-            password: "String",
-            email: "String"
-        },
-        withCredentials: false,
-        headers: {
-            "Access-Control-Allow-Origin": "http://114.108.135.15:8080"
-        }
-    }).then(function (response) {
-        console.log(response);
-    }).catch(function (err) {
-        console.log(err);
-    });
 }
 
 export default LoginBox;
