@@ -111,5 +111,4 @@ const LoginText = (props) => {
         </div>
     );
 }
-
 export default LoginBox;
