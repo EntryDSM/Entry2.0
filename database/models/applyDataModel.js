@@ -9,12 +9,12 @@ schema.static('updateApplyType', function(id, newData, callback){
         user: id
     }, {
         $set: {
-            regionType: newData.regionType,
-            applyBaseType: newData.applyBaseType,
-            applyDetailType: newData.applyDetailType,
-            applyNoteType: newData.applyNoteType,
-            graduateType: newData.graduateType,
-            graduateYear: newData.graduateDate
+            regionType: newData.local,
+            applyBaseType: newData.type,
+            applyDetailType: newData.detail,
+            applyNoteType: newData.note,
+            graduateType: newData.graduation,
+            graduateYear: newData.date
         }
     }, callback);
 });

@@ -23,6 +23,7 @@ let schema = mongoose.Schema({
     applyDetailType: { type : String, default : "" },
     applyNoteType: { type: String, default: "" },
     score : { type : JSON, default : null },
+    scoreSum : { type : JSON, default : null },
     attend : { type : JSON, default : null },
     volunteer : { type : Number, default : null },
     memberImage: { type : String, default : "" },
@@ -30,7 +31,6 @@ let schema = mongoose.Schema({
     studyPlan: { type : String, default : "" },
     grade: { type : Number, default : null },
     class: { type : Number, default : null },
-    attendance : {type : Number,default : null},
     applyStatus: { type : Boolean, default : false },
     createDate : { type : Date, default : Date.now() },
     updateDate: { type : Date, default : Date.now() }
@@ -63,31 +63,31 @@ score :
     semester : [0][ // 1학년 1학기 성적 | 졸업예정자는 [4], 졸업자는 [5]까지 있음 (3학년 2학기)
         {  // 국어
             "pass" : Boolean,  // 이수 여부
-            "grade" : String   // 점수
+            "grade" : Number   // 점수
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         }
     ]
 }
@@ -101,7 +101,6 @@ volunteer : 봉사 시간
 memberImage : 이미지 경로
 introduce : 자기소개서
 studyPlan : 학업계획서
-attendance : 출석
 grade : 학년 (졸업예정, 졸업자는 3으로 고정)
 class : 반
 applyStatus : 원서 접수 여부
