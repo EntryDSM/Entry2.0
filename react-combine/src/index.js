@@ -22,7 +22,6 @@ ReactDOM.render(
             <Route path="/sendinfo" component={SendInfo}/>
             <Route path="/sendcomplete" component={SendComplete}/>
             <Route path="/changepw" component={ChangePw}/>
-            <Route path="/introduce" component={Introduce}/>
             <Route path="/input" component={InputLayout}>
                 <Route path="/signup" component={SignUp}/>
                 <Route path="/sendcomplete" component={SendComplete}/>
@@ -30,6 +29,7 @@ ReactDOM.render(
                 <Route path="/infoinput" component={InfoInput}/>
                 <Route path="/gradeinput" component={GradeInput}/>
                 <Route path="/preview" component={Preview}/>
+                <Route path="/introduce" component={Introduce}/>
                 <Route path="/finalsubmit" component={FinalSubmit}/>
             </Route>
         </Route>
