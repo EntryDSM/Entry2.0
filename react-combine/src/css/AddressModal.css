@@ -2,13 +2,13 @@
     border-radius: 20px;   
     width: 800px;
     height: 600px;
-    margin: auto;
-    margin-top: 150px;
     padding-left: 30px;
     padding-right: 30px;
+    margin: auto;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: white;
+    margin-top: 80px;
 }
 
 .ReactModal__Overlay{
