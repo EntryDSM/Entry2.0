@@ -31,6 +31,7 @@ ReactDOM.render(
                 <Route path="/introduce" component={Introduce} />
                 <Route path="/preview" component={Preview} />
                 <Route path="/finalsubmit" component={FinalSubmit} />
+>>>>>>> 6886404124dfd0a545a9090b23615372f5fe7b7d
             </Route>
         </Route>
     </Router>, rootElement);
