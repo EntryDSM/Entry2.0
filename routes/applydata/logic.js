@@ -331,7 +331,7 @@ exports.demo = (req, res) => {
             principalArr["class"] = check[0]._doc.class;
             principalArr["schoolName"] = school[0];
             principalArr["applyBaseType"] = check[0]._doc.applyBaseType;
-
+            principalArr["applyDetailType"] = check[0]._doc.applyDetailType;
             res.writeHead(200, {
               'Content-Type': 'application/json'
             });
