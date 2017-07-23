@@ -239,7 +239,7 @@ exports.demo = (req, res) => {
   let tab = req.query.tab || req.params.tab;
 
   console.log('미리보기 실행');
-  try {
+
     if (req.session.key) {
 
       let id = req.session.key;
@@ -279,13 +279,10 @@ exports.demo = (req, res) => {
             infoArr["name"] = check[0]._doc.name //이름
             infoArr["applyBaseType"] = check[0]._doc.applyBaseType //전형구분
             infoArr["applyDetailType"] = check[0]._doc.applyDetailType //전형 자세히 구분
-            infoArr["applyNoteType"] = check[0]._doc.applyNoteType //전형 비고(특례입학, 유공자 자녀 등)
+            //infoArr["applyNoteType"] = check[0]._doc.applyNoteType //전형 비고(특례입학, 유공자 자녀 등)
             infoArr["regionType"] = check[0]._doc.regionType // 지역구분
-            // 성적은 영훈이형 계산처리하고 넣을게요
-            // infoArr["score"] = check[0]._doc.score //이름
-            // 현재 출석 칼럼이 존재하지않음
-            infoArr["volunteer"] = check[0]._doc.volunteer //봉사시간
-            infoArr["attendance"] = check[0]._doc.attendance //출석
+            infoArr["score"] = check[0]._doc.scoreSum //성적부분
+            infoArr["finalSum"] = check[0]._doc.finalSum //최종점수
             infoArr["graduateType"] = check[0]._doc.grade //졸업구분
             
             res.writeHead(200, {
@@ -298,6 +295,8 @@ exports.demo = (req, res) => {
           } else if (tab === "introduce") {
             console.log('introduce Strat ')
             introArr["introduce"] = check[0]._doc.introduce;
+            introArr["name"] = check[0]._doc.name;
+            introArr["schoolName"] = check[0]._doc.schoolName;
             res.writeHead(200, {
               'Content-Type': 'application/json'
             });
@@ -309,7 +308,9 @@ exports.demo = (req, res) => {
           } else if (tab === "studyPlan") {
 
             console.log('studyPlan Strat ')
-            planArr = check[0]._doc.studyPlan
+            planArr["schoolName"] = check[0]._doc.schoolName;
+            planArr["name"] = check[0]._doc.name;
+            planArr["studyPlan"] = check[0]._doc.studyPlan
             res.writeHead(200, {
               'Content-Type': 'application/json'
             });
@@ -326,10 +327,10 @@ exports.demo = (req, res) => {
             console.log(school[0]);
 
 
-            principalArr["name"] = check[0]._doc.name
-            principalArr["class"] = check[0]._doc.class
-            principalArr["schoolName"] = school[0]
-
+            principalArr["name"] = check[0]._doc.name;
+            principalArr["class"] = check[0]._doc.class;
+            principalArr["schoolName"] = school[0];
+            principalArr["applyBaseType"] = check[0]._doc.applyBaseType;
 
             res.writeHead(200, {
               'Content-Type': 'application/json'
@@ -361,12 +362,7 @@ exports.demo = (req, res) => {
         }
       });
     }
-  } catch (err) {
-    console.log(err)
-    res.writeHead(400);
-    res.end();
   }
-}
 
 exports.getdemo = (req,res)=>{
   let getDemo = {};
