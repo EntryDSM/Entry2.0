@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from '../css/LoginBox.css';
+import axios from 'axios';
 
 class LoginBox extends React.Component {
+
     render() {
         return (
             <div id="LoginBox">
@@ -15,7 +17,6 @@ class LoginBox extends React.Component {
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             inputArray: [
                 {
@@ -26,12 +27,13 @@ class LoginForm extends React.Component {
                 {
                     InfoTitle: "이메일(Email)",
                     InputTitle: "이메일을 입력해주세요.",
-                    Type: "text"
+                    Type: "email"
                 },
                 {
                     InfoTitle: "비밀번호(Password)",
                     InputTitle: "비밀번호를 입력해주세요.",
-                    InputType: "password"
+                    InputType: "password",
+                    aText: "Forgot Password?"
                 }
             ],
             formsValues: [
@@ -39,9 +41,28 @@ class LoginForm extends React.Component {
             ]
         };
 
+        this.Authentication = this.Authentication.bind(this);
     }
-    
-    changeValues( number,event ) {
+    Authentication() {
+        axios({
+            method: "POST",
+            url: "http://localhost:8080/signup",
+            data: {
+                name: this.state.inputArray[0],
+                email: this.state.inputArray[1],
+                password: this.state.inputArray[2]
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://localhost:8080"
+            }
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    }
+    changeValues(number, event) {
         let val = this.state.formsValues;
         val[number] = event.target.value;
         this.setState({
@@ -56,24 +77,29 @@ class LoginForm extends React.Component {
                 {this.state.inputArray.map((info, i) => {
                     return (
                         <div key={i}>
-                            <h2> {info.InfoTitle} </h2>
+                            <h2>
+                                {info.InfoTitle}
+                                <a href="#">
+                                    {info.aText}
+                                </a>
+                            </h2>
                             <input type={info.InputType} className="MainInput"
                                 placeholder={info.InputTitle}
                                 value={this.state.formsValues[i]}
-                                onChange={this.changeValues.bind(this,i)} />
+                                onChange={this.changeValues.bind(this, i)} />
                         </div>
                     );
                 })}
-                <LoginButton/>
+                <LoginButton onClick={this.Authentication} />
             </div>
         );
     }
 }
 
-const LoginButton = () => {
+const LoginButton = (props) => {
     return (
-        <div id="LoginButton">
-            <LoginText text="Sign In"/>
+        <div id="LoginButton" onClick={props.onClick}>
+            <LoginText text="Sign In" />
         </div>
     );
 }

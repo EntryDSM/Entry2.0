@@ -46,7 +46,10 @@ body{
 
 #main-page #navigation-bar span:nth-child(1){
     float: left;
-    font-size: 24px;
+    font-size: 45px;
+    margin-left: 20px;
+    word-spacing: 5px;
+    padding: 0;
 }
 #main-page header{
     width: 100%;

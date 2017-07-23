@@ -39,25 +39,31 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">중학교명</td>
                             <td className="td_content">
-                                <input type="text" className="input_style" id="school_name"/><FindSchoolModal />
+                                <input type="text" className="input_style" id="school_name" readOnly/><FindSchoolModal />
                             </td>
                         </tr>
                         <tr>
                             <td className="td_title">본인연락처</td>
                             <td className="td_content">
-                                <input type="text" className="input_style"/>
+                                <input type="text" className="input_style" id="my_tel"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="td_title">보호자명</td>
+                            <td className="td_content">
+                                <input type="text" className="input_style" id="parent_name"/>
                             </td>
                         </tr>
                         <tr>
                             <td className="td_title">부모연락처</td>
                             <td className="td_content" colSpan="2">
-                                <input type="text" className="input_style"/>
+                                <input type="text" className="input_style" id="parent_tel"/>
                             </td>
                         </tr>
                         <tr>
                             <td className="td_title">학교연락처</td>
                             <td className="td_content" colSpan="2">
-                                <input type="text" className="input_style"/>
+                                <input type="text" className="input_style" id="school_tel"/>
                             </td>
                         </tr>
                         <tr>

@@ -1,12 +1,12 @@
-
-
-.h4_style{
-    margin-top: 10px;
-    margin-bottom: 10px;
+.title_style{
+    font-size: 20px;
 }
-
 #area {
     width: 750px;
     padding-left: 25px;
     margin-top: 40px;
+}
+
+.h5_style{
+    line-height: 25px;
 }
