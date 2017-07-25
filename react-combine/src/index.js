@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'babel-polyfill';
-import { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, ChangePw, SendComplete, FinalSubmit, SendComplete2 } from './containers';
+import { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete } from './containers';
 import InputLayout from './components/InputLayout';
 
 import {
@@ -20,8 +20,8 @@ ReactDOM.render(
             <Route path="/login" component={LoginForm} />
             <Route path="/changepw" component={ChangePw} />
             <Route path="/sendinfo" component={SendInfo} />
-            <Route path="/sendcomplete" component={SendComplete} />
-            <Route path="/sendcomplete2" component={SendComplete2} />
+            <Route path="/pwsendcomplete" component={PwSendComplete} />
+            <Route path="/SignupSendComplete" component={SignupSendComplete} />
 
             <Route path="/input" component={InputLayout}>
                 <Route path="/signup" component={SignUp} />
@@ -31,7 +31,6 @@ ReactDOM.render(
                 <Route path="/introduce" component={Introduce} />
                 <Route path="/preview" component={Preview} />
                 <Route path="/finalsubmit" component={FinalSubmit} />
->>>>>>> 6886404124dfd0a545a9090b23615372f5fe7b7d
             </Route>
         </Route>
     </Router>, rootElement);
