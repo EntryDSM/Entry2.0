@@ -87,7 +87,7 @@ class SignUp extends Component{
                         }/>
                     </table>
                 </div>
-                <Button onclick={this.submit} router="/sendcomplete" buttonName="다음"/>
+                <Button onclick={this.submit} router="/SignupSendComplete" buttonName="다음"/>
                 </div>
             </div>
         );
