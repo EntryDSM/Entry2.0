@@ -28,7 +28,7 @@ class InfoInput extends React.Component {
             url: 'http://114.108.135.15:8080/user/info/',
             withCredentials: 'false',
             data: {
-                sex : String,
+                sex : document.getElementsByName("sex").values,
                 grade : 3,
                 class : document.getElementById("class").value, 
                 parentsName : document.getElementById("parent_name").value,
