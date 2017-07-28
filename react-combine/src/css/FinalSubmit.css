@@ -1,0 +1,36 @@
+#contents #FinalImagePart{
+    width:22rem;
+    height:22rem;
+    /*border:1px solid gray;*/
+    margin:0 auto;
+    margin-top:3rem;
+}
+
+#contents #WarnTitle{
+    text-align: center;
+    font-size:2rem;
+    font-family:'Noto Sans KR';
+    font-weight:bold;
+    color:red;
+    margin-top:2rem;
+    letter-spacing:2px;
+    padding-left:10px;
+}
+
+#contents #WarnText{
+    text-align: center;
+    font-family:'Noto Sans KR';
+    font-size:1.1rem;
+    margin-top:0.5rem;
+    letter-spacing:1px;
+}
+
+#contents #FinalBtn .button{
+    display:block;
+    margin:0 auto;
+    margin-top:1rem;
+    border-radius:2px;
+    font-family:'Noto Sans KR';
+    font-size:1rem;
+    letter-spacing:1.5px;
+}

@@ -1,0 +1,57 @@
+#landing-page #ExploreLanding{
+    width:100%;
+    height:350px;
+    background-color:#282828;
+}
+
+#landing-page #ExploreLanding #Explore_Title{
+    color:white;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align:center;
+    font-size:1.75rem;
+    letter-spacing:4px;
+    margin-top:3rem;
+}
+
+#landing-page #ExploreLanding #Explore_Line{
+    width:5rem;
+    height:4px;
+    background-color:white;
+    margin:0 auto;
+    margin-top:1rem;
+}
+
+#landing-page #ExploreLanding #Explore_Explain{
+    color:white;
+    font-family:'Noto Sans KR', sans-serif;
+    font-weight:normal;
+    text-align: center;
+    margin-top:1.5rem;
+    letter-spacing:3px;
+    font-size:0.9rem;
+}
+
+#landing-page #ExploreLanding #Explore_Button{
+    width:10.15rem;
+    height:3.5rem;
+    background-color:#EA466A;
+    margin:0 auto;
+    border-radius:50px;
+    margin-top:1.75rem;
+    border:1.5px solid white;
+    cursor:pointer;
+    display:table;
+}
+
+#landing-page #ExploreLanding #Explore_Button #Explore_Text{
+    text-align: center;
+    color:white;
+    font-weight:bold;
+    letter-spacing:1px;
+    display:table-cell;
+    vertical-align: middle;
+}
+
+
+
+
