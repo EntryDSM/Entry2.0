@@ -38,10 +38,12 @@ const Logo = (props) => {
 
 const IconMenu = (props) => {
     return (
-        <div className="icon-menu">
-            <span>{props.title}</span><br />
-            <img src={props.iconURL} alt="icon" className="icon" />
-        </div>
+        <Link to="/signup">
+            <div className="icon-menu">
+                <span>{props.title}</span><br />
+                <img src={props.iconURL} alt="icon" className="icon" />
+            </div>
+        </Link>
     )
 }
 

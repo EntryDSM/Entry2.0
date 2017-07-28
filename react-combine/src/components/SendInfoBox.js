@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class SendInfoBox extends React.Component{
     render(){
@@ -32,7 +33,26 @@ class SendForm extends React.Component{
             formsValues: [
 
             ]
-        }
+        };
+        this.Authentication3 = this.Authentication3.bind(this);
+    }
+
+    Authentication3(){
+        axios({
+            method: "POST",
+            url: "http://localhost:8080/account/password/demand",
+            data: {
+                email: this.state.sendArray[1]
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin" : "http://localhost:8080"
+            }
+        }).then(function(response){
+            console.log(response);
+        }).catch(function(err){
+            console.log(err);
+        });
     }
 
     changeValues( number,event ) {
@@ -62,15 +82,15 @@ class SendForm extends React.Component{
                         </div>
                     );
                 })}
-                <SendButton/>
+                <SendButton onClick={this.Authentication3}/>
             </div>
         );
     }
 }
 
-const SendButton = () =>{
+const SendButton = (props) =>{
     return(
-        <div id="SendButton">
+        <div id="SendButton" onClick={props.onClick}>
             <SendText text = "인증 링크 발송"/>
         </div>
     );

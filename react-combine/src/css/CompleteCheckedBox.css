@@ -1,4 +1,4 @@
-#complete-box #CheckedBox{
+#pw-complete-box #CheckedBox, #signup-complete-box #CheckedBox{
     width:40rem;
     height:22.5rem;
     background-color:white;
@@ -8,7 +8,7 @@
     box-shadow: 0 0 5px darkgray;
 }
 
-#complete-box #CheckedBox #TextBox{
+#pw-complete-box #CheckedBox #TextBox, #signup-complete-box #CheckedBox #TextBox{
     width:100%;
     height:70%;
     background-color:#38CDB1;
@@ -16,19 +16,19 @@
     font-size:0;
 }
 
-#complete-box #TextBox #MainTextBox{
+#pw-complete-box #TextBox #MainTextBox, #signup-complete-box #TextBox #MainTextBox{
     width:70%;
     height:100%;
     display: inline-block;
 }
 
-#complete-box #TextBox #ImageBox{
+#pw-complete-box #TextBox #ImageBox, #signup-complete-box #TextBox #ImageBox{
     width:30%;
     height:100%;
     display:inline-block;
 }
 
-#complete-box h1{
+#pw-complete-box h1, #signup-complete-box h1{
     font-size:1.75rem;
     font-family:'Noto Sans KR';
     font-weight:normal;
@@ -38,7 +38,7 @@
     padding-top:3.5rem;
 }
 
-#complete-box h2{
+#pw-complete-box h2, #signup-complete-box h2{
     font-size:0.9rem;
     font-family:'Noto Sans KR';
     color:white;
@@ -48,14 +48,14 @@
     padding-top:1rem;
 }
 
-#complete-box #TextBox #ImageBox #CheckImage{
+#pw-complete-box #TextBox #ImageBox #CheckImage, #signup-complete-box #TextBox #ImageBox #CheckImage{
     width:7rem;
     position:relative;
     top:0.5rem;
     left:0.75rem;
 }
 
-#complete-box #SubBox{
+#pw-complete-box #SubBox, #signup-complete-box #SubBox{
     width:100%;
     height:30%;
     background-color:#ECF0F1;

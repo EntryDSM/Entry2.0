@@ -40,7 +40,7 @@ class Preview extends Component {
                     target: "principal"
                 }
             ],
-            targetPage: "userInfo"
+            targetPage: "principal"
         });
     }
 

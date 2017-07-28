@@ -8,9 +8,10 @@ import MainPage from './MainPage';
 import Preview from './Preview';
 import SendInfo from './SendInfo';
 import SignUp from './SignUp';
-import SendComplete from './SendComplete';
+import PwSendComplete from './PwSendComplete';
 import ChangePw from './ChangePw';
 import FinalSubmit from './FinalSubmit';
-import SendComplete2 from './SendComplete2';
+import SignupSendComplete from './SignupSendComplete';
+import Mypage from './Mypage';
 
-export { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, SendComplete, SendComplete2, ChangePw, FinalSubmit };
+export { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, PwSendComplete, SignupSendComplete, ChangePw, FinalSubmit,Mypage };

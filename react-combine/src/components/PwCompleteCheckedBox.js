@@ -1,6 +1,6 @@
 import React from 'react';
 
-class CompleteCheckedBox2 extends React.Component{
+class PwCompleteCheckedBox extends React.Component{
     render(){
         return(
             <div id="CheckedBox">
@@ -15,7 +15,7 @@ const CheckedTextBox = () =>{
     return(
         <div id="TextBox">
             <MainTextBox title1 = "발송완료."
-                         title2 = "귀하의 이메일로 회원가입 링크가 발송되었습니다."
+                         title2 = "귀하의 이메일로 비밀번호 변경 정보가 발송되었습니다."
                          title3 = "이메일을 확인해주세요."/>
             <ImageBox imageUrl = {require("../images/check.png")}/>
         </div>
@@ -49,4 +49,4 @@ const CheckedSubBox = () =>{
         </div>
     );
 }
-export default CompleteCheckedBox2;
+export default PwCompleteCheckedBox;
