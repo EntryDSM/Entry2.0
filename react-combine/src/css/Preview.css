@@ -190,3 +190,58 @@
     border: 1px solid;
     padding: 10px;
 }
+
+/*No Smoke*/
+#no_smoke{
+    width: 90%;
+    height: 100%;
+    font-size: 0px;
+    margin: 0 auto;
+}
+
+#smoke_header{
+    width: 100%;
+    height: 5%;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+
+#no_smoke #table_info {
+    font-size: 18px;
+}
+
+#no_smoke #table_info tr td{
+    border:1px solid black;
+    text-align: center;
+    padding: 1%;
+}
+
+#no_smoke #table_info{
+    border-collapse: collapse;
+}
+
+#promise{
+    width: 4%;
+    font-weight: bold;
+}
+
+#table_info .table_input{
+    width: 28%;
+}
+
+#table_info .table_title{
+    width: 20%;
+}
+
+#table_info #address{
+    text-align: left;
+} 
+
+#no_smoke #swear_content{
+    width: 100%;
+    height: 80%;
+    color: black;   
+}
