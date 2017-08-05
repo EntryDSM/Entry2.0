@@ -195,7 +195,6 @@
 #no_smoke{
     width: 90%;
     height: 100%;
-    font-size: 0px;
     margin: 0 auto;
 }
 
@@ -241,7 +240,36 @@
 } 
 
 #no_smoke #swear_content{
-    width: 100%;
+    width: 99.8%;
     height: 80%;
-    color: black;   
+    border:1px solid black;  
+    border-top: none;
+}
+
+#swear_content #swear_text, #swear_me{
+    padding: 60px;
+    font-size: 19px;
+    line-height: 60px;
+}
+
+#blank{
+    letter-spacing: 100px;
+}
+
+#swear_content #swear_date{
+    padding: 50px;
+    text-align: center;
+    font-size: 18px;
+}
+
+#swear_content #swear_sign {
+    font-size: 18px;
+    line-height: 50px;
+    padding-left: 530px;
+    padding-top: 80px;
+    padding-bottom: 30px;
+}
+
+#space{
+    letter-spacing: 120px;
 }
