@@ -21,6 +21,7 @@ class AddressModal extends React.Component {
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.searchAddress = this.searchAddress.bind(this);
+        this.enter = this.enter.bind(this);
     }
  
     openModal() {
@@ -29,6 +30,12 @@ class AddressModal extends React.Component {
  
     closeModal() {
         this.setState({modalIsOpen: false});
+    }
+    
+    enter(event) {
+        if(event.keyCode == 13) {
+            this.searchAddress();
+        }
     }
 
     searchAddress(pagenum){
@@ -105,7 +112,7 @@ class AddressModal extends React.Component {
                 console.log(error);
             });
     }
-
+    
     render() {
         return (
             <div className="address_div">
@@ -123,7 +130,7 @@ class AddressModal extends React.Component {
                         <h2>주소찾기</h2>
                     </div>
                     <div id="modal_contents">
-                        <input type="text" placeholder="검색어를 입력하세요 (반포대로 58, 독립기념관, 삼성동 25)" id="input_searchaddress"/>
+                        <input type="text" placeholder="검색어를 입력하세요 (반포대로 58, 독립기념관, 삼성동 25)" id="input_searchaddress" onKeyDown={this.enter}/>
                         <img id="btn_searchaddress" src={require('../images/search.png')} onClick={()=> this.searchAddress(this.Firstpage)}/>
 
                         <AddressModalTable datas={this.state.addressData} closeModal={this.closeModal}/>
