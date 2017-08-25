@@ -1,0 +1,38 @@
+{
+  "name": "react-combine",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "async": "^2.5.0",
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "classnames": "^2.2.5",
+    "crypto": "0.0.3",
+    "es3ify-loader": "^0.2.0",
+    "express": "^4.15.3",
+    "express-fileupload": "^0.1.4",
+    "express-method-override": "0.0.3",
+    "express-session": "^1.15.3",
+    "google-chart-react": "^1.1.4",
+    "mongoose": "^4.10.5",
+    "nodemailer": "^4.0.1",
+    "nodemailer-smtp-pool": "^2.8.3",
+    "path": "^0.12.7",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-file-input": "^0.2.5",
+    "react-modal": "^2.2.2",
+    "react-router": "^3.0.5",
+    "react-scripts": "1.0.10",
+    "styliner": "^1.0.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "babel-polyfill": "^6.23.0"
+  }
+}

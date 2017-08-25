@@ -1,0 +1,24 @@
+#will_table{
+    display: none;
+}
+
+.will_select_grade_child{
+    display: inline-block;
+    border-radius: 100%;
+    width: 25px;
+    line-height: 1.6;
+    text-align: center;
+    cursor: pointer;
+}
+
+.will_select_grade_child:hover{
+    border-radius: 100%;
+    background-color: #d3d3d3;
+    transition:0.5s;
+    transition-timing-function:linear;
+}
+
+.will_select_grade{
+    text-align: center;
+    border-bottom: 1px solid #ebebea;
+}

@@ -1,0 +1,192 @@
+#preview .h4_style{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#preview #area {
+    width: 750px;
+    padding-left: 25px;
+    margin-top: 40px;
+}
+
+
+#preview .tab {
+    width: 62rem;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+#preview .tabButton {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+
+    width: calc(100% / 5);
+}
+
+/* Change background color of buttons on hover */
+#preview .tabButton:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+#preview .tabButton.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+#preview .tabcontent {
+    padding: 6px 1rem;
+    border: 1px solid #ccc;
+    border-top: none;
+    width: 60rem;
+    height: 87rem;
+    margin-bottom: 30px;
+}
+
+#preview #menu-area {
+    padding-left: 8rem;
+}
+
+#preview #header-area {
+    margin-left: -20px;
+}
+
+#preview .printButton {
+    background-color: inherit;
+    border: 1px solid grey;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    background-color: #ccc;
+
+    width: 16rem;
+    margin-left: 22rem;
+    margin-bottom: 50px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #preview .tabcontent, #preview .tabcontent * {
+    visibility: visible;
+  }
+  #preview .tabcontent {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  #preview .tabcontent {
+    border: 0px;
+  }
+}
+
+/*SelfIntroduce & StudyPlan*/
+#selfintroduce{
+    width: 90%;
+    height: 100%;
+    font-size: 0px;
+    margin: 0 auto;
+}
+
+#study_plan{
+    width: 90%;
+    height: 100%;
+    font-size: 0px;
+    margin: 0 auto;
+}
+
+#introduce_header{
+    display: table;
+    width: 100%;
+    height: 10%;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#introduce_header #header{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#userinfo{
+    width: 100%;
+    height: 7%;
+}
+
+#userinfo_table{
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+#userinfo_table .td_title{
+    width: 20%;
+    border: 1px solid;
+    font-size: 25px;
+    word-spacing: 60px;
+    text-align: center;
+}
+
+#userinfo_table .td_content{
+    width: 80%;
+    border: 1px solid;
+}
+
+#introduce_content{
+    width: 100%;
+    height: 80%;
+}
+
+#content_table{
+    border: 1px solid;
+    font-size: 15px;
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+    vertical-align: top;
+    border-collapse: collapse;
+}
+
+#explain{
+    height: 8%;
+    vertical-align: top;
+    word-spacing: 4px;
+    letter-spacing: 2px;
+}
+
+#study_plan #explain{
+    height: 5%;
+    vertical-align: top;
+    word-spacing: 4px;
+    letter-spacing: 2px;
+}
+
+#content{
+    height: 92%;
+    vertical-align: top;
+}
+
+#content_title{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+#content_header{
+    word-break: break-all;
+    font-size: 18px;
+    font-weight: 200;
+    border: 1px solid;
+    padding: 10px;
+}
