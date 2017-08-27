@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import '../css/SignUp.css';
 
@@ -52,6 +54,8 @@ class SignUp extends Component{
     }
 
     render(){
+        const {dispatch} = this.props;
+        const {store} = this.context;
         return(
             <div id="contents">
                 <div id="signUp">
@@ -92,6 +96,10 @@ class SignUp extends Component{
             </div>
         );
     }
+}
+
+SignUp.contextTypes = {
+    store: PropTypes.object
 }
 
 const SignUpInput = (props) => {
@@ -142,4 +150,11 @@ const Options = (props) => {
     );
 }
 
-export default SignUp;
+function submit(state){
+    return {
+        signUp: state.signUp
+    }
+}
+
+export default connect(submit)(SignUp);
+//signUp = dispatch, SignUp = component
