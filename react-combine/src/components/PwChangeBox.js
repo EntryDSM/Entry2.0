@@ -81,13 +81,13 @@ class PwChangeForm extends React.Component{
     Authentication2(){
         axios({
             method: "PUT",
-            url: "http://localhost:8080/account/password/change",
+            url: "http://114.108.135.15:8080/account/password/change",
             data: {
                 password: this.state.pwArray[0]
             },
             withCredentials: false,
             headers: {
-                "Access-Control-Allow-Origin": "http://localhost:8080"
+                "Access-Control-Allow-Origin": "http://114.108.135.15"
             }
         }).then(function (response) {
             console.log(response);
