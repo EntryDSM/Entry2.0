@@ -1,4 +1,5 @@
 
+
 # Created by https://www.gitignore.io/api/node,linux,macos,windows,webstorm,visualstudio,visualstudiocode
 
 ### Linux ###
@@ -15,6 +16,7 @@
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+# Created by https://www.gitignore.io/api/node,macos,windows,webstorm
 
 ### macOS ###
 *.DS_Store
@@ -79,15 +81,20 @@ bower_components
 build/Release
 
 # Dependency directories
+
 node_modules/
 jspm_packages/
+*/node_modules/
+node_modules/
+jspm_packages/
+npm-debug.log
 
 # Typescript v1 declaration files
 typings/
 
 # Optional npm cache directory
 .npm
-
+node_modules/
 # Optional eslint cache
 .eslintcache
 
@@ -99,6 +106,7 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+
 
 # Yarn Lock file
 yarn.lock
@@ -495,3 +503,5 @@ __pycache__/
 confi.json
 
 # End of https://www.gitignore.io/api/node,linux,macos,windows,webstorm,visualstudio,visualstudiocode
+.idea/
+# End of https://www.gitignore.io/api/node,macos,windows,webstorm

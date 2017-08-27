@@ -1,0 +1,73 @@
+.modal_style{
+    border-radius: 20px;   
+    width: 800px;
+    height: 600px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
+    margin-top: 80px;
+}
+
+.ReactModal__Overlay{
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
+#modal_header{
+    border-bottom: 2px solid #c4daff;
+}
+
+#btn_close{
+    background: none;
+    border-style: none;
+    font-size: 25px;
+    float: right;   
+}
+
+#btn_close:hover{
+    color: red;
+}
+
+#modal_contents{
+    text-align: center;
+}
+
+#btn_search{
+    width: 40px;
+    height: 40px;
+}
+
+.btn_style {
+    background-color: #c4daff;
+    border:none;
+}
+
+#btn_findaddress{
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#input_searchaddress{
+    width: 734px;
+    font-size: 14px;
+    padding: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border:2px solid #c4daff;
+    border-right: none;
+    float: left;
+}
+
+#btn_searchaddress{
+    width: 20px;
+    height: 20px;
+    float:right;
+    padding: 6px;
+    margin-top: 20px;
+    margin-right: 14px;border:2px solid #c4daff;
+    border-left:none;
+}
