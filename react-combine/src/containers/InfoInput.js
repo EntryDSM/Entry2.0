@@ -29,6 +29,7 @@ class InfoInput extends React.Component {
             withCredentials: 'false',
             data: {
                 sex : document.getElementsByName("sex").values,
+                image: document.getElementById("IDPhoto").value,
                 grade : 3,
                 class : document.getElementById("class").value, 
                 parentsName : document.getElementById("parent_name").value,

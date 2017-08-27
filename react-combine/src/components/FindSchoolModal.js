@@ -20,7 +20,8 @@ class FindSchoolModal extends React.Component {
     
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.getschoolInfo = this.getschoolInfo.bind(this);
+        this.getschoolInfo = this.getschoolInfo.bind(this);   
+        this.enter = this.enter.bind(this);
     }
  
     openModal() {
@@ -29,6 +30,12 @@ class FindSchoolModal extends React.Component {
  
     closeModal() {
         this.setState({modalIsOpen: false});
+    }
+
+    enter(event) {
+        if(event.keyCode == 13) {
+            
+        }
     }
 
     render() {
@@ -48,7 +55,7 @@ class FindSchoolModal extends React.Component {
                         <h2>학교찾기</h2>
                     </div>
                     <div id="modal_contents">
-                        <input type="text" placeholder="학교명을 입력해주세요." id="input_searchschool"/>
+                        <input type="text" placeholder="학교명을 입력해주세요." id="input_searchschool" onKeyDown={this.enter}/>
                         <img id="btn_searchschool" onClick={this.getschoolInfo} src={require('../images/search.png')}/>
                         
                         <FindSchoolModalTable />
