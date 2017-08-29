@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import TypeAndMemo from '../components/TypeAndMemo';
-// import Graduate from '../components/Graduate';
-import SocietyDetail from '../components/SocietyDetail';
 import Button from '../components/Button';
 import InputHeader from '../components/InputHeader';
 import '../css/Classification.css';
@@ -110,7 +107,7 @@ const DefaultInfo = (props) => {
                 value="yes"
                 onChange={props.changeIsBlackTest}/>
             <label htmlFor="test-yes">예</label>
-                   
+
             <input 
                 type="radio" 
                 name="isBlackTest" 
@@ -181,6 +178,147 @@ const Graduate = (props) => {
         </select>
     </div>
     );
+}
+
+const TypeAndMemo = (props) => {
+    return (
+        <div id="type-and-memo">
+            <h2>전형 및 비고</h2>
+            <span>전형</span>
+            <input
+                type="radio"
+                name="typeOfApply"
+                id="meister"
+                value="meister"
+                checked={props.typeOfApply === "meister"}
+                onChange={props.changeTypeOfApply} />
+            <label htmlFor="meister">마이스터 인재</label>
+            <input
+                type="radio"
+                name="typeOfApply"
+                id="general"
+                value="general"
+                checked={props.typeOfApply === "general"}
+                onChange={props.changeTypeOfApply} />
+            <label htmlFor="general">일반</label>
+            <input
+                type="radio"
+                name="typeOfApply"
+                id="society"
+                value="society"
+                checked={props.typeOfApply === "society"}
+                onChange={props.changeTypeOfApply} />
+            <label htmlFor="society">사회통합</label> <br />
+
+            <span>비고</span>
+            <input 
+                type="radio"
+                name="memo"
+                id="memo-general"
+                value="general"
+                onChange={props.changeMemo}
+                checked={props.memo === "general"} />
+            <label htmlFor="memo-general">일반</label>
+
+            <input 
+                type="radio"
+                name="memo"
+                id="country-merit"
+                value="countryMerit"
+                onChange={props.changeMemo}
+                checked={props.memo === "countryMerit"} />
+            <label htmlFor="country-merit">국가 유공자</label>
+
+            <input 
+                type="radio"
+                name="memo"
+                id="special"
+                value="special"
+                onChange={props.changeMemo}
+                checked={props.memo === "special"} />
+            <label htmlFor="special">특례입학대상자</label>
+        </div>
+    )
+}
+
+const SocietyDetail = (props) => {
+    return (
+        <div id="society-detail" style={{
+            visibility : props.isSocietySelected? "visible":"hidden"
+        }}>
+            <ul>
+                <li>
+                    <input
+                        type="radio"
+                        name="typeOfSociety"
+                        value="basic"
+                        id="basic"
+                        checked={props.typeOfSociety==="basic"}
+                        onChange={props.changeTypeOfSociety} /> <label htmlFor="basic">기초생활수급권자</label>
+                </li>
+                <li>
+                    <input
+                        type="radio"
+                        name="typeOfSociety"
+                        value="one-parent"
+                        id="one-parent"
+                        checked={props.typeOfSociety==="one-parent"}
+                        onChange={props.changeTypeOfSociety} />
+                    <label htmlFor="one-parent">한부모가족보호대상자</label>
+                </li>
+                <li>
+                    <input
+                        type="radio"
+                        name="typeOfSociety"
+                        value="poor"
+                        id="poor"
+                        checked={props.typeOfSociety==="poor"}
+                        onChange={props.changeTypeOfSociety} />
+                    <label htmlFor="poor">차상위 계층</label>
+                </li>
+                <li>
+                    <input
+                        type="radio"
+                        name="typeOfSociety"
+                        value="more-poor"
+                        id="more-poor"
+                        checked={props.typeOfSociety==="more-poor"}
+                        onChange={props.changeTypeOfSociety} />
+                    <label htmlFor="more-poor">차차상위 계층</label>
+                </li>
+                <li>
+                    <input
+                        type="radio"
+                        name="typeOfSociety"
+                        value="from-north"
+                        id="from-north"
+                        checked={props.typeOfSociety==="from-north"}
+                        onChange={props.changeTypeOfSociety} />
+                    <label htmlFor="from-north">북한이탈주민</label>
+                </li>
+                <li>
+                    <input
+                        type="radio"
+                        name="typeOfSociety"
+                        value="multi-culture"
+                        id="multi-culture"
+                        checked={props.typeOfSociety==="multi-culture"}
+                        onChange={props.changeTypeOfSociety} />
+                    <label htmlFor="multi-culture">다문화가정</label>
+                </li>
+                <li>
+                    <input
+                        type="radio"
+                        name="typeOfSociety"
+                        value="etc"
+                        id="etc"
+                        checked={props.typeOfSociety==="etc"}
+                        onChange={props.changeTypeOfSociety} />
+                    <label htmlFor="etc">그 외 대상자</label>
+                </li>
+            </ul>
+        </div>
+    )
 }
 
 Classification.contextTypes = {
