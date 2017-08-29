@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var database = {};
 database.init = function (app, config) {
+    console.log(process.env.ENTRYDSM_DB_URL);
     connect(app, config);
 }
 
@@ -16,7 +17,9 @@ function connect(app, config) {
         createSchema(app, config);
 
     });
-    database.connection.on('disconnected', connect);
+    database.connection.on('disconnected', ()=>{
+    	console.log('ERROR OCCURRED');
+    });
 }
 
 function createSchema(app, config) {

@@ -23,9 +23,6 @@ app.use(bodyparser.urlencoded({
     extended: false
 }));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
-});
 
 //세션 설정필요
 app.use(session({
@@ -45,6 +42,13 @@ app.use('/', userRouter);
 app.use('/', applydataRouter);
 app.use('/', QnARouter);
 app.use('/', schoolRouter);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+});
+
+console.log(process.env);
+console.log(process.env.ENTRYDSM_PORT);
 
 app.set('port', process.env.ENTRYDSM_PORT)
 app.listen(app.get('port'), function () {

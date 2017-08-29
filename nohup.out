@@ -1,0 +1,16 @@
+2017-08-29T16:18:40.344+0900 I CONTROL  [initandlisten] MongoDB starting : pid=2133 port=27017 dbpath=/data/db 64-bit host=ipsy
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten] db version v3.4.6
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten] git version: c55eb86ef46ee7aede3b1e2a5d184a7df4bfb5b5
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1f 6 Jan 2014
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten] allocator: tcmalloc
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten] modules: none
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten] build environment:
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten]     distmod: ubuntu1404
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten]     distarch: x86_64
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten]     target_arch: x86_64
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten] options: {}
+2017-08-29T16:18:40.345+0900 I STORAGE  [initandlisten] exception in initAndListen: 20 Attempted to create a lock file on a read-only directory: /data/db, terminating
+2017-08-29T16:18:40.345+0900 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
+2017-08-29T16:18:40.345+0900 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten] now exiting
+2017-08-29T16:18:40.345+0900 I CONTROL  [initandlisten] shutting down with code:100
