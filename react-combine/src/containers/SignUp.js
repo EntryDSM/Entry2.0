@@ -31,17 +31,14 @@ class SignUp extends Component{
     }
 
     getEmail(e){
-        let email = e.target.value + "@" + this.state.emailDomain;
         this.setState({
-            email: email
+            email: e.target.value
         })
     }
 
     getDomain(e){
-        let email = this.state.email + "@" + e.target.value;
-        console.log(email);
         this.setState({
-            email: email
+            emailDomain: e.target.value
         })
     }
 
@@ -64,11 +61,14 @@ class SignUp extends Component{
                     url:'/signup',
                     data: {
                         name: storeData.name,
-                        email: storeData.email,
+                        email: storeData.email + "@" + storeData.emailDomain,
                         password: storeData.password
                     },
                     withCredentials: false,
-                    headers: {"Access-Control-Allow-Origin": "http://114.108.135.15"}
+                    headers: {
+                        "Access-Control-Allow-Origin": "http://114.108.135.15",
+                        "ContentType": "application/json"
+                    }
                 }).then(response => {
                     console.log(response)
                     browserHistory.push('/SignUpSendComplete');
