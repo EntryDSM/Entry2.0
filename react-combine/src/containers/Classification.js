@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TypeAndMemo from '../components/TypeAndMemo';
-import Graduate from '../components/Graduate';
+// import Graduate from '../components/Graduate';
 import SocietyDetail from '../components/SocietyDetail';
 import Button from '../components/Button';
 import InputHeader from '../components/InputHeader';
@@ -109,7 +109,8 @@ const DefaultInfo = (props) => {
                 checked = {props.isBlackTest === "yes"}
                 value="yes"
                 onChange={props.changeIsBlackTest}/>
-            <label htmlFor="test-yes">예</label>            
+            <label htmlFor="test-yes">예</label>
+                   
             <input 
                 type="radio" 
                 name="isBlackTest" 
@@ -118,6 +119,7 @@ const DefaultInfo = (props) => {
                 value="no" 
                 onChange={props.changeIsBlackTest}/> 
             <label htmlFor="test-no">아니오</label><br />
+
             <span>지역</span>
             <input 
                 type="radio"
@@ -127,6 +129,7 @@ const DefaultInfo = (props) => {
                 checked={props.liveArea === "country"}
                 onChange={props.changeLiveArea}/> 
             <label htmlFor="country">전국</label>
+
             <input 
                 type="radio" 
                 name="liveArea" 
@@ -137,6 +140,47 @@ const DefaultInfo = (props) => {
             <label htmlFor="Daejeon">대전</label><br />
     </div>
     )
+}
+
+const Graduate = (props) => {
+    return(
+        <div id="graduate">
+        <h2>졸업 구분</h2>
+
+        <span>졸업 구분</span>
+        <input
+            type="radio"
+            name="typeOfGraduate"
+            id="graduated"
+            value="graduated"
+            onChange={props.changeGraduate} 
+            checked={props.typeOfGraduate==="graduated"}/>
+        <label htmlFor="graduated">졸업</label>
+
+        <input
+            type="radio"
+            name="typeOfGraduate"
+            id="will-graduate"
+            value="willGraduate"
+            onChange={props.changeGraduate} 
+            checked={props.typeOfGraduate==="willGraduate"}/>
+        <label htmlFor="will-graduate">졸업 예정</label> <br />
+
+        <span>졸업년도</span>
+        <select 
+            name="graduateYear"
+            id="graduation-year" 
+            value={props.graduateYear}
+            onChange={props.changeGraduateYear}>
+            <option value="2018">2018년</option>
+            <option value="2017">2017년</option>
+            <option value="2016">2016년</option>
+            <option value="2015">2015년</option>
+            <option value="2014">2014년</option>
+            <option value="2013">2013년</option>
+        </select>
+    </div>
+    );
 }
 
 Classification.contextTypes = {
