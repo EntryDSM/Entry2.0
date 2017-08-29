@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import TypeAndMemo from '../components/TypeAndMemo';
-import DefaultInfo from '../components/DefaultInfo';
 import Graduate from '../components/Graduate';
 import SocietyDetail from '../components/SocietyDetail';
 import Button from '../components/Button';
 import InputHeader from '../components/InputHeader';
 import '../css/Classification.css';
+import {classificationData} from '../actions';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {browserHistory} from 'react-router';
 import axios from 'axios';
 
 class Classification extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             isBlackTest: "",
             liveArea: "",
@@ -56,6 +59,12 @@ class Classification extends Component {
     }
 
     render() {
+        const {dispatch} = this.props;
+        const {store} = this.context;
+
+        let submit = function(){
+
+        }
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>
@@ -88,4 +97,54 @@ class Classification extends Component {
     }
 }
 
-export default Classification;
+const DefaultInfo = (props) => {
+    return (
+        <div id="default-info">
+            <h2>기본 정보</h2>
+            <span>검정고시 여부</span>
+            <input 
+                type="radio" 
+                name="isBlackTest"
+                id="test-yes"
+                checked = {props.isBlackTest === "yes"}
+                value="yes"
+                onChange={props.changeIsBlackTest}/>
+            <label htmlFor="test-yes">예</label>            
+            <input 
+                type="radio" 
+                name="isBlackTest" 
+                id="test-no" 
+                checked = {props.isBlackTest === "no"}
+                value="no" 
+                onChange={props.changeIsBlackTest}/> 
+            <label htmlFor="test-no">아니오</label><br />
+            <span>지역</span>
+            <input 
+                type="radio"
+                name="liveArea"
+                id="country" 
+                value="country" 
+                checked={props.liveArea === "country"}
+                onChange={props.changeLiveArea}/> 
+            <label htmlFor="country">전국</label>
+            <input 
+                type="radio" 
+                name="liveArea" 
+                id="Daejeon" 
+                value="Daejeon"
+                checked={props.liveArea === "Daejeon"}
+                onChange={props.changeLiveArea} /> 
+            <label htmlFor="Daejeon">대전</label><br />
+    </div>
+    )
+}
+
+Classification.contextTypes = {
+    store: PropTypes.object
+}
+
+function select(state){
+    classificationData: state.classificationData
+}
+
+export default connect(select)(Classification);

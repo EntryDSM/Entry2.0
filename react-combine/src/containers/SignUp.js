@@ -73,6 +73,7 @@ class SignUp extends Component{
                     console.log(response)
                     browserHistory.push('/SignUpSendComplete');
                 }).catch((error) => {
+                    console.log(error);
                     if(error.response){
                         console.log(error.response);
                     } else if(error.request){
