@@ -79,15 +79,15 @@ schema.static('validation', function (id, callback) {
             introduce: false
         },
         info: {
-            "url": '/info',
+            "url": config.getPageUrl('info'),
             "messages": []
         },
         score: {
-            "url": '/score',
+            "url": config.getPageUrl('score'),
             "messages": []
         },
         introduce: {
-            "url": '/introduce',
+            "url": config.getPageUrl('introduce'),
             "messages": []
         }
     };

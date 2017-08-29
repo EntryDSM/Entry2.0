@@ -1,25 +1,22 @@
 var mongoose = require('mongoose');
 var database = {};
 database.init = function (app, config) {
-    console.log(process.env.ENTRYDSM_DB_URL);
     connect(app, config);
 }
 
 function connect(app, config) {
 
     mongoose.Promise = global.Promise;
-    mongoose.connect(process.env.ENTRYDSM_DB_URL);
+    mongoose.connect(config.db_url);
     database.connection = mongoose.connection;
     database.connection.on('error', console.error.bind(console, 'mongoose connection error.'));
     database.connection.on('open', function () {
-        console.log('CONNECTED TO DATABASE');
+        console.log('데이터베이스에 연결되었습니다. : ' + config.db_url);
 
         createSchema(app, config);
 
     });
-    database.connection.on('disconnected', ()=>{
-    	console.log('ERROR OCCURRED');
-    });
+    database.connection.on('disconnected', connect);
 }
 
 function createSchema(app, config) {
