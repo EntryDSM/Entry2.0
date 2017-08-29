@@ -15,11 +15,13 @@ class SignUp extends Component{
         this.state = {
             name: "",
             email: "",
-            password: "",
+            emailDomain: "naver.com",
+            password: ""
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
         this.getPassword = this.getPassword.bind(this);
+        this.getDomain = this.getDomain.bind(this);
     }
 
     getName(e){
@@ -29,8 +31,17 @@ class SignUp extends Component{
     }
 
     getEmail(e){
+        let email = e.target.value + "@" + this.state.emailDomain;
         this.setState({
-            email: e.target.value
+            email: email
+        })
+    }
+
+    getDomain(e){
+        let email = this.state.email + "@" + e.target.value;
+        console.log(email);
+        this.setState({
+            email: email
         })
     }
 
@@ -50,10 +61,10 @@ class SignUp extends Component{
                 let storeData = store.getState().signUp.SIGN_UP_DATA;
                 axios({
                     method:'post',
-                    url:'http://114.108.135.15:8080/signup',
+                    url:'/signup',
                     data: {
                         name: storeData.name,
-                        email: storeData.email +"@naver.com",
+                        email: storeData.email,
                         password: storeData.password
                     },
                     withCredentials: false,
@@ -61,8 +72,16 @@ class SignUp extends Component{
                 }).then(response => {
                     console.log(response)
                     browserHistory.push('/SignUpSendComplete');
-                })
-                .catch(response => {console.log(response)});
+                }).catch((error) => {
+                    if(error.response){
+                        console.log(error.response);
+                    } else if(error.request){
+                        console.log(error.request);
+                    } else {
+                        console.log(error.message);
+                    }
+                    console.log(error.config);
+                });
             } else if(state.name === "") {
                 console.log('enter name');
             } else if(state.email === ""){
@@ -91,8 +110,7 @@ class SignUp extends Component{
                                     type: 'text',
                                     className: 'input_style emailInput',
                                     onchange: this.getEmail,
-                                    value: this.state.email
-                                    
+                                    getDomain: this.getDomain
                                 },
                                 {
                                     name: '비밀번호',
@@ -130,7 +148,7 @@ const SignUpInput = (props) => {
                                     <td className="td_title">{input.name}</td>
                                     <td className="td_content">
                                         <input type={input.type} className={input.className} onChange={input.onchange} value={input.value}/>@
-                                        <select className="emailSelect">
+                                        <select className="emailSelect" onChange={input.getDomain}>
                                             {props.emails.map((email, index) => {
                                                 return <Options name={email.name} key={index} />
                                             })}
@@ -152,8 +170,8 @@ const SignUpInput = (props) => {
 
 SignUpInput.defaultProps = {
     emails: [
-        {name: "gmail.com"},
         {name: "naver.com"},
+        {name: "gmail.com"},
         {name: "hanmail.net"},
         {name: "hotmail.com"},
         {name: "hanmir.com"},
