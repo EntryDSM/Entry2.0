@@ -23,7 +23,7 @@ app.use(bodyparser.urlencoded({
     extended: false
 }));
 
-app.get('*',(req,res)=>{
+app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
@@ -46,7 +46,8 @@ app.use('/', applydataRouter);
 app.use('/', QnARouter);
 app.use('/', schoolRouter);
 
-app.listen(config.server_port, function () {
-    console.log(config.server_port + ' ON');
+app.set('port', process.env.ENTRYDSM_PORT)
+app.listen(app.get('port'), function () {
+    console.log(app.get('port') + ' ON');
     database.init(app, config);
 });
