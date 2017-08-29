@@ -6,6 +6,7 @@ import SocietyDetail from '../components/SocietyDetail';
 import Button from '../components/Button';
 import InputHeader from '../components/InputHeader';
 import '../css/Classification.css';
+import axios from 'axios';
 
 class Classification extends Component {
     constructor() {
@@ -27,6 +28,31 @@ class Classification extends Component {
         obj[e.target.name] = e.target.value;
         this.setState(obj);
         console.log(obj,e.target.name);
+    }
+
+    changeStateValue(){
+        axios({
+            method : "POST",
+            url : "http://114.108.135.15:8080/classification",
+            data : {
+                local : this.state.liveArea,
+                type : this.state.typeOfGraduate,
+                       //typeOfSociety, 
+                       //typeOfApply,
+                graduation : this.state.graduation,
+                date : this.state.date,
+                detail : this.state.detail,
+                note : this.state.note
+            },
+            withCredentials : false,
+            headers : {
+                "Access-Control-Allow-Origin" : "http://114.108.135.15"
+            }
+        }).then(function(response){
+            console.log(response);
+        }).catch(function(err){
+            console.log(err);
+        });
     }
 
     render() {

@@ -4,6 +4,7 @@ import PreviewHeader from '../components/PreviewHeader';
 import PreviewContent from '../components/PreviewContent';
 import Button from '../components/Button';
 import '../css/Preview.css';
+import '../css/Userinfo_table.css';
 
 class Preview extends Component {
     constructor(props) {
