@@ -52,7 +52,8 @@ class SignUp extends Component{
         const {dispatch} = this.props;
         const {store} = this.context;
         let state = this.state;
-        let submit = function(){
+        let signUpSubmit = function(){
+            console.log('hello');
             if(state.name !== "" && state.email !== "" && state.password !== ""){
                 store.dispatch(signUpData(state));
                 let storeData = store.getState().signUp.SIGN_UP_DATA;
@@ -129,7 +130,7 @@ class SignUp extends Component{
                         }/>
                     </table>
                 </div>
-                <Button onclick={submit} buttonName="다음"/>
+                <Button onclick={signUpSubmit} buttonName="다음"/>
                 </div>
             </div>
         );

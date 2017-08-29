@@ -8,6 +8,6 @@ export function signUpData(data){
     return {type: SIGN_UP_DATA, data};
 }
 //Input2
-export function classficationData(data){
+export function classificationData(data){
     return {type: CLASSIFICATION_DATA, data};
 }

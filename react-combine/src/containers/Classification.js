@@ -30,37 +30,37 @@ class Classification extends Component {
         console.log(obj,e.target.name);
     }
 
-    changeStateValue(){
-        axios({
-            method : "POST",
-            url : "http://114.108.135.15:8080/classification",
-            data : {
-                local : this.state.liveArea,
-                type : this.state.typeOfGraduate,
-                       //typeOfSociety, 
-                       //typeOfApply,
-                graduation : this.state.graduation,
-                date : this.state.date,
-                detail : this.state.detail,
-                note : this.state.note
-            },
-            withCredentials : false,
-            headers : {
-                "Access-Control-Allow-Origin" : "http://114.108.135.15"
-            }
-        }).then(function(response){
-            console.log(response);
-        }).catch(function(err){
-            console.log(err);
-        });
-    }
-
     render() {
         const {dispatch} = this.props;
         const {store} = this.context;
-
-        let submit = function(){
-
+        let state = this.state;
+        let classificationSubmit = function(){
+            // if(state.isBlackTest && state.typeOfApply && state.typeOfGraduate && state.typeOfSociety && state.graduateYear && state.liveArea && state.note){
+                dispatch(classificationData(state))
+                let storeData = store.getState().selectClassification.CLASSIFICATION_DATA;
+                console.log(storeData);
+                axios({
+                    method : "POST",
+                    url : "/classification",
+                    data : {
+                        local : storeData.liveArea,
+                        type : storeData,
+                        graduation : storeData.typeOfApply,
+                        date : storeData.graduateYear,
+                        detail : storeData.typeOfSociety,
+                        note : storeData.note
+                    },
+                    withCredentials : false,
+                    headers : {
+                        "Access-Control-Allow-Origin" : "http://114.108.135.15"
+                    }
+                }).then(function(response){
+                    console.log(response);
+                    browserHistory.push('/infoinput');
+                }).catch(function(err){
+                    console.log(err);
+                });
+            // }
         }
         return (
             <div id="contents">
@@ -70,25 +70,23 @@ class Classification extends Component {
                         isBlackTest={this.state.isBlackTest}
                         changeIsBlackTest={this.changeStateValue}
                         liveArea={this.state.liveArea}
-                        changeLiveArea={this.changeStateValue}
-                    />
+                        changeLiveArea={this.changeStateValue} />
                     <Graduate
                         changeGraduate={this.changeStateValue} 
                         typeOfGraduate = {this.state.typeOfGraduate}
                         graduateYear = {this.state.graduateYear}
-                        changeGraduateYear={this.changeStateValue}
-                        />
+                        changeGraduateYear={this.changeStateValue} />
                     <TypeAndMemo
                         typeOfApply={this.state.typeOfApply}
                         memo={this.state.memo}
                         changeMemo={this.changeStateValue}
                         changeTypeOfApply={this.changeStateValue} />
                     <SocietyDetail
-                        isSocietySelected={this.state.typeOfApply==="society"}
+                        isSocietySelected={this.state.typeOfApply ==="society"}
                         typeOfSociety={this.state.typeOfSociety}
                         changeTypeOfSociety={this.changeStateValue} />
                 </div>
-                 <Button router="/infoinput" buttonName="다음"/>
+                 <Button onclick={classificationSubmit} buttonName="다음"/>
             </div>
         )
     }
