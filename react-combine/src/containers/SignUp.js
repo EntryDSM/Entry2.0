@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
+import SubmitButton from '../components/SubmitButton';
+import {signUpData} from '../actions.js';
 import {connect} from 'react-redux';
+import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import '../css/SignUp.css';
@@ -17,7 +20,6 @@ class SignUp extends Component{
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
         this.getPassword = this.getPassword.bind(this);
-        this.submit = this.submit.bind(this);
     }
 
     getName(e){
@@ -38,24 +40,37 @@ class SignUp extends Component{
         })
     }
 
-    submit(){
-        axios({
-            method:'post',
-            url:'http://114.108.135.15:8080/signup',
-            data: {
-                name: this.state.name,
-                email: this.state.email +"@naver.com",
-                password: this.state.password
-            },
-            withCredentials: false,
-            headers: {"Access-Control-Allow-Origin": "http://114.108.135.15"}
-        }).then(response => {console.log(response)})
-        .catch(response => {console.log(response)});
-    }
-
     render(){
         const {dispatch} = this.props;
         const {store} = this.context;
+        let state = this.state;
+        let submit = function(){
+            if(state.name !== "" && state.email !== "" && state.password !== ""){
+                store.dispatch(signUpData(state));
+                let storeData = store.getState().signUp.SIGN_UP_DATA;
+                axios({
+                    method:'post',
+                    url:'http://114.108.135.15:8080/signup',
+                    data: {
+                        name: storeData.name,
+                        email: storeData.email +"@naver.com",
+                        password: storeData.password
+                    },
+                    withCredentials: false,
+                    headers: {"Access-Control-Allow-Origin": "http://114.108.135.15"}
+                }).then(response => {
+                    console.log(response)
+                    browserHistory.push('/SignUpSendComplete');
+                })
+                .catch(response => {console.log(response)});
+            } else if(state.name === "") {
+                console.log('enter name');
+            } else if(state.email === ""){
+                console.log('enter email');
+            } else if(state.password === ""){
+                console.log('enter password');
+            }
+        }
         return(
             <div id="contents">
                 <div id="signUp">
@@ -68,19 +83,23 @@ class SignUp extends Component{
                                     name: '이름',
                                     type: 'text',
                                     className: 'input_style nameInput',
-                                    onchange: this.getName
+                                    onchange: this.getName,
+                                    value: this.state.name
                                 },
                                 {
                                     name: '이메일',
                                     type: 'text',
                                     className: 'input_style emailInput',
-                                    onchange: this.getEmail
+                                    onchange: this.getEmail,
+                                    value: this.state.email
+                                    
                                 },
                                 {
                                     name: '비밀번호',
                                     type: 'password',
                                     className: 'input_style',
-                                    onchange: this.getPassword
+                                    onchange: this.getPassword,
+                                    value: this.state.password
                                 },
                                 {
                                     name: '비밀번호 확인',
@@ -91,7 +110,7 @@ class SignUp extends Component{
                         }/>
                     </table>
                 </div>
-                <Button onclick={this.submit} router="/SignupSendComplete" buttonName="다음"/>
+                <Button onclick={submit} buttonName="다음"/>
                 </div>
             </div>
         );
@@ -110,7 +129,7 @@ const SignUpInput = (props) => {
                         return  <tr key={index}>
                                     <td className="td_title">{input.name}</td>
                                     <td className="td_content">
-                                        <input type={input.type} className={input.className} onChange={input.onchange}/>@
+                                        <input type={input.type} className={input.className} onChange={input.onchange} value={input.value}/>@
                                         <select className="emailSelect">
                                             {props.emails.map((email, index) => {
                                                 return <Options name={email.name} key={index} />
@@ -122,7 +141,7 @@ const SignUpInput = (props) => {
                         return  <tr key={index}>
                             <td className="td_title">{input.name}</td>
                             <td className="td_content">
-                                <input type={input.type} className={input.className} onChange={input.onchange}/>
+                                <input type={input.type} className={input.className} onChange={input.onchange} value={input.value}/>
                             </td>
                         </tr>
                     }

@@ -1,12 +1,11 @@
 import {SIGN_UP_DATA} from './actions';
 import {combineReducers} from 'redux';
 
-function signUp(state = [], action){
-    console.log(state);
+function signUp(state = {}, action){
     switch(action.type){
         case SIGN_UP_DATA:
             return Object.assign({}, state, {
-                SIGN_UP_DATA: action.state
+                SIGN_UP_DATA: action.data
             })
         default: return state;
     }
