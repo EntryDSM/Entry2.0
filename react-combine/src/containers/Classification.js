@@ -323,8 +323,8 @@ Classification.contextTypes = {
     store: PropTypes.object
 }
 
-function select(state){
+function classificationSelect(state){
     classificationData: state.classificationData
 }
 
-export default connect(select)(Classification);
+export default connect(classificationSelect)(Classification);

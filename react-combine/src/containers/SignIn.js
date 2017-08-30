@@ -171,8 +171,8 @@ const LoginSubBox = (props) => {
     );
 }
 
-function submit(state){
+function signInSubmit(state){
     signInData: state.signInData
 }
 
-export default connect(submit)(SignIn);
+export default connect(signInSubmit)(SignIn);
