@@ -4,6 +4,23 @@ import UploadImage from './UploadImage';
 import FindSchoolModal from './FindSchoolModal';
 
 class InfoInputTable extends React.Component {
+
+    // constructor() {
+    //     super();
+    
+    //     this.len_check = this.len_check.bind(this);
+    // }
+
+    // len_check(e) {
+    //     var ob = document.querySelector("input");
+
+    //     if(ob.value.length > e) {
+    //         alert("danger");
+    //     }
+    // }
+
+   // onkeyup="len_check(5)
+
     render() {
         return(
             <div id="info_input_table">
@@ -24,16 +41,16 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">생년월일</td>
                             <td className="td_content">
-                                <input type="text" className="input_style" id="year"/>년 
-                                <input type="text" className="input_style" id="month"/>월 
-                                <input type="text" className="input_style" id="day"/>일 
+                                <input type="text" className="input_style" id="year" maxLength="4"/>년 
+                                <input type="text" className="input_style" id="month" maxLength="2"/>월 
+                                <input type="text" className="input_style" id="day" maxLength="2"/>일 
                             </td>
                         </tr>
                         <tr>
                             <td className="td_title">학반</td>
                             <td className="td_content">
                                 &nbsp;&nbsp;&nbsp;3학년
-                                <input type="text" className="input_style" id="class"/>반 
+                                <input type="text" className="input_style" id="class" maxLength="2"/>반 
                             </td>
                         </tr>
                         <tr>
