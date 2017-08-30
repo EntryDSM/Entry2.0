@@ -189,6 +189,9 @@ class UserInfo extends Component {
                     </table>
                 </div>
                 <div id="privacy">
+                    <div id="title">개인정보 활용 동의서</div> 
+                </div>
+                {/* <div id="privacy">
                     <div id="title">
                         개인정보 활용 동의서
                     </div>
@@ -213,7 +216,7 @@ class UserInfo extends Component {
                 </div>
                 <div id="userinfo_footer">
                     <p>대덕소프트웨어마이스터고등학교 귀하</p>
-                </div>
+                </div> */}
             </div>
         );
     }
