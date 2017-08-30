@@ -2,6 +2,7 @@
 export const SIGN_UP_DATA = 'SIGN_UP_DATA';
 export const CLASSIFICATION_DATA = 'CLASSIFICATION_DATA';
 export const SIGN_IN_DATA = 'SIGN_IN_DATA';
+export const INFO_INPUT_DATA = 'INFO_INPUT_DATA';
 
 //Action Creator
 
@@ -18,4 +19,9 @@ export function classificationData(data){
 //SignIn
 export function signInData(data){
     return {type: SIGN_IN_DATA, data};
+}
+
+//InfoInput
+export function infoInputData(data){
+    return {type: INFO_INPUT_DATA, data};
 }
