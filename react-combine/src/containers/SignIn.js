@@ -2,6 +2,7 @@ import React from 'react';
 import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
 import {connect} from 'react-redux';
+import {signInData} from '../actions';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../css/FormIndex.css';
@@ -45,12 +46,31 @@ class SignIn extends React.Component{
 
     signInSubmit(){
         let store = this.context.store;
-        console.log(store.getState());
+        store.dispatch(signInData(this.state));
+        let storeData = store.getState().signIn.SIGN_IN_DATA;
+        axios({
+            method: 'post',
+            url: '/signin',
+            data: {
+                email: storeData.email,
+                password: storeData.password
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://114.108.135.15",
+                "ContentType": "application/json"
+            }
+        }).then(response => {
+            console.log(response)
+        }).catch((error) => {
+            console.log(error.config);
+            console.log(error);
+            console.log(error.response);
+            console.log(error.request);
+        })
     }
 
     render(){
-        const {dispatch} = this.props;
-        const {store} = this.context;
         return(
             <div id="login-form">
                 <LogoPart ImageUrl = {require('../images/DSM Logo.png')}/>
@@ -94,6 +114,14 @@ SignIn.contextTypes = {
 }
 
 const LoginForm = (props) => {
+    let setEvent = function(index){
+        switch(index){
+            case 0: return props.setName;
+            case 1: return props.setEmail;
+            case 2: return props.setPassword;
+            default: break;
+        }
+    }
     return (
         <div id="LoginForm">
             {props.inputArray.map((info, i) => {
@@ -105,9 +133,11 @@ const LoginForm = (props) => {
                                 {info.aText}
                             </a>
                         </h2>
-                        <input type={info.InputType} className="MainInput"
+                        <input 
+                            type={info.InputType} 
+                            className="MainInput"
                             placeholder={info.InputTitle}
-                            />
+                            onChange={setEvent(i)}/>
                     </div>
                 );
             })}
@@ -141,4 +171,8 @@ const LoginSubBox = (props) => {
     );
 }
 
-export default SignIn;
+function submit(state){
+    signInData: state.signInData
+}
+
+export default connect(submit)(SignIn);
