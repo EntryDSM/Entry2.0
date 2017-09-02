@@ -10,7 +10,7 @@ class UploadImage extends Component {
             hidden: false
         };
         this.previewFile= this.previewFile.bind(this);
-  }
+    }
 
     previewFile() {
         var preview = document.querySelectorAll('img')[1];
@@ -32,7 +32,7 @@ class UploadImage extends Component {
         return(
             <div className="div_style">
                 <img src={require('../images/file.png')} id="IDPhoto"/>
-                 <input type="file" id="attachfile" onChange={this.previewFile}  accept="image/gif,image/jpeg,image/jpg,image/png"/> 
+                <input type="file" id="attachfile" onChange={this.previewFile} accept="image/gif,image/jpeg,image/jpg,image/png"/> 
                 {/*Icon made by [Interaction Assets] from www.flaticon.com -->*/}
             </div>
         )
