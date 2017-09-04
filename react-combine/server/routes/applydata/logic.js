@@ -1,5 +1,6 @@
 var fs = require('fs');
 var rootPath = require('../../config').getRootPath();
+
 // save(update) type of applicant.(input1)
 exports.saveType = (req, res) => {
   let updatedData = req.body;
