@@ -196,4 +196,4 @@ function submit(state){
 }
 
 export default connect(submit)(SignUp);
-//signUp = dispatch, SignUp = component
+//submit = dispatch, SignUp = component

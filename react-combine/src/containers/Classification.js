@@ -22,7 +22,6 @@ class Classification extends Component {
             },
             isBlackTest: false
         }
-        this.changeStateValue = this.changeStateValue.bind(this);
     }
 
     setIsBlackTest(){
@@ -33,45 +32,82 @@ class Classification extends Component {
 
     setLocal(e){
         this.setState({
-            local: e.target.value
+            postData: {
+                local: e.target.value
+            }
         })
     }
 
     setGraduation(e){
         this.setState({
-            graduation: e.target.value
+            postData: {
+                graduation: e.target.value
+            }
         })
     }
 
     setDate(e){
         this.setState({
-            date: e.target.value
+            postData: {
+                date: e.target.value
+            }
         })
     }
 
     setType(e){
         this.setState({
-            type: e.target.value
+            postData: {
+                type: e.target.value
+            }
         })
     }
 
     setDetail(e){
         this.setState({
-            detail: e.target.value
+            postData: {
+                detail: e.target.value
+            }
         })
     }
 
     setNote(e){
         this.setState({
-            note: e.target.value
+            postData: {
+                note: e.target.value
+            }
         })
     }
 
-    selectClassification(){
-        
+    classificationSubmit(){
+        let store = this.context.store;
+        store.dispatch(classificationData(this.state.postData));
+        let storeData = store.getState().selectClassification.CLASSIFICATION_DATA;
+        console.log(storeData);
+        axios({
+            method : "POST",
+            url : "/classification",
+            data : {
+                local : storeData.local,
+                type : storeData.type,
+                graduation : storeData.graduation,
+                date : storeData.date,
+                detail : storeData.detail,
+                note : storeData.note
+            },
+            withCredentials : false,
+            headers : {
+                "Access-Control-Allow-Origin" : "http://114.108.135.15"
+            }
+        }).then(function(response){
+            console.log(response);
+            browserHistory.push('/infoinput');
+        }).catch(function(err){
+            console.log(err);
+        });
     }
 
     render() {
+        console.log(this.state.postData);
         const {dispatch} = this.props;
         const {store} = this.context;
         let state = this.state;
@@ -112,7 +148,7 @@ class Classification extends Component {
                         setLocal={this.setLocal.bind(this)} />
                     <Graduate
                         graduation = {this.state.postData.graduation}
-                        setGraduation={this.setGraduateType.bind(this)}
+                        setGraduation={this.setGraduation.bind(this)}
                         date = {this.state.postData.date}
                         setDate r={this.setDate.bind(this)} />
                     <TypeAndMemo
@@ -125,7 +161,7 @@ class Classification extends Component {
                         setDetail = {this.setDetail.bind(this)}
                         isSocietySelected={this.state.postData.type === "society"} />
                 </div>
-                 <Button onclick={classificationSubmit} buttonName="다음"/>
+                 <Button onclick={this.classificationSubmit.bind(this)} buttonName="다음"/>
             </div>
         )
     }
@@ -184,7 +220,7 @@ const Graduate = (props) => {
         <span>졸업 구분</span>
         <input
             type="radio"
-            name="typeOfGraduate"
+            name="graduation"
             id="graduated"
             value="graduated"
             onChange={props.setGraduation} 
@@ -193,7 +229,7 @@ const Graduate = (props) => {
 
         <input
             type="radio"
-            name="typeOfGraduate"
+            name="graduation"
             id="will-graduate"
             value="willGraduate"
             onChange={props.setGraduation} 
@@ -279,6 +315,7 @@ const TypeAndMemo = (props) => {
 }
 
 const SocietyDetail = (props) => {
+    console.log(props);
     return (
         <div id="society-detail" style={{
             visibility : props.isSocietySelected? "visible":"hidden"
