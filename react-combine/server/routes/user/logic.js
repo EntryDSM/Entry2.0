@@ -184,7 +184,7 @@ exports.unemail = (req, res) => {
     var database = req.app.get('database');
     var unemail = req.params.email;
     console.log(unemail);
-
+    let key;
     try {
         authunemail(req, res, unemail, (checkemail) => {
 
@@ -197,6 +197,7 @@ exports.unemail = (req, res) => {
                     owner: 1
                 }, function (err, doc) {
                     // 유저의 암호화값, 이름을 통해 새 빈 문서 생성&저장
+                    key = doc.salt;
                     new database.applyDataModel(database.applyDataModel.createEmptyDocument(doc.salt, doc.owner)).save();
                 });
 
@@ -211,8 +212,9 @@ exports.unemail = (req, res) => {
                 }, () => {
                     //res.send('<script>alert("이메일 인증완료 로그인 해주세요"); location.href ="/public/view3.html"</script>');
                     console.log('메일 회원가입 인증 성공');
+                    req.session.key = key;
                     res.writeHead(200);
-                    res.end();
+                    res.end('<script>location.href="/classification"</script>');
                 });
 
             }
