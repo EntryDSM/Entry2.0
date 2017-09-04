@@ -110,6 +110,33 @@ class Classification extends Component {
         console.log(this.state.postData);
         const {dispatch} = this.props;
         const {store} = this.context;
+        let state = this.state;
+        let classificationSubmit = function(){
+            dispatch(classificationData(state.postData))
+            let storeData = store.getState().selectClassification.CLASSIFICATION_DATA;
+            console.log(storeData);
+            axios({
+                method : "POST",
+                url : "/classification",
+                data : {
+                    local : storeData.local,
+                    type : storeData.type,
+                    graduation : storeData.graduation,
+                    date : storeData.date,
+                    detail : storeData.detail,
+                    note : storeData.note
+                },
+                withCredentials : false,
+                headers : {
+                    "Access-Control-Allow-Origin" : "http://114.108.135.15"
+                }
+            }).then(function(response){
+                console.log(response);
+                browserHistory.push('/infoinput');
+            }).catch(function(err){
+                console.log(err);
+            });
+        }
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>
