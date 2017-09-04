@@ -3,15 +3,7 @@ let smtpPool = require('nodemailer-smtp-pool');
 let fs = require('fs');
 let Styliner = require('styliner');
 let rootPath = require('../../config').getRootPath();
-let server_domain = process.env.ENTRYDSM_DOMAIN;
-
-let con = {
-    "service": process.env.ENTRYDSM_EMAIL_SERVICE,
-    "host": process.env.ENTRYDSM_EMAIL_HOST,
-    "port": process.env.ENTRYDSM_EMAIL_PORT,
-    "user": process.env.ENTRYDSM_EMAIL_USER,
-    "password": process.env.ENTRYDSM_EMAIL_PASSWORD
-}
+let server_domain = require('../../config').getServerDomain();
 
 
 exports.login = (req, res) => {
@@ -286,6 +278,8 @@ let sendemail = (req, res,email) => {
 
                     if (enemail) {
                         console.log(email +' Send Email');
+
+                        var con = require('../../confi.json');
                         var sender = 'EntryDsm < syeutyu123@gmail.com >';
                         var receiver = email;
                         var mailTitle = 'Entry DSM Find PassWord';
@@ -298,12 +292,12 @@ let sendemail = (req, res,email) => {
                         };
 
                         var transporter = nodemailer.createTransport(smtpPool({
-                            service: con.service,
-                            host: con.host,
-                            port: con.port,
+                            service: con.mailer.service,
+                            host: con.mailer.host,
+                            port: con.mailer.port,
                             auth: {
-                                user: con.user,
-                                pass: con.password
+                                user: con.mailer.user,
+                                pass: con.mailer.password
                             },
                             tls: {
                                 rejectUnauthorize: false
@@ -407,7 +401,8 @@ exports.sendfindemail = (req, res) => {
                     htmldata = htmldata.replace('@host', server_domain);
 
                     if (enemail) {
-                        
+
+                        var con = require('../../confi.json');
                         var sender = 'EntryDsm < syeutyu123@gmail.com >';
                         var receiver = email;
                         var mailTitle = 'Change Password';
@@ -419,12 +414,12 @@ exports.sendfindemail = (req, res) => {
                             html: htmldata
                         };
                         var transporter = nodemailer.createTransport(smtpPool({
-                            service: con.service,
-                            host: con.host,
-                            port: con.port,
+                            service: con.mailer.service,
+                            host: con.mailer.host,
+                            port: con.mailer.port,
                             auth: {
-                                user: con.user,
-                                pass: con.password
+                                user: con.mailer.user,
+                                pass: con.mailer.password
                             },
                             tls: {
                                 rejectUnauthorize: false

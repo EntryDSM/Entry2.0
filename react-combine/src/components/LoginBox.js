@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
     Authentication() {
         axios({
             method: "POST",
-            url: "/signin",
+            url: "http://114.108.135.15:8080/signup",
             data: {
                 name: this.state.inputArray[0],
                 email: this.state.inputArray[1],
