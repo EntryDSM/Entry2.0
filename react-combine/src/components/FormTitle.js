@@ -1,7 +1,6 @@
-import React from 'react';
-import '../css/FormTitle.css';
+import React, {Component} from 'react';
 
-class LoginTitle extends React.Component{
+class FormTitle extends Component{
     render(){
         return(
             <h1>
@@ -11,4 +10,4 @@ class LoginTitle extends React.Component{
     }
 }
 
-export default LoginTitle;
+export default FormTitle;
