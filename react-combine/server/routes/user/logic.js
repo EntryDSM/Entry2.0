@@ -6,6 +6,15 @@ let rootPath = require('../../config').getRootPath();
 let server_domain = require('../../config').getServerDomain();
 
 
+
+let con = {
+    "service": process.env.ENTRYDSM_EMAIL_SERVICE,
+    "host": process.env.ENTRYDSM_EMAIL_HOST,
+    "port": process.env.ENTRYDSM_EMAIL_PORT,
+    "user": process.env.ENTRYDSM_EMAIL_USER,
+    "password": process.env.ENTRYDSM_EMAIL_PASSWORD
+}
+
 exports.login = (req, res) => {
     let email = req.body.email || req.query.email;
     let password = req.body.password || req.query.password;
@@ -87,11 +96,11 @@ exports.adduser = (req, res) => {
                             return;
                         }
                         if (add) {
-                            sendemail(req,res,email);
+                            sendemail(req, res, email);
                         } else {
                             res.writeHead(400);
-                           // res.end('회원가입 실패');
-                           res.end();
+                            // res.end('회원가입 실패');
+                            res.end();
                         }
                     });
 
@@ -183,6 +192,7 @@ var checkEmail = function (Docs, email, callback) {
 exports.unemail = (req, res) => {
     var database = req.app.get('database');
     var unemail = req.params.email;
+    let key;
     console.log(unemail);
     let key;
     try {
@@ -256,7 +266,7 @@ var authunemail = (req, res, unemail, callback) => {
 };
 
 //회원가입시 입력받은 이메일로 메일전송
-let sendemail = (req, res,email) => {
+let sendemail = (req, res, email) => {
     let baseDir = rootPath + '/public/mail.html';
     var database = req.app.get('database');
     database.userModel.findByEmail(email, (err, enemail) => {
@@ -279,7 +289,7 @@ let sendemail = (req, res,email) => {
                     }
 
                     if (enemail) {
-                        console.log(email +' Send Email');
+                        console.log(email + ' Send Email');
 
                         var con = require('../../confi.json');
                         var sender = 'EntryDsm < syeutyu123@gmail.com >';
@@ -294,12 +304,12 @@ let sendemail = (req, res,email) => {
                         };
 
                         var transporter = nodemailer.createTransport(smtpPool({
-                            service: con.mailer.service,
-                            host: con.mailer.host,
-                            port: con.mailer.port,
+                            service: con.service,
+                            host: con.host,
+                            port: con.port,
                             auth: {
-                                user: con.mailer.user,
-                                pass: con.mailer.password
+                                user: con.user,
+                                pass: con.password
                             },
                             tls: {
                                 rejectUnauthorize: false
@@ -365,7 +375,7 @@ exports.findEmail = function (req, res) {
                 res.writeHead(400);
                 res.end();
             }
-            console.log(arr+'아이디 찾음');
+            console.log(arr + '아이디 찾음');
             res.send(arr);
 
         } catch (err) {
@@ -379,9 +389,9 @@ exports.findEmail = function (req, res) {
 
 //비밀번호 변경을위한 메일 보내는 메소드
 exports.sendfindemail = (req, res) => {
-    
+
     var email = req.body.email;
-    
+
     // 비밀번호 메일변경 나오면 html코드로 넣기*******************
 
     let baseDir = rootPath + '/public/mail.html';
@@ -416,12 +426,12 @@ exports.sendfindemail = (req, res) => {
                             html: htmldata
                         };
                         var transporter = nodemailer.createTransport(smtpPool({
-                            service: con.mailer.service,
-                            host: con.mailer.host,
-                            port: con.mailer.port,
+                            service: con.service,
+                            host: con.host,
+                            port: con.port,
                             auth: {
-                                user: con.mailer.user,
-                                pass: con.mailer.password
+                                user: con.user,
+                                pass: con.password
                             },
                             tls: {
                                 rejectUnauthorize: false
@@ -482,7 +492,7 @@ exports.changepassword = (req, res) => {
     var userId = req.body.userId;
     var password = req.body.password;
 
-    console.log(userId+'  로 접속');
+    console.log(userId + '  로 접속');
     database.userModel.findByEmail(userId, (err, findId) => {
         try {
             if (findId) {
