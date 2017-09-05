@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import '../css/FindSchoolModal.css';
 import FindSchoolModalTable from './FindSchoolModalTable';
 import Modal from 'react-modal';
@@ -6,7 +6,7 @@ import axios from 'axios';
 // import FindSchoolModalTable from './FindSchoolModalTable';
 // import FindSchoolModalPagenum from './FindSchoolModalPagenum';
  
-class FindSchoolModal extends React.Component {
+class FindSchoolModal extends Component {
 
     constructor(props) {
         super(props);
@@ -56,30 +56,12 @@ class FindSchoolModal extends React.Component {
                     </div>
                     <div id="modal_contents">
                         <input type="text" placeholder="학교명을 입력해주세요." id="input_searchschool" onKeyDown={this.enter}/>
-                        <img id="btn_searchschool" onClick={this.getschoolInfo} src={require('../images/search.png')}/>
-                        
+                        <img id="btn_searchschool" onClick={this.props.getSchoolCode} src={require('../images/search.png')}/>
                         <FindSchoolModalTable />
                     </div>
                 </Modal>
             </div>
         );
-    }
-
-    getschoolInfo() {
-        axios({
-            method: "get",
-            url: 'http://114.108.135.15:8080/user/inquiry/',
-            withCredentials: 'false',
-            params: {
-                schoolName: document.getElementById("input_searchschool").value
-            },
-        })
-        .then(function(response){
-            console.log(response.data);
-        })
-        .catch(function(error){
-            console.log(error);
-        })
     }
 }
 
