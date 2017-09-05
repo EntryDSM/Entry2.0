@@ -22,11 +22,11 @@ export function signInData(data){
     return {type: SIGN_IN_DATA, data};
 }
 
-//InfoInput
+//Input3 인적사항
 export function infoInputData(data){
     return {type: INFO_INPUT_DATA, data};
 }
-
+//Input5 자기소개서
 export function introduceData(data){
     return {typs: INTRODUCE_DATA, data};
 }
