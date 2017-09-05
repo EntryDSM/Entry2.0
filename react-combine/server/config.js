@@ -1,8 +1,8 @@
 
 let config = {
 
-    server_port: 8080,
-    db_url: 'mongodb://localhost:27017/EntryDSM',
+    server_port: process.env.ENTRYDSM_PORT,
+    db_url: process.env.ENTRYDSM_DB_URL,
     db_schemas: [{
             "file": './models/userModel',
             "modelName": 'userModel'
@@ -34,7 +34,7 @@ let config = {
         "name" : "introduce",
         "url" : "/introduce"
     }],
-    server_domain: 'http://localhost'
+    server_domain: process.env.ENTRYDSM_DOMAIN
 }
 
 config.getPageUrl = function (name) {
