@@ -13,18 +13,20 @@ class InfoInput extends Component {
     constructor(props){
         super(props);
         this.state = {
-            sex: "",
-            grade: undefined,
-            class: undefined,
-            parentsName: "",
-            schoolCode: undefined,
-            schoolName: "",
-            schoolTel: "",
-            phoneNum: "",
-            parentsTel: "",
-            birth: "",
-            address: "",
-            detailAddress: "" 
+            postData: {
+                sex: "",
+                grade: undefined,
+                class: undefined,
+                parentsName: "",
+                schoolCode: undefined,
+                schoolName: "",
+                schoolTel: "",
+                phoneNum: "",
+                parentsTel: "",
+                birth: "",
+                address: "",
+                detailAddress: "" 
+            },
         };
 
         this.submitInfo= this.submitInfo.bind(this);
@@ -32,7 +34,7 @@ class InfoInput extends Component {
 
     submitInfo(){
         let store = this.context.store;
-        store.dispatch(infoInputData(this.state));
+        store.dispatch(infoInputData(this.state.postData));
         let storeData = store.getState().infoInput.INFO_INPUT_DATA;
         axios({
             method: 'put',
@@ -66,6 +68,30 @@ class InfoInput extends Component {
             console.log(error.request);
         })
     }
+    
+    getSchoolCode(){
+        axios({
+            method: 'get',
+            url: '/user/info/inquery',
+            params: {
+                department: "",
+                schoolName: ""
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://114.108.135.15",
+                "ContentType": "application/json"
+            }
+        }).then(response => {
+            console.log(response);
+            console.log(response.data);
+        }).catch(error => {
+            console.log(error.config);
+            console.log(error.response);
+            console.log(error.request);
+        })
+    }
+
     setSex(e){
         this.setState({
             sex: e.target.value
@@ -153,9 +179,7 @@ class InfoInput extends Component {
                         setParentsName={this.setParentsName.bind(this)}
                         setParentsTel={this.setParentsTel.bind(this)}
                         setPhoneNum={this.setPhoneNum.bind(this)}
-                        setSchoolCode={this.setSchoolCode.bind(this)}
-                        setSchoolName={this.setSchoolName.bind(this)}
-                        setSchoolTel={this.setSchoolTel.bind(this)}/>
+                        getSchoolCode={this.getSchoolCode.bind(this)}/>
                     <Button router="/classification" buttonName="이전"/>
                     <Button router="/gradeinput" buttonName="다음"/>
                 </div>
