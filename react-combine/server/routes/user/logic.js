@@ -77,47 +77,41 @@ var auth = (database, email, password, callback) => {
 
 
 exports.adduser = (req, res) => {
-    var name = req.body.name || req.query.name;
-    var email = req.body.email || req.query.email;
-    var password = req.body.password || req.query.password;
+    var name = req.body.name;
+    var email = req.body.email;
+    var password = req.body.password;
     var unemail = email; //이메일 암호화를 담아줄 변수
     var check; //Boolean 값으로 이메일 인증을 했는지 안했는지 체크해주는 변수
     var Docs = req.app.get('database');
 
-    try {
-        if (Docs.connection) {
-            checkEmail(Docs, email, function (find) {
-                //해당되는 정보가 Null일경우 회원가입
-                if (find === null) {
-                    // 입력된 정보 DB에저장
-                    addUser(Docs, name, email, password, unemail, check, (err, add) => {
-                        if (err) {
-                            console.log(err);
-                            return;
-                        }
-                        if (add) {
-                            sendemail(req, res, email);
-                        } else {
-                            res.writeHead(400);
-                            // res.end('회원가입 실패');
-                            res.end();
-                        }
-                    });
+    if (Docs.connection) {
+        checkEmail(Docs, email, function(find) {
+            //해당되는 정보가 Null일경우 회원가입
+            if (find === null) {
+                // 입력된 정보 DB에저장
+                addUser(Docs, name, email, password, unemail, check, (err, add) => {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    if (add) {
+                        sendemail(req, res, email);
+                    } else {
 
-                } else {
-                    res.writeHead(400);
-                    //res.end('이미 회원가입한 이메일 입니다');
-                    res.end();
-                }
-            });
+                    }
+                });
 
-        }
-    } catch (err) {
-        console.log(err)
-        res.writeHead(400);
-        res.end();
+            } else if (find[0].check == undefined) {
+                sendemail(req, res, email);
+            } else {
+                res.writeHead(400);
+                res.write("<script>location.href='/public/view1.html';</script>");
+                //res.end('이미 회원가입한 이메일 입니다');
+                res.end();
+            }
+        });
+
     }
-
 
 };
 
@@ -190,6 +184,7 @@ var checkEmail = function (Docs, email, callback) {
 
 //true 변경으로 DB업데이트후  이메일 인증완료 확인 메소드
 exports.unemail = (req, res) => {
+    console.log('asdasd');
     var database = req.app.get('database');
     var unemail = req.params.email;
     console.log(unemail);
@@ -212,7 +207,7 @@ exports.unemail = (req, res) => {
 
 
                 // check => true로 변환
-                database.userModel.update({}, {
+                database.userModel.update({"salt": key}, {
                     "$set": {
                         "check": true
                     }

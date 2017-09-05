@@ -8,7 +8,6 @@ var bodyparser = require('body-parser');
 var crypto = require('crypto');
 var fileUpload = require('express-fileupload');
 var app = express();
-
 let userRouter = require('./routes/user/router');
 let applydataRouter = require('./routes/applydata/router');
 let QnARouter = require('./routes/QnA/router');
@@ -20,9 +19,6 @@ app.use(bodyparser.urlencoded({
     extended: false
 }));
 
-app.get('*',(req,res)=>{
-    res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
-});
 
 //세션 설정필요
 app.use(session({
@@ -42,6 +38,10 @@ app.use('/', userRouter);
 app.use('/', applydataRouter);
 app.use('/', QnARouter);
 app.use('/', schoolRouter);
+
+app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+});
 
 app.listen(config.server_port, function () {
     console.log(config.server_port + ' ON');
