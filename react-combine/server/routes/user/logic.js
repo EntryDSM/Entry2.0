@@ -5,6 +5,7 @@ let Styliner = require('styliner');
 let rootPath = require('../../config').getRootPath();
 let server_domain = process.env.ENTRYDSM_DOMAIN;
 
+
 let con = {
     "service": process.env.ENTRYDSM_EMAIL_SERVICE,
     "host": process.env.ENTRYDSM_EMAIL_HOST,
@@ -12,6 +13,7 @@ let con = {
     "user": process.env.ENTRYDSM_EMAIL_USER,
     "password": process.env.ENTRYDSM_EMAIL_PASSWORD
 }
+
 exports.login = (req, res) => {
     let email = req.body.email || req.query.email;
     let password = req.body.password || req.query.password;
