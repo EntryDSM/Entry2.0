@@ -1,7 +1,6 @@
-import React from 'react';
-import '../css/LogoPart.css';
+import React, {Component} from 'react';
 
-class LogoPart extends React.Component{
+class LogoPart extends Component{
     render(){
         return(
             <div id="LogoPart">

@@ -101,3 +101,154 @@
     font-size:1rem;
     cursor:pointer;
 }
+
+/* LogoPart */
+#login-form #LogoPart, #send-info #LogoPart, #pw-change #LogoPart{
+    width:200px;
+    height:90px;
+    margin:0 auto;
+    margin-top:2.75rem;
+}
+
+/* FormTitle */
+#login-form h1, #send-info h1, #pw-change h1{
+    text-align: center;
+    letter-spacing:4px;
+    text-transform: uppercase;
+    font-family:'Montserrat';
+    color:#505050;
+    margin-top:2rem;
+}
+
+#send-info h1{
+    padding-left:1rem;
+}
+
+#pw-change h1{
+    padding-left:0.35rem;
+}
+
+/* LoginBox */
+#login-form #LoginBox{
+    width:40rem;
+    height:22.5rem;
+    background-color:white;
+    margin:0 auto;
+    margin-top:2rem;
+    border-radius:7.5px;
+    box-shadow: 0 0 3px darkgray;
+}
+
+#login-form #LoginBox{
+     width:40rem;
+     height:22.5rem;
+     background-color:white;
+     margin:0 auto;
+     margin-top:2rem;
+     border-radius:7.5px;
+     box-shadow: 0 0 3px darkgray;
+ }
+ 
+ #login-form #LoginBox #LoginForm{
+     width:87.5%;
+     height:100%;
+     margin:0 auto;
+     padding-top:0.75rem;
+ }
+ 
+ #login-form #LoginForm h2{
+     font-size:0.8rem;
+     font-family:'Noto Sans KR';
+     font-weight:normal;
+     letter-spacing: 2px;
+     color: #272727;
+     padding-top:1rem;
+ }
+ 
+#login-form #LoginForm .MainInput{
+     box-shadow: 0 0 4px darkgray inset;
+     border-radius: 3px;
+     display:block;
+     width:65%;
+     height: 2.25rem;
+     margin-top:0.5rem;
+     margin-left:-2.5px;
+     padding-left:5px;
+     letter-spacing: 2px;
+     font-size:0.75rem;
+ }
+ 
+ #login-form #LoginBox a{
+     padding-left: 5.5rem;
+     text-decoration: none;
+     letter-spacing: 2px;
+     font-family: 'Montserrat';
+     font-size: 0.7rem;
+     font-weight: bold;
+     color: #3157E1;
+ }
+
+ #login-form #LoginButton{
+     width:100%;
+     height:3.1rem;
+     margin:0 auto;
+     background: linear-gradient(to right, rgba(44,181,115,0.85), rgba(51,204,231,0.85));
+     border-radius: 6px;
+     margin-top:2rem;
+     margin-left:-3.5px;
+     box-shadow: 0 0 5px darkgray;
+     display:table;
+ }
+ 
+ #login-form #LoginButton #LoginText{
+     display:table-cell;
+     vertical-align: middle;
+     text-align: center;
+     color:white;
+     font-family:'Montserrat';
+     font-weight:bold;
+     letter-spacing:2.5px;
+     font-size:1.1rem;
+     cursor:pointer;
+     transition:1s;
+ }
+
+ #login-form #LoginButton #LoginText:hover{
+     letter-spacing: 5px;
+ } 
+
+ /* LoginSubBox */
+ #login-form #LoginSubBox{
+     width:40rem;
+     height:5rem;
+     background-color:white;
+     margin:0 auto;
+     border-radius: 7.5px;
+     margin-top: 1rem;
+     box-shadow: 0 0 3px darkgray;
+ }
+ 
+ #login-form #LoginSubBox h3{
+     color:#424242;
+     font-family: 'Noto Sans KR';
+     font-weight:normal;
+     text-align: center;
+     font-size:0.8rem;
+     letter-spacing: 1px;
+     padding-top:1.2rem;
+ }
+ 
+ #login-form #LoginSubBox a{
+     font-size:0.77rem;
+     letter-spacing: 0.5px;
+     text-decoration:none;
+     display: block;
+     text-align: center;
+     margin-top:5px;
+     color:#3571EB;
+     font-weight:bold;
+ }
+ 
+ #login-form a:hover{
+     text-decoration: underline !important;
+ } 

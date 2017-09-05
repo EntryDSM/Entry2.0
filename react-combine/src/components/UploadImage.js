@@ -12,7 +12,7 @@ class UploadImage extends Component {
         this.previewFile= this.previewFile.bind(this);
   }
 
-     previewFile() {
+    previewFile() {
         var preview = document.querySelectorAll('img')[1];
         var file = document.querySelector('input[type=file]').files[0];
         var reader = new FileReader();
@@ -27,7 +27,7 @@ class UploadImage extends Component {
             preview.src = require('../images/file.png');
         }
     }
-
+    
     render() {
         return(
             <div className="div_style">
