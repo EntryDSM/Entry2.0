@@ -22,7 +22,6 @@ class Classification extends Component {
             },
             isBlackTest: false
         }
-        this.changeStateValue = this.changeStateValue.bind(this);
     }
 
     setIsBlackTest(){
@@ -112,7 +111,7 @@ class Classification extends Component {
                         setLocal={this.setLocal.bind(this)} />
                     <Graduate
                         graduation = {this.state.postData.graduation}
-                        setGraduation={this.setGraduateType.bind(this)}
+                        setGraduation={this.setGraduation.bind(this)}
                         date = {this.state.postData.date}
                         setDate r={this.setDate.bind(this)} />
                     <TypeAndMemo
@@ -279,6 +278,7 @@ const TypeAndMemo = (props) => {
 }
 
 const SocietyDetail = (props) => {
+    console.log(props.isSocietySelected);
     return (
         <div id="society-detail" style={{
             visibility : props.isSocietySelected? "visible":"hidden"
