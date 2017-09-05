@@ -35,15 +35,6 @@ class SignIn extends React.Component{
         })
     }
 
-    changeValues(number, event) {
-        let val = this.state.formsValues;
-        val[number] = event.target.value;
-        this.setState({
-            formsValues: val
-        });
-        console.log(this.state.formsValues);
-    }
-
     signInSubmit(){
         let store = this.context.store;
         store.dispatch(signInData(this.state));

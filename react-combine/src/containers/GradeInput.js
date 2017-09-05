@@ -13,6 +13,9 @@ class GradeInput extends Component{
         super(props);
         
         this.state = {
+            postData: {
+
+            },
             graduated: null,
             graduate_to_be: "hide",
             black: null
@@ -29,7 +32,7 @@ class GradeInput extends Component{
                 </div>
                 <table id="grade_input_table">
                     <Graduate visible={this.state.graduate_to_be}/>
-                    <Graduated  visible={this.state.graduated}/>
+                    <Graduated visible={this.state.graduated}/>
                 </table>
                 <Button router="infoinput" buttonName="이전"/>
                 <Button router="introduce" buttonName="다음"/>

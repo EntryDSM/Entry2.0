@@ -1,4 +1,4 @@
-import {SIGN_UP_DATA, CLASSIFICATION_DATA, SIGN_IN_DATA, INFO_INPUT_DATA} from './actions';
+import {SIGN_UP_DATA, CLASSIFICATION_DATA, SIGN_IN_DATA, INFO_INPUT_DATA, INTRODUCE_DATA} from './actions';
 import {combineReducers} from 'redux';
 
 function signUp(state = {}, action){
@@ -36,6 +36,16 @@ function infoInput(state = {}, action){
         case INFO_INPUT_DATA:
             return Object.assign({}, state, {
                 INFO_INPUT_DATA: action.data
+            })
+        default: return state;
+    }
+}
+
+function introduce(state = {}, action){
+    switch(action.type){
+        case INTRODUCE_DATA:
+            return Object.assign({}, state, {
+                INTRODUCE_DATA: action.data
             })
         default: return state;
     }
