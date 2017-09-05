@@ -1,0 +1,42 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+#classification{
+    padding-left: 20px;
+    font-family: 'Noto Sans KR';
+}
+
+#classification span,#classification input,#classification label{
+    margin: 5px 5px;
+    font-weight: 300;
+}
+
+#classification span {
+    display: inline-block;
+    font-size: 18px;
+    width: 140px;
+}
+
+#classification h2{
+    font-weight: 500;
+    font-size: 30px;
+}
+
+ #classification select{
+    font-size: 18px;
+} 
+
+#classification ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 0.1px solid #555;
+    width: 300px;
+    padding: 15px 30px;
+}
+
+#society-detail {
+     visibility: hidden; 
+    position: absolute;
+    top: 370px;
+    left: 750px;
+}

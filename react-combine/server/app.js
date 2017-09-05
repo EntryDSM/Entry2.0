@@ -8,14 +8,11 @@ var bodyparser = require('body-parser');
 var crypto = require('crypto');
 var fileUpload = require('express-fileupload');
 var app = express();
-var morgan = require('morgan');
 
 let userRouter = require('./routes/user/router');
 let applydataRouter = require('./routes/applydata/router');
 let QnARouter = require('./routes/QnA/router');
 let schoolRouter = require('./routes/school/router');
-
-app.use(morgan('dev'));
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
@@ -23,7 +20,7 @@ app.use(bodyparser.urlencoded({
     extended: false
 }));
 
-app.get('*', (req, res) => {
+app.get('*',(req,res)=>{
     res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
@@ -46,8 +43,7 @@ app.use('/', applydataRouter);
 app.use('/', QnARouter);
 app.use('/', schoolRouter);
 
-app.set('port', process.env.ENTRYDSM_PORT)
-app.listen(app.get('port'), function () {
-    console.log(app.get('port') + ' ON');
+app.listen(config.server_port, function () {
+    console.log(config.server_port + ' ON');
     database.init(app, config);
 });

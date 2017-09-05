@@ -1,0 +1,11 @@
+.textarea_style{
+    width: 750px;
+    height: 300px;
+    resize: none;
+    font-size: 14px;
+}
+
+.counting_area{
+    font-size: 20px;
+    text-align: right;
+}

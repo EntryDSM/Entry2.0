@@ -3,7 +3,8 @@ let smtpPool = require('nodemailer-smtp-pool');
 let fs = require('fs');
 let Styliner = require('styliner');
 let rootPath = require('../../config').getRootPath();
-let server_domain = process.env.ENTRYDSM_DOMAIN;
+let server_domain = require('../../config').getServerDomain();
+
 
 
 let con = {
@@ -193,7 +194,7 @@ exports.unemail = (req, res) => {
     var unemail = req.params.email;
     let key;
     console.log(unemail);
-
+    let key;
     try {
         authunemail(req, res, unemail, (checkemail) => {
 

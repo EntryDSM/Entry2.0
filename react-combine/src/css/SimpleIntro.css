@@ -1,0 +1,81 @@
+#landing-page #FirstArticle{
+    width:100%;
+    height:530px;
+    background-color:#E9F3FF;
+}
+
+#landing-page #FirstArticle #Article_Title{
+    text-align: center;
+    font-family:'Montserrat';
+    font-weight:bold;
+    font-size:2rem;
+    letter-spacing: 2px;
+    margin-top:5rem;
+    text-transform: uppercase;
+    color:#333;
+}
+
+#landing-page #FirstArticle #Article_Line{
+    width:5rem;
+    height:3.5px;
+    background-color: #5B5b5B;
+    margin:0 auto;
+    margin-top:1rem;
+}
+
+#landing-page #FirstArticle #Article_Images_Cover{
+    width:100%;
+    height:340px;
+    text-align: center;
+    overflow:hidden;
+}
+
+#landing-page #Article_Images_Cover .Article_Images{
+    width:18rem;
+    height:18rem;
+    display:inline-block;
+    margin:1rem;
+    margin-top:3rem;
+}
+
+#landing-page #Article_Images_Cover .ExImages{
+    display:block;
+    margin:0 auto;
+    
+}
+
+#landing-page #Article_Images_Cover .ExImages:hover{
+    animation: SideMove 0.5s forwards;
+    -webkit-animation: SideMove 0.5s forwards;
+    -ms-animation: SideMove 0.5s forwards;
+}
+
+@keyframes SideMove{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(0.7);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+#landing-page .Article_Images .Article_ImageTitle{
+    color:#414141;
+    font-family:'Montserrat';
+    font-weight:bold;
+    font-size:1.23rem;
+    letter-spacing:4px;
+    margin-top:1.25rem;
+}
+
+#landing-page .Article_Images .Article_Image_Explain{
+    font-size:0.9rem;
+    font-family: 'Noto Sans KR';
+    color: #484848;
+    margin-top:1rem;
+    line-height:1.75;
+    letter-spacing:0.5px;
+}
