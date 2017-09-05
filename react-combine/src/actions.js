@@ -3,6 +3,7 @@ export const SIGN_UP_DATA = 'SIGN_UP_DATA';
 export const CLASSIFICATION_DATA = 'CLASSIFICATION_DATA';
 export const SIGN_IN_DATA = 'SIGN_IN_DATA';
 export const INFO_INPUT_DATA = 'INFO_INPUT_DATA';
+export const INTRODUCE_DATA = 'INTRODUCE_DATA';
 
 //Action Creator
 
@@ -24,4 +25,8 @@ export function signInData(data){
 //InfoInput
 export function infoInputData(data){
     return {type: INFO_INPUT_DATA, data};
+}
+
+export function introduceData(data){
+    return {typs: INTRODUCE_DATA, data};
 }
