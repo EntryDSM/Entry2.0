@@ -192,7 +192,6 @@ var checkEmail = function (Docs, email, callback) {
 exports.unemail = (req, res) => {
     var database = req.app.get('database');
     var unemail = req.params.email;
-    let key;
     console.log(unemail);
     let key;
     try {
