@@ -315,7 +315,11 @@ const TypeAndMemo = (props) => {
 }
 
 const SocietyDetail = (props) => {
+<<<<<<< HEAD
+    console.log(props.isSocietySelected);
+=======
     console.log(props);
+>>>>>>> d3daee9ece7c49c404ba5335d49c35e6aae02702
     return (
         <div id="society-detail" style={{
             visibility : props.isSocietySelected? "visible":"hidden"
