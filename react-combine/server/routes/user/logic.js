@@ -291,7 +291,6 @@ let sendemail = (req, res, email) => {
                     if (enemail) {
                         console.log(email + ' Send Email');
 
-                        var con = require('../../confi.json');
                         var sender = 'EntryDsm < syeutyu123@gmail.com >';
                         var receiver = email;
                         var mailTitle = 'Entry DSM Find PassWord';
