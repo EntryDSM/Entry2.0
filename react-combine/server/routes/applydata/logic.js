@@ -7,11 +7,11 @@ exports.saveType = (req, res) => {
   let userkey = req.params.userid;
   let Docs = req.app.get('database');
 
-  if(Docs.connection){
+  if (Docs.connection) {
     saveApplyType(Docs, userkey, updatedData, (err, result) => {
-      if(err){
+      if (err) {
         console.error(err);
-      }else{
+      } else {
         console.log('전형 수정 완료');
         res.redirect('/user/info/' + userkey);
       }
@@ -21,39 +21,29 @@ exports.saveType = (req, res) => {
 
 // load(select) type of applicant.(input1)
 exports.loadType = (req, res) => {
-  let userkey = req.params.userid;
+  console.log(req.session.key);
+  if (!req.session.key) {
+    res.writeHead(401, {"Content-Type": "text/html"});
+    return res.end('<script>alert("Login Please");location.href="/signin"</script>');
+  }
+  let userKey = req.session.key;
   let Docs = req.app.get('database');
 
-  if(Docs.connection){
-    loadApplyType(Docs, userkey, (err, result) => {
-      if(err){
-        console.error(err);
-      }else{
-        console.log('전형 불러오기 완료');
-        res.render('applytype', {
-          key: userkey,
-          data: result
-        });
-      }
-    });
+  if (Docs.connection) {
+    Docs.applyDataModel.selectApplyType(userKey)
+      .then((applyType) => {
+        res.status(200).json(applyType);
+      });
+  } else {
+    res.status(500).end();
   }
 }
 
 var saveApplyType = (database, userkey, data, callback) => {
   database.applyDataModel.updateApplyType(userkey, data, (err, result) => {
-    if(err){
+    if (err) {
       callback(err, null);
-    }else{
-      callback(null, result);
-    }
-  });
-}
-
-var loadApplyType = (database, userkey, callback) => {
-  database.applyDataModel.selectApplyType(userkey, (err, result) => {
-    if(err){
-      callback(err, null);
-    }else{
+    } else {
       callback(null, result);
     }
   });
@@ -257,7 +247,7 @@ exports.demo = (req, res) => {
           if (tab === "userInfo") {
 
             console.log('userInfo Start');
-            let fullAddress = check[0]._doc.addressBase+" "+ check[0]._doc.addressDetail;
+            let fullAddress = check[0]._doc.addressBase + " " + check[0]._doc.addressDetail;
 
             console.log('총 주소 : ' + fullAddress);
             let school = check[0]._doc.schoolName.split('중학교');
@@ -287,7 +277,7 @@ exports.demo = (req, res) => {
             infoArr["volunteer"] = check[0]._doc.volunteer //봉사시간
             infoArr["attendance"] = check[0]._doc.attendance //출석
             infoArr["graduateType"] = check[0]._doc.grade //졸업구분
-            
+
             res.writeHead(200, {
               'Content-Type': 'application/json'
             });
@@ -341,7 +331,7 @@ exports.demo = (req, res) => {
 
             console.log('noSmoke Strat ')
 
-            let fullAddress = check[0]._doc.addressBase+" "+ check[0]._doc.addressDetail;
+            let fullAddress = check[0]._doc.addressBase + " " + check[0]._doc.addressDetail;
 
             console.log('총 주소 : ' + fullAddress);
 
@@ -368,31 +358,31 @@ exports.demo = (req, res) => {
   }
 }
 
-exports.getdemo = (req,res)=>{
+exports.getdemo = (req, res) => {
   let getDemo = {};
   console.log('자소서 , 학업계획서 조회 ');
   let userId = req.session.key;
-  console.log(userId+'로 조회 합니다');
+  console.log(userId + '로 조회 합니다');
   let database = req.app.get('database');
-  database.applyDataModel.findUserInfo(userId,function(err,data){
-    console.log(data+'찾은 데이터');
+  database.applyDataModel.findUserInfo(userId, function (err, data) {
+    console.log(data + '찾은 데이터');
 
-    if(err){
+    if (err) {
       console.log(err);
       res.writeHead(400);
       res.end();
     }
-    if(data){
+    if (data) {
       getDemo['self'] = data[0]._doc.self;
       getDemo['plan'] = data[0]._doc.plan;
 
-      console.log(getDemo+'조회 완료');
+      console.log(getDemo + '조회 완료');
 
       res.writeHead(200, {
-              'Content-Type': 'application/json'
-            });
+        'Content-Type': 'application/json'
+      });
 
-            res.end(JSON.stringify(getDemo));
+      res.end(JSON.stringify(getDemo));
 
     }
 
@@ -410,7 +400,7 @@ exports.intro = (req, res) => {
   try {
     if (req.session.key) {
 
-      console.log(self+','+plan+'로 업데이트');
+      console.log(self + ',' + plan + '로 업데이트');
 
       let userId = req.session.key;
 
@@ -454,8 +444,7 @@ exports.intro = (req, res) => {
               }
             });
 
-        }
-           else {
+        } else {
           res.writeHead(400);
           //res.send('학업계획서, 자기소개서 저장 실패');
           res.end();

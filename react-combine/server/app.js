@@ -27,6 +27,13 @@ app.use(session({
     resave: false
 }));
 
+app.get('*', (req, res, next) => {
+    console.log(req.path);
+    if (!(/unemail\/.{1,}/.test(req.path)))
+        res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+    else next();
+});
+
 app.use(bodyparser.json());
 
 // app.use(require('express-method-override')('method_override_param_name'));
@@ -39,9 +46,6 @@ app.use('/', applydataRouter);
 app.use('/', QnARouter);
 app.use('/', schoolRouter);
 
-app.get('*',(req,res)=>{
-    res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
-});
 
 app.listen(config.server_port, function () {
     console.log(config.server_port + ' ON');
