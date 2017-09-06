@@ -181,7 +181,7 @@ class InfoInput extends Component {
                         setPhoneNum={this.setPhoneNum.bind(this)}
                         getSchoolCode={this.getSchoolCode.bind(this)}/>
                     <Button router="/classification" buttonName="이전"/>
-                    <Button router="/gradeinput" buttonName="다음"/>
+                    <Button router="/gradeinput" onclick={this.submitInfo.bind(this)} buttonName="다음"/>
                 </div>
             </div>
         );

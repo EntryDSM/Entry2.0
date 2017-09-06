@@ -6,7 +6,7 @@ class Button extends Component{
     render(){
         return(
             <Link to={this.props.router}>
-                <button onClick={this.props.onclick} className="button">
+                <button onClick={this.props.onclick} onMouseEnter={this.props.onmouseEnter} className="button">
                     {this.props.buttonName}
                 </button>
             </Link>
