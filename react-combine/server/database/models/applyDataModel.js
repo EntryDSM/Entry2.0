@@ -4,7 +4,7 @@ let crypto = require('crypto');
 let config = require('../../config');
 let model = {};
 
-schema.static('updateApplyType', function(id, newData, callback){
+schema.static('updateApplyType', function (id, newData, callback) {
     return this.updateOne({
         user: id
     }, {
@@ -19,7 +19,7 @@ schema.static('updateApplyType', function(id, newData, callback){
     }, callback);
 });
 
-schema.static('selectApplyType', function(id, callback){
+schema.static('selectApplyType', function (id) {
     let query = this.findOne({
         user: id
     }).select({
@@ -32,7 +32,17 @@ schema.static('selectApplyType', function(id, callback){
         _id: false
     });
 
-    return query.exec(callback);
+    return this.find({
+        "user": id
+    }, {
+        regionType: true,
+        applyBaseType: true,
+        applyDetailType: true,
+        applyNoteType: true,
+        graduateType: true,
+        graduateYear: true,
+        _id: false
+    }).exec();
 });
 
 schema.static('updatepersonal', function (id, newData, callback) {
@@ -367,8 +377,10 @@ schema.static('createEmptyDocument', function (salt, owner) {
     return document;
 });
 
-schema.static('findUserInfo',function(id,callback){
-    return this.find({"user":id},callback);
+schema.static('findUserInfo', function (id, callback) {
+    return this.find({
+        "user": id
+    }, callback);
 });
 
 

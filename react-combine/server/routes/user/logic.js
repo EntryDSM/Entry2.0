@@ -16,8 +16,8 @@ let con = {
 }
 
 exports.login = (req, res) => {
-    let email = req.body.email || req.query.email;
-    let password = req.body.password || req.query.password;
+    let email = req.body.email;
+    let password = req.body.password;
     let Docs = req.app.get('database');
     try {
         if (Docs.connection) {
@@ -26,9 +26,9 @@ exports.login = (req, res) => {
                     console.log(err.stack);
                     return;
                 }
-                console.log(docs);
+
                 if (docs === null) {
-                    res.writeHead(400);
+                    res.sendStatus(400);
                 } else if (docs[0]._doc.check == true) {
 
                     req.session.key = docs[0]._doc.salt;
@@ -38,13 +38,13 @@ exports.login = (req, res) => {
                 } else {
                     res.writeHead(400);
                     //res.end('회원가입 인증 필요');
-                    res.end();
+                    res.end('회원가입 인증 필요');
                 };
             });
         }
     } catch (err) {
         console.log(err)
-        res.writeHead(400);
+        res.writeHead(500);
         res.end();
     }
 }
@@ -53,6 +53,7 @@ exports.login = (req, res) => {
 var auth = (database, email, password, callback) => {
     database.userModel.findByEmail(email, (err, results) => {
         if (err) {
+            console.log(err);
             callback(err, null);
             return;
         }
@@ -73,6 +74,7 @@ var auth = (database, email, password, callback) => {
             callback(null, null);
         }
     });
+
 };
 
 
@@ -85,7 +87,7 @@ exports.adduser = (req, res) => {
     var Docs = req.app.get('database');
 
     if (Docs.connection) {
-        checkEmail(Docs, email, function(find) {
+        checkEmail(Docs, email, function (find) {
             //해당되는 정보가 Null일경우 회원가입
             if (find === null) {
                 // 입력된 정보 DB에저장
@@ -195,32 +197,43 @@ exports.unemail = (req, res) => {
             if (checkemail) {
                 // hash_email을 통해 유저 조회
                 database.userModel.findOne({
-                    "hash_email": unemail
-                }, {
-                    salt: 1,
-                    owner: 1
-                }, function (err, doc) {
-                    // 유저의 암호화값, 이름을 통해 새 빈 문서 생성&저장
-                    key = doc.salt;
-                    new database.applyDataModel(database.applyDataModel.createEmptyDocument(doc.salt, doc.owner)).save();
-                });
-
-
-                // check => true로 변환
-                database.userModel.update({"salt": key}, {
-                    "$set": {
-                        "check": true
-                    }
-                }, {
-                    multi: true
-                }, () => {
-                    //res.send('<script>alert("이메일 인증완료 로그인 해주세요"); location.href ="/public/view3.html"</script>');
-                    console.log('메일 회원가입 인증 성공');
-                    req.session.key = key;
-                    res.writeHead(200);
-                    res.end('<script>location.href="/classification"</script>');
-                });
-
+                        "hash_email": unemail
+                    }, {
+                        salt: 1,
+                        owner: 1
+                    })
+                    .then((doc) => {
+                        if (!doc) throw new Error('유효하지않음');
+                        else {
+                            console.log("doc.salt : " + doc.salt);
+                            key = doc.salt;
+                            return new database.applyDataModel(database.applyDataModel.createEmptyDocument(doc.salt, doc.owner)).save();
+                        }
+                    })
+                    .then((applyDataDoc) => {
+                        return database.userModel.update({
+                            "salt": key
+                        }, {
+                            "$set": {
+                                "check": true
+                            }
+                        }, {
+                            multi: true
+                        })
+                    })
+                    .then((result) => {
+                        console.log('메일 회원가입 인증 성공');
+                        console.log(key);
+                        req.session.key = key;
+                        res.writeHead(200);
+                        res.end('<script>location.href="/classification"</script>');
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        res.status(400).json({
+                            "message": err.message
+                        });
+                    })
             }
         });
     } catch (err) {

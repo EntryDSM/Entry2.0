@@ -32,8 +32,8 @@ let schema = mongoose.Schema({
     class: { type : Number, default : null },
     attendance : {type : Number,default : null},
     applyStatus: { type : Boolean, default : false },
-    createDate : { type : Date, default : Date.now() },
-    updateDate: { type : Date, default : Date.now() }
+    createDate : { type : Date, default : Date.now },
+    updateDate: { type : Date, default : Date.now }
 }, {collection : 'applyData'});
 
 /*

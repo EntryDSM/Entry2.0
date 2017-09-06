@@ -5,7 +5,7 @@ let schema = mongoose.Schema({
     owner: String,
     email: String,
     salt: { type: String, required: true, unique:true},
-    check: Boolean,
+    check: { type: Boolean, default : false },
     hash_password: {type : String,unique : true},
     hash_email: {type : String,unique : true}
 },{ collection : 'user'});
