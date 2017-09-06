@@ -3,17 +3,27 @@ var rootPath = require('../../config').getRootPath();
 
 // save(update) type of applicant.(input1)
 exports.saveType = (req, res) => {
-  let updatedData = req.body;
-  let userkey = req.params.userid;
+  if (!req.session.key) {
+    return res.sendStatus(401);
+  }
+  let updatedData = {
+    "applyBaseType": req.body.type,
+    "regionType": req.body.local,
+    "applyDetailType": req.body.note,
+    "graduateType": req.body.graduation
+  }
+  let userkey = req.session.key;
+  console.log(updatedData);
   let Docs = req.app.get('database');
 
   if (Docs.connection) {
     saveApplyType(Docs, userkey, updatedData, (err, result) => {
       if (err) {
         console.error(err);
+        res.sendStatus(500);
       } else {
         console.log('전형 수정 완료');
-        res.redirect('/user/info/' + userkey);
+        res.sendStatus(200);
       }
     });
   }
@@ -23,8 +33,7 @@ exports.saveType = (req, res) => {
 exports.loadType = (req, res) => {
   console.log(req.session.key);
   if (!req.session.key) {
-    res.writeHead(401, {"Content-Type": "text/html"});
-    return res.end('<script>alert("Login Please");location.href="/signin"</script>');
+    res.sendStatus(401);
   }
   let userKey = req.session.key;
   let Docs = req.app.get('database');
@@ -40,10 +49,12 @@ exports.loadType = (req, res) => {
 }
 
 var saveApplyType = (database, userkey, data, callback) => {
+  console.log(userkey);
   database.applyDataModel.updateApplyType(userkey, data, (err, result) => {
     if (err) {
       callback(err, null);
     } else {
+      console.log(result);
       callback(null, result);
     }
   });

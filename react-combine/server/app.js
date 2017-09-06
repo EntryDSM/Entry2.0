@@ -29,7 +29,7 @@ app.use(session({
 
 app.get('*', (req, res, next) => {
     console.log(req.path);
-    if (!(/unemail\/.{1,}/.test(req.path)))
+    if (!(/unemail\/.{1,}/.test(req.path)) || !(/^(\/api\/)/.test(req.path)))
         res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
     else next();
 });
@@ -42,9 +42,9 @@ app.use(fileUpload());
 app.use('/images', static(path.join(__dirname, '/images')));
 
 app.use('/', userRouter);
-app.use('/', applydataRouter);
-app.use('/', QnARouter);
-app.use('/', schoolRouter);
+app.use('/api', applydataRouter);
+app.use('/api', QnARouter);
+app.use('/api', schoolRouter);
 
 
 app.listen(config.server_port, function () {
