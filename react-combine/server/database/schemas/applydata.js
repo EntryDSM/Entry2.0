@@ -7,7 +7,7 @@ let schema = mongoose.Schema({
     schoolCode: { type : Number, default : null },
     schoolName: { type : String, default : "" },
     name: { type : String, default : "" },
-    birthday: { type : Date, default : null },
+    birthday: { type : String, default : "" },
     sex: { type : String, default : "" },
     postNumber: { type : String, default : "" },
     addressBase: { type : String, default : "" },

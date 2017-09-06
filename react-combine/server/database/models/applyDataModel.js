@@ -246,7 +246,7 @@ function schoolValidation(schoolName, schoolTel, messages) {
 };
 
 function birthdayValidation(birthday, messages) {
-    if (birthday === null) messages.push('생년월일을 입력해주세요.');
+    if (birthday === "") messages.push('생년월일을 입력해주세요.');
 };
 
 function addressValidation(addressBase, addressDetail, messages) {
