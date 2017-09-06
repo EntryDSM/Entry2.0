@@ -72,27 +72,29 @@ exports.save = (req, res) => {
   // update image.
   var imagePath = '',
     targetPath = '';
-  if (req.files.memberImage != undefined) {
-    image = req.files.memberImage;
-    targetPath = "\\images\\" + userkey + '.jpg';
+  console.log(req.files);
+  // if (req.files.memberImage != undefined) {
+  //   image = req.files.memberImage;
+  //   targetPath = "\\images\\" + userkey + '.jpg';
 
-    req.body.memberImage = targetPath;
+  //   req.body.memberImage = targetPath;
 
-    if (Docs.connection) {
-      saveImage(Docs, userkey, image, targetPath, (err, result) => {
-        if (err) {
-          console.error(err);
-          console.log('Image 저장 실패 [' + userkey + ']');
-        } else {
-          if (result) {
-            console.log('Image 저장 성공 [' + userkey + ']');
-          } else {
-            console.log('Image 저장 실패 [' + userkey + ']');
-          }
-        }
-      });
-    }
-  }
+  //   if (Docs.connection) {
+  //     saveImage(Docs, userkey, image, targetPath, (err, result) => {
+  //       if (err) {
+  //         console.error(err);
+  //         console.log('Image 저장 실패 [' + userkey + ']');
+  //       } else {
+  //         if (result) {
+  //           console.log('Image 저장 성공 [' + userkey + ']');
+  //         } else {
+  //           console.log('Image 저장 실패 [' + userkey + ']');
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
+  // 프로필 업로드 보류
 
   // update applydata.
   if (Docs.connection) {
