@@ -38,18 +38,18 @@ class InfoInput extends Component {
             method: 'put',
             url: '/api/user/info',
             data: {
-                sex: storeData.sex,
-                grade: storeData.grade,
-                class: storeData.class,
-                parentsNum: storeData.parentsNum,
-                schoolCode: storeData.schoolCode,
-                schoolName: storeData.schoolName,
-                schoolTel: storeData.schoolTel,
-                phoneNum: storeData.phoneNum,
-                parentsTel: storeData.parentsTel,
-                birth: storeData.birth,
-                baseAddress: storeData.baseAddress,
-                detailAddress: storeData.detailAddress
+                sex: "남",
+                grade: 3,
+                class: 1,
+                schoolCode: 7680165,
+                schoolName: "해솔중학교",
+                schoolTel: "00012341234",
+                phoneNum: "01028962001",
+                parentsTel: "01090769392",
+                parentsName: "안영숙",
+                birth: "2000-04-29",
+                baseAddress: "경기도 파주시 가온로 67 (목동동, 해솔마을 5단지 삼부르네상스 아파트)",
+                detailAddress: "503동 802호"
             },
             withCredentials: false,
             headers: {
@@ -158,6 +158,7 @@ class InfoInput extends Component {
     
     render(){
         const {store} = this.context;
+        console.log(this.state)
         return(
             <div id="contents">
                 <div id="info_input">
@@ -179,7 +180,7 @@ class InfoInput extends Component {
                         setPhoneNum={this.setPhoneNum.bind(this)}
                         getSchoolCode={this.getSchoolCode.bind(this)}/>
                     <Button router="/classification" buttonName="이전"/>
-                    <Button router="/gradeinput" onclick={this.submitInfo.bind(this)} buttonName="다음"/>
+                    <Button onclick={this.submitInfo.bind(this)} buttonName="다음"/>
                 </div>
             </div>
         );

@@ -39,7 +39,7 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">중학교명</td>
                             <td className="td_content">
-                                <input type="text" className="input_style" id="school_name" readOnly/>
+                                <input type="text" className="input_style" id="school_name"/>
                             </td>
                         </tr>
                         <tr>
