@@ -7,7 +7,7 @@ class FindSchoolModalTable extends Component {
         super();
     }
  
-     render() {
+    render() {
         // var arr = [];
 
         // var addressData = null;
