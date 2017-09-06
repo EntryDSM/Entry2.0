@@ -13,20 +13,18 @@ class InfoInput extends Component {
     constructor(props){
         super(props);
         this.state = {
-            postData: {
-                sex: "",
-                grade: undefined,
-                class: undefined,
-                parentsName: "",
-                schoolCode: undefined,
-                schoolName: "",
-                schoolTel: "",
-                phoneNum: "",
-                parentsTel: "",
-                birth: "",
-                address: "",
-                detailAddress: "" 
-            },
+            sex: "",
+            grade: undefined,
+            class: undefined,
+            parentsName: "",
+            schoolCode: undefined,
+            schoolName: "",
+            schoolTel: "",
+            phoneNum: "",
+            parentsTel: "",
+            birth: "",
+            address: "",
+            detailAddress: "" 
         };
 
         this.submitInfo= this.submitInfo.bind(this);
@@ -34,7 +32,7 @@ class InfoInput extends Component {
 
     submitInfo(){
         let store = this.context.store;
-        store.dispatch(infoInputData(this.state.postData));
+        store.dispatch(infoInputData(this.state));
         let storeData = store.getState().infoInput.INFO_INPUT_DATA;
         axios({
             method: 'put',
