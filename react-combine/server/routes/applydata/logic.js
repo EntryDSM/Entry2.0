@@ -66,9 +66,9 @@ var saveApplyType = (database, userkey, data, callback) => {
 // save(update) applydata.(input2)
 exports.save = (req, res) => {
   let updatedData = req.body;
-  let userkey = req.params.userid;
+  let userkey = req.session.key;
   let Docs = req.app.get('database');
-
+  console.log(req.body);
   // update image.
   var imagePath = '',
     targetPath = '';
@@ -105,6 +105,7 @@ exports.save = (req, res) => {
           error: 'database personal data update failure'
         });
       } else {
+        console.log(docs);
         res.send('<script>alert("수정이 완료되었습니다.");</script>');
       }
     });

@@ -46,28 +46,15 @@ schema.static('selectApplyType', function (id) {
 });
 
 schema.static('updatepersonal', function (id, newData, callback) {
-    var month = newData.month < 10 ? '0' + newData.month : newData.month;
-    var date = newData.date < 10 ? '0' + newData.date : newData.date;
-    var birth = newData.year + '-' + month + '-' + date;
+    newData.updateDate = Date.now();
+    newData.addressDetail = newData.detailAddress;
+    newData.addressBase = newData.baseAddress;
+    newData.myTel = newData.phoneNum;
+
     return this.updateOne({
         user: id
     }, {
-        $set: {
-            schoolCode: newData.schoolCode,
-            schoolName: newData.schoolName,
-            grade: newData.grade,
-            class: newData.class,
-            birthday: birth,
-            sex: newData.sex,
-            addressBase: newData.addressBase,
-            addressDetail: newData.addressDetail,
-            postNumber: newData.postNumber,
-            parentName: newData.parentName,
-            parentTel: newData.parentTel,
-            schoolTel: newData.schoolTel,
-            myTel: newData.myTel,
-            updateDate: new Date() // need to be updated
-        }
+        $set: newData
     }, callback);
 });
 
