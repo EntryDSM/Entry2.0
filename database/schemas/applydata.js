@@ -1,40 +1,44 @@
 let mongoose = require('mongoose');
 
 let schema = mongoose.Schema({
-    user: { type : String, required : true, unique : true },
-    submitNumber: { type : Number, default : null },
-    examNumber: { type : Number, default : null },
-    schoolCode: { type : Number, default : null },
-    schoolName: { type : String, default : "" },
-    name: { type : String, default : "" },
-    birthday: { type : Date, default : null },
-    sex: { type : String, default : "" },
-    postNumber: { type : String, default : "" },
-    addressBase: { type : String, default : "" },
-    addressDetail: { type : String, default : "" },
-    parentName: { type : String, default : "" },
-    parentTel: { type : String, default : "" },
-    schoolTel: { type : String, default : "" },
-    myTel: { type : String, default : "" },
-    graduateType: { type : String, default : "" },
-    graduateYear: { type : String, default : "" },
-    regionType: { type : String, default : "" },
-    applyBaseType: { type : String, default : "" },
-    applyDetailType: { type : String, default : "" },
+    user: { type: String, required: true, unique: true },
+    submitNumber: { type: Number, default: null },
+    examNumber: { type: Number, default: null },
+    schoolCode: { type: Number, default: null },
+    schoolName: { type: String, default: "" },
+    name: { type: String, default: "" },
+    birthday: { type: Date, default: null },
+    sex: { type: String, default: "" },
+    postNumber: { type: String, default: "" },
+    addressBase: { type: String, default: "" },
+    addressDetail: { type: String, default: "" },
+    parentName: { type: String, default: "" },
+    parentTel: { type: String, default: "" },
+    schoolTel: { type: String, default: "" },
+    myTel: { type: String, default: "" },
+    graduateType: { type: String, default: "" },
+    graduateYear: { type: String, default: "" },
+    regionType: { type: String, default: "" },
+    applyBaseType: { type: String, default: "" },
+    applyDetailType: { type: String, default: "" },
     applyNoteType: { type: String, default: "" },
-    score : { type : JSON, default : null },
-    attend : { type : JSON, default : null },
-    volunteer : { type : Number, default : null },
-    memberImage: { type : String, default : "" },
-    introduce: { type : String, default : "" },
-    studyPlan: { type : String, default : "" },
-    grade: { type : Number, default : null },
-    class: { type : Number, default : null },
-    attendance : {type : Number,default : null},
-    applyStatus: { type : Boolean, default : false },
-    createDate : { type : Date, default : Date.now() },
-    updateDate: { type : Date, default : Date.now() }
-}, {collection : 'applyData'});
+    score: { type: JSON, default: null },
+    scoreSum: { type: JSON, default: null },
+    attend: { type: JSON, default: null },
+    volunteer: { type: Number, default: null },
+    memberImage: { type: String, default: "" },
+    introduce: { type: String, default: "" },
+    studyPlan: { type: String, default: "" },
+    grade: { type: Number, default: null },
+    class: {
+        type: Number,
+            default: null
+    },
+    finalSum: { type: Number, default: null },
+    applyStatus: { type: Boolean, default: false },
+    createDate: { type: Date, default: Date.now() },
+    updateDate: { type: Date, default: Date.now() }
+}, { collection: 'applyData' });
 
 /*
 user : 지원자 고유 키
@@ -63,31 +67,31 @@ score :
     semester : [0][ // 1학년 1학기 성적 | 졸업예정자는 [4], 졸업자는 [5]까지 있음 (3학년 2학기)
         {  // 국어
             "pass" : Boolean,  // 이수 여부
-            "grade" : String   // 점수
+            "grade" : Number   // 점수
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         },
         {
             "pass" : Boolean,
-            "grade" : String
+            "grade" : Number
         }
     ]
 }
@@ -101,9 +105,9 @@ volunteer : 봉사 시간
 memberImage : 이미지 경로
 introduce : 자기소개서
 studyPlan : 학업계획서
-attendance : 출석
 grade : 학년 (졸업예정, 졸업자는 3으로 고정)
 class : 반
+finalSum : 최종점수
 applyStatus : 원서 접수 여부
 createDate : 문서가 만들어진 날짜
 updateDate : 수정 날짜 (시간)

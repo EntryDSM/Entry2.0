@@ -4,12 +4,15 @@ let fs = require('fs');
 let Styliner = require('styliner');
 let rootPath = require('../../config').getRootPath();
 let server_domain = require('../../config').getServerDomain();
+let logic = require('./function');
+let con = require('../../confi.json');
 
 
 exports.login = (req, res) => {
     let email = req.body.email || req.query.email;
     let password = req.body.password || req.query.password;
     let Docs = req.app.get('database');
+    console.log('로그인 ');
     try {
         if (Docs.connection) {
             auth(Docs, email, password, (err, docs) => {
@@ -19,15 +22,36 @@ exports.login = (req, res) => {
                 }
                 console.log(docs);
                 if (docs === null) {
-                    res.writeHead(400);
+                    console.log('관리자 로그인 접속');
+                    Docs.adminModel.findadmin(email, password, (err, find) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500);
+                            res.end();
+                        }
+                        console.log(find);
+                        if (0 < find.length) {
+                            req.session.key = con.sessionKey;
+                            res.end();
+                            // html 코드 나오면 합병
+                            // res.render('adminMain', {
+                            //     admin: 'admin'
+                            // });
+                        } else {
+                            res.status(400);
+                            res.end();
+                        }
+                    });
                 } else if (docs[0]._doc.check == true) {
-
+                    console.log('로그인 완료');
                     req.session.key = docs[0]._doc.salt;
                     res.writeHead(200);
+                    res.write("<script>location.href='/public/view2.html';</script>");
                     res.end();
 
                 } else {
                     res.writeHead(400);
+                    res.write("<script>location.href='/public/view3.html';</script>");
                     //res.end('회원가입 인증 필요');
                     res.end();
                 };
@@ -68,47 +92,41 @@ var auth = (database, email, password, callback) => {
 
 
 exports.adduser = (req, res) => {
-    var name = req.body.name || req.query.name;
-    var email = req.body.email || req.query.email;
-    var password = req.body.password || req.query.password;
+    var name = req.body.name;
+    var email = req.body.email;
+    var password = req.body.password;
     var unemail = email; //이메일 암호화를 담아줄 변수
     var check; //Boolean 값으로 이메일 인증을 했는지 안했는지 체크해주는 변수
     var Docs = req.app.get('database');
 
-    try {
-        if (Docs.connection) {
-            checkEmail(Docs, email, function (find) {
-                //해당되는 정보가 Null일경우 회원가입
-                if (find === null) {
-                    // 입력된 정보 DB에저장
-                    addUser(Docs, name, email, password, unemail, check, (err, add) => {
-                        if (err) {
-                            console.log(err);
-                            return;
-                        }
-                        if (add) {
-                            sendemail(req,res,email);
-                        } else {
-                            res.writeHead(400);
-                           // res.end('회원가입 실패');
-                           res.end();
-                        }
-                    });
+    if (Docs.connection) {
+        checkEmail(Docs, email, function(find) {
+            //해당되는 정보가 Null일경우 회원가입
+            if (find === null) {
+                // 입력된 정보 DB에저장
+                addUser(Docs, name, email, password, unemail, check, (err, add) => {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    if (add) {
+                        sendemail(req, res, email);
+                    } else {
 
-                } else {
-                    res.writeHead(400);
-                    //res.end('이미 회원가입한 이메일 입니다');
-                    res.end();
-                }
-            });
+                    }
+                });
 
-        }
-    } catch (err) {
-        console.log(err)
-        res.writeHead(400);
-        res.end();
+            } else if (find[0].check == undefined) {
+                sendemail(req, res, email);
+            } else {
+                res.writeHead(400);
+                res.write("<script>location.href='/public/view1.html';</script>");
+                //res.end('이미 회원가입한 이메일 입니다');
+                res.end();
+            }
+        });
+
     }
-
 
 };
 
@@ -129,7 +147,7 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
                 callback(err, null);
                 return;
             } else {
-                database.userModel.usercount(function (err, docs) {
+                database.userModel.usercount(function(err, docs) {
                     if (err) {
                         callback(err, null);
                         return;
@@ -167,10 +185,10 @@ var addUser = (database, name, email, password, unemail, check, callback) => {
 }
 
 
-//입력받은 이메일중 check값이 true인지 false인지 체크해주는 메소드
-var checkEmail = function (Docs, email, callback) {
-    Docs.userModel.findByEmail(email, function (err, check) {
-        if (check == false) {
+//입력받은 이메일중 값이 존재하는지 체크
+var checkEmail = function(Docs, email, callback) {
+    Docs.userModel.findByEmail(email, function(err, check) {
+        if (check.length < 1) {
             callback(null);
         } else {
             callback(check);
@@ -192,10 +210,7 @@ exports.unemail = (req, res) => {
                 // hash_email을 통해 유저 조회
                 database.userModel.findOne({
                     "hash_email": unemail
-                }, {
-                    salt: 1,
-                    owner: 1
-                }, function (err, doc) {
+                }, function(err, doc) {
                     // 유저의 암호화값, 이름을 통해 새 빈 문서 생성&저장
                     new database.applyDataModel(database.applyDataModel.createEmptyDocument(doc.salt, doc.owner)).save();
                 });
@@ -209,16 +224,21 @@ exports.unemail = (req, res) => {
                 }, {
                     multi: true
                 }, () => {
-                    //res.send('<script>alert("이메일 인증완료 로그인 해주세요"); location.href ="/public/view3.html"</script>');
+
                     console.log('메일 회원가입 인증 성공');
                     res.writeHead(200);
+                    res.write("<script>location.href='/public/view3.html';</script>");
                     res.end();
                 });
 
+            } else {
+                console.log('이메일 인증 중 실패');
+                res.status(400);
+                res.end();
             }
         });
     } catch (err) {
-        console.log(err)
+        console.log(err);
         res.writeHead(400);
         res.end();
     }
@@ -231,21 +251,26 @@ var authunemail = (req, res, unemail, callback) => {
     //DB 모델 메소드 정의 후 비교후 값 리턴
     database.userModel.findunemail(unemail, (err, checked) => {
         try {
-            console.log(checked);
             if (checked != null) {
                 database.userModel.authEnemail(unemail, checked[0]._doc.email, checked[0]._doc.salt, (archive) => {
                     if (archive) {
                         checked[0]._doc.check = true;
                         callback(checked);
+
+                    } else {
+                        console.log('이메일 암호화 결과 틀림');
+                        callback(false);
                     }
                 });
+
             } else {
+                callback(false);
                 console.log('이메일 인증이 틀렸을떄의 오류 검출 코드');
             }
 
         } catch (err) {
-            console.log(err)
-            res.writeHead(400);
+            console.log(err);
+            res.writeHead(500);
             res.end();
         }
 
@@ -254,15 +279,16 @@ var authunemail = (req, res, unemail, callback) => {
 };
 
 //회원가입시 입력받은 이메일로 메일전송
-let sendemail = (req, res,email) => {
+let sendemail = (req, res, email) => {
     let baseDir = rootPath + '/public/mail.html';
     var database = req.app.get('database');
     database.userModel.findByEmail(email, (err, enemail) => {
 
         try {
             var num = enemail[0]._doc.hash_email;
+            console.log('send Email : ' + enemail[0]._doc.hash_email)
 
-            fs.readFile(baseDir, 'utf8', function (err, data) {
+            fs.readFile(baseDir, 'utf8', function(err, data) {
 
                 var styliner = new Styliner(baseDir); //html에서 css적용을 위한 모듈
 
@@ -277,9 +303,8 @@ let sendemail = (req, res,email) => {
                     }
 
                     if (enemail) {
-                        console.log(email +' Send Email');
+                        console.log(email + ' Send Email');
 
-                        var con = require('../../confi.json');
                         var sender = 'EntryDsm < syeutyu123@gmail.com >';
                         var receiver = email;
                         var mailTitle = 'Entry DSM Find PassWord';
@@ -315,21 +340,22 @@ let sendemail = (req, res,email) => {
                             transporter.close();
                         });
                         //res.redirect('/public/view3.html');
-                        res.writeHead(201);
+                        res.writeHead(200);
+                        res.write("<script>location.href='/public/view3.html';</script>");
                         res.end();
                     }
                 });
             });
         } catch (err) {
             console.log(err);
-            res.writeHead(400);
+            res.writeHead(500);
             res.end();
         }
     });
 }
 
 //이메일을 찾기위해 이름을 입력받고 해당되는 이메일 출력
-exports.findEmail = function (req, res) {
+exports.findEmail = function(req, res) {
     console.log('이메일 찾기');
     let database = req.app.get('database');
     let name = req.query.name;
@@ -363,12 +389,12 @@ exports.findEmail = function (req, res) {
                 res.writeHead(400);
                 res.end();
             }
-            console.log(arr+'아이디 찾음');
+            console.log(arr + '아이디 찾음');
             res.send(arr);
 
         } catch (err) {
             console.log(err)
-            res.writeHead(400);
+            res.writeHead(500);
             res.end();
         }
 
@@ -377,32 +403,28 @@ exports.findEmail = function (req, res) {
 
 //비밀번호 변경을위한 메일 보내는 메소드
 exports.sendfindemail = (req, res) => {
-    
-    var email = req.body.email;
-    
-    // 비밀번호 메일변경 나오면 html코드로 넣기*******************
 
-    let baseDir = rootPath + '/public/mail.html';
-    var database = req.app.get('database');
+    let email = req.body.email;
+
+    let baseDir = rootPath + '/public/passwordMail.html';
+    let database = req.app.get('database');
 
     database.userModel.findByEmail(email, (err, enemail) => {
 
         try {
             var num = enemail[0]._doc.salt;
-            fs.readFile(baseDir, 'utf8', function (err, data) {
+            fs.readFile(baseDir, 'utf8', function(err, data) {
 
                 var styliner = new Styliner(baseDir);
 
-                styliner.processHTML(data).then((htmlfile) => {
 
+                styliner.processHTML(data).then((htmlfile) => {
+                    htmlfile = htmlfile.replace('@val', num);
                     console.log('비밀번호 찾기용 메일 전송');
 
-                    var htmldata = htmlfile.replace('@name', num);
-                    htmldata = htmldata.replace('@host', server_domain);
 
                     if (enemail) {
 
-                        var con = require('../../confi.json');
                         var sender = 'EntryDsm < syeutyu123@gmail.com >';
                         var receiver = email;
                         var mailTitle = 'Change Password';
@@ -411,7 +433,7 @@ exports.sendfindemail = (req, res) => {
                             from: sender,
                             to: receiver,
                             subject: mailTitle,
-                            html: htmldata
+                            html: htmlfile
                         };
                         var transporter = nodemailer.createTransport(smtpPool({
                             service: con.mailer.service,
@@ -436,6 +458,7 @@ exports.sendfindemail = (req, res) => {
                             transporter.close();
                         });
                         //res.send('<script>alert("입력하신 이메일로 메일이 전송되었습니다."); location.href ="/public/view3.html"</script>');
+                        console.log(num + ' 으로 값 보냄 ');
                         res.writeHead(200);
                         res.end();
                     }
@@ -443,45 +466,51 @@ exports.sendfindemail = (req, res) => {
             });
         } catch (err) {
             console.log(err);
-            res.writeHead(400);
+            res.writeHead(500);
             res.end();
         }
     });
 }
 
-//비밀번호 변경을위해 해당되는 salt값을 이용해서 아이디값을 ejs로 렌더링후 출력
+//비밀번호 번경을 위해 어떤 사용자인지 검증하고 변경 페이지로 리다이렉트 
 exports.checkmail = (req, res) => {
+    let salt = req.params.email;
     var database = req.app.get('database');
-    var salt = req.params.salt;
+    console.log(salt + '값으로 비번변경 키로 사용이됨');
+
     try {
         database.userModel.findSalt(salt, (err, inSalt) => {
             if (inSalt) {
 
-                // res.render('view4', {
-                //     id: inSalt[0]._doc.email
-                // });
+                req.session.key = inSalt[0]._doc.hash_email;
+
                 res.writeHead(200);
+
+                res.write("<script>location.href='/public/passcheck.html';</script>");
                 res.end();
             } else {
                 //res.send('<script>alert("해당 링크는 존재하지 않습니다.");</script>')
-                res.writeHead(400);
+                res.writeHead(500);
                 res.end();
             }
         })
     } catch (err) {
         console.log(err)
-        res.writeHead(400);
+        res.writeHead(500);
         res.end();
     }
 }
-//ejs에서 비밀번호 변경을위해 입력받은데이터로 모델 생성후 비밀번호 업데이트
+
+
+// 비밀번호 변경을위해 입력받은데이터로 모델 생성후 비밀번호 업데이트
 exports.changepassword = (req, res) => {
     var database = req.app.get('database');
-    var userId = req.body.userId;
     var password = req.body.password;
+    let userId = req.session.key;
+    console.log(req.session);
+    console.log(userId + ' 세션키가 비밀번호 변경까지 유지중입니다.');
 
-    console.log(userId+'  로 접속');
-    database.userModel.findByEmail(userId, (err, findId) => {
+    database.userModel.findSalt(userId, (err, findId) => {
         try {
             if (findId) {
                 console.log(findId[0]._doc.salt)
@@ -502,6 +531,7 @@ exports.changepassword = (req, res) => {
                     console.log('비밀번호 변경완료');
                     //res.send('<script>alert("비밀번호 변경완료"); location.href ="/public/view3.html"</script>');
                     res.writeHead(200);
+                    res.write("<script>location.href='/public/view3.html';</script>");
                     res.end();
                 });
             } else {
@@ -512,9 +542,28 @@ exports.changepassword = (req, res) => {
             }
         } catch (err) {
             console.log(err)
-            res.writeHead(400);
+            res.writeHead(500);
             res.end();
         }
     })
 
 }
+
+exports.myPage = (req, res) => {
+    let database = req.app.get('database');
+    if (req.session.key) {
+        Promise.all([logic.findUser(req.session.key, database), logic.findBoard(req.session.key, database)])
+            .then((find) => {
+                res.status(200).send({ Data: find });
+                res.end();
+            }).catch((err) => {
+                res.status(500).send({ 'err': err });
+                res.end();
+            });
+
+
+    } else {
+        res.status(401).send({ err: 'Not Found Session Key' });
+        res.end();
+    }
+};
