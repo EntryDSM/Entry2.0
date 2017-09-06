@@ -110,7 +110,10 @@ exports.save = (req, res) => {
 }
 
 exports.load = (req, res) => {
-  var userkey = req.params.userid;
+  if (!req.session.key) {
+    return res.sendStatus(401);
+  }
+  var userkey = req.session.key;
   var Docs = req.app.get('database');
 
   if (Docs.connection) {
@@ -121,6 +124,7 @@ exports.load = (req, res) => {
           error: 'database personal data select failure'
         });
       } else {
+        console.log(docs);
         res.render('view2', {
           data: docs,
           key: userkey
