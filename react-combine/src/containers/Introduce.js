@@ -13,39 +13,33 @@ class Introduce extends Component {
     constructor(props){
         super(props);
         this.state = {
-            postData: {
-                self: "",
-                plan: ""
-            }
+            self: "",
+            plan: ""
         }
     }
 
     setSelf(e){
         this.setState({
-            postData: {
-                self: e.target.value
-            }
+            self: e.target.value
         })
     }
 
     setPlan(e){
         this.setState({
-            postData: {
-                plan: e.target.value
-            }
+            plan: e.target.value
         })
     }
 
     introduceSubmit(){
-        let store = this.context.store;
-        store.dispatch(introduceData(this.state.postData));
-        let storeData = store.getState().introduceData.INTRODUCE_DATA;
+        // let store = this.context.store;
+        // store.dispatch(introduceData(this.state.postData));
+        // let storeData = store.getState().introduceData.INTRODUCE_DATA;
         axios({
             method: 'put',
             url: '/api/user/introudce',
             data: {
-                self: storeData.self,
-                plan: storeData.plan
+                self: this.state.self,
+                plan: this.state.plan
             },
             withCredentials: false,
             headers: {
