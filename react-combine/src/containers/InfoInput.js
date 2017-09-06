@@ -36,7 +36,7 @@ class InfoInput extends Component {
         let storeData = store.getState().infoInput.INFO_INPUT_DATA;
         axios({
             method: 'put',
-            url: '/user/info',
+            url: '/api/user/info',
             data: {
                 sex: storeData.sex,
                 grade: storeData.grade,
@@ -165,9 +165,9 @@ class InfoInput extends Component {
                         <InputHeader now={"인적 사항"} />
                     </div>
                     <InfoInputTable 
-                        name={store.getState().signUp.SIGN_UP_DATA.name}
-                        email={store.getState().signUp.SIGN_UP_DATA.email}
-                        emailDomain={store.getState().signUp.SIGN_UP_DATA.emailDomain}
+                        name={"정근철"}
+                        email={"geni429"}
+                        emailDomain={"gmail.com"}
                         setSex={this.setSex.bind(this)}
                         setAddress={this.setAddress.bind(this)}
                         setBirth={this.setBirth.bind(this)}

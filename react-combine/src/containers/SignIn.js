@@ -41,7 +41,7 @@ class SignIn extends React.Component{
         let storeData = store.getState().signIn.SIGN_IN_DATA;
         axios({
             method: 'post',
-            url: '/signin',
+            url: '/api/signin',
             data: {
                 email: storeData.email,
                 password: storeData.password

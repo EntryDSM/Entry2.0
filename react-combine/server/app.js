@@ -29,9 +29,8 @@ app.use(session({
 
 app.get('*', (req, res, next) => {
     console.log(req.path);
-    if (!(/unemail\/.{1,}/.test(req.path)) || !(/^(\/api\/)/.test(req.path)))
-        res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
-    else next();
+    if ((/unemail\/.{1,}/.test(req.path)) || (/^(\/api\/)/.test(req.path))) next()
+    else res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
 app.use(bodyparser.json());

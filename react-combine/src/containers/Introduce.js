@@ -42,7 +42,7 @@ class Introduce extends Component {
         let storeData = store.getState().introduceData.INTRODUCE_DATA;
         axios({
             method: 'put',
-            url: '/user/introudce',
+            url: '/api/user/introudce',
             data: {
                 self: storeData.self,
                 plan: storeData.plan

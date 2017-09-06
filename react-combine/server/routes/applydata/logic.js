@@ -27,6 +27,9 @@ exports.saveType = (req, res) => {
       }
     });
   }
+  else{
+    res.sendStatus(500);
+  }
 }
 
 // load(select) type of applicant.(input1)

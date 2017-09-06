@@ -92,10 +92,9 @@ class Classification extends Component {
         let store = this.context.store;
         store.dispatch(classificationData(this.state.postData));
         let storeData = store.getState().selectClassification.CLASSIFICATION_DATA;
-        console.log(storeData);
         axios({
             method : "put",
-            url : "/classification",
+            url : "/api/classification",
             data : {
                 local : storeData.local,
                 type : storeData.type,
@@ -109,6 +108,7 @@ class Classification extends Component {
                 "Access-Control-Allow-Origin" : "http://114.108.135.15"
             }
         }).then(function(response){
+            console.log('hello');
             console.log(response);
             browserHistory.push('/infoinput');
         }).catch(function(err){
