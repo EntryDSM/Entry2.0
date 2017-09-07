@@ -20,6 +20,7 @@
     "mongoose": "^4.11.9",
     "nodemailer": "^4.0.1",
     "nodemailer-smtp-pool": "^2.8.3",
-    "styliner": "^1.0.3"
+    "styliner": "^1.0.3",
+    "uuid": "^3.1.0"
   }
 }

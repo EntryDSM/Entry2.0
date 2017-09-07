@@ -1,13 +1,13 @@
-var express = require('express');
-var path = require('path');
-var config = require('./config');
-var static = require('serve-static');
-var session = require('express-session');
-var database = require('./database/database');
-var bodyparser = require('body-parser');
-var crypto = require('crypto');
-var fileUpload = require('express-fileupload');
-var app = express();
+const express = require('express');
+const path = require('path');
+const static = require('serve-static');
+const session = require('express-session');
+const database = require('./database');
+// const cookieParser = require('cookie-parser'); 나중에 자동로그인 구현
+const bodyparser = require('body-parser');
+const crypto = require('crypto');
+const fileUpload = require('express-fileupload');
+const app = express();
 let userRouter = require('./routes/user/router');
 let applydataRouter = require('./routes/applydata/router');
 let QnARouter = require('./routes/QnA/router');
@@ -29,7 +29,7 @@ app.use(session({
 
 app.get('*', (req, res, next) => {
     console.log(req.path);
-    if ((/unemail\/.{1,}/.test(req.path)) || (/^(\/api\/)/.test(req.path))) next()
+    if ((/email\/authentication\/.{1,}/.test(req.path)) || (/^(\/api\/)/.test(req.path))) next()
     else res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
@@ -46,7 +46,7 @@ app.use('/api', QnARouter);
 app.use('/api', schoolRouter);
 
 
-app.listen(config.server_port, function () {
-    console.log(config.server_port + ' ON');
-    database.init(app, config);
+app.listen(process.env.ENTRYDSM_PORT, function () {
+    console.log(process.env.ENTRYDSM_PORT + ' ON');
+    database();
 });

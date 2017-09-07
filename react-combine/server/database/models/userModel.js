@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-let schema = require('../schemas/user');
+let schema = require('../schemas/school');
 let crypto = require('crypto');
 let model = {};
 

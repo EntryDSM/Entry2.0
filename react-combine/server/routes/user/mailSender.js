@@ -12,7 +12,7 @@ let smtpPoolOption = {
     "port": process.env.ENTRYDSM_EMAIL_PORT,
     "auth": {
         "user": process.env.ENTRYDSM_EMAIL_USER,
-        "password": process.env.ENTRYDSM_EMAIL_PASSWORD,
+        "pass": process.env.ENTRYDSM_EMAIL_PASSWORD,
     },
     "tls": {
         rejectUnauthorize: false
@@ -23,16 +23,16 @@ let smtpPoolOption = {
 
 exports.sendEmail = (wUser, type) => {
     return new Promise((resolve, reject) => {
-        let filePath = thisPath + (type === 'auth' ? '../..//public/mail.html' : '/public/findPassword.html');
+        let filePath = thisPath + (type === 'auth' ? '/../../public/mail.html' : '/public/findPassword.html');
 
-        let email = fs.readFileSync(filePath, 'utf8');
+        let file = fs.readFileSync(filePath, 'utf8');
         let styliner = new Styliner(filePath);
 
-        styliner.processHTML(data)
+        styliner.processHTML(file)
             .then((htmlFile) => {
-                let mailContent = htmlFile.replace('@name', wUser.email).replace('@host', serverDomain);
+                let mailContent = htmlFile.replace('@name', wUser.verifyCode).replace('@host', serverDomain);
                 const sender = '대덕마이스터고등학교 입학전형 시스템 < syeutyu123@gmail.com >';
-
+                console.log(wUser.getDecryptedEmail());
                 const mailOptions = {
                     from: '대덕마이스터고등학교 입학전형 시스템 < syeutyu123@gmail.com >',
                     to: wUser.getDecryptedEmail(),
@@ -41,20 +41,20 @@ exports.sendEmail = (wUser, type) => {
                 };
 
                 const transporter = nodemailer.createTransport(smtpPool(smtpPoolOption));
-
+                console.log(smtpPoolOption);
                 transporter.sendMail(mailOptions, (err) => {
                     transporter.close();
                     if (err) {
                         console.log(err);
-                        reject();
+                        reject(err);
                     } else {
-                        console.log(`SENT MAIL SUCCESSFULLY TO ${wUser.getDecryptedEmail()}`);
+                        console.log(`MAIL SENT TO ${wUser.getDecryptedEmail()} SUCCESSFULLY`);
                         resolve();
                     }
                 })
             })
             .catch((err) => {
-                reject();
+                reject(err);
             })
     })
 }
