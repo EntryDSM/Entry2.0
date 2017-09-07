@@ -169,7 +169,8 @@ const DefaultInfo = (props) => {
                 type="radio"
                 name="local"
                 id="country" 
-                value="country" /> 
+                value="country"
+                checked="checked" /> 
             <label htmlFor="country">전국</label>
 
             <input 
@@ -186,21 +187,21 @@ const Graduate = (props) => {
     return(
         <div id="graduate">
         <h2>졸업 구분</h2>
-
         <span>졸업 구분</span>
+        <input
+            type="radio"
+            name="graduation"
+            id="will-graduate"
+            value="willGraduate"
+            checked="checked"/>
+        <label htmlFor="will-graduate">졸업 예정</label>
+
         <input
             type="radio"
             name="graduation"
             id="graduated"
             value="graduated"/>
-        <label htmlFor="graduated">졸업</label>
-
-        <input
-            type="radio"
-            name="graduation"
-            id="will-graduate"
-            value="willGraduate"/>
-        <label htmlFor="will-graduate">졸업 예정</label> <br />
+        <label htmlFor="graduated">졸업</label> <br />
 
         <span>졸업년도</span>
         <select 
@@ -222,8 +223,16 @@ const Graduate = (props) => {
 const TypeAndMemo = (props) => {
     return (
         <div id="type-and-memo">
-            <h2>전형 및 비고</h2>
+            <h2>전형 및 특기 사항</h2>
             <span>전형</span>
+            <input
+                type="radio"
+                name="type"
+                id="general"
+                value="general"
+                checked="checked"
+                onClick={props.onSocietyClick} />
+            <label htmlFor="general">일반</label>
             <input
                 type="radio"
                 name="type"
@@ -234,39 +243,50 @@ const TypeAndMemo = (props) => {
             <input
                 type="radio"
                 name="type"
-                id="general"
-                value="general"
-                onClick={props.onSocietyClick} />
-            <label htmlFor="general">일반</label>
-            <input
-                type="radio"
-                name="type"
                 id="society"
                 value="society"
                 onClick={props.onSocietyClick} />
             <label htmlFor="society">사회통합</label> <br />
 
-            <span>비고</span>
+            <span>특기사항</span> <br />
+            <span>국가 유공자</span>
             <input 
                 type="radio"
-                name="note"
-                id="memo-general"
+                name="country-merit"
+                id="country_merit_yes"
                 value="general" />
-            <label htmlFor="memo-general">일반</label>
+            <label htmlFor="memo-general">예</label>
 
             <input 
                 type="radio"
-                name="note"
-                id="country-merit"
-                value="countryMerit" />
-            <label htmlFor="country-merit">국가 유공자</label>
+                name="country-merit"
+                id="country_merit_no"
+                value="no"
+                checked="checked" />
+            <label htmlFor="country-merit">아니요</label> <br />
+
+            <span>특례 입학 대상자</span>
+            <input 
+                type="radio"
+                name="special"
+                id="special_yes"
+                value="general" />
+            <label htmlFor="memo-general">예</label>
 
             <input 
+                type="radio"
+                name="special"
+                id="speicial_no"
+                value="special_no"
+                checked="checked" />
+            <label htmlFor="country-merit">아니요</label>
+
+            {/* <input 
                 type="radio"
                 name="note"
                 id="special"
                 value="special" />
-            <label htmlFor="special">특례입학대상자</label>
+            <label htmlFor="special">특례입학대상자</label> */}
         </div>
     )
 }
@@ -337,7 +357,6 @@ const SocietyDetail = (props) => {
         </div>
     )
 }
-
 Classification.contextTypes = {
     store: PropTypes.object
 }
