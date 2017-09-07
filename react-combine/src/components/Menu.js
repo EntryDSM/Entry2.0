@@ -4,7 +4,7 @@ class Menu extends Component{
     render(){
         return (
             <div>
-                {/* <div className="agenda_sets">
+                <div className="agenda_sets">
                     <div className="times_area">
                         <div className="current_page time">
                         </div>
@@ -16,7 +16,7 @@ class Menu extends Component{
                         {this.props.subtitle}
                         </article>
                     </div>
-                </div> */}
+                </div>
             </div>
         );        
     }

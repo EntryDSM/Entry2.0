@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
+import EmailCertifyModal from '../components/EmailCertifyModal'
 import SubmitButton from '../components/SubmitButton';
 import {signUpData} from '../actions.js';
 import {connect} from 'react-redux';
@@ -128,7 +129,7 @@ class SignUp extends Component{
                         }/>
                     </table>
                 </div>
-                <Button onclick={submit} buttonName="다음"/>
+                <EmailCertifyModal />
                 </div>
             </div>
         );
