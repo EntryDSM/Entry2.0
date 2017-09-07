@@ -34,7 +34,7 @@ class NoSmoke extends Component {
                                 <td className="table_input"></td>
                             </tr>
                             <tr>
-                                <td class="table_title">주&nbsp;&nbsp;소</td>
+                                <td className="table_title">주&nbsp;&nbsp;소</td>
                                 <td colSpan="3" id="address"></td>
                             </tr>
                         </tbody>
