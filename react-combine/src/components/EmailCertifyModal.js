@@ -39,8 +39,8 @@ class EmailCertifyModal extends React.Component {
 
     render() {
         return (
-            <div className="address_div">
-                <button className="button" id="btn_findaddress" onClick={this.openModal}>다음</button>
+            <div className="btn_mailsend">
+                <button id="btn_emailcertify" onClick={this.openModal}>이메일 인증</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
@@ -48,7 +48,7 @@ class EmailCertifyModal extends React.Component {
                     className="modal_style">
 
                     <SignupSendComplete />
-                
+                    <button id="btn_ok" onClick={this.closeModal}>확인</button>
                 </Modal>
             </div>
         );

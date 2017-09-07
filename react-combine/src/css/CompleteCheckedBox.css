@@ -1,9 +1,8 @@
 #pw-complete-box #CheckedBox, #signup-complete-box #CheckedBox{
-    width:40rem;
+    width:100%;
     height:22.5rem;
     background-color:white;
     margin:0 auto;
-    margin-top:11rem;
     border-radius:7.5px;
     box-shadow: 0 0 5px darkgray;
 }
@@ -62,4 +61,16 @@
     border-radius: 0 0 7.5px 7.5px;
 }
 
+#pw-complete-box #SubBox, #signup-complete-box #SubBox #certification_num {
+    background: none;
+    border-bottom: 3px solid gray;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    height: 30%;
+    padding: 1% 1% 0% 1%;
+    font-size: 18px;
+    margin-left: 4%;
+    margin-top: 5%;
+}
 

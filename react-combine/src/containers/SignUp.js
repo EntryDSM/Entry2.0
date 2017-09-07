@@ -128,8 +128,9 @@ class SignUp extends Component{
                             ]
                         }/>
                     </table>
+                    <EmailCertifyModal />
                 </div>
-                <EmailCertifyModal />
+                <Button onClick={submit} buttonName="다음"/>
                 </div>
             </div>
         );
@@ -153,7 +154,7 @@ const SignUpInput = (props) => {
                                             {props.emails.map((email, index) => {
                                                 return <Options name={email.name} key={index} />
                                             })}
-                                        </select>
+                                        </select>                                
                                     </td>
                                 </tr>
                     } else {
