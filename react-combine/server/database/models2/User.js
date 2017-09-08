@@ -57,6 +57,17 @@ User.methods.generateVerifyCode = function(){
     return this.save();
 }
 
+User.methods.changePassword = function(password){
+    const secret = process.env.ENTRYDSM_SECRET;
+    const encryptedPassword = crypto.createHmac('sha1', secret)
+        .update(password)
+        .digest('base64');
+    
+    this.password = encryptedPassword;
+
+    return this.save();
+}
+
 function generateVerifyCode() {
     return new Promise((resolve, reject) => {
         while (true) {

@@ -126,15 +126,66 @@ exports.sendFindPasswordEmail = (req, res) => {
     User.findOneByEmail(email)
         .then((user) => {
             if (!user) throw new Error('400');
-            if (user.name === name) return mailSender.sendEmail(user, 'find')
-            else throw new Error('400')
+            if (user.name === name) return user.generateVerifyCode();
+            else throw new Error('400');
+        })
+        .then((user) => {
+            return mailSender.sendEmail(user, 'find');
         })
         .then(() => {
             res.status(200).end();
         })
         .catch((err) => {
             console.log(err);
-            if(err.message === '400') res.status(400).end();
+            if (err.message === '400') res.status(400).end();
             else res.status(500).end();
+        })
+}
+
+exports.passwordChangeAuthentication = (req, res) => {
+    const verifyCode = req.params.verifyCode;
+
+    User.findOne({
+            verifyCode
+        })
+        .then((user) => {
+            if (!user) res.sendStatus(400);
+            else {
+                res.status(200).json({
+                    "name": user.name,
+                    "email": user.email
+                });
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({
+                "message": err.message
+            });
+        })
+}
+
+exports.changePassword = (req, res) => {
+    const verifyCode = req.params.verifyCode;
+    const name = req.body.name;
+    const email = req.body.email;
+
+    User.findOne({
+            verifyCode,
+            name,
+            email
+        })
+        .then((user) => {
+            if (!user) throw new Error('400');
+            else return user.changePassword(password);
+        })
+        .then((user) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            if (err.message === '400') res.sendStatus(400);
+            else {
+                console.log(err.message);
+                res.sendStatus(500);
+            }
         })
 }
