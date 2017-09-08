@@ -23,20 +23,20 @@ let smtpPoolOption = {
 
 exports.sendEmail = (wUser, type) => {
     return new Promise((resolve, reject) => {
-        let filePath = thisPath + (type === 'auth' ? '/../../public/mail.html' : '/public/findPassword.html');
+        let filePath = thisPath + (type === 'auth' ? '/../../public/mail.html' : '/../../public/findPassword.html');
 
         let file = fs.readFileSync(filePath, 'utf8');
         let styliner = new Styliner(filePath);
 
         styliner.processHTML(file)
             .then((htmlFile) => {
-                let mailContent = htmlFile.replace('@name', wUser.verifyCode).replace('@host', serverDomain);
+                let mailContent = htmlFile.replace('@verifyCode', wUser.verifyCode);
                 const sender = '대덕마이스터고등학교 입학전형 시스템 < syeutyu123@gmail.com >';
                 console.log(wUser.getDecryptedEmail());
                 const mailOptions = {
                     from: '대덕마이스터고등학교 입학전형 시스템 < syeutyu123@gmail.com >',
                     to: wUser.getDecryptedEmail(),
-                    subject: type === 'auth' ? '[대덕소프트웨어마이스터고등학교] 입학전형시스템 회원가입 인증메일' : '[대덕소프트웨어마이스터고등학교] 입학전형시스템 비밀번호 재설정 메일',
+                    subject: type === 'auth' ? '[대덕소프트웨어마이스터고등학교] 입학전형시스템 회원가입 인증코드' : '[대덕소프트웨어마이스터고등학교] 입학전형시스템 비밀번호 재설정 코드',
                     html: mailContent
                 };
 

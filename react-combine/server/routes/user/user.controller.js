@@ -41,7 +41,7 @@ hashed_email : 암호화된 이메일 값 (url의 /:email)
 */
 exports.emailAuthentication = (req, res) => {
     const verifyCode = req.params.verifyCode;
-    
+
     WUser.findOne({
             "verifyCode": verifyCode
         })
@@ -99,7 +99,7 @@ exports.findEmail = (req, res) => {
             name
         })
         .then((users) => {
-            users.forEach(function(user) {
+            users.forEach(function (user) {
                 let username = user.getDecryptedEmail().split('@')[0];
                 let service = user.getDecryptedEmail().split('@')[1];
                 emails.push(username.split("").fill('*', 2).join("") + "@" + service);
@@ -114,4 +114,27 @@ exports.findEmail = (req, res) => {
                 "message": err.message
             });
         });
+}
+
+/*
+이름과 이메일을 입력받아 랜덤 UUID 생성 후 이메일 발송
+*/
+exports.sendFindPasswordEmail = (req, res) => {
+    const name = req.body.name;
+    const email = req.body.email;
+
+    User.findOneByEmail(email)
+        .then((user) => {
+            if (!user) throw new Error('400');
+            if (user.name === name) return mailSender.sendEmail(user, 'find')
+            else throw new Error('400')
+        })
+        .then(() => {
+            res.status(200).end();
+        })
+        .catch((err) => {
+            console.log(err);
+            if(err.message === '400') res.status(400).end();
+            else res.status(500).end();
+        })
 }
