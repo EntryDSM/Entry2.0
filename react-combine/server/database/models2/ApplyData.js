@@ -88,7 +88,7 @@ updatedAt : 수정 날짜 (시간)
 */
 
 const documentTemplate = {
-    classifiction: {
+    classification: {
         "isBlack": false, // 검정고시 여부
         "regionType": 'HOME', // or AWAY
         "graduateType": 'WILL', // or DONE or null
@@ -113,10 +113,10 @@ const documentTemplate = {
     },
     info: {
         "sex": null, // man or woman
-        "birthday" : null,
-        "grade" : 3,
-        "class" : null,
-        "number" : null,
+        "birthday": null,
+        "grade": 3,
+        "class": null,
+        "number": null,
         "schoolCode": "",
         "schoolName": "",
         "tel": "",
@@ -127,7 +127,7 @@ const documentTemplate = {
         "addressDetail": ""
     },
     grade: {
-        "volunteer" : null,
+        "volunteer": null,
         "attend": {
             "absence": 0, // 무단 결석
             "lateness": 0, // 무단 지각
@@ -136,9 +136,9 @@ const documentTemplate = {
         },
         "score": this.grade_will
     },
-    introduce : {
-        "introduce" : "",
-        "plan" : ""
+    introduce: {
+        "introduce": "",
+        "plan": ""
     },
     grade_black: {
         scores: [null, null, null, null], // 차례대로 국어 수학 사회 과학
@@ -173,13 +173,52 @@ ApplyData.statics.createEmpty = function (user) {
 
     return new this({
         user,
-        "classification" : documentTemplate.classifiction,
-        "info" : documentTemplate.info,
-        "grade" : documentTemplate.grade,
-        "introduce" : documentTemplate.introduce,
-        "createdAt" : date_now,
-        "updatedAt" : date_now
+        "classification": documentTemplate.classification,
+        "info": documentTemplate.info,
+        "grade": documentTemplate.grade,
+        "introduce": documentTemplate.introduce,
+        "createdAt": date_now,
+        "updatedAt": date_now
     }).save();
 }
 
+ApplyData.methods.reviseClassification = function (classification) {
+    if ((this.classification.isBlack !== classification.isBlack) && classification.isBlack) this.grade = documentTemplate.grade_black;
+    else if (this.classification.isBlack && (this.classification.isBlack !== classification.isBlack)) {
+        this.grade = documentTemplate[classification.graduateType == 'WILL' ? 'grade_will' : 'grade_done'];
+    }
+    this.classification = classification;
+    return this.save();
+}
+
+ApplyData.methods.reviseInfo = function (info) {
+    this.info = info;
+
+    return this.save();
+}
+
+ApplyData.methods.reviseGrade = function (grade) {
+    this.grade = grade;
+
+    return this.save();
+}
+
+ApplyData.methods.reviseIntroduce = function (introduce) {
+    this.introduce = introduce;
+    
+    return this.save();
+}
+
+/**
+ * 
+ * TO DO :: ApplyData Validation
+ */
+ApplyData.methods.validation = function(){
+    let result = {};
+}
+
+function classificationValidation(classification){
+    let result = [];
+
+}
 module.exports = mongoose.model('ApplyData', ApplyData);
