@@ -27,79 +27,79 @@ class Graduated extends Component{
         );
     }
 
-    componentDidMount() {
-        document.querySelectorAll(".switch input").forEach(function(element) {
-            element.addEventListener('click', function(e) {
-                // 학기 미이수 checked
-                if(hasClass(element.parentElement.parentElement.parentElement,"topColumn")) {
-                    var cellIndex = element.parentElement.parentElement.parentElement.parentElement.cellIndex + 1;
-                    document.querySelectorAll(".did_subjects td:nth-of-type(" + cellIndex + ")").forEach(function(e) {
-                        e.querySelector(".switch input").checked = element.checked;
-                        if(element.checked) {
-                            if(!hasClass(e, "notpassedArea"))
-                                e.className += " notpassedArea";
-                            e.querySelectorAll(".did_select_btn_child").forEach(function(e) {
-                                removeClass(e, "selectedGrade");
-                            });
-                        }
-                        else
-                            removeClass(e, "notpassedArea");
-                    });
-                }
+    // componentDidMount() {
+    //     document.querySelectorAll(".switch input").forEach(function(element) {
+    //         element.addEventListener('click', function(e) {
+    //             // 학기 미이수 checked
+    //             if(hasClass(element.parentElement.parentElement.parentElement,"topColumn")) {
+    //                 var cellIndex = element.parentElement.parentElement.parentElement.parentElement.cellIndex + 1;
+    //                 document.querySelectorAll(".did_subjects td:nth-of-type(" + cellIndex + ")").forEach(function(e) {
+    //                     e.querySelector(".switch input").checked = element.checked;
+    //                     if(element.checked) {
+    //                         if(!hasClass(e, "notpassedArea"))
+    //                             e.className += " notpassedArea";
+    //                         e.querySelectorAll(".did_select_btn_child").forEach(function(e) {
+    //                             removeClass(e, "selectedGrade");
+    //                         });
+    //                     }
+    //                     else
+    //                         removeClass(e, "notpassedArea");
+    //                 });
+    //             }
 
-                //이 외의 녀석들
-                else {
-                    var cellIndex = element.parentElement.parentElement.parentElement.parentElement.parentElement.cellIndex;
-                    var rootColumn = document.querySelector("#did_not_pass td:nth-of-type(" + cellIndex + ") .switch input");
-                    var empty = true;
-                    document.querySelectorAll(".did_subjects td:nth-of-type(" + (cellIndex + 1) + ")").forEach(function(e) {
-                        if(!e.querySelector(".switch input").checked)
-                            empty = false;
-                    });
-                    if(empty) 
-                        rootColumn.checked = true;
-                    else
-                        rootColumn.checked = false;
-                    var area = element.parentElement.parentElement.parentElement.parentElement.parentElement;
-                    if(element.checked) {
-                        area.querySelectorAll(".did_select_btn_child").forEach(function(e) {
-                            removeClass(e, "selectedGrade");
-                        });
-                            if(!hasClass(e, "notpassedArea"))
-                                area.className += " notpassedArea";
-                    }
-                    else
-                        removeClass(area, "notpassedArea");
-                }
-            });
+    //             //이 외의 녀석들
+    //             else {
+    //                 var cellIndex = element.parentElement.parentElement.parentElement.parentElement.parentElement.cellIndex;
+    //                 var rootColumn = document.querySelector("#did_not_pass td:nth-of-type(" + cellIndex + ") .switch input");
+    //                 var empty = true;
+    //                 document.querySelectorAll(".did_subjects td:nth-of-type(" + (cellIndex + 1) + ")").forEach(function(e) {
+    //                     if(!e.querySelector(".switch input").checked)
+    //                         empty = false;
+    //                 });
+    //                 if(empty) 
+    //                     rootColumn.checked = true;
+    //                 else
+    //                     rootColumn.checked = false;
+    //                 var area = element.parentElement.parentElement.parentElement.parentElement.parentElement;
+    //                 if(element.checked) {
+    //                     area.querySelectorAll(".did_select_btn_child").forEach(function(e) {
+    //                         removeClass(e, "selectedGrade");
+    //                     });
+    //                         if(!hasClass(e, "notpassedArea"))
+    //                             area.className += " notpassedArea";
+    //                 }
+    //                 else
+    //                     removeClass(area, "notpassedArea");
+    //             }
+    //         });
 
-        });
+    //     });
 
-        document.querySelectorAll(".did_select_btn_child").forEach(function(element) {
-            element.addEventListener('click', function(e) {
-                if(hasClass(element, "selectedGrade")) {
-                    removeClass(element, "selectedGrade");
-                }
-                else {
-                    if(!hasClass(element.parentElement.parentElement, "notpassedArea")) {
-                        element.parentElement.querySelectorAll(".did_select_btn_child").forEach(function(e) {
-                            removeClass(e, "selectedGrade");
-                        });
-                        element.className += " selectedGrade";
-                    }
-                }
-            });
-        });
+    //     document.querySelectorAll(".did_select_btn_child").forEach(function(element) {
+    //         element.addEventListener('click', function(e) {
+    //             if(hasClass(element, "selectedGrade")) {
+    //                 removeClass(element, "selectedGrade");
+    //             }
+    //             else {
+    //                 if(!hasClass(element.parentElement.parentElement, "notpassedArea")) {
+    //                     element.parentElement.querySelectorAll(".did_select_btn_child").forEach(function(e) {
+    //                         removeClass(e, "selectedGrade");
+    //                     });
+    //                     element.className += " selectedGrade";
+    //                 }
+    //             }
+    //         });
+    //     });
 
-        function hasClass(element, cls) {
-            return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
-        }
+    //     function hasClass(element, cls) {
+    //         return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    //     }
 
-        function removeClass(element, className) {
-            var check = new RegExp("(\\s|^)" + className + "(\\s|$)");
-            element.className = element.className.replace(check, " ").trim();
-        };
-    }
+    //     function removeClass(element, className) {
+    //         var check = new RegExp("(\\s|^)" + className + "(\\s|$)");
+    //         element.className = element.className.replace(check, " ").trim();
+    //     };
+    // }
 }
 
 const SubjectsInfo = (props) => {
