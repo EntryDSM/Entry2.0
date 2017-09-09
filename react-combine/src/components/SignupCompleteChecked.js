@@ -1,6 +1,7 @@
 import React from 'react';
 
 class SignupCompleteChecked extends React.Component{
+
     render(){
         return(
             <div id="CheckedBox">
@@ -46,6 +47,8 @@ const ImageBox = (props) =>{
 const CheckedSubBox = () =>{
     return(
         <div id="SubBox">
+            <input type="text" name="certification_num" id="certification_num" placeholder="인증번호 입력"/>
+            
         </div>
     );
 }
