@@ -47,8 +47,59 @@ class MySection extends Component{
                         ]
                     }/>
                 <CheckBtn/>
+            </section>
+        );
+    }
+}
 
-                <h1 style = {{marginTop : 5 + 'rem'}}> {this.props.MainTitle2} </h1>
+class ChecksCover extends Component{
+    render(){
+        return(
+            <div id = "checksCover">
+                {this.props.checkArrs.map((info, i) => {
+                    return(
+                        <div className = {info.ClassName} key = {i}>
+                            <div className = {info.ClassName2}>
+                                <span style = {{fontWeight : "bold"}}>
+                                    {info.CheckTitle}
+                                </span>
+                                <br/>
+                                {info.CheckTitle2}
+                            </div>
+                            <img src = {info.ImgUrl1} className = "mainImgs" alt = "imgs"/>
+                            <CheckImgs checkUrl={this.props.checkUrl[i]}/>
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    }
+}
+
+const CheckImgs = (props) => {
+    return(
+        <img src={props.checkUrl} className="checkImgs" />
+    );
+}
+
+const CheckBtn = () => {
+    return(
+        <div id = "checkBtn" onClick = {this.setImages}>
+            <CheckBtnText BtnText = "확인하기"/>
+        </div>
+    );
+}
+
+const CheckBtnText = (props) => {
+    return(
+        <div id = "checkBtnText">
+            {props.BtnText}
+        </div>
+    );
+}
+
+/*
+<h1 style = {{marginTop : 5 + 'rem'}}> {this.props.MainTitle2} </h1>
 
                 <CheckTables posts = {
                     [
@@ -90,57 +141,6 @@ class MySection extends Component{
                         }
                     ]
                 }/>
-            </section>
-        );
-    }
-}
-
-class ChecksCover extends Component{
-    render(){
-        return(
-            <div id = "checksCover">
-                {this.props.checkArrs.map((info, i) => {
-                    return(
-                        <div className = {info.ClassName} key = {i}>
-                            <div className = {info.ClassName2}>
-                                <span style = {{fontWeight : "bold"}}>
-                                    {info.CheckTitle}
-                                </span>
-                                <br/>
-                                {info.CheckTitle2}
-                            </div>
-                            <img src = {info.ImgUrl1} className = "mainImgs" alt = "imgs"/>
-                            <CheckImgs checkUrl={this.props.checkUrl[i]}/>
-                        </div>
-                    );
-                })}
-            </div>
-        );
-    }
-}
-
-const CheckImgs = (props) => {
-    return(
-        <img src={props.checkUrl} className="checkImgs" />
-    );
-}
-
-const CheckBtn = () => {
-    return(
-        <div id = "checkBtn">
-            <CheckBtnText BtnText = "확인하기"/>
-        </div>
-    );
-}
-
-const CheckBtnText = (props) => {
-    return(
-        <div id = "checkBtnText">
-            {props.BtnText}
-        </div>
-    );
-}
-
 class CheckTables extends Component{
     render(){
         return(
@@ -174,5 +174,6 @@ class CheckTables extends Component{
         );
     }
 }
+*/
 
 export default MySection;
