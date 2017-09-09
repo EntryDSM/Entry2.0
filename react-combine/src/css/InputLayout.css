@@ -245,14 +245,14 @@
 }
 
 /*Footer*/
-footer{
+#footer{
     width:100%;
     height:200px;
     background-color:#242729;
     clear: both;
 }
 
-footer #Privacy{
+#footer #Privacy{
     width:60%;
     /*border:2px solid white;*/
     margin-left:15rem;

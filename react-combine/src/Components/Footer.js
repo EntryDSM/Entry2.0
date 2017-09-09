@@ -4,9 +4,9 @@ import '../css/Footer.css';
 class Footer extends React.Component{
     render(){
         return(
-            <footer>
+            <div id = "footer">
                 <FooterForm/>
-            </footer>
+            </div>
         );
     }
 }

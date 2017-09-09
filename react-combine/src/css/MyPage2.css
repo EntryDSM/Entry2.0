@@ -1,0 +1,99 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+#mypage2{
+    width:100%;
+    height:100vh;
+    margin:0 auto;
+    background-color: #eef2f5;
+    position:relative;
+}
+
+#mypage2 *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    outline: none;
+    overflow-x: auto;
+}
+
+/* Header 부분 */
+
+#mypage2 header{
+    width:100%;
+    height:5.5rem;
+    background-color:#414143;
+    overflow:hidden;
+}
+
+#mypage2 #pageTitle{
+    margin-left:5rem;
+    padding-top:1.85rem;
+
+    color:white;
+    font-family: 'nanumsquare';
+    font-size:1.7rem;
+    font-weight:bold;
+    letter-spacing: 1px;
+}
+
+#mypage2 #logoCover{
+    /* 로고와 텍스트를 감싸기 위한 용도 */
+    position:absolute;
+    top:0;
+    right:4rem;
+}
+
+#mypage2 #logoCover #myLogo{
+    width:9rem;
+    
+    padding-top:1.2rem;
+    display:inline-block;
+    vertical-align: top;
+}
+
+#mypage2 #logoCover #logoText{
+    color:white;
+    font-family:'Poiret One';
+    font-size:0.56rem;
+    font-weight:bold;
+    padding-left:-2px;
+}
+
+/* 여기까지 */
+/* section 시작 */
+
+#mypage2 section{
+    width:100%;
+    height:auto;
+}
+
+#mypage2 #checksCover{
+    text-align: center;
+}
+
+#mypage2 #checksCover .checkFiles{
+    display:inline-block;
+    vertical-align: top;
+    width:18%;
+    height:20rem;
+    box-shadow:0 0 4px gray;
+    margin:10px;
+    margin-top:1.5rem;
+    border-radius: 4px;
+}
+
+#mypage2 .checkFiles .checkTitles{
+    color:#424242;
+    font-family:'nanumsquare';
+    line-height:1.5;
+    margin-top:1.5rem;
+    letter-spacing: 1px;
+}
+
+#mypage2 .checkFiles .mainImgs{
+    display:block;
+    margin: 0 auto;
+    margin-top:1.8rem;
+}
