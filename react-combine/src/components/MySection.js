@@ -11,42 +11,42 @@ class MySection extends Component{
                         [
                             {
                                 ClassName : "checkFiles",
-                                ClassName2 : "CheckTitles",
+                                ClassName2 : "checkTitles",
                                 CheckTitle : "구분선택",
                                 CheckTitle2 : "Classification",
                                 ImgUrl1 : require("../images/myClassi.png")
                             },
                             {
                                 ClassName : "checkFiles",
-                                ClassName2 : "CheckTitles",
+                                ClassName2 : "checkTitles",
                                 CheckTitle : "인적사항",
                                 CheckTitle2 : "Personal Information",
                                 ImgUrl1 : require("../images/myInfo.png")
                             },
                             {
                                 ClassName : "checkFiles",
-                                ClassName2 : "CheckTitles",
+                                ClassName2 : "checkTitles",
                                 CheckTitle : "성적입력",
                                 CheckTitle2 : "Grade Input",
                                 ImgUrl1 : require("../images/myGrade.png")
                             },
                             {
                                 ClassName : "checkFiles",
-                                ClassName2 : "CheckTitles",
+                                ClassName2 : "checkTitles",
                                 CheckTitle : "자기소개서 / 학업계획서",
                                 CheckTitle2 : "Introduction",
                                 ImgUrl1 : require("../images/myIntro.png")
                             },
                             {
                                 ClassName : "checkFiles",
-                                ClassName2 : "CheckTitles",
+                                ClassName2 : "checkTitles",
                                 CheckTitle : "최종 제출 여부",
                                 CheckTitle2 : "Submission",
                                 ImgUrl1 : require("../images/myRoute.png")
                             }
                         ]
                     }/>
-                <CheckBtn BtnText = "확인하기"/>
+                <CheckBtn/>
 
                 <h1 style = {{marginTop : 5 + 'rem'}}> {this.props.MainTitle2} </h1>
 
@@ -121,13 +121,21 @@ class ChecksCover extends Component{
 
 const CheckImgs = (props) => {
     return(
-        <img src={props.checkUrl} className="checkImg" />
+        <img src={props.checkUrl} className="checkImgs" />
     );
 }
 
-const CheckBtn = (props) => {
+const CheckBtn = () => {
     return(
         <div id = "checkBtn">
+            <CheckBtnText BtnText = "확인하기"/>
+        </div>
+    );
+}
+
+const CheckBtnText = (props) => {
+    return(
+        <div id = "checkBtnText">
             {props.BtnText}
         </div>
     );
