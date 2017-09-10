@@ -244,23 +244,44 @@ class GradeInput extends Component{
             })
         })
         
-        Array.from(toBe_notPass).forEach((ele) => {
+        let semesterNotPass = document.querySelectorAll('#to_be_table .check_box .switch input');
+        let selectorArea = new Array;
+        semesterNotPass.forEach((ele, index) => {
             ele.addEventListener('click', () => {
-                let selectorArea = ele.parentElement.parentElement.parentElement.parentElement.parentElement; 
-                if(!selectorArea.classList.contains('notpassedArea')){
-                    selectorArea.classList.add('notpassedArea');
-                } else {
-                    selectorArea.classList.remove('notpassedArea');
-                }
-                Array.from(ele.parentElement.parentElement.parentElement.parentElement.parentElement.children).forEach((ele) => {
-                    if(!ele.classList.contains('is_pass_check')){
-                        console.log(ele.children);
-                        Array.from(ele.children).forEach((ele) => {
-                            ele.classList.remove('selectedGrade');
+                for(let i=0; i<7; i++){
+                    if(ele.checked){
+                        toBe_Semester[index][i][0].parentElement.parentElement.classList.add('notpassedArea');
+                        toBe_Semester[index][i][0].parentElement.parentElement.children[0].children[0].children[1].children[0].children[0].checked = true;
+                        toBe_Semester[index].forEach((ele) => {
+                            ele.forEach((ele) => {
+                                ele.classList.remove('selectedGrade');
+                            })
                         })
+                    } else {
+                        toBe_Semester[index][i][0].parentElement.parentElement.classList.remove('notpassedArea');
+                        toBe_Semester[index][i][0].parentElement.parentElement.children[0].children[0].children[1].children[0].children[0].checked = false;
                     }
-                })
+                }
             })
+        })
+        Array.from(toBe_notPass).forEach((ele, index) => {
+            if(!(ele.parentElement.parentElement.parentElement.parentElement.parentElement.id === 'to_be_not_pass')){
+                selectorArea[index - 5] = ele.parentElement.parentElement.parentElement.parentElement.parentElement;
+                ele.addEventListener('click', () => {
+                    if(!selectorArea[index - 5].classList.contains('notpassedArea')){
+                        selectorArea[index - 5].classList.add('notpassedArea');
+                    } else {
+                        selectorArea[index - 5].classList.remove('notpassedArea');
+                    }
+                    Array.from(ele.parentElement.parentElement.parentElement.parentElement.parentElement.children).forEach((ele) => {
+                        if(!ele.classList.contains('is_pass_check')){
+                            Array.from(ele.children).forEach((ele) => {
+                                ele.classList.remove('selectedGrade');
+                            })
+                        }
+                    })
+                })
+            }
         })
     }
 }
