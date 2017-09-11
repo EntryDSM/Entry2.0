@@ -18,7 +18,9 @@ class SignUp extends Component{
             emailDomain: "naver.com",
             password: "",
             certifyCode: "",
-            modalIsOpen: ""
+            modalIsOpen: "",
+            isConfirm: false,
+            isVerify: false
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
@@ -56,6 +58,19 @@ class SignUp extends Component{
         })
     }
 
+    confirmPassword(e){
+        console.log(this.state.passoword);
+        if(this.state.password === e.target.value){
+            this.setState({
+                isConfirm: true
+            })
+        } else {
+            this.setState({
+                isConfirm: false
+            })
+        }
+    }
+
     openModal(){
         this.setState({
             modalIsOpen: true
@@ -76,13 +91,15 @@ class SignUp extends Component{
         }).then(response => {
             console.log(response);
             this.setState({
-                modalIsOpen: false
+                modalIsOpen: false,
+                isVerify: true
             })
         }).catch(err => {
             console.log(err.config);
             console.log(err.request);
             this.setState({
-                modalIsOpen: true
+                modalIsOpen: true,
+                isVerify: false
             })
         })
     }
@@ -158,7 +175,8 @@ class SignUp extends Component{
                                 {
                                     name: '비밀번호 확인',
                                     type: 'password',
-                                    className: 'input_style'
+                                    className: 'input_style',
+                                    onchange: this.confirmPassword.bind(this)
                                 }
                             ]
                         }/>
@@ -170,7 +188,7 @@ class SignUp extends Component{
                         getCertifyCode={this.getCertifyCode.bind(this)}
                         verifyCode={this.verifyCode.bind(this)} />
                 </div>
-                <Button onclick={signUpSubmit} buttonName="다음"/>
+                <Button onclick={this.signUpSubmit.bind(this)} buttonName="다음"/>
                 </div>
             </div>
         );
