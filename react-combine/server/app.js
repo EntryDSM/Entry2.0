@@ -8,10 +8,8 @@ const bodyparser = require('body-parser');
 const crypto = require('crypto');
 const fileUpload = require('express-fileupload');
 const app = express();
-let userRouter = require('./routes/user/router');
-let applydataRouter = require('./routes/applydata/router');
-let QnARouter = require('./routes/QnA/router');
-let schoolRouter = require('./routes/school/router');
+
+const router = require('./routes');
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
@@ -40,10 +38,7 @@ app.use(fileUpload());
 
 app.use('/images', static(path.join(__dirname, '/images')));
 
-app.use('/', userRouter);
-app.use('/api', applydataRouter);
-app.use('/api', QnARouter);
-app.use('/api', schoolRouter);
+app.use('/', router);
 
 
 app.listen(process.env.ENTRYDSM_PORT, function () {

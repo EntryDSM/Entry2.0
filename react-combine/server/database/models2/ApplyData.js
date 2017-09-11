@@ -38,7 +38,7 @@ applyDetailType : 비고 (일반, 국가유공자, 특례입학자)
 score :
 1) 재학중/졸업 ::
 {
-    semester : [0][ // 1학년 1학기 성적 | 졸업예정자는 [4], 졸업자는 [5]까지 있음 (3학년 2학기)
+    semesters : [0][ // 1학년 1학기 성적 | 졸업예정자는 [4], 졸업자는 [5]까지 있음 (3학년 2학기)
         {  // 국어
             "pass" : Boolean,  // 이수 여부
             "grade" : String   // 등급
@@ -149,8 +149,8 @@ const documentTemplate = {
 }
 
 function gradeTableGenerate(semester) {
-    let semesters = {
-        "semester": [
+    let grade = {
+        "semesters": [
         ]
     }
     let inSemester = [];
@@ -161,9 +161,9 @@ function gradeTableGenerate(semester) {
         })
     }
     for (let i = 0; i < semester; i++) {
-        semesters.semester.push(inSemester);
+        grade.semesters.push(inSemester);
     }
-    return semesters;
+    return grade;
 }
 
 ApplyData.statics.createEmpty = function (user) {
@@ -205,7 +205,7 @@ ApplyData.methods.reviseGrade = function (grade) {
 
 ApplyData.methods.reviseIntroduce = function (introduce) {
     this.introduce = introduce;
-    
+
     return this.save();
 }
 
@@ -213,12 +213,113 @@ ApplyData.methods.reviseIntroduce = function (introduce) {
  * 
  * TO DO :: ApplyData Validation
  */
-ApplyData.methods.validation = function(){
-    let result = {};
+ApplyData.methods.validation = function () {
+    const data = this;
+    return new Promise((resolve, reject) => {
+        let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [] };
+
+
+        if (data.classification.isBlack) {
+            result.info = infoValidation('BLACK', this.info);
+            result.grade = gradeValidation('BLACK', this.grade);
+        }
+        else if (data.classification.graduateType === 'WILL') {
+            result.info = infoValidation('WILL', this.info)
+            result.grade = gradeValidation('WILL', this.grade);
+        }
+        else {
+            result.info = infoValidation('DONE', this.info)
+            result.grade = infoValidation('DONE', this.grade)
+        }
+        result.introduce = introduceValidation(this.introduce);
+    })
 }
 
-function classificationValidation(classification){
+function infoValidation(type, info) {
     let result = [];
+    if (info.sex == null) result.push('성별 정보를 입력해주세요.');
+    if (info.birthday == null) result.push('생일을 입력해주세요.');
+    if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
+    if (type !== 'BLACK' && (info.class == null)) result.push('반을 입력해주세요.');
+    if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null || info.schoolTel)) result.push('학교 정보를 입력해주세요.');
+    if (ingo.tel == null) result.push('전화번호를 입력해주세요.');
+    if (info.parentsName == null) result.push('부모님 성함을 입력해주세요.');
+    if (info.parentsTel == null) result.push('부모님 전화번호를 입력해주세요.');
+    if ((info.addressBase == null) || (info.addressDetail == null)) result.push('주소를 빠짐없이 입력해주세요.');
+}
 
+function gradeValidation(type, grade) {
+    let result = [];
+    if (type === 'WILL') {
+        let subjects = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어']
+        const semesters = grade.score.semesters;
+
+        for (var i = 0; i < 5; i++) {
+            if (semesters[i][0].pass === true && semesters[i][0].grade === null &&
+                semesters[i][1].pass === true && semesters[i][1].grade === null &&
+                semesters[i][2].pass === true && semesters[i][2].grade === null &&
+                semesters[i][3].pass === true && semesters[i][3].grade === null &&
+                semesters[i][4].pass === true && semesters[i][4].grade === null) {
+                result.push((Math.floor(i / 2) + 1) + '학년 ' + ((i % 2) + 1) + '학기 성적을 입력해주세요.');
+                continue;
+            }
+            for (var j = 0; j < 7; j++) {
+                if (semesters[i][j].pass === true) {
+
+                    if (semesters[i][j].grade === null) {
+                        result.push((Math.floor(i / 2) + 1) + '학년 ' + ((i % 2) + 1) + '학기 ' + subjects[j] + '성적을 입력해주세요.');
+                    }
+                }
+            }
+        }
+    }
+    else if (type === 'DONE') {
+        let subjects = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어']
+        const semesters = grade.score.semesters;
+
+        for (var i = 0; i < 6; i++) {
+            if (semesters[i][0].pass === true && semesters[i][0].grade === null &&
+                semesters[i][1].pass === true && semesters[i][1].grade === null &&
+                semesters[i][2].pass === true && semesters[i][2].grade === null &&
+                semesters[i][3].pass === true && semesters[i][3].grade === null &&
+                semesters[i][4].pass === true && semesters[i][4].grade === null &&
+                semesters[i][5].pass === true && semesters[i][5].grade === null) {
+                result.push((Math.floor(i / 2) + 1) + '학년 ' + ((i % 2) + 1) + '학기 성적을 입력해주세요.');
+                continue;
+            }
+            for (var j = 0; j < 7; j++) {
+                if (semesters[i][j].pass === true) {
+
+                    if (semesters[i][j].grade === null) {
+                        result.push((Math.floor(i / 2) + 1) + '학년 ' + ((i % 2) + 1) + '학기 ' + subjects[j] + '성적을 입력해주세요.');
+                    }
+                }
+            }
+        }
+    }
+    else if (type === 'BLACK') {
+        let subjects = ['국어', '수학', '사회', '과학'];
+        const score = grade.score;
+
+        for (var i = 0; i < score.scores.length; i++) {
+            if (score.scores[i] == null) {
+                messages.push('검정고시 ' + subjects[i] + ' 성적을 입력해주세요.');
+            }
+        }
+        if ((score.choose.subject === "") || (score.choose.subject === null)) messages.push('검정고시 선택과목에 대한 점수를 입력해주세요.');
+        else if (score.choose.subject !== "" && score.choose.score === null) {
+            messages.push('선택과목 ' + score.choose.subject + ' 점수를 입력해주세요.');
+        }
+    }
+
+    return result;
+}
+
+function introduceValidation(introduce) {
+    let result = [];
+    if (introduce.introduce.length === 0) result.push('자기소개서를 입력해주세요.');
+    if (introduce.plan.length === 0) result.push('학업계획서를 입력해주세요.');
+
+    return result;
 }
 module.exports = mongoose.model('ApplyData', ApplyData);

@@ -7,6 +7,9 @@ exports.getUserInfo = (req, res) => {
             user
         }, {
             "info": true
+        }).populate({
+            "path": "user",
+            "select": ['email', 'name']
         })
         .then((applyData) => {
             console.log(applyData);
@@ -167,7 +170,7 @@ exports.validation = (req, res) => {
             user
         })
         .then((applyData) => {
-            return applyData.validation()
+            return applyData.validation();
         })
         .then((result) => {
             res.status(200).json(result);
