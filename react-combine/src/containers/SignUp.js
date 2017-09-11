@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import SubmitButton from '../components/SubmitButton';
+import EmailCertifyModal from '../components/EmailCertifyModal';
 import {signUpData} from '../actions.js';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
@@ -129,6 +130,7 @@ class SignUp extends Component{
                             ]
                         }/>
                     </table>
+                    <EmailCertifyModal />
                 </div>
                 <Button onclick={signUpSubmit} buttonName="다음"/>
                 </div>
