@@ -1,13 +1,17 @@
 let router = require('express').Router();
 let logic = require('./logic');
+const controller = require('./applyData.controller');
+const onlyUser = require('../../middlewares/onlyUser');
 
-router.route('/classification').get(logic.loadType);
-router.route('/classification').put(logic.saveType);
-router.route('/user/info').get(logic.load);
-router.route('/user/info').put(logic.save);
-router.route('/validation').get(logic.validation);
-router.route('/preview').get(logic.demo);
-router.route('/user/introduce').put(logic.intro);
-router.route('/user/introduce').get(logic.getdemo);
+router.route('/user/classification').get(onlyUser, controller.getUserClassification);
+router.route('/user/classification').put(onlyUser, controller.reviseUserClassification);
+router.route('/user/info').get(onlyUser, controller.getUserInfo);
+router.route('/user/info').put(onlyUser, controller.reviseUserInfo);
+router.route('/user/grade').get(onlyUser, controller.getUserGrade);
+router.route('/user/grade').put(onlyUser, controller.reviseUserGrade);
+router.route('/user/introduce').get(onlyUser, controller.getUserIntroduce);
+router.route('/user/introduce').put(onlyUser, controller.reviseUserIntroduce);
+router.route('/validation').get(onlyUser, controller.validation);
+router.route('/preview').get(onlyUser, controller.preview);
 
 module.exports = router;
