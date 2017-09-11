@@ -74,7 +74,7 @@
     color:#424242;
     font-family:'noto sans kr';
     letter-spacing: 2px;
-    margin-left:4rem;
+    margin-left:6rem;
     margin-top:5rem;
     font-size:1.7rem;
     font-weight:500;
@@ -87,7 +87,7 @@
 #mypage2 #checksCover .checkFiles{
     display:inline-block;
     vertical-align: top;
-    width:17.2rem;
+    width:16.5rem;
     height:20rem;
     box-shadow:0 0 4px gray;
     margin:10px;
