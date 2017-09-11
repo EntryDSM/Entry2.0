@@ -87,49 +87,45 @@ class SignUp extends Component{
         })
     }
 
-    render(){
-        const {store} = this.context;
-        let state = this.state;
-        let signUpSubmit = function(){
-            console.log('hello');
-            if(state.name !== "" && state.email !== "" && state.password !== ""){
-                store.dispatch(signUpData(state));
-                let storeData = store.getState().signUp.SIGN_UP_DATA;
-                axios({
-                    method:'post',
-                    url:'/api/signup',
-                    data: {
-                        name: storeData.name,
-                        email: storeData.email + "@" + storeData.emailDomain,
-                        password: storeData.password
-                    },
-                    withCredentials: false,
-                    headers: {
-                        "Access-Control-Allow-Origin": "http://114.108.135.15",
-                        "ContentType": "application/json"
-                    }
-                }).then(response => {
-                    console.log(response)
-                    browserHistory.push('/SignUpSendComplete');
-                }).catch((error) => {
-                    console.log(error);
-                    if(error.response){
-                        console.log(error.response);
-                    } else if(error.request){
-                        console.log(error.request);
-                    } else {
-                        console.log(error.message);
-                    }
-                    console.log(error.config);
-                });
-            } else if(state.name === "") {
-                console.log('enter name');
-            } else if(state.email === ""){
-                console.log('enter email');
-            } else if(state.password === ""){
-                console.log('enter password');
-            }
+    signUpSubmit(){
+        let store = this.context.store;
+        let postData = {
+            name: this.state.name,
+            email: this.state.email + '@' + this.state.emailDomain,
+            password: this.state.password
         }
+        store.dispatch(signUpData(postData));
+        let storeData = store.getState().signUp.SIGN_UP_DATA;
+        axios({
+            method:'post',
+            url:'/api/signup',
+            data: {
+                name: storeData.name,
+                email: storeData.email + "@" + storeData.emailDomain,
+                password: storeData.password
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://114.108.135.15",
+                "ContentType": "application/json"
+            }
+        }).then(response => {
+            console.log(response)
+            browserHistory.push('/SignUpSendComplete');
+        }).catch((error) => {
+            console.log(error);
+            if(error.response){
+                console.log(error.response);
+            } else if(error.request){
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        });
+    }
+
+    render(){
         return(
             <div id="contents">
                 <div id="signUp">
