@@ -17,7 +17,9 @@ class SignUp extends Component{
             name: "",
             email: "",
             emailDomain: "naver.com",
-            password: ""
+            password: "",
+            certifyCode: "",
+            modalIsOpen: ""
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
@@ -46,6 +48,43 @@ class SignUp extends Component{
     getPassword(e){
         this.setState({
             password: e.target.value
+        })
+    }
+
+    getCertifyCode(e){
+        this.setState({
+            certifyCode: e.target.value
+        })
+    }
+
+    openModal(){
+        this.setState({
+            modalIsOpen: true
+        })
+    }
+
+    closeModal(){
+        this.setState({
+            modalIsOpen: false
+        })
+    }
+
+    verifyCode(){
+        axios({
+            method: 'get',
+            url: '/api/email/authentication/' + this.state.certifyCode,
+            withCredentials: false
+        }).then(response => {
+            console.log(response);
+            this.setState({
+                modalIsOpen: false
+            })
+        }).catch(err => {
+            console.log(err.config);
+            console.log(err.request);
+            this.setState({
+                modalIsOpen: true
+            })
         })
     }
 
@@ -130,7 +169,12 @@ class SignUp extends Component{
                             ]
                         }/>
                     </table>
-                    <EmailCertifyModal />
+                    <EmailCertifyModal 
+                        modalIsOpen={this.state.modalIsOpen}
+                        openModal={this.openModal.bind(this)}
+                        closeModal={this.closeModal.bind(this)}
+                        getCertifyCode={this.getCertifyCode.bind(this)}
+                        verifyCode={this.verifyCode.bind(this)} />
                 </div>
                 <Button onclick={signUpSubmit} buttonName="다음"/>
                 </div>
