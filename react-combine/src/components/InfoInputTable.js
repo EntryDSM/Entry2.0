@@ -23,9 +23,9 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">생년월일</td>
                             <td className="td_content">
-                                <input type="text" className="input_style" id="year"/>년 
-                                <input type="text" className="input_style" id="month"/>월 
-                                <input type="text" className="input_style" id="day"/>일 
+                                <input type="text" className="input_style" id="year" onChange={this.props.setBirthYear}/>년 
+                                <input type="text" className="input_style" id="month" onChange={this.props.setBirthMonth}/>월 
+                                <input type="text" className="input_style" id="day" onChange={this.props.setBirthDay}/>일 
                             </td>
                         </tr>
                         <tr>
