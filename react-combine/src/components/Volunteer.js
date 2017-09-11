@@ -11,7 +11,7 @@ class Volunteer extends Component{
 
     gradeChange(e){
         let grade = e.target.value;
-        if(isNaN(grade) == true){
+        if(isNaN(grade) === true){
             grade = 0;
         }
         this.setState({

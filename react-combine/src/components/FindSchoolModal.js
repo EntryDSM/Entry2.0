@@ -3,8 +3,6 @@ import '../css/FindSchoolModal.css';
 import FindSchoolModalTable from './FindSchoolModalTable';
 import Modal from 'react-modal';
 import axios from 'axios';
-// import FindSchoolModalTable from './FindSchoolModalTable';
-// import FindSchoolModalPagenum from './FindSchoolModalPagenum';
  
 class FindSchoolModal extends Component {
 
@@ -33,7 +31,7 @@ class FindSchoolModal extends Component {
     }
 
     enter(event) {
-        if(event.keyCode == 13) {
+        if(event.keyCode === 13) {
             
         }
     }

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import FileInput from 'react-file-input';
 
 class UploadImage extends Component {
 

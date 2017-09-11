@@ -1,7 +1,6 @@
 import React from 'react';
 import AddressModal from './AddressModal';
 import UploadImage from './UploadImage';
-import FindSchoolModal from './FindSchoolModal';
 
 class InfoInputTable extends React.Component {
     render() {

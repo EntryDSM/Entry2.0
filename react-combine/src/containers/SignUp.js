@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
-import SubmitButton from '../components/SubmitButton';
 import EmailCertifyModal from '../components/EmailCertifyModal';
 import {signUpData} from '../actions.js';
 import {connect} from 'react-redux';
@@ -89,7 +88,6 @@ class SignUp extends Component{
     }
 
     render(){
-        const {dispatch} = this.props;
         const {store} = this.context;
         let state = this.state;
         let signUpSubmit = function(){

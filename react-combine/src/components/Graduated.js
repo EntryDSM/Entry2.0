@@ -131,14 +131,6 @@ const NotPass = () => {
         );
 }
 
-const CheckBox = () => {
-    return (
-        <td className="check_box">
-            <span><input type="checkbox" name="whole_checkbox"/></span>
-        </td>
-    );
-}
-
 const SwitchBox = (props) => {
     return(
         <div className={classnames("switchArea", props.column)}>

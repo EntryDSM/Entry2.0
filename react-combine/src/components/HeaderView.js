@@ -80,7 +80,6 @@ const TitlePart = (props) =>{
 const MainTitle =(props) =>{
     return(
         <div id="Main_Title">
-            {console.log(props.title+" "+props.title2)}
             {props.title}
             <br/>
             {props.title2}

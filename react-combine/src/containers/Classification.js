@@ -71,7 +71,6 @@ class Classification extends Component {
                             detail = ele.id;
                             break;
                         default:
-                            console.log(ele);
                             break;
                     }
                 }
@@ -108,7 +107,6 @@ class Classification extends Component {
                 "Access-Control-Allow-Origin" : "http://114.108.135.15"
             }
         }).then(function(response){
-            console.log('hello');
             console.log(response);
             browserHistory.push('/infoinput');
         }).catch(function(err){
@@ -117,8 +115,6 @@ class Classification extends Component {
     }
 
     render() {
-        const {dispatch} = this.props;
-        const {store} = this.context;
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>

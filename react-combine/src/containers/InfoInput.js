@@ -120,11 +120,6 @@ class InfoInput extends Component {
             schoolName: e.target.value
         })
     }
-    setSchoolTel(e){
-        this.setState({
-            schoolTel: e.target.value
-        })
-    }
     setPhoneNum(e){
         this.setState({
             phoneNum: e.target.value
@@ -157,8 +152,6 @@ class InfoInput extends Component {
     }
     
     render(){
-        const {store} = this.context;
-        console.log(this.state)
         return(
             <div id="contents">
                 <div id="info_input">
