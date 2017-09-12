@@ -12,14 +12,13 @@ class Classification extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            postData: {
-                local: "",
-                type: "",
-                graduation: "",
-                date: "2018",
-                detail: "",
-                note: ""
-            },
+            local: "",
+            type: "",
+            graduation: "",
+            date: "2018",
+            detail: "",
+            isCountryMerit: "",
+            isSpecial: "",
             isSocietySelected: false,
             isBlackTest: false
         }
@@ -34,73 +33,81 @@ class Classification extends Component {
     onSocietyClick(e){
         if(e.target.id === "meister" || e.target.id === "general"){
             this.setState({
-                isSocietySelected: false
+                type: e.target.id,
+                isSocietySelected: false,
+                detail: ""
             })
         } else if(e.target.id === "society") {
             this.setState({
+                type: e.target.id,
                 isSocietySelected: !this.state.isSocietySelected
             })
         }
     }
 
-    radioSetter(){
-        let radios = ['local', 'type', 'graduation', 'type', 'note', 'detail'];
-        let local = "";
-        let type = "";
-        let graduation = "";
-        let note = "";
-        let detail = "";
-        radios.forEach((ele) => {
-            let radio = document.getElementsByName(ele);
-            Array.from(radio).forEach((ele) => {
-                if(ele.checked){
-                    switch(ele.name){
-                        case 'local': 
-                            local = ele.id;
-                            break;
-                        case 'graduation': 
-                            graduation = ele.id;
-                            break;
-                        case 'type': 
-                            type = ele.id;
-                            break;
-                        case 'note': 
-                            note = ele.id;
-                            break;
-                        case 'detail': 
-                            detail = ele.id;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            })
-        })
-        this.setState({
-            postData: {
-                local: local,
-                graduation: graduation,
-                type: type,
-                note: note,
-                detail: detail
-            }
-        })
+    radioSetter(e){
+        switch(e.target.name){
+            case 'local': this.setState({
+                    local: e.target.id
+                })
+                break;
+            case 'type': this.setState({
+                    type: e.target.id
+                })
+                break;
+            case 'graduation': this.setState({
+                    graduation: e.target.id
+                })
+                break;
+            case 'date': this.setState({
+                    date: e.target.id
+                })
+                break;
+            case 'detail': this.setState({
+                    detail: e.target.id
+                })
+                break;
+            case 'note': this.setState({
+                    note: e.target.id
+                })
+                break;
+            case 'special': this.setState({
+                    isSpecial: e.target.id
+                })
+                break;
+            case 'country-merit': this.setState({
+                    isCountryMerit: e.target.id
+                })
+                break;
+            default:
+                break;
+        }
     }
 
     classificationSubmit(){
         let store = this.context.store;
-        store.dispatch(classificationData(this.state.postData));
+        let postData = {
+            local: this.state.local,
+            type: this.state.type,
+            graduation: this.state.graduation,
+            date: this.state.date,
+            detail: this.state.detail,
+            isSpecial: this.state.isSpecial,
+            isCountryMerit: this.state.isCountryMerit
+        }
+        store.dispatch(classificationData(postData));
         let storeData = store.getState().selectClassification.CLASSIFICATION_DATA;
         axios({
             method : "put",
             url : "/api/classification",
             data : {
-                local : storeData.local,
-                type : storeData.type,
-                graduation : storeData.graduation,
-                date : storeData.date,
-                detail : storeData.detail,
-                note : storeData.note
+                local: storeData.local,
+                type: storeData.type,
+                graduation: storeData.graduation,
+                date: storeData.date,
+                detail: storeData.detail,
+                isSpecial: storeData.isSpecial,
+                isCountryMerit: storeData.isCountryMerit
             },
             withCredentials : false,
             headers : {
@@ -115,22 +122,26 @@ class Classification extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>
                 <div id="classification">
                     <DefaultInfo
                         isBlackTest={this.state.isBlackTest}
-                        setIsBlackTest={this.setIsBlackTest.bind(this)}/>
-                    <Graduate />
+                        setIsBlackTest={this.setIsBlackTest.bind(this)}
+                        radioSetter={this.radioSetter.bind(this)}/>
+                    <Graduate 
+                        radioSetter={this.radioSetter.bind(this)}/>
                     <TypeAndMemo
-                        onSocietyClick={this.onSocietyClick.bind(this)} />
+                        onSocietyClick={this.onSocietyClick.bind(this)} 
+                        radioSetter={this.radioSetter.bind(this)}/>
                     <SocietyDetail
-                        isSocietySelected={this.state.isSocietySelected} />
+                        isSocietySelected={this.state.isSocietySelected} 
+                        radioSetter={this.radioSetter.bind(this)}/>
                 </div>
                  <Button 
-                    onclick={this.classificationSubmit.bind(this)} 
-                    onmouseEnter={this.radioSetter.bind(this)}
+                    onclick={this.classificationSubmit.bind(this)}
                     buttonName="다음"/>
             </div>
         )
@@ -166,14 +177,15 @@ const DefaultInfo = (props) => {
                 name="local"
                 id="country" 
                 value="country"
-                checked="checked" /> 
+                onClick={props.radioSetter} /> 
             <label htmlFor="country">전국</label>
 
             <input 
                 type="radio" 
                 name="local" 
                 id="daejeon" 
-                value="daejeon" /> 
+                value="daejeon"
+                onClick={props.radioSetter} /> 
             <label htmlFor="Daejeon">대전</label><br />
     </div>
     )
@@ -189,14 +201,15 @@ const Graduate = (props) => {
             name="graduation"
             id="will-graduate"
             value="willGraduate"
-            checked="checked"/>
+            onClick={props.radioSetter}/>
         <label htmlFor="will-graduate">졸업 예정</label>
 
         <input
             type="radio"
             name="graduation"
             id="graduated"
-            value="graduated"/>
+            value="graduated"
+            onClick={props.radioSetter}/>
         <label htmlFor="graduated">졸업</label> <br />
 
         <span>졸업년도</span>
@@ -226,7 +239,6 @@ const TypeAndMemo = (props) => {
                 name="type"
                 id="general"
                 value="general"
-                checked="checked"
                 onClick={props.onSocietyClick} />
             <label htmlFor="general">일반</label>
             <input
@@ -243,14 +255,13 @@ const TypeAndMemo = (props) => {
                 value="society"
                 onClick={props.onSocietyClick} />
             <label htmlFor="society">사회통합</label> <br />
-
-            <span>특기사항</span> <br />
             <span>국가 유공자</span>
             <input 
                 type="radio"
                 name="country-merit"
                 id="country_merit_yes"
-                value="general" />
+                value="general"
+                onClick={props.radioSetter} />
             <label htmlFor="memo-general">예</label>
 
             <input 
@@ -258,7 +269,7 @@ const TypeAndMemo = (props) => {
                 name="country-merit"
                 id="country_merit_no"
                 value="no"
-                checked="checked" />
+                onClick={props.radioSetter} />
             <label htmlFor="country-merit">아니요</label> <br />
 
             <span>특례 입학 대상자</span>
@@ -266,7 +277,8 @@ const TypeAndMemo = (props) => {
                 type="radio"
                 name="special"
                 id="special_yes"
-                value="general" />
+                value="general"
+                onClick={props.radioSetter} />
             <label htmlFor="memo-general">예</label>
 
             <input 
@@ -274,15 +286,8 @@ const TypeAndMemo = (props) => {
                 name="special"
                 id="speicial_no"
                 value="special_no"
-                checked="checked" />
+                onClick={props.radioSetter} />
             <label htmlFor="country-merit">아니요</label>
-
-            {/* <input 
-                type="radio"
-                name="note"
-                id="special"
-                value="special" />
-            <label htmlFor="special">특례입학대상자</label> */}
         </div>
     )
 }
@@ -298,7 +303,8 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="basic"
-                        id="basic" /> 
+                        id="basic"
+                        onClick={props.radioSetter} /> 
                         <label htmlFor="basic">기초생활수급권자</label>
                 </li>
                 <li>
@@ -306,7 +312,8 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="one-parent"
-                        id="one-parent" />
+                        id="one-parent"
+                        onClick={props.radioSetter} />
                     <label htmlFor="one-parent">한부모가족보호대상자</label>
                 </li>
                 <li>
@@ -314,7 +321,8 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="poor"
-                        id="poor" />
+                        id="poor"
+                        onClick={props.radioSetter} />
                     <label htmlFor="poor">차상위 계층</label>
                 </li>
                 <li>
@@ -322,7 +330,8 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="more-poor"
-                        id="more-poor" />
+                        id="more-poor"
+                        onClick={props.radioSetter} />
                     <label htmlFor="more-poor">차차상위 계층</label>
                 </li>
                 <li>
@@ -330,7 +339,8 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="from-north"
-                        id="from-north" />
+                        id="from-north"
+                        onClick={props.radioSetter} />
                     <label htmlFor="from-north">북한이탈주민</label>
                 </li>
                 <li>
@@ -338,7 +348,8 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="multi-culture"
-                        id="multi-culture" />
+                        id="multi-culture"
+                        onClick={props.radioSetter} />
                     <label htmlFor="multi-culture">다문화가정</label>
                 </li>
                 <li>
@@ -346,7 +357,8 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="etc"
-                        id="etc" />
+                        id="etc"
+                        onClick={props.radioSetter} />
                     <label htmlFor="etc">그 외 대상자</label>
                 </li>
             </ul>
