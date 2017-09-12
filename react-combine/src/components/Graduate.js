@@ -7,14 +7,6 @@ class Graduate extends Component {
                 <h2>졸업 구분</h2>
 
                 <span>졸업 구분</span>
-                <input
-                    type="radio"
-                    name="typeOfGraduate"
-                    id="graduated"
-                    value="graduated"
-                    onChange={this.props.changeGraduate} 
-                    checked={this.props.typeOfGraduate==="graduated"}/>
-                <label htmlFor="graduated">졸업</label>
 
                 <input
                     type="radio"
@@ -23,7 +15,16 @@ class Graduate extends Component {
                     value="willGraduate"
                     onChange={this.props.changeGraduate} 
                     checked={this.props.typeOfGraduate==="willGraduate"}/>
-                <label htmlFor="will-graduate">졸업 예정</label> <br />
+                <label htmlFor="will-graduate">졸업 예정</label>
+
+                <input
+                    type="radio"
+                    name="typeOfGraduate"
+                    id="graduated"
+                    value="graduated"
+                    onChange={this.props.changeGraduate}
+                    checked={this.props.typeOfGraduate === "graduated"} />
+                <label htmlFor="graduated">졸업</label> <br />
 
                 <span>졸업년도</span>
                 <select name="graduateYear"

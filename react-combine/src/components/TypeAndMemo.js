@@ -9,19 +9,21 @@ class TypeAndMemo extends Component {
                 <input
                     type="radio"
                     name="typeOfApply"
-                    id="meister"
-                    value="meister"
-                    checked={this.props.typeOfApply === "meister"}
-                    onChange={this.props.changeTypeOfApply} />
-                <label htmlFor="meister">마이스터 인재</label>
-                <input
-                    type="radio"
-                    name="typeOfApply"
                     id="general"
                     value="general"
                     checked={this.props.typeOfApply === "general"}
                     onChange={this.props.changeTypeOfApply} />
                 <label htmlFor="general">일반</label>
+
+                <input
+                    type="radio"
+                    name="typeOfApply"
+                    id="meister"
+                    value="meister"
+                    checked={this.props.typeOfApply === "meister"}
+                    onChange={this.props.changeTypeOfApply} />
+                <label htmlFor="meister">마이스터 인재</label>
+                
                 <input
                     type="radio"
                     name="typeOfApply"
@@ -31,16 +33,24 @@ class TypeAndMemo extends Component {
                     onChange={this.props.changeTypeOfApply} />
                 <label htmlFor="society">사회통합</label> <br />
 
-                <span>비고</span>
-                <input type="radio"
+                <span>특기사항</span>
+                {/* <input type="radio"
                     name="memo"
                     id="memo-general"
                     value="general"
                     onChange={this.props.changeMemo}
                     checked={this.props.memo === "general"} />
-                <label htmlFor="memo-general">일반</label>
+                <label htmlFor="memo-general">일반</label> */}
 
-                <input type="radio"
+                <input type="checkbox"
+                    name="memo"
+                    id="special"
+                    value="special"
+                    onChange={this.props.changeMemo}
+                    checked={this.props.memo === "special"} />
+                <label htmlFor="special">특례입학대상자</label>
+
+                <input type="checkbox"
                     name="memo"
                     id="country-merit"
                     value="countryMerit"
@@ -48,13 +58,10 @@ class TypeAndMemo extends Component {
                     checked={this.props.memo === "countryMerit"} />
                 <label htmlFor="country-merit">국가 유공자</label>
 
-                <input type="radio"
-                    name="memo"
-                    id="special"
-                    value="special"
-                    onChange={this.props.changeMemo}
-                    checked={this.props.memo === "special"} />
-                <label htmlFor="special">특례입학대상자</label>
+                <input type="text"
+                    name="nation_num"
+                    id="nation_num"
+                    placeholder="보훈번호"/>
             </div>
         )
     }
