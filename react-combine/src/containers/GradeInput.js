@@ -14,14 +14,6 @@ class GradeInput extends Component{
         
         this.state = {
             score: {
-                firstGrade_firstSemester: ["", "", "", "", "", "", "",],
-                firstGrade_secondSemester: ["", "", "", "", "", "", "",],
-                secondGrade_firstSemester: ["", "", "", "", "", "", "",],
-                secondGrade_secondSemester: ["", "", "", "", "", "", "",],
-                thirdGrade_firstSemester: ["", "", "", "", "", "", "",],
-                thirdGrade_secondSemester: ["", "", "", "", "", "", "",]
-            },
-            scoreData: {
                 semesters: [
                     [
                         { pass: true, grade: null },
@@ -111,7 +103,6 @@ class GradeInput extends Component{
 
 
     render(){
-        console.log(this.state);
         let attendData = [
             this.state.absence,
             this.state.late,
@@ -139,13 +130,6 @@ class GradeInput extends Component{
 
     componentDidMount(){
         let mThis = this;
-        let score = {
-            firstGrade_firstSemester: ["", "", "", "", "", "", "",],
-            firstGrade_secondSemester: ["", "", "", "", "", "", "",],
-            secondGrade_firstSemester: ["", "", "", "", "", "", "",],
-            secondGrade_secondSemester: ["", "", "", "", "", "", "",],
-            thirdGrade_firstSemester: ["", "", "", "", "", "", "",]
-        }
         let scoreData = {
             semesters: [
                 [
@@ -217,7 +201,7 @@ class GradeInput extends Component{
                 event.target.classList.add('selectedGrade');
                 scoreData.semesters[semester][subject].grade = event.target.textContent;
                 mThis.setState({
-                    scoreData: scoreData                
+                    score: scoreData                
                 })
             }
         }
@@ -252,6 +236,11 @@ class GradeInput extends Component{
                         did_Semesters[i][j].classList.remove('notpassedArea');
                     } else {
                         did_Semesters[i][j].classList.add('notpassedArea');
+                        scoreData.semesters[i][j].pass = false;
+                        scoreData.semesters[i][j].grade = null;
+                        mThis.setState({
+                            score: scoreData
+                        })
                         Array.from(did_GradeSelector[i][j].children).forEach((ele) => {
                             ele.classList.remove('selectedGrade');
                         })
@@ -275,6 +264,11 @@ class GradeInput extends Component{
                 if(Mdid_SemesterNotPass.checked){
                     for(let j = 0; j < 7; j++){
                         did_Semesters[i][j].classList.add('notpassedArea');
+                        scoreData.semesters[i][j].pass = false;
+                        scoreData.semesters[i][j].grade = null;
+                        mThis.setState({
+                            score: scoreData
+                        })
                         did_NotPass[i][j].checked = true;
                         Array.from(did_GradeSelector[i][j].children).forEach((ele) => {
                             ele.classList.remove('selectedGrade'); 
@@ -309,6 +303,11 @@ class GradeInput extends Component{
                         toBe_Semesters[i][j].classList.remove('notpassedArea');
                     } else {
                         toBe_Semesters[i][j].classList.add('notpassedArea');
+                        scoreData.semesters[i][j].pass = false;
+                        scoreData.semesters[i][j].grade = null;
+                        mThis.setState({
+                            score: scoreData
+                        })
                         Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
                             ele.classList.remove('selectedGrade');
                         })
@@ -332,6 +331,11 @@ class GradeInput extends Component{
                 if(MtoBe_SemesterNotPass.checked){
                     for(let j = 0; j < 7; j++){
                         toBe_Semesters[i][j].classList.add('notpassedArea');
+                        scoreData.semesters[i][j].pass = false;
+                        scoreData.semesters[i][j].grade = null;
+                        mThis.setState({
+                            scoreData: scoreData
+                        })
                         toBe_NotPass[i][j].checked = true;
                         Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
                             ele.classList.remove('selectedGrade'); 
