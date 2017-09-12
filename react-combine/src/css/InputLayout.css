@@ -31,7 +31,7 @@
 }
 
 /*HoriziontalProcess*/
-@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+/* @import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
 #agenda_wrap {
   background-size: cover;
   background-position: center;
@@ -242,24 +242,24 @@
   #agenda_wrap .agenda_container {
     width: 100%;
   }
-}
+} */
 
-/* #svg {
+#svg {
   width: 100%;
   height: 500px;
 }
 
 .point {
   transition: 0.5s;
-  stroke: whitesmoke;
-  fill: whitesmoke;
+  stroke: #B9B4B4;
+  fill: #B9B4B4;
 }
 
 .point:hover {
   stroke: whitesmoke;
   fill: whitesmoke;
   cursor: pointer;
-} */
+}
 
 /*Footer*/
 #footer{
