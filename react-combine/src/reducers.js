@@ -52,7 +52,7 @@ function introduce(state = {}, action){
 }
 
 const EntryDSM = combineReducers({
-    signUp, selectClassification, signIn, infoInput
+    signUp, selectClassification, signIn, infoInput, introduce
 })
 
 export default EntryDSM;
