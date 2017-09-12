@@ -101,13 +101,15 @@ class Classification extends Component {
             method : "put",
             url : "/api/user/classification",
             data : {
-                local: storeData.local,
-                type: storeData.type,
-                graduation: storeData.graduation,
-                date: storeData.date,
-                detail: storeData.detail,
-                isSpecial: storeData.isSpecial,
-                isCountryMerit: storeData.isCountryMerit
+                classification: {
+                    local: storeData.local,
+                    type: storeData.type,
+                    graduation: storeData.graduation,
+                    date: storeData.date,
+                    detail: storeData.detail,
+                    isSpecial: storeData.isSpecial,
+                    isCountryMerit: storeData.isCountryMerit
+                }
             },
             withCredentials : false,
             headers : {
