@@ -19,13 +19,9 @@ class MyPage extends Component{
     }
 
     componentDidMount(){
-        console.log('mount test');
-
         let checkArr = ["", "", "", "", ""]; // or checkArr.length = 5;
 
         checkArr.forEach((elem, index) => {
-            console.log("check!");
-
             if(this.props.check[index] === false){
                 checkArr[index] = require("../images/myCancel.png");
             } 

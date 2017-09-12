@@ -31,15 +31,19 @@ class Introduce extends Component {
     }
 
     introduceSubmit(){
-        // let store = this.context.store;
-        // store.dispatch(introduceData(this.state.postData));
-        // let storeData = store.getState().introduceData.INTRODUCE_DATA;
+        let store = this.context.store;
+        let postData = {
+            self: this.state.self,
+            plan: this.state.plan
+        }
+        store.dispatch(introduceData(postData));
+        let storeData = store.getState().introduceData.INTRODUCE_DATA;
         axios({
             method: 'put',
             url: '/api/user/introudce',
             data: {
-                self: this.state.self,
-                plan: this.state.plan
+                self: storeData.self,
+                plan: storeData.plan
             },
             withCredentials: false,
             headers: {

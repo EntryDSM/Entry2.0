@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
-import styles from '../css/AddressModalPagenum.css';
+import '../css/AddressModalPagenum.css';
  
 class AddressModalPagenum extends Component { 
      render() {
-        var arr = [];
-
         var pageNumbers = null;
         var that = this;
-        // console.log('data',this.props.datas);
         if(this.props.datas != null) {
             pageNumbers = this.props.datas.map(function(data, index) {
                 var pagenum;
-                if(data==">"){
+                if(data === ">"){
                     pagenum = that.props.datas[that.props.datas.length-2] + 1;
 
                 } else {

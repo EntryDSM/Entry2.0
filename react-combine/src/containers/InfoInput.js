@@ -22,9 +22,11 @@ class InfoInput extends Component {
             schoolTel: "",
             phoneNum: "",
             parentsTel: "",
-            birth: "",
             address: "",
-            detailAddress: "" 
+            detailAddress: "",
+            birthYear: "",
+            birthMonth: "",
+            birthDay: ""
         };
 
         this.submitInfo= this.submitInfo.bind(this);
@@ -32,24 +34,38 @@ class InfoInput extends Component {
 
     submitInfo(){
         let store = this.context.store;
-        store.dispatch(infoInputData(this.state));
+        let postData = {
+            sex: this.state.sex,
+            grade: this.state.grade,
+            class: this.state.class,
+            parentsName: this.state.parentsName,
+            schoolCode: this.state.schoolCode,
+            schoolName: this.state.schoolName,
+            schoolTel: this.state.schoolTel,
+            phoneNum: this.state.phoneNum,
+            parentsTel: this.state.parentsTel,
+            address: this.state.address,
+            detailAddress: this.state.detailAddress,
+            birth: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
+        }
+        store.dispatch(infoInputData(postData));
         let storeData = store.getState().infoInput.INFO_INPUT_DATA;
         axios({
             method: 'put',
             url: '/api/user/info',
             data: {
-                sex: "남",
-                grade: 3,
-                class: 1,
-                schoolCode: 7680165,
-                schoolName: "해솔중학교",
-                schoolTel: "00012341234",
-                phoneNum: "01028962001",
-                parentsTel: "01090769392",
-                parentsName: "안영숙",
-                birth: "2000-04-29",
-                baseAddress: "경기도 파주시 가온로 67 (목동동, 해솔마을 5단지 삼부르네상스 아파트)",
-                detailAddress: "503동 802호"
+                sex: storeData.sex,
+                grade: storeData.grade,
+                class: storeData.class,
+                schoolCode: storeData.schoolCode,
+                schoolName: storeData.schoolName,
+                schoolTel: storeData.schoolTel,
+                phoneNum: storeData.phoneNum,
+                parentsTel: storeData.parentsTel,
+                parentsName: storeData.parentsName,
+                birth: storeData.birth,
+                baseAddress: storeData.baseAddress,
+                detailAddress: storeData.detailAddress
             },
             withCredentials: false,
             headers: {
@@ -120,11 +136,6 @@ class InfoInput extends Component {
             schoolName: e.target.value
         })
     }
-    setSchoolTel(e){
-        this.setState({
-            schoolTel: e.target.value
-        })
-    }
     setPhoneNum(e){
         this.setState({
             phoneNum: e.target.value
@@ -140,9 +151,19 @@ class InfoInput extends Component {
             parentsTel: e.target.value
         })
     }
-    setBirth(e){
+    setBirthYear(e){
         this.setState({
-            birth: e.targt.value
+            birthYear: e.target.value
+        })
+    }
+    setBirthMonth(e){
+        this.setState({
+            birtMonthr: e.target.value
+        })
+    }
+    setBirthDay(e){
+        this.setState({
+            birthDay: e.target.value
         })
     }
     setAddress(e){
@@ -157,7 +178,6 @@ class InfoInput extends Component {
     }
     
     render(){
-        const {store} = this.context;
         console.log(this.state)
         return(
             <div id="contents">
@@ -171,7 +191,9 @@ class InfoInput extends Component {
                         emailDomain={"gmail.com"}
                         setSex={this.setSex.bind(this)}
                         setAddress={this.setAddress.bind(this)}
-                        setBirth={this.setBirth.bind(this)}
+                        setBirthYear={this.setBirthYear.bind(this)}
+                        setBirthMonth={this.setBirthMonth.bind(this)}
+                        setBirthDay={this.setBirthDay.bind(this)}
                         setClass={this.setClass.bind(this)}
                         setDetailAddress={this.setDetailAddress.bind(this)}
                         setGrade={this.setGrade.bind(this)}

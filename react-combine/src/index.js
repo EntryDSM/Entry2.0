@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import initialState from './initialState';
 import 'babel-polyfill';
 import { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete, MyPage } from './containers';
 import {createStore} from 'redux';
@@ -31,7 +30,7 @@ Provider.childContextTypes = {
 }
 
 const rootElement = document.getElementById('root');
-const store = createStore(reducer, initialState);
+const store = createStore(reducer);
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>

@@ -273,6 +273,18 @@ class GradeInput extends Component{
                     } else {
                         selectorArea[index - 5].classList.remove('notpassedArea');
                     }
+                    let count = 0;
+                    for(let i=0; i<7; i++){
+                        if(toBe_Rows[i].children[1].classList.contains('notpassedArea')){
+                            count++;
+                        }
+                    }
+                    console.log(count);
+                    if(count === 7){
+                        toBe_notPass[0].checked = true;
+                    } else {
+                        toBe_notPass[0].checked = false;
+                    }
                     Array.from(ele.parentElement.parentElement.parentElement.parentElement.parentElement.children).forEach((ele) => {
                         if(!ele.classList.contains('is_pass_check')){
                             Array.from(ele.children).forEach((ele) => {

@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
  
 class PreviewHeader extends Component {
-
-    constructor() {
-        super();
-    }
-
      render() {
         var that = this;
         var buttons = null;

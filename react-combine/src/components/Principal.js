@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import '../css/Principal.css'
-class Principal extends Component {
-
-    constructor() {
-        super();
-    }
- 
+class Principal extends Component { 
      render() {
          return(
             <div id="principal">

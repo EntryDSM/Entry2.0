@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
-import SubmitButton from '../components/SubmitButton';
 import EmailCertifyModal from '../components/EmailCertifyModal';
 import {signUpData} from '../actions.js';
 import {connect} from 'react-redux';
@@ -19,7 +18,9 @@ class SignUp extends Component{
             emailDomain: "naver.com",
             password: "",
             certifyCode: "",
-            modalIsOpen: ""
+            modalIsOpen: "",
+            isConfirm: false,
+            isVerify: false
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
@@ -57,6 +58,19 @@ class SignUp extends Component{
         })
     }
 
+    confirmPassword(e){
+        console.log(this.state.passoword);
+        if(this.state.password === e.target.value){
+            this.setState({
+                isConfirm: true
+            })
+        } else {
+            this.setState({
+                isConfirm: false
+            })
+        }
+    }
+
     openModal(){
         this.setState({
             modalIsOpen: true
@@ -77,61 +91,58 @@ class SignUp extends Component{
         }).then(response => {
             console.log(response);
             this.setState({
-                modalIsOpen: false
+                modalIsOpen: false,
+                isVerify: true
             })
         }).catch(err => {
             console.log(err.config);
             console.log(err.request);
             this.setState({
-                modalIsOpen: true
+                modalIsOpen: true,
+                isVerify: false
             })
         })
     }
 
-    render(){
-        const {dispatch} = this.props;
-        const {store} = this.context;
-        let state = this.state;
-        let signUpSubmit = function(){
-            console.log('hello');
-            if(state.name !== "" && state.email !== "" && state.password !== ""){
-                store.dispatch(signUpData(state));
-                let storeData = store.getState().signUp.SIGN_UP_DATA;
-                axios({
-                    method:'post',
-                    url:'/api/signup',
-                    data: {
-                        name: storeData.name,
-                        email: storeData.email + "@" + storeData.emailDomain,
-                        password: storeData.password
-                    },
-                    withCredentials: false,
-                    headers: {
-                        "Access-Control-Allow-Origin": "http://114.108.135.15",
-                        "ContentType": "application/json"
-                    }
-                }).then(response => {
-                    console.log(response)
-                    browserHistory.push('/SignUpSendComplete');
-                }).catch((error) => {
-                    console.log(error);
-                    if(error.response){
-                        console.log(error.response);
-                    } else if(error.request){
-                        console.log(error.request);
-                    } else {
-                        console.log(error.message);
-                    }
-                    console.log(error.config);
-                });
-            } else if(state.name === "") {
-                console.log('enter name');
-            } else if(state.email === ""){
-                console.log('enter email');
-            } else if(state.password === ""){
-                console.log('enter password');
-            }
+    signUpSubmit(){
+        let store = this.context.store;
+        let postData = {
+            name: this.state.name,
+            email: this.state.email + '@' + this.state.emailDomain,
+            password: this.state.password
         }
+        store.dispatch(signUpData(postData));
+        let storeData = store.getState().signUp.SIGN_UP_DATA;
+        axios({
+            method:'post',
+            url:'/api/signup',
+            data: {
+                name: storeData.name,
+                email: storeData.email + "@" + storeData.emailDomain,
+                password: storeData.password
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://114.108.135.15",
+                "ContentType": "application/json"
+            }
+        }).then(response => {
+            console.log(response)
+            browserHistory.push('/SignUpSendComplete');
+        }).catch((error) => {
+            console.log(error);
+            if(error.response){
+                console.log(error.response);
+            } else if(error.request){
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+        });
+    }
+
+    render(){
         return(
             <div id="contents">
                 <div id="signUp">
@@ -164,7 +175,8 @@ class SignUp extends Component{
                                 {
                                     name: '비밀번호 확인',
                                     type: 'password',
-                                    className: 'input_style'
+                                    className: 'input_style',
+                                    onchange: this.confirmPassword.bind(this)
                                 }
                             ]
                         }/>
@@ -176,7 +188,7 @@ class SignUp extends Component{
                         getCertifyCode={this.getCertifyCode.bind(this)}
                         verifyCode={this.verifyCode.bind(this)} />
                 </div>
-                <Button onclick={signUpSubmit} buttonName="다음"/>
+                <Button onclick={this.signUpSubmit.bind(this)} buttonName="다음"/>
                 </div>
             </div>
         );

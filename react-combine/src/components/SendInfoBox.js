@@ -61,7 +61,6 @@ class SendForm extends React.Component{
         this.setState({
             formsValues: val
         });
-        console.log(this.state.formsValues);
     }
 
     render(){

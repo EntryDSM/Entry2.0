@@ -10,15 +10,12 @@ class AddressModalTable extends Component {
     }
 
     setAddress(address) {
-        console.log("address", address);
         document.querySelector("#base_address").value = address;
         this.props.closeModal();
     }
 
     render() {
-        var arr = [];
         var that = this;
-
         var addressData = null;
         var tableHeader = null;
         if(this.props.datas != null) {

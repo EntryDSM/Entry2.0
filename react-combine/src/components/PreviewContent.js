@@ -5,12 +5,7 @@ import StudyPlan from './StudyPlan';
 import NoSmoke from './NoSmoke';
 import Principal from './Principal';
  
-class PreviewContent extends Component {
-
-    constructor() {
-        super();
-    }
- 
+class PreviewContent extends Component { 
      render() {
         var content = null;
         if(true) {// this.props.target != null) {
@@ -29,6 +24,8 @@ class PreviewContent extends Component {
                     break;
                 case "principal":
                     content = <Principal datas= {this.props.datas}/>;
+                    break;
+                default:
                     break;
             }
         }
