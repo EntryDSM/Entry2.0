@@ -1,4 +1,4 @@
-const ApplyData = require('../../database/models2/ApplyData');
+const ApplyData = require('../../database/models/ApplyData');
 
 exports.getUserInfo = (req, res) => {
     const user = req.session.key;

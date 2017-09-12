@@ -1,6 +1,6 @@
-const WUser = require('../../database/models2/WUser');
-const User = require('../../database/models2/User');
-const ApplyData = require('../../database/models2/ApplyData');
+const WUser = require('../../database/models/WUser');
+const User = require('../../database/models/User');
+const ApplyData = require('../../database/models/ApplyData');
 const mailSender = require('./mailSender');
 
 exports.signup = (req, res) => {
