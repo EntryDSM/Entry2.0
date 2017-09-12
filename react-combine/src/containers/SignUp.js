@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import EmailCertifyModal from '../components/EmailCertifyModal';
+import PersonalAgreeModal from '../components/PersonalAgreeModal';
 import {signUpData} from '../actions.js';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
@@ -173,6 +174,10 @@ class SignUp extends Component{
                                     type: 'password',
                                     className: 'input_style',
                                     onchange: this.confirmPassword.bind(this)
+                                },
+                                {
+                                    name: '개인정보활용동의',
+                                    type: 'checkbox'
                                 }
                             ]
                         }/>
@@ -182,6 +187,7 @@ class SignUp extends Component{
                         closeModal={this.closeModal.bind(this)}
                         getCertifyCode={this.getCertifyCode.bind(this)}
                         verifyCode={this.verifyCode.bind(this)} />
+                    <PersonalAgreeModal />
                 </div>
                 <Button onclick={this.signUpSubmit.bind(this)} buttonName="다음"/>
                 </div>

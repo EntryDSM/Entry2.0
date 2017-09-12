@@ -65,3 +65,9 @@ input[type=text]::-ms-clear {
     border-top: 2px solid #c4daff;
     border-bottom: 2px solid #c4daff;
 }
+
+/*PersonalAgreeModal*/
+.modal_style {
+    width: 50%;
+    padding: 1%;
+}
