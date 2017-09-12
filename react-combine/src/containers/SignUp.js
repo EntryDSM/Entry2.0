@@ -19,8 +19,7 @@ class SignUp extends Component{
             password: "",
             certifyCode: "",
             modalIsOpen: "",
-            isConfirm: false,
-            isVerify: false
+            isConfirm: false
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
@@ -59,7 +58,6 @@ class SignUp extends Component{
     }
 
     confirmPassword(e){
-        console.log(this.state.passoword);
         if(this.state.password === e.target.value){
             this.setState({
                 isConfirm: true
@@ -69,12 +67,6 @@ class SignUp extends Component{
                 isConfirm: false
             })
         }
-    }
-
-    openModal(){
-        this.setState({
-            modalIsOpen: true
-        })
     }
 
     closeModal(){
@@ -91,15 +83,14 @@ class SignUp extends Component{
         }).then(response => {
             console.log(response);
             this.setState({
-                modalIsOpen: false,
-                isVerify: true
+                modalIsOpen: false
             })
+            browserHistory('/classification');
         }).catch(err => {
             console.log(err.config);
             console.log(err.request);
             this.setState({
-                modalIsOpen: true,
-                isVerify: false
+                modalIsOpen: true
             })
         })
     }
@@ -115,7 +106,7 @@ class SignUp extends Component{
         let storeData = store.getState().signUp.SIGN_UP_DATA;
         axios({
             method:'post',
-            url:'/api/signup',
+            url:'/signup',
             data: {
                 name: storeData.name,
                 email: storeData.email + "@" + storeData.emailDomain,
@@ -128,7 +119,9 @@ class SignUp extends Component{
             }
         }).then(response => {
             console.log(response)
-            browserHistory.push('/SignUpSendComplete');
+            this.setState({
+                modalIsOpen: true
+            })
         }).catch((error) => {
             console.log(error);
             if(error.response){
@@ -139,6 +132,9 @@ class SignUp extends Component{
                 console.log(error.message);
             }
             console.log(error.config);
+            this.setState({
+                modalIsOpen: false
+            })
         });
     }
 
@@ -183,7 +179,6 @@ class SignUp extends Component{
                     </table>
                     <EmailCertifyModal 
                         modalIsOpen={this.state.modalIsOpen}
-                        openModal={this.openModal.bind(this)}
                         closeModal={this.closeModal.bind(this)}
                         getCertifyCode={this.getCertifyCode.bind(this)}
                         verifyCode={this.verifyCode.bind(this)} />
