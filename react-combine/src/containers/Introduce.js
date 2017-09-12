@@ -13,14 +13,14 @@ class Introduce extends Component {
     constructor(props){
         super(props);
         this.state = {
-            self: "",
+            introduce: "",
             plan: ""
         }
     }
 
     setSelf(e){
         this.setState({
-            self: e.target.value
+            introduce: e.target.value
         })
     }
 
@@ -33,7 +33,7 @@ class Introduce extends Component {
     introduceSubmit(){
         let store = this.context.store;
         let postData = {
-            self: this.state.self,
+            introduce: this.state.introduce,
             plan: this.state.plan
         }
         store.dispatch(introduceData(postData));
@@ -42,8 +42,10 @@ class Introduce extends Component {
             method: 'put',
             url: '/api/user/introudce',
             data: {
-                self: storeData.self,
-                plan: storeData.plan
+                introduce: {
+                    introduce: storeData.introduce,
+                    plan: storeData.plan
+                }
             },
             withCredentials: false,
             headers: {

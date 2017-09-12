@@ -54,18 +54,20 @@ class InfoInput extends Component {
             method: 'put',
             url: '/api/user/info',
             data: {
-                sex: storeData.sex,
-                grade: storeData.grade,
-                class: storeData.class,
-                schoolCode: storeData.schoolCode,
-                schoolName: storeData.schoolName,
-                schoolTel: storeData.schoolTel,
-                phoneNum: storeData.phoneNum,
-                parentsTel: storeData.parentsTel,
-                parentsName: storeData.parentsName,
-                birth: storeData.birth,
-                baseAddress: storeData.baseAddress,
-                detailAddress: storeData.detailAddress
+                info: {
+                    sex: storeData.sex,
+                    grade: storeData.grade,
+                    class: storeData.class,
+                    schoolCode: storeData.schoolCode,
+                    schoolName: storeData.schoolName,
+                    schoolTel: storeData.schoolTel,
+                    phoneNum: storeData.phoneNum,
+                    parentsTel: storeData.parentsTel,
+                    parentsName: storeData.parentsName,
+                    birth: storeData.birth,
+                    baseAddress: storeData.baseAddress,
+                    detailAddress: storeData.detailAddress
+                }
             },
             withCredentials: false,
             headers: {
