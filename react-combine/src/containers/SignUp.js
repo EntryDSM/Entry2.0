@@ -103,6 +103,7 @@ class SignUp extends Component{
             email: this.state.email + '@' + this.state.emailDomain,
             password: this.state.password
         }
+        console.log(postData);
         store.dispatch(signUpData(postData));
         let storeData = store.getState().signUp.SIGN_UP_DATA;
         axios({
@@ -110,7 +111,7 @@ class SignUp extends Component{
             url:'/api/signup',
             data: {
                 name: storeData.name,
-                email: storeData.email + "@" + storeData.emailDomain,
+                email: storeData.email,
                 password: storeData.password
             },
             withCredentials: false,
