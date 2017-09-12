@@ -86,10 +86,10 @@ class InfoInput extends Component {
     getSchoolCode(){
         axios({
             method: 'get',
-            url: '/user/info/inquery',
+            url: '/api/school',
             params: {
-                department: "",
-                schoolName: ""
+                name: "",
+                goverment: ""
             },
             withCredentials: false,
             headers: {

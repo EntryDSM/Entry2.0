@@ -99,7 +99,7 @@ class Classification extends Component {
         let storeData = store.getState().selectClassification.CLASSIFICATION_DATA;
         axios({
             method : "put",
-            url : "/api/classification",
+            url : "/api/user/classification",
             data : {
                 local: storeData.local,
                 type: storeData.type,
@@ -122,7 +122,6 @@ class Classification extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>
