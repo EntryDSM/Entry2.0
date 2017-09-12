@@ -5,6 +5,10 @@ import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import Volunteer from '../components/Volunteer';
 import Attend from '../components/Attend';
+import axios from 'axios';
+import {connect} from 'react-redux';
+import {gradeInputData} from '../actions';
+import PropTypes from 'prop-types';
 import '../css/InputHeader.css';
 import '../css/GradeInput.css';
 
@@ -63,10 +67,11 @@ class GradeInput extends Component{
                 ]
             },
             absence: 0,
-            late: 0,
-            leaving_early: 0,
-            not_attendence: 0,
-            graduated: null,
+            lateness: 0,
+            earlyLeave: 0,
+            subjectEscape: 0,
+            volunteer: 0,
+            graduated: "hide",
             graduate_to_be: null,
             black: null
         };
@@ -82,32 +87,70 @@ class GradeInput extends Component{
             }
             case "late": {
                 this.setState({
-                    late: e.target.value
+                    lateness: e.target.value
                 })
                 break;
             }
             case "leaving_early": {
                 this.setState({
-                    leaving_early: e.target.value
+                    earlyLeave: e.target.value
                 })
                 break;
             }
             case "not_attendence": {
                 this.setState({
-                    not_attendence: e.target.value
+                    subjectEscape: e.target.value
                 })
                 break;
             }
         }
     }
 
+    gradeInputSubmit(){
+        let store = this.context.store;
+        let postData = {
+            volunteer: this.state.volunteer,
+            attend: {
+                absence: this.state.absence,
+                lateness: this.state.lateness,
+                earlyLeave: this.state.earlyLeave,
+                subjectEscape: this.state.subjectEscape
+            },
+            score: {
+                semester: this.state.score.semesters
+            }
+        }
+        store.dispatch(gradeInputData(postData));
+        let storeData = store.getState().gradeInputData.GRADEINPUT_DATA;
+        axios({
+            method: 'put',
+            url: '/api/user/grade',
+            data: {
+                grade: {
+                    volunteer: storeData.volunteer,
+                    attend: {
+                        absence: storeData.attend.absence,
+                        lateness: storeData.attend.lateness,
+                        earlyLeave: storeData.attend.earlyLeave,
+                        subjectEscape: storeData.attend.subjectEscape
+                    },
+                    score: storeData.score
+                }
+            }
+        }).then(response => {
+            console.log(response);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     render(){
+        console.log(this.state.score)
         let attendData = [
             this.state.absence,
-            this.state.late,
-            this.state.leaving_early,
-            this.state.not_attendence
+            this.state.lateness,
+            this.state.earlyLeave,
+            this.state.subjectEscape
         ];
         return(
             <div id="contents">
@@ -123,7 +166,7 @@ class GradeInput extends Component{
                     <Graduated visible={this.state.graduated}/>
                 </table>
                 <Button router="infoinput" buttonName="이전"/>
-                <Button router="introduce" buttonName="다음"/>
+                <Button onclick={this.gradeInputSubmit.bind(this)} buttonName="다음"/>
             </div>
         );
     }
@@ -351,5 +394,12 @@ class GradeInput extends Component{
         }
     }
 }
+GradeInput.contextTypes = {
+    store: PropTypes.object
+}
 
-export default GradeInput;
+function gradeInput(state){
+    gradeInputData: state.gradeInputData
+}
+
+export default connect(gradeInput)(GradeInput);

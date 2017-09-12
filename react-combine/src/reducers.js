@@ -1,4 +1,4 @@
-import {SIGN_UP_DATA, CLASSIFICATION_DATA, SIGN_IN_DATA, INFO_INPUT_DATA, INTRODUCE_DATA} from './actions';
+import {SIGN_UP_DATA, CLASSIFICATION_DATA, SIGN_IN_DATA, INFO_INPUT_DATA, INTRODUCE_DATA, GRADEINPUT_DATA} from './actions';
 import {combineReducers} from 'redux';
 
 function signUp(state = {}, action){
@@ -51,8 +51,18 @@ function introduce(state = {}, action){
     }
 }
 
+function gradeinput(state = {}, action){
+    switch(action.type){
+        case GRADEINPUT_DATA:
+            return Object.assign({}, state, {
+                GRADEINPUT_DATA: action.data
+            })
+        default: return state;
+    }
+}
+
 const EntryDSM = combineReducers({
-    signUp, selectClassification, signIn, infoInput, introduce
+    signUp, selectClassification, signIn, infoInput, introduce, gradeinput
 })
 
 export default EntryDSM;
