@@ -86,7 +86,7 @@ class SignUp extends Component{
             this.setState({
                 modalIsOpen: false
             })
-            browserHistory('/classification');
+            browserHistory.push('/classification');
         }).catch(err => {
             console.log(err.config);
             console.log(err.request);
