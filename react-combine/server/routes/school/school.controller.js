@@ -1,4 +1,4 @@
-const School = require('../../database/models2/School');
+const School = require('../../database/models/School');
 
 exports.search = (req, res) => {
     const name = req.query.name;

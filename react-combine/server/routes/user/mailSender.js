@@ -23,6 +23,7 @@ let smtpPoolOption = {
 
 exports.sendEmail = (wUser, type) => {
     return new Promise((resolve, reject) => {
+        console.log(wUser);
         let filePath = thisPath + (type === 'auth' ? '/../../public/mail.html' : '/../../public/findPassword.html');
 
         let file = fs.readFileSync(filePath, 'utf8');

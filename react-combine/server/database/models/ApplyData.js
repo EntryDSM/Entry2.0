@@ -87,6 +87,27 @@ createdAt : 문서가 만들어진 날짜
 updatedAt : 수정 날짜 (시간)
 */
 
+function gradeTableGenerate(semester) {
+    let grade = {
+        "semesters": [
+        ]
+    }
+    let inSemester = [];
+    for (let j = 0; j < 7; j++) {
+        inSemester.push({
+            "pass": true,
+            "grade": null
+        })
+    }
+    for (let i = 0; i < semester; i++) {
+        grade.semesters.push(inSemester);
+    }
+    return grade;
+}
+
+const grade_done = gradeTableGenerate(6);
+const grade_will = gradeTableGenerate(5);
+
 const documentTemplate = {
     classification: {
         "isBlack": false, // 검정고시 여부
@@ -134,7 +155,7 @@ const documentTemplate = {
             "earlyLeave": 0, // 무단 조퇴
             "subjectEscape": 0 // 무단 결과
         },
-        "score": this.grade_will
+        "score": grade_will
     },
     introduce: {
         "introduce": "",
@@ -144,26 +165,6 @@ const documentTemplate = {
         scores: [null, null, null, null], // 차례대로 국어 수학 사회 과학
         choose: { "subject": null, "score": null } // 선택과목 한 과목
     },
-    grade_done: gradeTableGenerate(6),
-    grade_will: gradeTableGenerate(5)
-}
-
-function gradeTableGenerate(semester) {
-    let grade = {
-        "semesters": [
-        ]
-    }
-    let inSemester = [];
-    for (let j = 0; j < 7; j++) {
-        inSemester.push({
-            "pass": true,
-            "grade": null
-        })
-    }
-    for (let i = 0; i < semester; i++) {
-        grade.semesters.push(inSemester);
-    }
-    return grade;
 }
 
 ApplyData.statics.createEmpty = function (user) {
@@ -232,6 +233,8 @@ ApplyData.methods.validation = function () {
             result.grade = infoValidation('DONE', this.grade)
         }
         result.introduce = introduceValidation(this.introduce);
+
+        resolve(result);
     })
 }
 
@@ -242,16 +245,19 @@ function infoValidation(type, info) {
     if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
     if (type !== 'BLACK' && (info.class == null)) result.push('반을 입력해주세요.');
     if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null || info.schoolTel)) result.push('학교 정보를 입력해주세요.');
-    if (ingo.tel == null) result.push('전화번호를 입력해주세요.');
+    if (info.tel == null) result.push('전화번호를 입력해주세요.');
     if (info.parentsName == null) result.push('부모님 성함을 입력해주세요.');
     if (info.parentsTel == null) result.push('부모님 전화번호를 입력해주세요.');
     if ((info.addressBase == null) || (info.addressDetail == null)) result.push('주소를 빠짐없이 입력해주세요.');
+
+    return result;
 }
 
 function gradeValidation(type, grade) {
     let result = [];
     if (type === 'WILL') {
         let subjects = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어']
+        console.log(grade);
         const semesters = grade.score.semesters;
 
         for (var i = 0; i < 5; i++) {

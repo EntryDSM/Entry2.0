@@ -1,5 +1,5 @@
 let router = require('express').Router();
-let logic = require('./logic');
+
 const controller = require('./applyData.controller');
 const onlyUser = require('../../middlewares/onlyUser');
 

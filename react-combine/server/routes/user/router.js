@@ -1,5 +1,4 @@
 let router = require('express').Router();
-//let logic = require('./logic'); 
 
 const controller = require('./user.controller');
 
