@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
-import EmailCertifyModal from '../components/EmailCertifyModal'
+import EmailCertifyModal from '../components/EmailCertifyModal';
+import PersonalAgreeModal from '../components/PersonalAgreeModal';
 import SubmitButton from '../components/SubmitButton';
 import {signUpData} from '../actions.js';
 import {connect} from 'react-redux';
@@ -124,11 +125,16 @@ class SignUp extends Component{
                                     name: '비밀번호 확인',
                                     type: 'password',
                                     className: 'input_style'
+                                }, 
+                                {
+                                    name: '개인정보활용동의',
+                                    type: 'checkbox'
                                 }
                             ]
                         }/>
                     </table>
                     <EmailCertifyModal />
+                    <PersonalAgreeModal />
                 </div>
                 <Button onClick={submit} buttonName="다음"/>
                 </div>
@@ -154,7 +160,7 @@ const SignUpInput = (props) => {
                                             {props.emails.map((email, index) => {
                                                 return <Options name={email.name} key={index} />
                                             })}
-                                        </select>                                
+                                        </select>                               
                                     </td>
                                 </tr>
                     } else {
