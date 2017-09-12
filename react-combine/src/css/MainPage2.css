@@ -20,8 +20,7 @@
 
 #main2 #headerCover{
     width:100%;
-    height:6rem;
-    background-color:#353536;
+    height:10rem;
     overflow: hidden;
 }
 
@@ -38,19 +37,27 @@
     vertical-align: top;
     float:right;
     margin-right:5rem;
-    margin-top:2.5rem;
+    margin-top:2.6rem;
 }
 
 #main2 ul li{
-    color:white;
+    color:#353536;
+    font-weight:bold;
     display:inline-block;
     letter-spacing: 1.5px;
     padding-left:2.5rem;
-    font-size:1rem;
+    font-size:0.9rem;
     cursor:pointer;
     transition:0.65s;
 }
 
 #main2 ul li:hover{
     letter-spacing: 4px;
+}
+
+#main2 #underCover{
+    width:100%;
+    height:2rem;
+    background-color:#353536;
+    margin-top:2.5rem;
 }

@@ -14,6 +14,9 @@ class MainHeader extends Component{
                         );  
                     })}
                 </ul>
+                <div id = "underCover">
+                    
+                </div>
             </div>
         );
     }
