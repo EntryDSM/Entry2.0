@@ -106,7 +106,7 @@ class SignUp extends Component{
         let storeData = store.getState().signUp.SIGN_UP_DATA;
         axios({
             method:'post',
-            url:'/signup',
+            url:'/api/signup',
             data: {
                 name: storeData.name,
                 email: storeData.email + "@" + storeData.emailDomain,
