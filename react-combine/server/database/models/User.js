@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const crypto = require('crypto');
+const UUID = require('uuid/v4')
 
 let User = Schema({
     name: { type : String, required: true },
@@ -36,11 +37,11 @@ User.methods.getDecryptedEmail = function () {
 
 User.statics.findOneByEmail = function (email) {
     const secret = process.env.ENTRYDSM_SECRET;
-    
+    console.log(email);
     const cipher = crypto.createCipher('aes192', secret);
     let encryptedEmail = cipher.update(email, 'utf8', 'hex');
     encryptedEmail += cipher.final('hex');
-
+    console.log(encryptedEmail);
     return this.findOne({ "email": encryptedEmail }).exec();
 }
 
@@ -52,35 +53,29 @@ User.methods.verify = function (password) {
     return this.password === encryptedPassword;
 }
 
-User.methods.generateVerifyCode = function(){
-    this.verifyCode = generateVerifyCode()
+User.methods.generateVerifyCode = function () {
+    this.verifyCode = UUID().slice(0, 6).toUpperCase();
     return this.save();
 }
 
-User.methods.changePassword = function(password){
+User.methods.changePassword = function (password) {
     const secret = process.env.ENTRYDSM_SECRET;
     const encryptedPassword = crypto.createHmac('sha1', secret)
         .update(password)
         .digest('base64');
-    
-    this.password = encryptedPassword;
 
+    this.password = encryptedPassword;
+    console.log(this);
     return this.save();
 }
 
-function generateVerifyCode() {
-    return new Promise((resolve, reject) => {
-        while (true) {
-            let verifyCode = UUID().slice(0, 6);
-            User.findOne({ verifyCode })
-                .then((wUser) => {
-                    if (!wUser) resolve(verifyCode);
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-        }
-    });
+User.statics.findOneForChangePassword = function (verifyCode, name, email) {
+    const secret = process.env.ENTRYDSM_SECRET;
+    const cipher = crypto.createCipher('aes192', secret);
+    let encryptedEmail = cipher.update(email, 'utf8', 'hex');
+    encryptedEmail += cipher.final('hex');
+
+    return this.findOne({ verifyCode, "email": encryptedEmail, name })
 }
 
 module.exports = mongoose.model('User', User);

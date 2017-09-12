@@ -26,8 +26,7 @@ exports.saveType = (req, res) => {
         res.sendStatus(200);
       }
     });
-  }
-  else{
+  } else {
     res.sendStatus(500);
   }
 }

@@ -372,7 +372,7 @@ exports.findEmail = function (req, res) {
                             pemail[j] = "*";
                         }
                     }
-                    
+
                     var chec = pemail.join(""); //문자열 변환
                     arr[i] = chec.concat('@' + result[1]); //이메일형식으로 변환
                 }

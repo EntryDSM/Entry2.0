@@ -89,11 +89,12 @@ exports.getUserGrade = (req, res) => {
     ApplyData.findOne({
             user
         }, {
-            "grade": true
+            "grade": true,
+            "_id": false
         })
         .then((applyData) => {
             console.log(applyData);
-            res.status(200).json(applyData.grade);
+            res.status(200).json(applyData);
         })
         .catch((err) => {
             res.status(500).json({
@@ -176,6 +177,7 @@ exports.validation = (req, res) => {
             res.status(200).json(result);
         })
         .catch((err) => {
+            console.log(err);
             res.status(500).json({
                 "message": err.message
             });

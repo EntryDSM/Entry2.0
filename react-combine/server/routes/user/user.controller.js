@@ -76,7 +76,7 @@ exports.signin = (req, res) => {
     const password = req.body.password;
     User.findOneByEmail(email)
         .then((user) => {
-            if (!user) res.status(401).end();
+            if (!user) return res.status(401).end();
             if (user.verify(password)) {
                 req.session.key = user._id;
                 res.status(200).end();
@@ -165,15 +165,11 @@ exports.passwordChangeAuthentication = (req, res) => {
 }
 
 exports.changePassword = (req, res) => {
-    const verifyCode = req.params.verifyCode;
+    const verifyCode = req.body.verifyCode;
     const name = req.body.name;
     const email = req.body.email;
-
-    User.findOne({
-            verifyCode,
-            name,
-            email
-        })
+    const password = req.body.password;
+    User.findOneForChangePassword(verifyCode, name, email)
         .then((user) => {
             if (!user) throw new Error('400');
             else return user.changePassword(password);
