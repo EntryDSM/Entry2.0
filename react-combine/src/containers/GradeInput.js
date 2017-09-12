@@ -21,6 +21,55 @@ class GradeInput extends Component{
                 thirdGrade_firstSemester: ["", "", "", "", "", "", "",],
                 thirdGrade_secondSemester: ["", "", "", "", "", "", "",]
             },
+            scoreData: {
+                semesters: [
+                    [
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                    ],
+                    [
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                    ],
+                    [
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                    ],
+                    [
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                    ],
+                    [
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                        { pass: true, grade: null },
+                    ]
+                ]
+            },
             absence: 0,
             late: 0,
             leaving_early: 0,
@@ -60,7 +109,9 @@ class GradeInput extends Component{
         }
     }
 
+
     render(){
+        console.log(this.state);
         let attendData = [
             this.state.absence,
             this.state.late,
@@ -95,6 +146,65 @@ class GradeInput extends Component{
             secondGrade_secondSemester: ["", "", "", "", "", "", "",],
             thirdGrade_firstSemester: ["", "", "", "", "", "", "",]
         }
+        let scoreData = {
+            semesters: [
+                [
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                ],
+                [
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                ],
+                [
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                ],
+                [
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                ],
+                [
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                ],
+                [
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                    { pass: true, grade: null },
+                ]
+            ]
+        }
+
         let selectorToggle = (nodes, event, semester, subject) => {
             Array.from(nodes.parentElement.children).forEach((ele) => {
                 if(ele.textContent !== event.target.textContent){
@@ -105,196 +215,136 @@ class GradeInput extends Component{
                 event.target.classList.remove('selectedGrade');
             } else {
                 event.target.classList.add('selectedGrade');
-                switch(semester + '' + subject){
-                    case '00': 
-                        score.firstGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '01': 
-                        score.firstGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '02': 
-                        score.firstGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '03': 
-                        score.firstGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '04': 
-                        score.firstGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '05': 
-                        score.firstGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '06': 
-                        score.firstGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '10': 
-                        score.firstGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '11': 
-                        score.firstGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '12': 
-                        score.firstGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '13': 
-                        score.firstGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '14': 
-                        score.firstGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '15': 
-                        score.firstGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '16': 
-                        score.firstGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '20': 
-                        score.secondGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '21': 
-                        score.secondGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '22': 
-                        score.secondGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '23': 
-                        score.secondGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '24': 
-                        score.secondGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '25': 
-                        score.secondGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '26': 
-                        score.secondGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '30': 
-                        score.secondGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '31': 
-                        score.secondGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '32': 
-                        score.secondGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '33': 
-                        score.secondGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '34': 
-                        score.secondGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '35': 
-                        score.secondGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '36': 
-                        score.secondGrade_secondSemester[subject] = event.target.textContent;
-                        break;
-                    case '40': 
-                        score.thirdGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '41': 
-                        score.thirdGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '42': 
-                        score.thirdGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '43': 
-                        score.thirdGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '44': 
-                        score.thirdGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '45': 
-                        score.thirdGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                    case '46': 
-                        score.thirdGrade_firstSemester[subject] = event.target.textContent;
-                        break;
-                }
+                scoreData.semesters[semester][subject].grade = event.target.textContent;
                 mThis.setState({
-                    score: score
+                    scoreData: scoreData                
                 })
             }
         }
 
-        //졸업예정 GraduateToBe
-        let toBe_Rows = Array.from(document.getElementsByClassName('to_be_subjects'));
-        //toBe_Semester[] > 1차원 배열 > 학기별 성적 > Ex. [0] = 1학기 성적 * 7
-        //toBe_Semester[][] > 2차원 배열 > 과목벽 성적 > Ex. [0][0] = 1학년 1학기 성적 = A 
-        let toBe_Semester = new Array;
-        let toBe_notPass = document.querySelectorAll('#to_be_table .switchArea .unFinCheckArea .switch input');
-        for(let i=0; i<6; i++){
-            if(i > 0){
-                let semester = i + 1;
-                toBe_Semester[i - 1] = Array.from(document.querySelectorAll('.to_be_subjects .to_be_select_grade:nth-of-type(' + semester + ')'));
-            }
-        }
+        let did_Semesters = [[], [], [], [], [], []];
+        let toBe_Semesters = [[], [], [], [], []];
+        let did_GradeSelector = [[], [], [], [], [], []];
+        let toBe_GradeSelector = [[], [], [], [], []];
+        let did_NotPass = [[], [], [], [], [], []];
+        let toBe_NotPass = [[], [], [], [], []];
+        let did_SemesterNotPass = Array.from(document.querySelectorAll('#did_table tr:nth-of-type(1) td'));
+        let toBe_SemesterNotPass = Array.from(document.querySelectorAll('#to_be_table tr:nth-of-type(1) td'));
+        let did_semesterNotPass = new Array;
 
-        toBe_Semester.forEach((ele, index) => {
-            toBe_Semester[index].forEach((ele, mIndex) => {
-                toBe_Semester[index][mIndex] = Array.from(ele.children[1].children);
-                toBe_Semester[index][mIndex].forEach((selector) => {
-                    selector.addEventListener('click', (event) => {
-                        if(!selector.parentElement.parentElement.classList.contains('notpassedArea')){
-                            selectorToggle(selector, event, index, mIndex);
+        for(let i = 0; i < 6; i++){
+            let Mdid_SemesterNotPass = did_SemesterNotPass[i].children[0].children[1].children[0].children[0];
+            for(let j = 0; j < 7; j++){
+                did_Semesters[i][j] = document.querySelector('#did_table tr:nth-of-type('+ (j + 3) +') td:nth-of-type('+ (i + 2) +')');
+                did_GradeSelector[i][j] = did_Semesters[i][j].children[1];
+                did_NotPass[i][j] = did_Semesters[i][j].children[0].children[0].children[1].children[0].children[0];
+
+                Array.from(did_GradeSelector[i][j].children).forEach((ele) => {
+                    ele.addEventListener('click', (event) => {
+                        if(!did_Semesters[i][j].classList.contains('notpassedArea')){
+                            selectorToggle(ele, event, i, j);
                         }
                     })
                 })
-            })
-        })
-        
-        let semesterNotPass = document.querySelectorAll('#to_be_table .check_box .switch input');
-        let selectorArea = new Array;
-        semesterNotPass.forEach((ele, index) => {
-            ele.addEventListener('click', () => {
-                for(let i=0; i<7; i++){
-                    if(ele.checked){
-                        toBe_Semester[index][i][0].parentElement.parentElement.classList.add('notpassedArea');
-                        toBe_Semester[index][i][0].parentElement.parentElement.children[0].children[0].children[1].children[0].children[0].checked = true;
-                        toBe_Semester[index].forEach((ele) => {
-                            ele.forEach((ele) => {
-                                ele.classList.remove('selectedGrade');
-                            })
+
+                did_NotPass[i][j].addEventListener('click', () => {
+                    if(did_Semesters[i][j].classList.contains('notpassedArea')){
+                        did_Semesters[i][j].classList.remove('notpassedArea');
+                    } else {
+                        did_Semesters[i][j].classList.add('notpassedArea');
+                        Array.from(did_GradeSelector[i][j].children).forEach((ele) => {
+                            ele.classList.remove('selectedGrade');
                         })
-                    } else {
-                        toBe_Semester[index][i][0].parentElement.parentElement.classList.remove('notpassedArea');
-                        toBe_Semester[index][i][0].parentElement.parentElement.children[0].children[0].children[1].children[0].children[0].checked = false;
                     }
-                }
-            })
-        })
-        Array.from(toBe_notPass).forEach((ele, index) => {
-            if(!(ele.parentElement.parentElement.parentElement.parentElement.parentElement.id === 'to_be_not_pass')){
-                selectorArea[index - 5] = ele.parentElement.parentElement.parentElement.parentElement.parentElement;
-                ele.addEventListener('click', () => {
-                    if(!selectorArea[index - 5].classList.contains('notpassedArea')){
-                        selectorArea[index - 5].classList.add('notpassedArea');
-                    } else {
-                        selectorArea[index - 5].classList.remove('notpassedArea');
-                    }
+                    
                     let count = 0;
-                    for(let i=0; i<7; i++){
-                        if(toBe_Rows[i].children[1].classList.contains('notpassedArea')){
+                    for(let k = 0; k < 7; k++){
+                        if(did_NotPass[i][k].checked){
                             count++;
                         }
                     }
-                    console.log(count);
+
                     if(count === 7){
-                        toBe_notPass[0].checked = true;
+                        Mdid_SemesterNotPass.checked = true;
                     } else {
-                        toBe_notPass[0].checked = false;
+                        Mdid_SemesterNotPass.checked = false;
                     }
-                    Array.from(ele.parentElement.parentElement.parentElement.parentElement.parentElement.children).forEach((ele) => {
-                        if(!ele.classList.contains('is_pass_check')){
-                            Array.from(ele.children).forEach((ele) => {
-                                ele.classList.remove('selectedGrade');
-                            })
+                })
+            }
+            Mdid_SemesterNotPass.addEventListener('click', () => {
+                if(Mdid_SemesterNotPass.checked){
+                    for(let j = 0; j < 7; j++){
+                        did_Semesters[i][j].classList.add('notpassedArea');
+                        did_NotPass[i][j].checked = true;
+                        Array.from(did_GradeSelector[i][j].children).forEach((ele) => {
+                            ele.classList.remove('selectedGrade'); 
+                        })
+                    }
+                } else {
+                    for(let j = 0; j < 7; j++){
+                        did_Semesters[i][j].classList.remove('notpassedArea');
+                        did_NotPass[i][j].checked = false;
+                    }
+                }
+            })
+        }
+
+        for(let i = 0; i < 5; i++){
+            let MtoBe_SemesterNotPass = toBe_SemesterNotPass[i].children[0].children[1].children[0].children[0];
+            for(let j = 0; j < 7; j++){
+                toBe_Semesters[i][j] = document.querySelector('#to_be_table tr:nth-of-type('+ (j + 3) +') td:nth-of-type('+ (i + 2) +')');
+                toBe_GradeSelector[i][j] = toBe_Semesters[i][j].children[1];
+                toBe_NotPass[i][j] = toBe_Semesters[i][j].children[0].children[0].children[1].children[0].children[0];
+
+                Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
+                    ele.addEventListener('click', (event) => {
+                        if(!toBe_Semesters[i][j].classList.contains('notpassedArea')){
+                            selectorToggle(ele, event, i, j);
                         }
                     })
                 })
+
+                toBe_NotPass[i][j].addEventListener('click', () => {
+                    if(toBe_Semesters[i][j].classList.contains('notpassedArea')){
+                        toBe_Semesters[i][j].classList.remove('notpassedArea');
+                    } else {
+                        toBe_Semesters[i][j].classList.add('notpassedArea');
+                        Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
+                            ele.classList.remove('selectedGrade');
+                        })
+                    }
+
+                    let count = 0;
+                    for(let k = 0; k < 7; k++){
+                        if(toBe_NotPass[i][k].checked){
+                            count++;
+                        }
+                    }
+                    
+                    if(count === 7){
+                        MtoBe_SemesterNotPass.checked = true;
+                    } else {
+                        MtoBe_SemesterNotPass.checked = false;
+                    }
+                })
             }
-        })
+            MtoBe_SemesterNotPass.addEventListener('click', () => {
+                if(MtoBe_SemesterNotPass.checked){
+                    for(let j = 0; j < 7; j++){
+                        toBe_Semesters[i][j].classList.add('notpassedArea');
+                        toBe_NotPass[i][j].checked = true;
+                        Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
+                            ele.classList.remove('selectedGrade'); 
+                        })
+                    }
+                } else {
+                    for(let j = 0; j < 7; j++){
+                        toBe_Semesters[i][j].classList.remove('notpassedArea');
+                        toBe_NotPass[i][j].checked = false;
+                    }
+                }
+            })
+        }
     }
 }
 
