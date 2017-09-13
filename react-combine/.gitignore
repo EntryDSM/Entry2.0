@@ -1,13 +1,30 @@
+-# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+-# dependencies
+ -/node_modules
 
 # Created by https://www.gitignore.io/api/node,macos,windows,webstorm
+
+-# testing
+ -/coverage
 
 ### macOS ###
 *.DS_Store
 .AppleDouble
 .LSOverride
 
+-# production
+ -/build
+
 # Icon must end with two \r
 Icon
+
+-# misc
+ -.DS_Store
+ -.env.local
+ -.env.development.local
+ -.env.test.local
+ -.env.production.local
 
 # Thumbnails
 ._*
