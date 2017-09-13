@@ -2,18 +2,18 @@ let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let ApplyData = Schema({
-    user: { type : Schema.Types.ObjectId, ref : 'User', required : true, unique : true },
-    classification: { type : JSON, required: true },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
+    classification: { type: JSON, required: true },
     info: { type: JSON, required: true },
     grade: { type: JSON, required: true },
     introduce: { type: JSON, required: true },
-    submitNumber: { type : Number, required: true, default : -1 },
-    examNumber: { type : Number, default : null },
-    applyStatus: { type : Boolean, default : false },
-    createdAt : { type : String, required: true },
-    updatedAt: { type : String, required: true },
-    profile : { type : String, required: false, default : null }
-}, {collection : 'ApplyData'});
+    submitNumber: { type: Number, required: true, default: -1 },
+    examNumber: { type: Number, default: null },
+    applyStatus: { type: Boolean, default: false },
+    createdAt: { type: String, required: true },
+    updatedAt: { type: String, required: true },
+    profile: { type: String, required: false, default: null }
+}, { collection: 'ApplyData' });
 
 /*
 user : 지원자 고유 키
@@ -173,19 +173,27 @@ ApplyData.statics.createEmpty = function (user) {
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
-    let cursor = this.find({}, { 'submitNumber': true }).sort('submitNumber').limit(1);
-    const submitNumber = cursor.hasNext() ? cursor.next().submitNumber + 1 : 1;
-
-    return new this({
-        user,
-        "classification": documentTemplate.classification,
-        "info": documentTemplate.info,
-        "grade": documentTemplate.grade,
-        "introduce": documentTemplate.introduce,
-        "createdAt": date_now,
-        "updatedAt": date_now,
-        submitNumber
-    }).save();
+    this.find({}, { 'submitNumber': true }).sort({ 'submitNumber': -1 })
+        .then((current) => {
+            console.log("===================\n" + current[0])
+            console.log("===================\n" + current.length);
+            const next = typeof current[0] !== "undefined" ? current[0].submitNumber + 1 : 1;
+            console.log("===================\n" + next)
+            
+            return new this({
+                user,
+                "classification": documentTemplate.classification,
+                "info": documentTemplate.info,
+                "grade": documentTemplate.grade,
+                "introduce": documentTemplate.introduce,
+                "createdAt": date_now,
+                "updatedAt": date_now,
+                "submitNumber" : next
+            }).save();
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
 }
 
 ApplyData.methods.reviseProfile = function (src) {

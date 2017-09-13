@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 class SelfIntroduce extends Component {
      render() {
         let datas = this.props.datas();
-        console.log(datas);
         return(
             <div id="selfintroduce">
                 <div id="introduce_header">

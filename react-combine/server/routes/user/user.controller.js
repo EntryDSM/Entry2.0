@@ -67,6 +67,7 @@ exports.emailAuthentication = (req, res) => {
             return res.status(201).end();
         })
         .catch((err) => {
+            console.log(err);
             // 만료된 링크 :: 410
             if (err.message === 'NOT FOUND') res.status(410).end();
             else res.status(500).end();

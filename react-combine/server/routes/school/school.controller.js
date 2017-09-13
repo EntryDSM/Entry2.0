@@ -6,6 +6,7 @@ exports.search = (req, res) => {
     console.log(name);
     search(name, goverment)
         .then((schools) => {
+            console.log(schools)
             res.status(200).json(schools);
         })
         .catch((err) => {

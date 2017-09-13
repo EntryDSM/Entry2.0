@@ -2,7 +2,6 @@ import React, {Component} from 'react';
  
 class PreviewHeader extends Component {
      render() {
-        console.log(this.props.datas);
         var that = this;
         var buttons = null;
         if(this.props.datas != null) {

@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 class UserInfo extends Component {
     render() {
         let datas = this.props.datas();
-        console.log(datas);
         return(
             <div id="userinfo">
                 <div id="header">

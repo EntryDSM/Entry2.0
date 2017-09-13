@@ -66,7 +66,6 @@ class Introduce extends Component {
     }
 
     render(){
-        console.log(this.context.store.getState());
         return(
             <div id="contents">
                 <InputHeader now={"자기소개서 및 학업계획서"} />

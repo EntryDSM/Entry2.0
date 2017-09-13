@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 class StudyPlan extends Component {
      render() {
         let datas = this.props.datas();
-        console.log(datas)
         return(
             <div id="study_plan">
                 <div id="introduce_header">

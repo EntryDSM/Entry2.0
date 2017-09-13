@@ -148,37 +148,37 @@ class Classification extends Component {
             console.log(response)
             console.log(response.data);
             this.setState({
-                local: response.data.regionType,
-                type: response.data.applyBaseType.type,
-                graduation: response.data.graduateType,
-                date: response.data.graduateYear,
+                local: response.data.local,
+                type: response.data.type,
+                graduation: response.data.graduation,
+                date: response.data.date,
                 detail: "",
-                isCountryMerit: response.data.applyDetailType.IS_NATIONAL_MERIT,
-                isSpecial: response.data.applyDetailType.IS_EXCEPTIONEE
+                isCountryMerit: response.data.isCountryMerit,
+                isSpecial: response.data.isSpecial
             })
         }).catch(err => {
             console.log(err);
         })
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.getAlreadyData();
     }
 
     render() {
         const {store} = this.context;
         let signUpData = store.getState().signUp.SIGNUP_DATA;
-        console.log(store.getState());
-        console.log(signUpData);
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>
                 <div id="classification">
                     <DefaultInfo
+                        local={this.state.local}
                         isBlackTest={this.state.isBlackTest}
                         setIsBlackTest={this.setIsBlackTest.bind(this)}
                         radioSetter={this.radioSetter.bind(this)}/>
                     <Graduate 
+                        graduation={this.state.graduation}
                         radioSetter={this.radioSetter.bind(this)}/>
                     <TypeAndMemo
                         onSocietyClick={this.onSocietyClick.bind(this)} 
@@ -224,7 +224,8 @@ const DefaultInfo = (props) => {
                 name="local"
                 id="country" 
                 value="country"
-                onClick={props.radioSetter} /> 
+                onClick={props.radioSetter}
+                checked={props.local === 'country'} /> 
             <label htmlFor="country">전국</label>
 
             <input 
@@ -232,7 +233,8 @@ const DefaultInfo = (props) => {
                 name="local" 
                 id="daejeon" 
                 value="daejeon"
-                onClick={props.radioSetter} /> 
+                onClick={props.radioSetter}
+                checked={props.local === 'daejeon'} /> 
             <label htmlFor="Daejeon">대전</label><br />
     </div>
     )
@@ -248,7 +250,8 @@ const Graduate = (props) => {
             name="graduation"
             id="will-graduate"
             value="willGraduate"
-            onClick={props.radioSetter}/>
+            onClick={props.radioSetter}
+            checked={props.graduation === 'will-graduate'}/>
         <label htmlFor="will-graduate">졸업 예정</label>
 
         <input
@@ -256,7 +259,8 @@ const Graduate = (props) => {
             name="graduation"
             id="graduated"
             value="graduated"
-            onClick={props.radioSetter}/>
+            onClick={props.radioSetter}
+            checked={props.graduation === 'graduated'}/>
         <label htmlFor="graduated">졸업</label> <br />
 
         <span>졸업년도</span>

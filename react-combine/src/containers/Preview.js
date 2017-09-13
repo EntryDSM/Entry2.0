@@ -104,8 +104,7 @@ class Preview extends Component {
             e.preventDefault();
             window.print();
         }
-        console.log('preview');
-        console.log(this.state);
+
         return(
             <div id="contents">
                 <div id="preview">

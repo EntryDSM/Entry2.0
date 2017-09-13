@@ -99,12 +99,10 @@ class FindSchoolModal extends React.Component {
                 for(i=startPage; i<=endPage; i++) {
                     datas.push(i);
                 }
-                console.log('datas',datas);
 
                 if(endPage < totalPage) {
                     datas.push(">");
                 }
-                console.log('datas',datas);
 
                 that.setState({
                     pageData: datas

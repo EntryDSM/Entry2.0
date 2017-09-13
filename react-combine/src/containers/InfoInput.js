@@ -44,25 +44,25 @@ class InfoInput extends Component {
         this.submitInfo= this.submitInfo.bind(this);
     }
 
-    // componentDidMount(){
-    //     axios({
-    //         method: 'get',
-    //         url: '/api/user/',
-    //         withCredentials: false,
-    //         headers: {
-    //             "Access-Control-Allow-Origin": "http://114.108.135.15",
-    //             "ContentType": "application/json"
-    //         }
-    //     }).then(response => {
-    //         console.log(response.data);
-    //         this.setState({
-    //             name: response.data.user.name,
-    //             email: response.data.user.email
-    //         })
-    //     }).catch(err => {
-    //         console.log(err);
-    //     })
-    // }
+    componentDidMount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification',
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://114.108.135.15",
+                "ContentType": "application/json"
+            }
+        }).then(response => {
+            console.log(response.data);
+            this.setState({
+                name: response.data.user.name,
+                email: response.data.user.email
+            })
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     submitInfo(){
         let store = this.context.store;
@@ -237,8 +237,8 @@ class InfoInput extends Component {
                         <InputHeader now={"인적 사항"} />
                     </div>
                     <InfoInputTable 
-                        name={"태훈맘"}
-                        email={"태훈맘@naver.com"}
+                        name={this.state.name}
+                        email={this.state.email}
                         setSex={this.setSex.bind(this)}
                         setAddress={this.setAddress.bind(this)}
                         setBirthYear={this.setBirthYear.bind(this)}

@@ -153,7 +153,6 @@ class GradeInput extends Component{
     }
 
     render(){
-        console.log(this.state.score)
         let attendData = [
             this.state.absence,
             this.state.lateness,
