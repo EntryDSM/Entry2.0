@@ -36,8 +36,6 @@ app.use(bodyparser.json());
 // app.use(require('express-method-override')('method_override_param_name'));
 app.use(fileUpload());
 
-app.use('/images', static(path.join(__dirname, '/images')));
-
 app.use('/', router);
 
 
