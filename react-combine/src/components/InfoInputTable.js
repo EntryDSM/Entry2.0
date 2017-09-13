@@ -81,7 +81,7 @@ class InfoInputTable extends React.Component {
                         <tr id="tr_address">
                             <td className="td_title">주소</td>
                             <td className="td_content" colSpan="2">
-                                <input type="text" className="input_style" id="base_address" readOnly/><AddressModal />
+                                <input type="text" className="input_style" id="base_address" readOnly/><AddressModal setAddress={this.props.setAddress}/>
                                 <input type="text" className="input_style" id="detail_address" onChange={this.props.setDetailAddress}/>
                             </td>
                         </tr>

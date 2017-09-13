@@ -11,6 +11,7 @@ class AddressModalTable extends Component {
 
     setAddress(address) {
         document.querySelector("#base_address").value = address;
+        this.props.setAddress(address);
         this.props.closeModal();
     }
 

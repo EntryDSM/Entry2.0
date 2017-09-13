@@ -18,7 +18,6 @@ class EmailCertifyModal extends React.Component {
         return (
             <Modal
                 isOpen={this.props.modalIsOpen}
-                onRequestClose={this.props.closeModal}
                 contentLabel="이메일인증"
                 className="modal_style">
 

@@ -87,14 +87,26 @@ class Classification extends Component {
 
     classificationSubmit(){
         let store = this.context.store;
+        let isSpecial = false;
+        let isCountryMerit = false;
+        if(this.state.isSpecial === 'special_yes'){
+            isSpecial = true;
+        } else {
+            isSpecial = false;
+        }
+        if(this.state.isCountryMerit === 'country_merit_yes'){
+            isCountryMerit = true;
+        } else {
+            isCountryMerit = false;
+        }
         let postData = {
             local: this.state.local,
             type: this.state.type,
             graduation: this.state.graduation,
             date: this.state.date,
             detail: this.state.detail,
-            isSpecial: this.state.isSpecial,
-            isCountryMerit: this.state.isCountryMerit
+            isSpecial: isSpecial,
+            isCountryMerit: isCountryMerit
         }
         store.dispatch(classificationData(postData));
         let storeData = store.getState().selectClassification.CLASSIFICATION_DATA;

@@ -32,11 +32,33 @@ class InfoInput extends Component {
             detailAddress: "",
             birthYear: "",
             birthMonth: "",
-            birthDay: ""
+            birthDay: "",
+            name: "",
+            email: ""
         };
 
         this.submitInfo= this.submitInfo.bind(this);
     }
+
+    // componentDidMount(){
+    //     axios({
+    //         method: 'get',
+    //         url: '/api/user/',
+    //         withCredentials: false,
+    //         headers: {
+    //             "Access-Control-Allow-Origin": "http://114.108.135.15",
+    //             "ContentType": "application/json"
+    //         }
+    //     }).then(response => {
+    //         console.log(response.data);
+    //         this.setState({
+    //             name: response.data.user.name,
+    //             email: response.data.user.email
+    //         })
+    //     }).catch(err => {
+    //         console.log(err);
+    //     })
+    // }
 
     submitInfo(){
         let store = this.context.store;
@@ -51,7 +73,7 @@ class InfoInput extends Component {
             phoneNum: this.state.phoneNum[0] + this.state.phoneNum[1] + this.state.phoneNum[2],
             parentsTel: this.state.parentsTel[0] + this.state.parentsTel[1] + this.state.parentsTel[2],
             address: this.state.address,
-            detailAddress: this.state.detailAddress,
+            address: this.state.address + this.state.detailAddress,
             birth: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
         }
         store.dispatch(infoInputData(postData));
@@ -71,7 +93,7 @@ class InfoInput extends Component {
                     parentsTel: storeData.parentsTel,
                     parentsName: storeData.parentsName,
                     birth: storeData.birth,
-                    baseAddress: storeData.baseAddress,
+                    address: storeData.address,
                     detailAddress: storeData.detailAddress
                 }
             },
@@ -172,7 +194,7 @@ class InfoInput extends Component {
     }
     setBirthMonth(e){
         this.setState({
-            birtMonth: e.target.value
+            birthMonth: e.target.value
         })
     }
     setBirthDay(e){
@@ -180,9 +202,9 @@ class InfoInput extends Component {
             birthDay: e.target.value
         })
     }
-    setAddress(e){
+    setAddress(address){
         this.setState({
-            address: e.target.value
+            address: address
         })
     }
     setDetailAddress(e){
@@ -194,6 +216,7 @@ class InfoInput extends Component {
     render(){
         const {store} = this.context;
         let signUpData = store.getState().signUp.SIGN_UP_DATA;
+        console.log(this.state);
         return(
             <div id="contents">
                 <div id="info_input">
@@ -201,8 +224,8 @@ class InfoInput extends Component {
                         <InputHeader now={"인적 사항"} />
                     </div>
                     <InfoInputTable 
-                        name={signUpData.name}
-                        email={signUpData.email}
+                        name={"태훈맘"}
+                        email={"태훈맘@naver.com"}
                         setSex={this.setSex.bind(this)}
                         setAddress={this.setAddress.bind(this)}
                         setBirthYear={this.setBirthYear.bind(this)}

@@ -130,7 +130,7 @@ class AddressModal extends React.Component {
                         <input type="text" placeholder="검색어를 입력하세요 (반포대로 58, 독립기념관, 삼성동 25)" id="input_searchaddress" onKeyDown={this.enter}/>
                         <img id="btn_searchaddress" src={require('../images/search.png')} onClick={()=> this.searchAddress(this.Firstpage)}/>
 
-                        <AddressModalTable datas={this.state.addressData} closeModal={this.closeModal}/>
+                        <AddressModalTable setAddress={this.props.setAddress} datas={this.state.addressData} closeModal={this.closeModal}/>
                         <AddressModalPagenum datas={this.state.pageData} searchAddr={this.searchAddress} />
                         
                     </div>

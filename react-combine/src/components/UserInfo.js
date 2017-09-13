@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
  
 class UserInfo extends Component {
-     render() {
+    render() {
+        let datas = this.props.datas();
+        console.log(datas);
         return(
             <div id="userinfo">
                 <div id="header">
@@ -16,29 +18,29 @@ class UserInfo extends Component {
                                 <td>접수번호</td>
                                 <td colSpan="2"></td>
                                 <td>중학교 코드</td>
-                                <td></td>
+                                <td>{datas.schoolCode}</td>
                                 <td>반</td>
-                                <td></td>
+                                <td>{datas.class}</td>
                                 <td colSpan="2">수험번호</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td rowSpan="2">지원자<br/>인적사항</td>
                                 <td>성명</td>
-                                <td></td>
+                                <td>{datas.name}</td>
                                 <td>생년월일</td>
-                                <td colSpan="3"></td>
+                                <td colSpan="3">{datas.birth}</td>
                                 <td>성별</td>
                                 <td colSpan="2">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.sex === '남'} readOnly />
                                     남
-                                    &nbsp;&nbsp;&nbsp;<input type="checkbox"/>
+                                    &nbsp;&nbsp;&nbsp;<input type="checkbox" checked={datas.sex === '여'} readOnly />
                                     여
                                 </td>
                             </tr>
                             <tr>
                                 <td>주소</td>
-                                <td colSpan="8"></td>
+                                <td colSpan="8">{datas.address}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -47,24 +49,24 @@ class UserInfo extends Component {
                             <tr>
                                 <td rowSpan="3">전화<br/>연락처</td>
                                 <td>보호자</td>
-                                <td></td>
+                                <td>{datas.parentsTel}</td>
                                 <td rowSpan="3">졸업<br/>구분</td>
                                 <td>
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.graduation === 'will-graduate'} readOnly />
                                     &nbsp;&nbsp;&nbsp;2018년 중학교 졸업예정
                                 </td>
                             </tr>
                             <tr>
                                 <td>학교</td>
-                                <td></td>
+                                <td>{this.props.datas.schoolTel}</td>
                                 <td>
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.graduation === 'graduated'} readOnly />
                                     &nbsp;&nbsp;&nbsp;2017년 중학교 졸업
                                 </td>
                             </tr>
                             <tr>
                                 <td>학생</td>
-                                <td></td>
+                                <td>{datas.phoneNum}</td>
                                 <td>
                                     <input type="checkbox"/>
                                     &nbsp;&nbsp;&nbsp;2017년 고입 검정고시 합격
@@ -77,40 +79,40 @@ class UserInfo extends Component {
                             <tr>
                                 <td rowSpan="4">전형유형</td>
                                 <td colSpan="2">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.type === 'general'} readOnly/>
                                     일반전형
                                 </td>
                                 <td rowSpan="4">지원자<br/>특기<br/>사항</td>
                                 <td rowSpan="2">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.isCountryMerit}/>
                                     국가유공자자녀
                                 </td>
                                 <td rowSpan="4">지역</td>
                                 <td rowSpan="2">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.local === 'daejeon'}/>
                                     대전
                                 </td>
                             </tr>
                             <tr>
                                 <td rowSpan="2">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.type === 'meister'} readOnly/>
                                     마이스터인재전형
                                 </td>
                                 <td rowSpan="3">특별<br/>전형</td>
                             </tr>
                             <tr>
                                 <td rowSpan="2">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.isSpecial}/>
                                     특례입학대상자
                                 </td>
                                 <td rowSpan="2">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.local === 'country'}/>
                                     전국
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.type === 'society'} readOnly/>
                                     사회통합전형
                                 </td>
                             </tr>
@@ -126,9 +128,9 @@ class UserInfo extends Component {
                                 <td rowSpan="2">총점</td>
                             </tr>
                             <tr>
-                                <td>1학년<br/>평균평점</td>
-                                <td>2학년<br/>평균평점</td>
-                                <td>3학년<br/>평균평점</td>
+                                <td>1학년<br/>환산점수</td>
+                                <td>2학년<br/>환산점수</td>
+                                <td>3학년<br/>환산점수</td>
                                 <td>교과성적<br/>환산점수</td>
                             </tr>
                             <tr>
@@ -155,13 +157,13 @@ class UserInfo extends Component {
                                         <br/>
                                         2017. 10. 31.
                                         <br/>
-                                        작성자: 정근철 (인)
+                                        작성자: {this.props.datas.name} (인)
                                     </p>
                                 </td>
                                 <td>
                                     <p>본인은 귀 고등학교에 입학하고자 소정의 소류를 갖추어 지원합니다.</p>
                                     <p>2017년 10월 31일</p>
-                                    <p>지원자:&nbsp; 정근철 (인)&nbsp;&nbsp;&nbsp; 보호자:&nbsp; 정근철 (인)</p>
+                                    <p>지원자:&nbsp; {datas.name} (인)&nbsp;&nbsp;&nbsp; 보호자:&nbsp; {datas.parentsName} (인)</p>
                                     <p>대덕소프트웨어마이스터고등학교장 귀하</p>
                                 </td>
                                 <td>
@@ -205,9 +207,9 @@ class UserInfo extends Component {
                     <div id="footer">
                         <p>본 입학원서의 개인정보 수집, 이용, 제공에 동의합니다.</p>
                         <p>
-                            지원자 성명&nbsp;&nbsp;&nbsp;정근철&nbsp;&nbsp;&nbsp; (인)
+                            지원자 성명&nbsp;&nbsp;&nbsp;{datas.name}&nbsp;&nbsp;&nbsp; (인)
                             <br/>
-                            지원자 성명&nbsp;&nbsp;&nbsp;정근철&nbsp;&nbsp;&nbsp; (인)
+                            지원자 성명&nbsp;&nbsp;&nbsp;{datas.parentsName}&nbsp;&nbsp;&nbsp; (인)
                         </p>
                     </div>
                 </div>
