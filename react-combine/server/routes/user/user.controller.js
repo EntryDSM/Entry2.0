@@ -41,7 +41,7 @@ hashed_email : 암호화된 이메일 값 (url의 /:email)
 */
 exports.emailAuthentication = (req, res) => {
     const verifyCode = req.params.verifyCode;
-
+    let key;
     WUser.findOne({
             "verifyCode": verifyCode
         })
@@ -57,11 +57,13 @@ exports.emailAuthentication = (req, res) => {
         .then((user) => {
             // 초기 ApplyData Document 생성
             console.log(user);
+            key = user._id;
             return ApplyData.createEmpty(user._id);
         })
         .then((applyData) => {
             console.log(applyData);
             // 사용자, 빈 문서 생성 성공 :: 201
+            req.session.key = key;
             return res.status(201).end();
         })
         .catch((err) => {
