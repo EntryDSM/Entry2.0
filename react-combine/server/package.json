@@ -17,6 +17,7 @@
     "express-fileupload": "^0.2.0",
     "express-method-override": "0.0.3",
     "express-session": "^1.15.5",
+    "mongodb-backup": "^1.6.9",
     "mongoose": "^4.11.9",
     "nodemailer": "^4.0.1",
     "nodemailer-smtp-pool": "^2.8.3",
