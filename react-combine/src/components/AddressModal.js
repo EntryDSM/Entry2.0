@@ -119,7 +119,6 @@ class AddressModal extends React.Component {
                 <button className="btn_style" id="btn_findaddress" onClick={this.openModal}>주소찾기</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
-                    onRequestClose={this.closeModal}
                     contentLabel="주소찾기"
                     className="modal_style">
 
@@ -135,7 +134,7 @@ class AddressModal extends React.Component {
 
                         <AddressModalTable datas={this.state.addressData} closeModal={this.closeModal}/>
                         <AddressModalPagenum datas={this.state.pageData} searchAddr={this.searchAddress} />
-                        
+                        {/* <input> */}
                     </div>
                 </Modal>
             </div>

@@ -35,12 +35,11 @@ class PersonalAgreeModal extends React.Component {
             <div id ="agree_modal">
                 <div id="modal_area">
                     <button className="btn_style" id="btn_personalagree" onClick={this.openModal}>개인정보활용동의서</button>&nbsp;
-                    본 입학원서의 개인정부 수집‧이용‧제공에 동의합니다.&nbsp;
+                    본 입학원서의 개인정보 수집‧이용‧제공에 동의합니다.&nbsp;
                     <input type="checkbox" checked= {this.state.isChecked}/>&nbsp;
                 </div>
                 <Modal
                     isOpen={this.state.modalIsOpen}
-                    onRequestClose={this.closeModal}
                     contentLabel="개인정보활용동의서"
                     className="modal_style">
 

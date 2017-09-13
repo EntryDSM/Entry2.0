@@ -44,7 +44,6 @@ class FindSchoolModal extends React.Component {
                 <button className="btn_style" id="btn_findschool" onClick={this.openModal}>학교찾기</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
-                    onRequestClose={this.closeModal}
                     contentLabel="학교찾기"
                     className="modal_style">
 
