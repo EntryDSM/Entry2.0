@@ -22,6 +22,7 @@ class Classification extends Component {
             isSocietySelected: false,
             isBlackTest: false
         }
+        this.getAlreadyData = this.getAlreadyData.bind(this);
     }
 
     setIsBlackTest(){
@@ -121,6 +122,34 @@ class Classification extends Component {
         }).catch(function(err){
             console.log(err);
         });
+    }
+
+    getAlreadyData(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification',
+            withCredentials: false,
+            headers : {
+                "Access-Control-Allow-Origin" : "http://114.108.135.15"
+            }
+        }).then(response => {
+            console.log(response)
+            this.setState({
+                local: response.data.classification.regionType,
+                type: response.data.classification.applyBaseType.type,
+                graduation: response.data.classification.graduateType,
+                date: response.data.classification.graduateYear,
+                detail: "",
+                isCountryMerit: response.data.classification.applyDetailType.IS_NATIONAL_MERIT,
+                isSpecial: response.data.classification.applyDetailType.IS_EXCEPTIONEE
+            })
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    componentDidMount(){
+        this.getAlreadyData();
     }
 
     render() {
