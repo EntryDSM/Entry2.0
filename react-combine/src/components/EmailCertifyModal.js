@@ -42,7 +42,6 @@ class EmailCertifyModal extends React.Component {
                 <button id="btn_emailcertify" onClick={this.openModal}>이메일 인증</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
-                    onRequestClose={this.closeModal}
                     contentLabel="이메일인증"
                     className="modal_style">
 
