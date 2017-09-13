@@ -494,4 +494,7 @@ __pycache__/
 
 confi.json
 
+# profileImages
+/uploads
+
 # End of https://www.gitignore.io/api/node,linux,macos,windows,webstorm,visualstudio,visualstudiocode

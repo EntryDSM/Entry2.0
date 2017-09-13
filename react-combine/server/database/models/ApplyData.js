@@ -7,11 +7,12 @@ let ApplyData = Schema({
     info: { type: JSON, required: true },
     grade: { type: JSON, required: true },
     introduce: { type: JSON, required: true },
-    submitNumber: { type : Number, default : null },
+    submitNumber: { type : Number, required: true, default : -1 },
     examNumber: { type : Number, default : null },
     applyStatus: { type : Boolean, default : false },
     createdAt : { type : String, required: true },
-    updatedAt: { type : String, required: true }
+    updatedAt: { type : String, required: true },
+    profile : { type : String, required: false, default : null }
 }, {collection : 'ApplyData'});
 
 /*
@@ -172,6 +173,9 @@ ApplyData.statics.createEmpty = function (user) {
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
+    let cursor = this.find({}, { 'submitNumber': true }).sort('submitNumber').limit(1);
+    const submitNumber = cursor.hasNext() ? cursor.next().submitNumber + 1 : 1;
+
     return new this({
         user,
         "classification": documentTemplate.classification,
@@ -179,11 +183,23 @@ ApplyData.statics.createEmpty = function (user) {
         "grade": documentTemplate.grade,
         "introduce": documentTemplate.introduce,
         "createdAt": date_now,
-        "updatedAt": date_now
+        "updatedAt": date_now,
+        submitNumber
     }).save();
 }
 
+ApplyData.methods.reviseProfile = function (src) {
+    this.profile = src;
+
+    return this.save();
+}
+
 ApplyData.methods.reviseClassification = function (classification) {
+    const date = new Date();
+    const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
+        date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    this.updatedAt = date_now;
+
     if ((this.classification.isBlack !== classification.isBlack) && classification.isBlack) this.grade = documentTemplate.grade_black;
     else if (this.classification.isBlack && (this.classification.isBlack !== classification.isBlack)) {
         this.grade = documentTemplate[classification.graduateType == 'WILL' ? 'grade_will' : 'grade_done'];
@@ -193,18 +209,33 @@ ApplyData.methods.reviseClassification = function (classification) {
 }
 
 ApplyData.methods.reviseInfo = function (info) {
+    const date = new Date();
+    const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
+        date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    this.updatedAt = date_now;
+
     this.info = info;
 
     return this.save();
 }
 
 ApplyData.methods.reviseGrade = function (grade) {
+    const date = new Date();
+    const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
+        date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    this.updatedAt = date_now;
+
     this.grade = grade;
 
     return this.save();
 }
 
 ApplyData.methods.reviseIntroduce = function (introduce) {
+    const date = new Date();
+    const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
+        date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    this.updatedAt = date_now;
+
     this.introduce = introduce;
 
     return this.save();

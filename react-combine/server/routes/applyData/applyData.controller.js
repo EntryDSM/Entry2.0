@@ -1,4 +1,6 @@
 const ApplyData = require('../../database/models/ApplyData');
+const UUID = require('uuid/v4');
+const fs = require('fs');
 
 exports.getUserInfo = (req, res) => {
     const user = req.session.key;
@@ -197,5 +199,59 @@ exports.preview = (req, res) => {
             res.status(500).json({
                 "message": err.message
             });
+        })
+}
+
+exports.getProfile = (req, res) => {
+    const user = req.session.key;
+    ApplyData.findOne({
+            user
+        }, {
+            "profile": true
+        })
+        .then((applyData) => {
+            if (applyData.profile === null) res.status(404).end();
+            else {
+                const file = fs.readFileSync(__dirname + `/../../uploads/${applyData.profile}`);
+                res.writeHead(200, {
+                    "Content-Type": `image/${applyData.profile.split("\.").pop()}`
+                });
+                res.write(file);
+                res.end();
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).end();
+        })
+}
+
+exports.reviseProfile = (req, res) => {
+    const user = req.session.key;
+    const file = req.files.profile;
+    const src = UUID().slice(0, 12) + `.${file.mimetype.split("/")[1]}`;
+    console.log(src);
+    if (typeof file === "undefined" || file === null) return res.status(400).end();
+
+    let _applyData;
+
+    ApplyData.findOne({
+            user
+        })
+        .then((applyData) => {
+            if (!applyData) throw new Error('NOT FOUND');
+            _applyData = applyData;
+            fs.unlinkSync(__dirname + `/../../uploads/${applyData.profile}`);
+            return file.mv(__dirname + `/../../uploads/${src}`);
+        })
+        .then(() => {
+            return _applyData.reviseProfile(src);
+        })
+        .then(() => {
+            res.status(200).end();
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).end();
         })
 }

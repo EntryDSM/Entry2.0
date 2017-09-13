@@ -13,5 +13,7 @@ router.route('/user/introduce').get(onlyUser, controller.getUserIntroduce);
 router.route('/user/introduce').put(onlyUser, controller.reviseUserIntroduce);
 router.route('/validation').get(onlyUser, controller.validation);
 router.route('/preview').get(onlyUser, controller.preview);
+router.route('/upload/profile').get(onlyUser, controller.getProfile);
+router.route('/upload/profile').put(onlyUser, controller.reviseProfile);
 
 module.exports = router;
