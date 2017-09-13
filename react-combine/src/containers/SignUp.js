@@ -18,7 +18,7 @@ class SignUp extends Component{
             name: "",
             email: "",
             emailDomain: "naver.com",
-            password: ""
+            password: "",
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
@@ -125,10 +125,6 @@ class SignUp extends Component{
                                     name: '비밀번호 확인',
                                     type: 'password',
                                     className: 'input_style'
-                                }, 
-                                {
-                                    name: '개인정보활용동의',
-                                    type: 'checkbox'
                                 }
                             ]
                         }/>
