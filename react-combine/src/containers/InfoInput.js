@@ -17,8 +17,12 @@ class InfoInput extends Component {
             grade: undefined,
             class: undefined,
             parentsName: "",
+
             schoolCode: undefined,
             schoolName: "",
+            schoolCode: "",
+            goverment: "서울특별시교육청",
+
             schoolTel: [
                 "", "", ""
             ],
@@ -114,12 +118,14 @@ class InfoInput extends Component {
     }
     
     getSchoolCode(){
+        console.log(this.state.schoolName);
+        console.log(this.state.goverment);
         axios({
             method: 'get',
-            url: '/api/school',
+            url: 'api/school',
             params: {
-                name: "",
-                goverment: ""
+                name: this.state.schoolName,
+                goverment: this.state.goverment
             },
             withCredentials: false,
             headers: {
@@ -129,13 +135,14 @@ class InfoInput extends Component {
         }).then(response => {
             console.log(response);
             console.log(response.data);
-        }).catch(error => {
-            console.log(error.config);
-            console.log(error.response);
-            console.log(error.request);
+            console.log('what the fuck');
+        }).catch(err => {
+            console.log(err);
+            console.log(err.config);
+            console.log(err.request);
+            console.log('what the hell');
         })
     }
-
     setSex(e){
         this.setState({
             sex: e.target.value
@@ -212,6 +219,12 @@ class InfoInput extends Component {
             detailAddress: e.target.value
         })
     }
+
+    setGoverment(e){
+        this.setState({
+            goverment: e.target.value
+        })
+    }
     
     render(){
         const {store} = this.context;
@@ -238,7 +251,11 @@ class InfoInput extends Component {
                         setParentsTel={this.setParentsTel.bind(this)}
                         setPhoneNum={this.setPhoneNum.bind(this)}
                         setSchoolTel={this.setSchoolTel.bind(this)}
-                        getSchoolCode={this.getSchoolCode.bind(this)}/>
+                        setSchoolName={this.setSchoolName.bind(this)}
+                        schoolName={this.state.schoolName}
+                        getSchoolCode={this.getSchoolCode.bind(this)}
+                        setGoverment={this.setGoverment.bind(this)}
+                        goverment={this.state.goverment}/>
                     <Button router="/classification" buttonName="이전"/>
                     <Button onclick={this.submitInfo.bind(this)} buttonName="다음"/>
                 </div>

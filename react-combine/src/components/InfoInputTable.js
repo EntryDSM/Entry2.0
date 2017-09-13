@@ -40,7 +40,12 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">중학교명</td>
                             <td className="td_content">
-                                <input type="text" className="input_style" id="school_name" readOnly/><FindSchoolModal />
+                                <input type="text" className="input_style" id="school_name" readOnly/><FindSchoolModal 
+                                schoolName={this.props.schoolName}
+                                goverment={this.props.goverment} 
+                                setSchoolName={this.props.setSchoolName}
+                                getSchoolCode={this.props.getSchoolCode}
+                                setGoverment={this.props.setGoverment}/>
                             </td>
                         </tr>
                         <tr>

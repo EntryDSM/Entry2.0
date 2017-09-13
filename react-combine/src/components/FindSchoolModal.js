@@ -34,7 +34,7 @@ class FindSchoolModal extends React.Component {
 
     enter(event) {
         if(event.keyCode == 13) {
-            this.searchAddress();
+            this.props.getSchoolCode;
         }
     }
 
@@ -55,7 +55,7 @@ class FindSchoolModal extends React.Component {
 
         axios({
             method: "get",
-            url: 'http://114.108.135.15:8080/user/inquiry/',
+            url: '/api/school',
             withCredentials: 'false',
             params: {
                 schoolName: document.getElementById("input_searchschool").value
@@ -153,9 +153,10 @@ class FindSchoolModal extends React.Component {
                                 {"eduName" : "제주특별자치도교육청"},
                                 {"eduName" : "세종특별자치시교육청"}
                             ]
-                        }/>
-                        <input type="text" placeholder="학교명을 입력해주세요." id="input_searchschool" onKeyDown={this.enter}/>
-                        <img id="btn_searchschool" onClick={() => this.searchAddress(this.Firstpage)} src={require('../images/search.png')}/>
+                        }
+                        setGoverment={this.props.setGoverment}/>
+                        <input type="text" placeholder="학교명을 입력해주세요." id="input_searchschool" onChange={this.props.setSchoolName} onKeyDown={this.enter}/>
+                        <img id="btn_searchschool" onClick={this.props.getSchoolCode} src={require('../images/search.png')}/>
                         
                         <FindSchoolModalTable />
                     </div>
@@ -167,7 +168,7 @@ class FindSchoolModal extends React.Component {
 
 const EduOptions = (props) => {
     return(
-        <select>
+        <select onChange={props.setGoverment}>
             {props.educations.map((vals, idx) => {
                 return(
                     <option value = {vals.eduName} key = {idx}>
