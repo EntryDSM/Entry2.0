@@ -71,7 +71,7 @@ class GradeInput extends Component{
             earlyLeave: 0,
             subjectEscape: 0,
             volunteer: 0,
-            graduated: "hide",
+            graduated: null,
             graduate_to_be: null,
             black: null
         };
@@ -179,6 +179,21 @@ class GradeInput extends Component{
     }
 
     componentDidMount(){
+        let store = this.context.store;
+        let storeData = this.context.store.getState().selectClassification.CLASSIFICATION_DATA;
+        switch(storeData.graduation){
+            case "will-graduate": 
+                this.setState({
+                    graduated: "hide"
+                })
+                break;
+            case "graduated":
+                this.setState({
+                    graduate_to_be: "hide"
+                })
+            default: break;
+        }
+
         let mThis = this;
         let scoreData = {
             semesters: [
