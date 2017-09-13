@@ -8,7 +8,8 @@ exports.getUserInfo = (req, res) => {
     ApplyData.findOne({
             user
         }, {
-            "info": true
+            "info": true,
+            "user" : true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -51,7 +52,8 @@ exports.getUserClassification = (req, res) => {
     ApplyData.findOne({
             user
         }, {
-            "classification": true
+            "classification": true,
+            "user" : true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -95,7 +97,8 @@ exports.getUserGrade = (req, res) => {
             user
         }, {
             "grade": true,
-            "_id": false
+            "_id": false,
+            "user" : true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -138,7 +141,8 @@ exports.getUserIntroduce = (req, res) => {
     ApplyData.findOne({
             user
         }, {
-            "introduce": true
+            "introduce": true,
+            "user" : true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
