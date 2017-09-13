@@ -19,9 +19,15 @@ class InfoInput extends Component {
             parentsName: "",
             schoolCode: undefined,
             schoolName: "",
-            schoolTel: "",
-            phoneNum: "",
-            parentsTel: "",
+            schoolTel: [
+                "", "", ""
+            ],
+            phoneNum: [
+                "", "", ""
+            ],
+            parentsTel: [
+                "", "", ""
+            ],
             address: "",
             detailAddress: "",
             birthYear: "",
@@ -41,9 +47,9 @@ class InfoInput extends Component {
             parentsName: this.state.parentsName,
             schoolCode: this.state.schoolCode,
             schoolName: this.state.schoolName,
-            schoolTel: this.state.schoolTel,
-            phoneNum: this.state.phoneNum,
-            parentsTel: this.state.parentsTel,
+            schoolTel: this.state.schoolTel[0] + this.state.schoolTel[1] + this.state.schoolTel[2],
+            phoneNum: this.state.phoneNum[0] + this.state.phoneNum[1] + this.state.phoneNum[2],
+            parentsTel: this.state.parentsTel[0] + this.state.parentsTel[1] + this.state.parentsTel[2],
             address: this.state.address,
             detailAddress: this.state.detailAddress,
             birth: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
@@ -139,18 +145,24 @@ class InfoInput extends Component {
         })
     }
     setPhoneNum(e){
+        let phoneNum = this.state.phoneNum;
+        phoneNum[e.target.name] = e.target.value;
         this.setState({
-            phoneNum: e.target.value
+            phoneNum: phoneNum
         })
     }
     setSchoolTel(e){
+        let schoolTel = this.state.schoolTel;
+        schoolTel[e.target.name] = e.target.value;
         this.setState({
-            schoolTel: e.target.value
+            schoolTel: schoolTel
         })
     }
     setParentsTel(e){
+        let parentsTel = this.state.parentsTel;
+        parentsTel[e.target.name] = e.target.value;
         this.setState({
-            parentsTel: e.target.value
+            parentsTel: parentsTel
         })
     }
     setBirthYear(e){
@@ -181,9 +193,7 @@ class InfoInput extends Component {
     
     render(){
         const {store} = this.context;
-        console.log(store.getState());
         let signUpData = store.getState().signUp.SIGNUP_DATA;
-        console.log(signUpData);
         return(
             <div id="contents">
                 <div id="info_input">
@@ -204,6 +214,7 @@ class InfoInput extends Component {
                         setParentsName={this.setParentsName.bind(this)}
                         setParentsTel={this.setParentsTel.bind(this)}
                         setPhoneNum={this.setPhoneNum.bind(this)}
+                        setSchoolTel={this.setSchoolTel.bind(this)}
                         getSchoolCode={this.getSchoolCode.bind(this)}/>
                     <Button router="/classification" buttonName="이전"/>
                     <Button onclick={this.submitInfo.bind(this)} buttonName="다음"/>
