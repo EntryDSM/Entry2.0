@@ -175,10 +175,6 @@ class SignUp extends Component{
                                     type: 'password',
                                     className: 'input_style',
                                     onchange: this.confirmPassword.bind(this)
-                                },
-                                {
-                                    name: '개인정보활용동의',
-                                    type: 'checkbox'
                                 }
                             ]
                         }/>

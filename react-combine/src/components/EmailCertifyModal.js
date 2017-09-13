@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/EmailCertifyModal.css';
 import '../css/Button.css'
 import Button from '../components/Button';
 import SignupSendComplete from '../containers/SignupSendComplete';
@@ -20,10 +19,11 @@ class EmailCertifyModal extends React.Component {
                 isOpen={this.props.modalIsOpen}
                 contentLabel="이메일인증"
                 className="modal_style">
-
-                <SignupSendComplete 
-                    getCertifyCode={this.props.getCertifyCode}/>
-                <button id="btn_ok" onClick={this.props.verifyCode}>확인</button>
+                <div id="emailcertify">
+                    <SignupSendComplete 
+                        getCertifyCode={this.props.getCertifyCode}/>
+                    <button id="btn_ok" onClick={this.props.verifyCode}>확인</button>
+                </div>
             </Modal>
         );
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import AddressModal from './AddressModal';
+import FindSchoolModal from './FindSchoolModal';
 import UploadImage from './UploadImage';
 
 class InfoInputTable extends React.Component {
@@ -39,7 +40,7 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">중학교명</td>
                             <td className="td_content">
-                                <input type="text" className="input_style" id="school_name"/>
+                                <input type="text" className="input_style" id="school_name" readOnly/><FindSchoolModal />
                             </td>
                         </tr>
                         <tr>

@@ -50,23 +50,38 @@
 }
 
 #input_searchschool{
-    width: 734px;
-    font-size: 14px;
+    width: 550px;
+    font-size: 13.5px;
     padding: 8px;
     margin-top: 20px;
     margin-bottom: 20px;
     border:2px solid #c4daff;
-    border-right: none;
-    float: left;
+    display:inline-block;
+    vertical-align: top;
+    margin-left:1rem;
 }
 
 #btn_searchschool{
     width: 20px;
     height: 20px;
-    float:right;
     padding: 6px;
     margin-top: 20px;
-    margin-right: 20px;
-    margin-right: 14px;border:2px solid #c4daff;
-    border-left:none;
+    display:inline-block;
+    vertical-align:top;
+    position:relative;
+    right:2.5rem;
+    top:2px;
 }   
+
+/* 교육청 dropdown 관련 */
+select{
+    display:inline-block;
+    margin-top:20px;
+    height:36px;
+    border:2px solid #c4daff;
+    margin-left:1rem;
+    
+    font-size:0.8rem;
+    letter-spacing: 0.5px;
+    color:#424242;
+}
