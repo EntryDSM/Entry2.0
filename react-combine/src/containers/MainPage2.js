@@ -13,13 +13,19 @@ class MainPage2 extends Component{
                         MainParts = {
                             [
                                 {
-
+                                    ImgUrl : require('../images/laptop.png'),
+                                    MainTitle : "원서 접수",
+                                    SubTitle : "RECEIPT"
                                 },
                                 {
-
+                                    ImgUrl : require('../images/set.png'),
+                                    MainTitle : "원서 조회",
+                                    SubTitle : "INQUIRY"
                                 },
                                 {
-
+                                    ImgUrl : require('../images/group.png'),
+                                    MainTitle : "마이페이지",
+                                    SubTitle : "MYPAGE"
                                 }
                             ]
                         }/>
