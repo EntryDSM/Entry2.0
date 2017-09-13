@@ -183,6 +183,10 @@
     vertical-align: top;
 }
 
+#content .td_content{
+    font-size: 20px;
+}
+
 #content_title{
     font-size: 25px;
     font-weight: 500;

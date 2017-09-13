@@ -77,7 +77,9 @@ class Preview extends Component {
                 volunteer: "",
                 totalGrade: "",
                 schoolName: response.data.info.schoolName,
-                type: response.data.classification.type
+                type: response.data.classification.type,
+                introduce: response.data.introduce.introduce,
+                plan: response.data.introduce.plan
             })
         }).catch(err => {
             console.log(err.config);
@@ -102,6 +104,8 @@ class Preview extends Component {
             e.preventDefault();
             window.print();
         }
+        console.log('preview');
+        console.log(this.state);
         return(
             <div id="contents">
                 <div id="preview">

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../css/Principal.css'
 class Principal extends Component { 
      render() {
+         let datas = this.props.datas();
          return(
             <div id="principal">
                 <div id="principal_box">

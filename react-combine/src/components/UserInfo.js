@@ -58,7 +58,7 @@ class UserInfo extends Component {
                             </tr>
                             <tr>
                                 <td>학교</td>
-                                <td>{this.props.datas.schoolTel}</td>
+                                <td>{datas.schoolTel}</td>
                                 <td>
                                     <input type="checkbox" checked={datas.graduation === 'graduated'} readOnly />
                                     &nbsp;&nbsp;&nbsp;2017년 중학교 졸업

@@ -32,13 +32,15 @@ class PreviewContent extends Component {
         let SelfIntroduceData = () => {
             return  {
                 name: datas.name,
-                schoolName: datas.schoolName
+                schoolName: datas.schoolName,
+                introduce: datas.introduce
             }
         }
         let StudyPlanData = () => { 
             return {
                 name: datas.name,
-                schoolName: datas.schoolName
+                schoolName: datas.schoolName,
+                plan: datas.plan
             }
          } 
         let NoSmokeData = () => {

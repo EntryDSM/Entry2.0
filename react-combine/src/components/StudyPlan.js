@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 class StudyPlan extends Component {
      render() {
+        let datas = this.props.datas();
+        console.log(datas)
         return(
             <div id="study_plan">
                 <div id="introduce_header">
@@ -12,11 +14,11 @@ class StudyPlan extends Component {
                         <tbody>
                             <tr>
                                 <td className="td_title" id="name">성 명</td>
-                                <td className="td_content">{this.props.name}</td>
+                                <td className="td_content">{datas.name}</td>
                             </tr>
                             <tr>
                                 <td className="td_title">출신중학교</td>
-                                <td className="td_content">{this.props.school}</td>
+                                <td className="td_content">{datas.school}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -25,7 +27,7 @@ class StudyPlan extends Component {
                     <table id="content_table">
                         <tbody>
                             <tr id="content">
-                                <td className="td_content">{this.props.selfintroduce}</td>
+                                <td className="td_content">{datas.plan}</td>
                             </tr>
                         </tbody>
                     </table>
