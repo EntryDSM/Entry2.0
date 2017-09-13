@@ -16,8 +16,8 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">성별</td>
                             <td className="td_content">
-                                <input type="radio" name="sex" className="input_style" value="남"/>남
-                                <input type="radio" name="sex" className="input_style" value="여"/>여
+                                <input type="radio" name="sex" className="input_style" value="남" onClick={this.props.setSex} />남
+                                <input type="radio" name="sex" className="input_style" value="여" onClick={this.props.setSex} />여
                             </td>
                         </tr>
                         <tr>
