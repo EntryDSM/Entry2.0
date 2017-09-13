@@ -50,9 +50,9 @@
 
 #main2 .sectionParts img{
     display:block;
-    width:8rem;
+    width:12rem;
     margin:0 auto;
-    margin-top:14.5rem;
+    margin-top:13rem;
     cursor:pointer;
 }
 
@@ -75,14 +75,14 @@
 }
 
 #main2 .sectionParts h1{
-    font-size:1.05rem;
-    letter-spacing: 1px;
-    color:#474747;
+    font-size:1.15rem;
+    letter-spacing: 2px;
+    color:#505050;
     margin-top:1rem;
 }
 
 #main2 .sectionParts h2{
-    font-size:0.8rem;
+    font-size:0.95rem;
     letter-spacing: 1px;
     color:#c1c1c1;
     margin-top:2px;
