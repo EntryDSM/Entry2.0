@@ -68,7 +68,7 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">이메일</td>
                             <td className="td_content" colSpan="2">
-                                <input type="text" className="input_style" value={this.props.email} readOnly/>@<input type="text" className="input_style" value={this.props.emailDomain} readOnly/>
+                                <input type="text" className="input_style" value={this.props.email} readOnly/>
                             </td>
                         </tr>
                         <tr id="tr_address">

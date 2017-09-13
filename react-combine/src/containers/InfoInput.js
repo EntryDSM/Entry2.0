@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import '../css/InfoInput.css'
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {infoInputData} from '../actions';
+import {infoInputData, signUpData} from '../actions';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 
@@ -180,7 +180,10 @@ class InfoInput extends Component {
     }
     
     render(){
-        console.log(this.state)
+        const {store} = this.context;
+        console.log(store.getState());
+        let signUpData = store.getState().signUp.SIGNUP_DATA;
+        console.log(signUpData);
         return(
             <div id="contents">
                 <div id="info_input">
@@ -188,9 +191,8 @@ class InfoInput extends Component {
                         <InputHeader now={"인적 사항"} />
                     </div>
                     <InfoInputTable 
-                        name={"정근철"}
-                        email={"geni429"}
-                        emailDomain={"gmail.com"}
+                        name={signUpData.name}
+                        email={signUpData.email}
                         setSex={this.setSex.bind(this)}
                         setAddress={this.setAddress.bind(this)}
                         setBirthYear={this.setBirthYear.bind(this)}

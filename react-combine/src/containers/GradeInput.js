@@ -77,6 +77,12 @@ class GradeInput extends Component{
         };
     }
 
+    setVolunteer(e){
+        this.setState({
+            volunteer: e.target.value
+        })
+    }
+
     setAttendData(e){
         switch(e.target.name){
             case "absence": {
@@ -156,7 +162,8 @@ class GradeInput extends Component{
             <div id="contents">
                 <InputHeader now={"성적입력"}/>
                 <div id="volunteerAttendWrapper">
-                    <Volunteer />
+                    <Volunteer
+                        setVolunteer={this.setVolunteer.bind(this)} />
                     <Attend 
                         setAttendData={this.setAttendData.bind(this)}
                         attendValue={attendData} />

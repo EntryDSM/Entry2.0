@@ -3,20 +3,6 @@ import React, {Component} from 'react';
 class Volunteer extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            volGrade: 0
-        }
-        this.gradeChange = this.gradeChange.bind(this);
-    }
-
-    gradeChange(e){
-        let grade = e.target.value;
-        if(isNaN(grade) === true){
-            grade = 0;
-        }
-        this.setState({
-            volGrade: grade
-        });
     }
 
     render(){
@@ -28,7 +14,7 @@ class Volunteer extends Component{
                         <tr>
                             <td id="volunteer_title">시간</td>
                             <td id="volunteer_content">
-                                <input id="volunteer_input" type="number"/>
+                                <input id="volunteer_input" type="number" onChange={this.props.setVolunteer}/>
                             </td>
                         </tr>
                     </tbody>
