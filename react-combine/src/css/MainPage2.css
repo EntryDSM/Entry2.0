@@ -39,7 +39,7 @@
 }
 
 #main2 #sectionCover .sectionParts{
-    width:calc(100%/3);
+    width:50%;
     height:100%;
     display:inline-block;
 }
@@ -54,6 +54,24 @@
     margin:0 auto;
     margin-top:14.5rem;
     cursor:pointer;
+}
+
+#main2 .sectionParts img:hover{
+    animation : SideMove forwards 0.6s;
+    -webkit-animation : SideMove forwards 0.6s;
+    -ms-animation : SideMove forwards 0.6s;
+}
+
+@keyframes SideMove{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(0.7);
+    }
+    100%{
+        transform: scale(1);
+    }
 }
 
 #main2 .sectionParts h1{
