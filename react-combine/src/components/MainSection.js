@@ -5,12 +5,7 @@ class MainSection extends Component{
     render(){
         return(
             <div id = "sectionCover">
-                <div className = "sectionParts">
-                    
-                </div>
-                <div className = "sectionParts">
-                    
-                </div>
+                
             </div>
         );
     }

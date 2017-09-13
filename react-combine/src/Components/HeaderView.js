@@ -118,7 +118,7 @@ const MainBox = (props) =>{
 const WhiteBoxesPart = () =>{
     return(
         <div id="White_OpacityBox">
-            <WhiteBoxTitle WhiteTitle= "About Out Development"/>
+            <WhiteBoxTitle WhiteTitle= "About Our Development"/>
             <BoxesCover 
                 BoxesInfo = {
                     [
