@@ -8,6 +8,7 @@ import Attend from '../components/Attend';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {gradeInputData} from '../actions';
+import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 import '../css/InputHeader.css';
 import '../css/GradeInput.css';
@@ -127,7 +128,7 @@ class GradeInput extends Component{
             }
         }
         store.dispatch(gradeInputData(postData));
-        let storeData = store.getState().gradeInputData.GRADEINPUT_DATA;
+        let storeData = store.getState().gradeinput.GRADEINPUT_DATA;
         axios({
             method: 'put',
             url: '/api/user/grade',
@@ -145,6 +146,7 @@ class GradeInput extends Component{
             }
         }).then(response => {
             console.log(response);
+            browserHistory.push('/introduce');
         }).catch(err => {
             console.log(err);
         })

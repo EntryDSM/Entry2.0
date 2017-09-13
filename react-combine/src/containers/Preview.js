@@ -3,6 +3,7 @@ import InputHeader from '../components/InputHeader';
 import PreviewHeader from '../components/PreviewHeader';
 import PreviewContent from '../components/PreviewContent';
 import Button from '../components/Button';
+import axios from 'axios';
 import '../css/Preview.css';
 import '../css/Userinfo_table.css';
 
@@ -15,9 +16,26 @@ class Preview extends Component {
         };
         
         this.setPage = this.setPage.bind(this);
+        this.getUserData = this.getUserData.bind(this);
+    }
+
+    getUserData(){
+        axios({
+            method: 'get',
+            url: '/api/preview',
+            withCredentials: false,
+            headers : {
+                "Access-Control-Allow-Origin" : "http://114.108.135.15"
+            }
+        }).then(response => {
+            console.log(response.data);
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     componentDidMount() {
+        this.getUserData();
         this.setState({
             pageList: [
                 {

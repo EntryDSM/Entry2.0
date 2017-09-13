@@ -172,7 +172,7 @@ class InfoInput extends Component {
     }
     setBirthMonth(e){
         this.setState({
-            birtMonthr: e.target.value
+            birtMonth: e.target.value
         })
     }
     setBirthDay(e){
