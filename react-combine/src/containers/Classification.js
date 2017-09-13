@@ -134,14 +134,15 @@ class Classification extends Component {
             }
         }).then(response => {
             console.log(response)
+            console.log(response.data);
             this.setState({
-                local: response.data.classification.regionType,
-                type: response.data.classification.applyBaseType.type,
-                graduation: response.data.classification.graduateType,
-                date: response.data.classification.graduateYear,
+                local: response.data.regionType,
+                type: response.data.applyBaseType.type,
+                graduation: response.data.graduateType,
+                date: response.data.graduateYear,
                 detail: "",
-                isCountryMerit: response.data.classification.applyDetailType.IS_NATIONAL_MERIT,
-                isSpecial: response.data.classification.applyDetailType.IS_EXCEPTIONEE
+                isCountryMerit: response.data.applyDetailType.IS_NATIONAL_MERIT,
+                isSpecial: response.data.applyDetailType.IS_EXCEPTIONEE
             })
         }).catch(err => {
             console.log(err);
@@ -153,6 +154,10 @@ class Classification extends Component {
     }
 
     render() {
+        const {store} = this.context;
+        let signUpData = store.getState().signUp.SIGNUP_DATA;
+        console.log(store.getState());
+        console.log(signUpData);
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>

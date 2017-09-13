@@ -193,7 +193,7 @@ class InfoInput extends Component {
     
     render(){
         const {store} = this.context;
-        let signUpData = store.getState().signUp.SIGNUP_DATA;
+        let signUpData = store.getState().signUp.SIGN_UP_DATA;
         return(
             <div id="contents">
                 <div id="info_input">
