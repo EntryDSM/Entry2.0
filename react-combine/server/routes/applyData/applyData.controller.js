@@ -52,6 +52,9 @@ exports.getUserClassification = (req, res) => {
             user
         }, {
             "classification": true
+        }).populate({
+            "path": "user",
+            "select": ['email', 'name']
         })
         .then((applyData) => {
             console.log(applyData);
@@ -93,6 +96,9 @@ exports.getUserGrade = (req, res) => {
         }, {
             "grade": true,
             "_id": false
+        }).populate({
+            "path": "user",
+            "select": ['email', 'name']
         })
         .then((applyData) => {
             console.log(applyData);
@@ -133,6 +139,9 @@ exports.getUserIntroduce = (req, res) => {
             user
         }, {
             "introduce": true
+        }).populate({
+            "path": "user",
+            "select": ['email', 'name']
         })
         .then((applyData) => {
             console.log(applyData);
