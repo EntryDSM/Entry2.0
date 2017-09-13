@@ -4,19 +4,7 @@ class MainHeader extends Component{
     render(){
         return(
             <div id = "headerCover">
-                <img src = {this.props.ImgUrl} id = "mainLogo"/>
-                <ul>
-                    {this.props.menuList.map((info, i) => {
-                        return(
-                            <li key = {i}>
-                                {info}
-                            </li>
-                        );  
-                    })}
-                </ul>
-                <div id = "underCover">
-                    
-                </div>
+                <img src = {this.props.ImgUrl} alt ="img" id = "mainLogo"/>
             </div>
         );
     }
