@@ -13,6 +13,7 @@ class FinalSubmit extends React.Component{
                 <WarnText2 text1 = "버튼을 클릭하시면 더 이상 수정할 수 없습니다."
                           text2 = "신중히 결정해주세요!"/>
                 <FinalBtn name = "최종제출"/>
+                <BackBtn name="뒤로가기"/>
             </div>
         );
     }
@@ -48,6 +49,14 @@ const FinalBtn = (props) =>{
         <div id="FinalBtn">
             <Button buttonName={props.name} router="/main"/>
         </div>  
+    );
+}
+
+const BackBtn = (props) =>{
+    return(
+        <div id="BackBtn">
+            <Button buttonName={props.name} router="/preview"/>
+        </div>
     );
 }
 export default FinalSubmit;

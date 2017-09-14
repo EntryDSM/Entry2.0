@@ -67,10 +67,9 @@ input[type=text]::-ms-clear {
 }
 
 /*EmailCertifyModal*/
-#emailcertify .modal_style {
-    padding: 0;
-    height: 360px;
-    margin-top: 8%;
+#emailcertify #modal_style_email {
+    width: 100px;
+    height: 600px;
 }
 
 #emailcertify #btn_emailcertify {
@@ -100,7 +99,7 @@ input[type=text]::-ms-clear {
 }
 
 /*PersonalAgreeModal*/
-#agree_modal .modal_style {
+#agree_modal #modal_style_agree{
     width: 800px;
     height: 600px;
     padding: 1%;
