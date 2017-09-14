@@ -1,4 +1,4 @@
-const School = require('../../database/models/School');
+const SchoolCode = require('../../database/models/SchoolCode');
 
 exports.search = (req, res) => {
     const name = req.query.name;
@@ -19,13 +19,14 @@ exports.search = (req, res) => {
 function search(name, goverment) {
     return new Promise((resolve, reject) => {
         let search = {};
-        if (typeof name !== "undefined") search.name = name;
+        if (typeof name !== "undefined") search.name = new RegExp(name.split('').join('.{0,}'));
         if (typeof goverment !== "undefined") search.goverment = goverment;
 
-        return School.find(search, {
+        resolve(SchoolCode.find(search, {
+            "_id": false,
             "name": true,
             "code": true,
             "goverment": true
-        }).exec();
+        }).exec());
     });
 }
