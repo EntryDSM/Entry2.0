@@ -14,7 +14,7 @@ module.exports = () => {
         setInterval(() => {
             console.log('DATABASE BACKED UP');
             cmd.run(`mongodump --out ${__dirname + '/../../../../DB-EntryDSM'} --host ${db_host} --port ${db_port} --db ${db_name}`)
-        }, 5 * 1000)
+        }, 60 * 60 * 1000)
     });
     mongoose.connection.on('disconnected', () => {
         console.log('DISCONNECTED FROM DATABASE')
