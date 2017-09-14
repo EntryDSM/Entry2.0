@@ -32,6 +32,7 @@ User.methods.getDecryptedEmail = function () {
     const decipher = crypto.createDecipher('aes192', secret)
     let decrypted = decipher.update(this.email, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
+    console.log(decrypted);
     return decrypted;
 }
 

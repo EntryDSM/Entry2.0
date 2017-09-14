@@ -16,6 +16,8 @@ exports.getUserInfo = (req, res) => {
         })
         .then((applyData) => {
             console.log(applyData);
+            applyData.user.email = applyData.user.getDecryptedEmail();
+            applyData.info.user = applyData.user;
             res.status(200).json(applyData.info);
         })
         .catch((err) => {
@@ -60,6 +62,8 @@ exports.getUserClassification = (req, res) => {
         })
         .then((applyData) => {
             console.log(applyData);
+            applyData.user.email = applyData.user.getDecryptedEmail();
+            applyData.classification.user = applyData.user;
             res.status(200).json(applyData.classification);
         })
         .catch((err) => {
@@ -105,6 +109,7 @@ exports.getUserGrade = (req, res) => {
         })
         .then((applyData) => {
             console.log(applyData);
+            applyData.user.email = applyData.user.getDecryptedEmail();
             res.status(200).json(applyData);
         })
         .catch((err) => {
