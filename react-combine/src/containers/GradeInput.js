@@ -495,13 +495,13 @@ class GradeInput extends Component{
             if(flag == 1){
                 if(graduateType == 'Will'){
                     first = (result[2] + result[3] + result[4]) * (2 / 3) * fsMultiply;
-                }else{
+                } else {
                     first = (result[2] + result[3] + result[4] + result[5]) * 0.5 * fsMultiply;
                 }
             } else if(flag == 2){
                 if(graduateType == 'Will'){
                     second = (result[0] + result[1] + result[4]) * (2 / 3) * fsMultiply;
-                }else{
+                } else {
                     second = (result[0] + result[1] + result[4] + result[5]) * 0.5 * fsMultiply;
                 }
             } else if(flag == 3){

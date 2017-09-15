@@ -132,6 +132,7 @@ class FindSchoolModal extends React.Component {
                     <div id="modal_contents">
                         <EduOptions educations = {
                             [
+                                {"eduName" : "전체"},
                                 {"eduName" : "서울특별시교육청"},
                                 {"eduName" : "부산광역시교육청"},
                                 {"eduName" : "대구광역시교육청"},
@@ -152,11 +153,11 @@ class FindSchoolModal extends React.Component {
                                 {"eduName" : "세종특별자치시교육청"}
                             ]
                         }
-                        setGoverment={this.props.setGoverment}/>
-                        <input type="text" placeholder="학교명을 입력해주세요." id="input_searchschool" onChange={this.props.setSchoolName} onKeyDown={this.enter}/>
+                        getSchoolCode={this.props.getSchoolCode}/>
+                        <input type="text" placeholder="학교명을 입력해주세요." id="input_searchschool" onChange={this.props.getSchoolCode} onKeyDown={this.enter}/>
                         <img id="btn_searchschool" onClick={this.props.getSchoolCode} src={require('../images/search.png')}/>
                         
-                        <FindSchoolModalTable />
+                        <FindSchoolModalTable schoolList={this.props.schoolList}/>
                     </div>
                 </Modal>
             </div>
@@ -166,7 +167,7 @@ class FindSchoolModal extends React.Component {
 
 const EduOptions = (props) => {
     return(
-        <select onChange={props.setGoverment}>
+        <select id="select_goverment" onChange={props.getSchoolCode}>
             {props.educations.map((vals, idx) => {
                 return(
                     <option value = {vals.eduName} key = {idx}>

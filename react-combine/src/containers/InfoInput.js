@@ -21,7 +21,7 @@ class InfoInput extends Component {
             schoolCode: undefined,
             schoolName: "",
             schoolCode: "",
-            goverment: "서울특별시교육청",
+            goverment: "",
 
             schoolTel: [
                 "", "", ""
@@ -38,7 +38,8 @@ class InfoInput extends Component {
             birthMonth: "",
             birthDay: "",
             name: "",
-            email: ""
+            email: "",
+            schoolList: []
         };
 
         this.submitInfo= this.submitInfo.bind(this);
@@ -117,30 +118,51 @@ class InfoInput extends Component {
         })
     }
     
-    getSchoolCode(){
-        console.log(this.state.schoolName);
-        console.log(this.state.goverment);
-        axios({
-            method: 'get',
-            url: 'api/school',
-            params: {
-                name: this.state.schoolName,
-                goverment: this.state.goverment
-            },
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15",
-                "ContentType": "application/json"
+    getSchoolCode(e){
+        let query;
+        console.log(e.target.id);
+        console.log(e.target.value)
+        if(e.target.id === 'input_searchschool'){
+            this.setState({
+                schoolName: e.target.value
+            })
+            if(this.state.goverment === ""){
+                query = '/api/schoolCode?name=' + e.target.value;
+            } else {
+                query = '/api/schoolCode?goverment=' + this.state.goverment + '&name=' + e.target.value;
             }
-        }).then(response => {
+        } else if(e.target.id === 'select_goverment'){
+            if(e.target.value === "전체"){
+                this.setState({
+                    goverment: ""
+                })
+                if(this.state.schoolName === ""){
+                    query = '/api/schoolCode?name=';
+                } else {
+                    query = '/api/schoolCode?name=' + this.state.schoolName;
+                }
+            } else {
+                this.setState({
+                    goverment: e.target.value
+                })
+                if(this.state.schoolName === ""){
+                    query = '/api/schoolCode?goverment=' + e.target.value;
+                } else {
+                    query = '/api/schoolCode?goverment=' + e.target.value + '&name=' + this.state.schoolName;
+                }
+            }
+        }
+        axios.get(query)
+        .then(response => {
             console.log(response);
             console.log(response.data);
-            console.log('what the fuck');
+            this.setState({
+                schoolList: response.data
+            })
         }).catch(err => {
             console.log(err);
             console.log(err.config);
             console.log(err.request);
-            console.log('what the hell');
         })
     }
     setSex(e){
@@ -221,9 +243,15 @@ class InfoInput extends Component {
     }
 
     setGoverment(e){
-        this.setState({
-            goverment: e.target.value
-        })
+        if(e.target.value === "전체"){
+            this.setState({
+                goverment: ""
+            })
+        } else {
+            this.setState({
+                goverment: e.target.value
+            })
+        }
     }
     
     render(){
@@ -255,7 +283,8 @@ class InfoInput extends Component {
                         schoolName={this.state.schoolName}
                         getSchoolCode={this.getSchoolCode.bind(this)}
                         setGoverment={this.setGoverment.bind(this)}
-                        goverment={this.state.goverment}/>
+                        goverment={this.state.goverment}
+                        schoolList={this.state.schoolList}/>
                     <Button router="/classification" buttonName="이전"/>
                     <Button onclick={this.submitInfo.bind(this)} buttonName="다음"/>
                 </div>

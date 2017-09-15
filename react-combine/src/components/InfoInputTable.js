@@ -43,6 +43,7 @@ class InfoInputTable extends React.Component {
                                 <input type="text" className="input_style" id="school_name" readOnly/><FindSchoolModal 
                                 schoolName={this.props.schoolName}
                                 goverment={this.props.goverment} 
+                                schoolList={this.props.schoolList}
                                 setSchoolName={this.props.setSchoolName}
                                 getSchoolCode={this.props.getSchoolCode}
                                 setGoverment={this.props.setGoverment}/>
