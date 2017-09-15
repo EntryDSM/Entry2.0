@@ -15,7 +15,8 @@ class FindSchoolModalTable extends Component {
                         return <SchoolList
                                     goverment={ele.goverment}
                                     schoolName={ele.name}
-                                    schoolCode={ele.code}/>
+                                    schoolCode={ele.code}
+                                    setSchoolInfo={this.props.setSchoolInfo}/>
                     })}
                 </tbody>
             </table>
@@ -25,7 +26,7 @@ class FindSchoolModalTable extends Component {
 
 const SchoolList = (props) => {
     return(
-        <tr>
+        <tr onClick={props.setSchoolInfo}>
             <td className="td_goverment">{props.goverment}</td>
             <td className="td_school_name">{props.schoolName}</td> 
             <td className="td_school_code">{props.schoolCode}</td>

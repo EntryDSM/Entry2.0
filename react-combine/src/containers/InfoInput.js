@@ -20,7 +20,6 @@ class InfoInput extends Component {
 
             schoolCode: undefined,
             schoolName: "",
-            schoolCode: "",
             goverment: "",
 
             schoolTel: [
@@ -39,7 +38,8 @@ class InfoInput extends Component {
             birthDay: "",
             name: "",
             email: "",
-            schoolList: []
+            schoolList: [],
+            modalIsOpen: false
         };
 
         this.submitInfo= this.submitInfo.bind(this);
@@ -117,11 +117,35 @@ class InfoInput extends Component {
             console.log(error.request);
         })
     }
+
+    setSchoolInfo(e){
+        Array.from(e.target.parentElement.children).forEach((ele, index) => {
+            switch(index){
+                case 0: {
+                    this.setState({
+                        goverment: ele.textContent
+                    })
+                }
+                case 1: {
+                    this.setState({
+                        schoolName: ele.textContent
+                    })
+                }
+                case 2: {
+                    this.setState({
+                        schoolCode: ele.textContent
+                    })
+                }
+                default : break;
+            }
+        })
+        this.setState({
+            modalIsOpen: false
+        })
+    }
     
     getSchoolCode(e){
         let query;
-        console.log(e.target.id);
-        console.log(e.target.value)
         if(e.target.id === 'input_searchschool'){
             this.setState({
                 schoolName: e.target.value
@@ -154,15 +178,11 @@ class InfoInput extends Component {
         }
         axios.get(query)
         .then(response => {
-            console.log(response);
-            console.log(response.data);
             this.setState({
                 schoolList: response.data
             })
         }).catch(err => {
             console.log(err);
-            console.log(err.config);
-            console.log(err.request);
         })
     }
     setSex(e){
@@ -253,11 +273,16 @@ class InfoInput extends Component {
             })
         }
     }
+
+    openModal(){
+        this.setState({
+            modalIsOpen: true
+        })
+    }
     
     render(){
         const {store} = this.context;
         let signUpData = store.getState().signUp.SIGN_UP_DATA;
-        console.log(this.state);
         return(
             <div id="contents">
                 <div id="info_input">
@@ -267,6 +292,10 @@ class InfoInput extends Component {
                     <InfoInputTable 
                         name={this.state.name}
                         email={this.state.email}
+                        goverment={this.state.goverment}
+                        schoolName={this.state.schoolName}
+                        schoolCode={this.state.schoolCode}
+                        modalIsOpen={this.state.modalIsOpen}
                         setSex={this.setSex.bind(this)}
                         setAddress={this.setAddress.bind(this)}
                         setBirthYear={this.setBirthYear.bind(this)}
@@ -279,12 +308,10 @@ class InfoInput extends Component {
                         setParentsTel={this.setParentsTel.bind(this)}
                         setPhoneNum={this.setPhoneNum.bind(this)}
                         setSchoolTel={this.setSchoolTel.bind(this)}
-                        setSchoolName={this.setSchoolName.bind(this)}
-                        schoolName={this.state.schoolName}
                         getSchoolCode={this.getSchoolCode.bind(this)}
-                        setGoverment={this.setGoverment.bind(this)}
-                        goverment={this.state.goverment}
-                        schoolList={this.state.schoolList}/>
+                        schoolList={this.state.schoolList}
+                        openModal={this.openModal.bind(this)}
+                        setSchoolInfo={this.setSchoolInfo.bind(this)}/>
                     <Button router="/classification" buttonName="이전"/>
                     <Button onclick={this.submitInfo.bind(this)} buttonName="다음"/>
                 </div>
