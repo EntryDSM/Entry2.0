@@ -5,7 +5,6 @@ import Button from '../components/Button';
 import '../css/InfoInput.css'
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {infoInputData, signUpData} from '../actions';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 
@@ -14,14 +13,13 @@ class InfoInput extends Component {
         super(props);
         this.state = {
             sex: "",
-            grade: undefined,
-            class: undefined,
+            grade: 3,
+            class: null,
+            number: null,
             parentsName: "",
-
-            schoolCode: undefined,
+            schoolCode: "",
             schoolName: "",
             goverment: "",
-
             schoolTel: [
                 "", "", ""
             ],
@@ -31,7 +29,7 @@ class InfoInput extends Component {
             parentsTel: [
                 "", "", ""
             ],
-            address: "",
+            baseAddress: "",
             detailAddress: "",
             birthYear: "",
             birthMonth: "",
@@ -48,17 +46,37 @@ class InfoInput extends Component {
     componentDidMount(){
         axios({
             method: 'get',
-            url: '/api/user/classification',
+            url: '/api/user/info',
             withCredentials: false,
             headers: {
                 "Access-Control-Allow-Origin": "http://114.108.135.15",
                 "ContentType": "application/json"
             }
         }).then(response => {
+            console.log('response data');
             console.log(response.data);
+            let birth = response.data.birthday.split('-');
+            let phoneNum = response.data.tel.split('-');
+            let parentsTel = response.data.parentsTel.split('-');
+            let schoolTel = response.data.schoolTel.split('-');
+
             this.setState({
                 name: response.data.user.name,
-                email: response.data.user.email
+                email: response.data.user.email,
+                sex: response.data.sex,
+                grade: response.data.grade,
+                class: response.data.class,
+                parentsName: response.data.parentsName,
+                schoolCode: response.data.schoolCode,
+                schoolName: response.data.schoolName,
+                schoolTel: schoolTel,
+                phoneNum: phoneNum,
+                parentsTel: parentsTel,
+                baseAddress: response.data.addressBase,
+                detailAddress: response.data.addressDetail,
+                birthYear: birth[0],
+                birthMonth: birth[1],
+                birthDay: birth[2]
             })
         }).catch(err => {
             console.log(err);
@@ -66,40 +84,24 @@ class InfoInput extends Component {
     }
 
     submitInfo(){
-        let store = this.context.store;
-        let postData = {
-            sex: this.state.sex,
-            grade: this.state.grade,
-            class: this.state.class,
-            parentsName: this.state.parentsName,
-            schoolCode: this.state.schoolCode,
-            schoolName: this.state.schoolName,
-            schoolTel: this.state.schoolTel[0] + this.state.schoolTel[1] + this.state.schoolTel[2],
-            phoneNum: this.state.phoneNum[0] + this.state.phoneNum[1] + this.state.phoneNum[2],
-            parentsTel: this.state.parentsTel[0] + this.state.parentsTel[1] + this.state.parentsTel[2],
-            address: this.state.address,
-            address: this.state.address + this.state.detailAddress,
-            birth: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
-        }
-        store.dispatch(infoInputData(postData));
-        let storeData = store.getState().infoInput.INFO_INPUT_DATA;
         axios({
             method: 'put',
             url: '/api/user/info',
             data: {
                 info: {
-                    sex: storeData.sex,
-                    grade: storeData.grade,
-                    class: storeData.class,
-                    schoolCode: storeData.schoolCode,
-                    schoolName: storeData.schoolName,
-                    schoolTel: storeData.schoolTel,
-                    phoneNum: storeData.phoneNum,
-                    parentsTel: storeData.parentsTel,
-                    parentsName: storeData.parentsName,
-                    birth: storeData.birth,
-                    address: storeData.address,
-                    detailAddress: storeData.detailAddress
+                    sex: this.state.sex,
+                    grade: this.state.grade,
+                    number: this.state.number,
+                    class: this.state.class,
+                    schoolCode: this.state.schoolCode,
+                    schoolName: this.state.schoolName,
+                    schoolTel: this.state.schoolTel[0] + '-' + this.state.schoolTel[1] + '-' + this.state.schoolTel[2],
+                    tel: this.state.phoneNum[0] + '-' + this.state.phoneNum[1] + '-' + this.state.phoneNum[2],
+                    parentsTel: this.state.parentsTel[0] + '-' + this.state.parentsTel[1] + '-' + this.state.parentsTel[2],
+                    parentsName: this.state.parentsName,
+                    birthday: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
+                    addressBase: this.state.baseAddress,
+                    addressDetail: this.state.detailAddress
                 }
             },
             withCredentials: false,
@@ -185,36 +187,67 @@ class InfoInput extends Component {
             console.log(err);
         })
     }
-    setSex(e){
-        this.setState({
-            sex: e.target.value
-        })
+
+    setter(e){
+        switch(e.target.name){
+            case 'name': {
+                this.setState({
+                    name: e.target.value
+                })
+                break;
+            }
+            case 'sex': {
+                this.setState({
+                    sex: e.target.value
+                })
+                break;
+            }
+            case 'birthYear': {
+                this.setState({
+                    birthYear: e.target.value
+                })
+                break;
+            }
+            case 'birthMonth': {
+                this.setState({
+                    birthMonth: e.target.value
+                })
+                break;
+            }
+            case 'birthDay': {
+                this.setState({
+                    birthDay: e.target.value
+                })
+                break;
+            }
+            case 'class': {
+                this.setState({
+                    class: e.target.value
+                })
+                break;
+            }
+            case 'number': {
+                this.setState({
+                    number: e.target.value
+                })
+                break;
+            }
+            case 'parentsName': {
+                this.setState({
+                    parentsName: e.target.value
+                })
+                break;
+            }
+            case 'detailAddress': {
+                this.setState({
+                    detailAddress: e.target.value
+                })
+                break;
+            }
+            default: break;
+        }
     }
-    setGrade(e){
-        this.setState({
-            grade: e.target.value
-        })
-    }
-    setClass(e){
-        this.setState({
-            class: e.target.value
-        })
-    }
-    setParentsName(e){
-        this.setState({
-            parentsName: e.target.value
-        })
-    }
-    setSchoolCode(e){
-        this.setState({
-            schoolCode: e.target.value
-        })
-    }
-    setSchoolName(e){
-        this.setState({
-            schoolName: e.target.value
-        })
-    }
+
     setPhoneNum(e){
         let phoneNum = this.state.phoneNum;
         phoneNum[e.target.name] = e.target.value;
@@ -236,29 +269,9 @@ class InfoInput extends Component {
             parentsTel: parentsTel
         })
     }
-    setBirthYear(e){
-        this.setState({
-            birthYear: e.target.value
-        })
-    }
-    setBirthMonth(e){
-        this.setState({
-            birthMonth: e.target.value
-        })
-    }
-    setBirthDay(e){
-        this.setState({
-            birthDay: e.target.value
-        })
-    }
     setAddress(address){
         this.setState({
-            address: address
-        })
-    }
-    setDetailAddress(e){
-        this.setState({
-            detailAddress: e.target.value
+            baseAddress: address
         })
     }
 
@@ -279,10 +292,14 @@ class InfoInput extends Component {
             modalIsOpen: true
         })
     }
+    closeModal(){
+        this.setState({
+            modalIsOpen: false
+        })
+    }
     
     render(){
-        const {store} = this.context;
-        let signUpData = store.getState().signUp.SIGN_UP_DATA;
+        console.log(this.state);
         return(
             <div id="contents">
                 <div id="info_input">
@@ -292,26 +309,31 @@ class InfoInput extends Component {
                     <InfoInputTable 
                         name={this.state.name}
                         email={this.state.email}
-                        goverment={this.state.goverment}
                         schoolName={this.state.schoolName}
                         schoolCode={this.state.schoolCode}
+                        phoneNum={this.state.phoneNum}
+                        parentsTel={this.state.parentsTel}
+                        schoolTel={this.state.schoolTel}
+                        sex={this.state.sex}
+                        birthYear={this.state.birthYear}
+                        birthMonth={this.state.birthMonth}
+                        birthDay={this.state.birthDay}
+                        class={this.state.class}
+                        number={this.state.number}
+                        detailAddress={this.state.detailAddress}
+                        baseAddress={this.state.baseAddress}
+                        parentsName={this.state.parentsName}
                         modalIsOpen={this.state.modalIsOpen}
-                        setSex={this.setSex.bind(this)}
                         setAddress={this.setAddress.bind(this)}
-                        setBirthYear={this.setBirthYear.bind(this)}
-                        setBirthMonth={this.setBirthMonth.bind(this)}
-                        setBirthDay={this.setBirthDay.bind(this)}
-                        setClass={this.setClass.bind(this)}
-                        setDetailAddress={this.setDetailAddress.bind(this)}
-                        setGrade={this.setGrade.bind(this)}
-                        setParentsName={this.setParentsName.bind(this)}
                         setParentsTel={this.setParentsTel.bind(this)}
                         setPhoneNum={this.setPhoneNum.bind(this)}
                         setSchoolTel={this.setSchoolTel.bind(this)}
                         getSchoolCode={this.getSchoolCode.bind(this)}
                         schoolList={this.state.schoolList}
                         openModal={this.openModal.bind(this)}
-                        setSchoolInfo={this.setSchoolInfo.bind(this)}/>
+                        closeModal={this.closeModal.bind(this)}
+                        setSchoolInfo={this.setSchoolInfo.bind(this)}
+                        setter={this.setter.bind(this)}/>
                     <Button router="/classification" buttonName="이전"/>
                     <Button onclick={this.submitInfo.bind(this)} buttonName="다음"/>
                 </div>
@@ -319,12 +341,5 @@ class InfoInput extends Component {
         );
     }
 }
-InfoInput.contextTypes = {
-    store: PropTypes.object
-}
 
-function infoInputSubmit(state){
-    infoInput: state.infoInput
-}
-
-export default connect(infoInputSubmit)(InfoInput);
+export default InfoInput;

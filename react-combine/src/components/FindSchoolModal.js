@@ -17,7 +17,7 @@ class FindSchoolModal extends React.Component {
                     <p ref={notice=> this.notice = notice}></p>
     
                     <div id="modal_header">
-                        <button id="btn_close" onClick={this.closeModal}>x</button>
+                        <button id="btn_close" onClick={this.props.closeModal}>x</button>
                         <h2>학교찾기</h2>
                     </div>
                     <div id="modal_contents">
