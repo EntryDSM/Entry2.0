@@ -135,7 +135,7 @@ const documentTemplate = {
     },
     info: {
         "sex": null, // man or woman
-        "birthday": null,
+        "birthday": "",
         "grade": 3,
         "class": null,
         "number": null,

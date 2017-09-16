@@ -59,10 +59,14 @@ class InfoInput extends Component {
             let phoneNum = response.data.tel.split('-');
             let parentsTel = response.data.parentsTel.split('-');
             let schoolTel = response.data.schoolTel.split('-');
+            console.log(phoneNum);
+            console.log(parentsTel);
+            console.log(schoolTel);
 
             this.setState({
                 name: response.data.user.name,
                 email: response.data.user.email,
+                number: response.data.number,
                 sex: response.data.sex,
                 grade: response.data.grade,
                 class: response.data.class,

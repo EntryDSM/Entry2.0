@@ -53,9 +53,9 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">본인연락처</td>
                             <td className="td_content">
-                                <input type="text" className="input_tel" id="phoneNum" maxLength="3" name="0" onChange={this.props.setPhoneNum} />-
-                                <input type="text" className="input_tel" id="phoneNum" maxLength="4" name="1" onChange={this.props.setPhoneNum} />-
-                                <input type="text" className="input_tel" id="phoneNum" maxLength="4" name="2" onChange={this.props.setPhoneNum} />
+                                <input type="text" className="input_tel" id="phoneNum" maxLength="3" name="0" value={this.props.phoneNum[0]} onChange={this.props.setPhoneNum} />-
+                                <input type="text" className="input_tel" id="phoneNum" maxLength="4" name="1" value={this.props.phoneNum[1]} onChange={this.props.setPhoneNum} />-
+                                <input type="text" className="input_tel" id="phoneNum" maxLength="4" name="2" value={this.props.phoneNum[2]} onChange={this.props.setPhoneNum} />
                             </td>
                         </tr>
                         <tr>
@@ -67,17 +67,17 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">부모연락처</td>
                             <td className="td_content" colSpan="2">
-                                <input type="text" className="input_tel" id="parentsTel" maxLength="3" name="0" onChange={this.props.setParentsTel} />-
-                                <input type="text" className="input_tel" id="parentsTel" maxLength="4" name="1" onChange={this.props.setParentsTel} />-
-                                <input type="text" className="input_tel" id="parentsTel" maxLength="4" name="2" onChange={this.props.setParentsTel} />
+                                <input type="text" className="input_tel" id="parentsTel" maxLength="3" name="0" value={this.props.parentsTel[0]} onChange={this.props.setParentsTel} />-
+                                <input type="text" className="input_tel" id="parentsTel" maxLength="4" name="1" value={this.props.parentsTel[1]} onChange={this.props.setParentsTel} />-
+                                <input type="text" className="input_tel" id="parentsTel" maxLength="4" name="2" value={this.props.parentsTel[2]} onChange={this.props.setParentsTel} />
                             </td>
                         </tr>
                         <tr>
                             <td className="td_title">학교연락처</td>
                             <td className="td_content" colSpan="2">
-                                <input type="text" className="input_tel" id="schoolTel" maxLength="3" name="0" onChange={this.props.setSchoolTel} />-
-                                <input type="text" className="input_tel" id="schoolTel" maxLength="4" name="1" onChange={this.props.setSchoolTel} />-
-                                <input type="text" className="input_tel" id="schoolTel" maxLength="4" name="2" onChange={this.props.setSchoolTel} />
+                                <input type="text" className="input_tel" id="schoolTel" maxLength="3" name="0" value={this.props.schoolTel[0]} onChange={this.props.setSchoolTel} />-
+                                <input type="text" className="input_tel" id="schoolTel" maxLength="4" name="1" value={this.props.schoolTel[1]} onChange={this.props.setSchoolTel} />-
+                                <input type="text" className="input_tel" id="schoolTel" maxLength="4" name="2" value={this.props.schoolTel[2]} onChange={this.props.setSchoolTel} />
                             </td>
                         </tr>
                         <tr>
