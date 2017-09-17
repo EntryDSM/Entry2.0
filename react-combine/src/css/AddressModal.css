@@ -1,7 +1,7 @@
-.modal_style{
+#modal_style_address{
     border-radius: 20px;   
-    width: 800px;
-    height: 600px;
+    width: 50%;
+    height: 60%;
     padding-left: 30px;
     padding-right: 30px;
     margin: auto;

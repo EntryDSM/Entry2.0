@@ -43,7 +43,6 @@ class EmailCertifyModal extends React.Component {
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     contentLabel="이메일인증"
-                    className="modal_style"
                     id="modal_style_email">
 
                     <SignupSendComplete />

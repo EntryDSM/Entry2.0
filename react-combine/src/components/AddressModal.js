@@ -120,7 +120,7 @@ class AddressModal extends React.Component {
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     contentLabel="주소찾기"
-                    className="modal_style">
+                    id="modal_style_address">
 
                     <p ref={notice=> this.notice = notice}></p>
     

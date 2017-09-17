@@ -15,5 +15,7 @@ import SignupSendComplete from './SignupSendComplete';
 import Mypage from './Mypage';
 import MyPage2 from './MyPage2';
 import MainPage2 from './MainPage2';
+import Notice from './Notice';
+import WriteNotice from './WriteNotice';
 
-export { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, PwSendComplete, SignupSendComplete, ChangePw, FinalSubmit, Mypage, MyPage2, MainPage2 };
+export { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, PwSendComplete, SignupSendComplete, ChangePw, FinalSubmit, Mypage, MyPage2, MainPage2, Notice, WriteNotice };

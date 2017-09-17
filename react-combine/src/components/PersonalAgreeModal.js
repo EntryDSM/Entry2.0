@@ -41,7 +41,6 @@ class PersonalAgreeModal extends React.Component {
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     contentLabel="개인정보활용동의서"
-                    className="modal_style"
                     id="modal_style_agree">
 
                     <h2 id="modal_title">개인정보활용동의서</h2>

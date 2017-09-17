@@ -123,7 +123,7 @@ class FindSchoolModal extends React.Component {
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     contentLabel="학교찾기"
-                    className="modal_style">
+                    id="modal_style_findschool">
 
                     <p ref={notice=> this.notice = notice}></p>
     

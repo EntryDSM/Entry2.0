@@ -100,7 +100,7 @@ input[type=text]::-ms-clear {
 
 /*PersonalAgreeModal*/
 #agree_modal #modal_style_agree{
-    width: 800px;
+    width: 100px;
     height: 600px;
     padding: 1%;
 }

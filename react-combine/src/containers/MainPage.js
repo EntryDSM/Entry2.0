@@ -11,7 +11,7 @@ class MainPage extends Component {
   render() {
     return (
       <div id="main-page">
-        <NavigationBar menuList={["메인화면","접수현황","학교소개","문의하기"]}/>
+        <NavigationBar menuList={["메인화면","접수현황","학교소개","문의하기","게시판"]}/>
         {/* <EntryView /> */}
         <RenewalMain />
         <ApplyState/>
