@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import initialState from './initialState';
 import 'babel-polyfill';
-import { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete, Mypage, MyPage2, MainPage2, Notice, WriteNotice } from './containers';
+import { Classification, GradeInput, InfoInput, Introduce, Landing, LoginForm, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete, Mypage, MyPage2, MainPage2, Notice, WriteNotice, ErrorPage } from './containers';
 import {createStore} from 'redux';
 import reducer from './reducers';
 import InputLayout from './components/InputLayout';
@@ -57,6 +57,7 @@ ReactDOM.render(
                     <Route path="/preview" component={Preview} />
                     <Route path="/finalsubmit" component={FinalSubmit} />
                 </Route>
+                <Route path="/error" component={ErrorPage}/>
             </Route>
         </Router>
     </Provider>
