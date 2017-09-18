@@ -3,6 +3,7 @@ import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
 import {connect} from 'react-redux';
 import {signInData} from '../actions';
+import {browserHistory} from 'react-router';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../css/FormIndex.css';
@@ -11,16 +12,9 @@ class SignIn extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            name: "",
             email: "",
             password: ""
         }
-    }
-
-    setName(e){
-        this.setState({
-            name: e.target.value
-        })
     }
 
     setEmail(e){
@@ -53,6 +47,7 @@ class SignIn extends React.Component{
             }
         }).then(response => {
             console.log(response)
+            browserHistory.push('/gradeinput');
         }).catch((error) => {
             console.log(error.config);
             console.log(error);
@@ -69,7 +64,6 @@ class SignIn extends React.Component{
                 <div id="LoginBox">
                     <LoginForm 
                         inputArray = {this.props.inputArray}
-                        setName = {this.setName.bind(this)}
                         setEmail = {this.setEmail.bind(this)}
                         setPassword = {this.setPassword.bind(this)}
                         onclick = {this.signInSubmit.bind(this)}/>
@@ -82,11 +76,6 @@ class SignIn extends React.Component{
 }
 SignIn.defaultProps = {
     inputArray: [
-        {
-            InfoTitle: "이름(Name)",
-            InputTitle: "이름을 입력해주세요.",
-            Type: "text"
-        },
         {
             InfoTitle: "이메일(Email)",
             InputTitle: "이메일을 입력해주세요.",
@@ -107,9 +96,8 @@ SignIn.contextTypes = {
 const LoginForm = (props) => {
     let setEvent = function(index){
         switch(index){
-            case 0: return props.setName;
-            case 1: return props.setEmail;
-            case 2: return props.setPassword;
+            case 0: return props.setEmail;
+            case 1: return props.setPassword;
             default: break;
         }
     }

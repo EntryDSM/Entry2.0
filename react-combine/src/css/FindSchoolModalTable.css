@@ -2,15 +2,24 @@
     border-collapse: collapse;
 }
 
+
 #title_schooltable{
     background-color: #fbfbfa;
+}
+
+#title_goverment{
+    background-color: #fbfbfa;
+    text-align: center;
+    padding: 10px;
+    width: 300px;
+    padding: 10px;
 }
 
 #title_school_title{
     background-color: #fbfbfa;
     text-align: center;
     padding: 10px;
-    width: 600px;
+    width: 300px;
     padding: 10px;
 }
 
@@ -21,10 +30,17 @@
     width: 150px;
 }
 
+.td_goverment{
+    border-bottom:1px solid #c4daff;
+    padding: 8px;
+    width: 300px;
+    font-size: 14px;
+}
+
 .td_school_name{
     border-bottom:1px solid #c4daff;
     padding: 8px;
-    width: 600px;
+    width: 300px;
     font-size: 14px;
 }
 

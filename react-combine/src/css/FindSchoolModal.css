@@ -2,6 +2,7 @@
     border-radius: 20px;   
     width: 800px;
     height: 600px;
+    overflow: auto;
     margin: auto;
     margin-top: 150px;
     padding-left: 30px;

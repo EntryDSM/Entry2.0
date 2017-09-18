@@ -159,7 +159,7 @@ const documentTemplate = {
         "addressDetail": ""
     },
     grade: {
-        "volunteer": null,
+        "volunteer": 0,
         "attend": {
             "absence": 0, // 무단 결석
             "lateness": 0, // 무단 지각
