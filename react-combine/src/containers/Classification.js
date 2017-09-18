@@ -248,19 +248,19 @@ const Graduate = (props) => {
         <input
             type="radio"
             name="graduation"
-            id="will-graduate"
+            id="Will"
             value="willGraduate"
             onClick={props.radioSetter}
-            checked={props.graduation === 'will-graduate'}/>
+            checked={props.graduation === 'Will'}/>
         <label htmlFor="will-graduate">졸업 예정</label>
 
         <input
             type="radio"
             name="graduation"
-            id="graduated"
+            id="Done"
             value="graduated"
             onClick={props.radioSetter}
-            checked={props.graduation === 'graduated'}/>
+            checked={props.graduation === 'Done'}/>
         <label htmlFor="graduated">졸업</label> <br />
 
         <span>졸업년도</span>
