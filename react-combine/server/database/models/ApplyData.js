@@ -1,5 +1,6 @@
 let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const calculator = require('../../util/calculator');
 
 let ApplyData = Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
@@ -133,9 +134,9 @@ const documentTemplate = {
             "IS_EXCEPTIONEE": false // 특례입학 대상자 여부
         }
     },
-    info: {
+    info_not_black: {
         "sex": null, // man or woman
-        "birthday": null,
+        "birthday": "",
         "grade": 3,
         "class": null,
         "number": null,
@@ -148,6 +149,15 @@ const documentTemplate = {
         "addressBase": "",
         "addressDetail": ""
     },
+    info_black: {
+        "sex": null, // man or woman
+        "birthday": "",
+        "tel": "",
+        "parentsName": "",
+        "parentsTel": "",
+        "addressBase": "",
+        "addressDetail": ""
+    },
     grade: {
         "volunteer": null,
         "attend": {
@@ -156,7 +166,8 @@ const documentTemplate = {
             "earlyLeave": 0, // 무단 조퇴
             "subjectEscape": 0 // 무단 결과
         },
-        "score": grade_will
+        "score": grade_will,
+        "calculatedScore": null
     },
     introduce: {
         "introduce": "",
@@ -180,7 +191,7 @@ ApplyData.statics.createEmpty = function (user) {
             const next = typeof current[0] !== "undefined" ? current[0].submitNumber + 1 : 1;
             console.log("===================\n" + next)
             
-            return new this({
+            let applyData = new this({
                 user,
                 "classification": documentTemplate.classification,
                 "info": documentTemplate.info,
@@ -188,10 +199,14 @@ ApplyData.statics.createEmpty = function (user) {
                 "introduce": documentTemplate.introduce,
                 "createdAt": date_now,
                 "updatedAt": date_now,
-                "submitNumber" : next
-            }).save();
+                "submitNumber": next
+            });
+
+            if (applyData.classification.isBlack) applyData.grade.score = documentTemplate.grade_black;
+            else applyData.grade.score = applyData.classification.graduateType === 'WILL' ? documentTemplate.grade_will : documentTemplate.grade_done;
+            return applyData.save();
         })
-        .catch((err)=>{
+        .catch((err) => {
             console.log(err);
         })
 }
@@ -208,8 +223,12 @@ ApplyData.methods.reviseClassification = function (classification) {
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
 
-    if ((this.classification.isBlack !== classification.isBlack) && classification.isBlack) this.grade = documentTemplate.grade_black;
+    if ((this.classification.isBlack !== classification.isBlack) && classification.isBlack) {
+        this.info = documentTemplate.info_black;
+        this.grade = documentTemplate.grade_black;
+    }
     else if (this.classification.isBlack && (this.classification.isBlack !== classification.isBlack)) {
+        this.info = documentTemplate.info_not_black;
         this.grade = documentTemplate[classification.graduateType == 'WILL' ? 'grade_will' : 'grade_done'];
     }
     this.classification = classification;
@@ -234,8 +253,18 @@ ApplyData.methods.reviseGrade = function (grade) {
     this.updatedAt = date_now;
 
     this.grade = grade;
-
-    return this.save();
+    new Promise((resolve, reject) => {
+        resolve(gradeValidation(this.classification.isBlack ? 'BLACK' : this.classification.graduateType));
+    })
+        .then((validationResult) => {
+            if (validationResult.length === 0) {
+                return calculator(this.grade, this.classification.graduateType, this.classification.applyBaseType.type)();
+            }
+            else return;
+        })
+        .then(score => {
+            
+        })
 }
 
 ApplyData.methods.reviseIntroduce = function (introduce) {
