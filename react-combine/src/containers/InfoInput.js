@@ -83,7 +83,7 @@ class InfoInput extends Component {
                 birthDay: birth[2]
             })
         }).catch(err => {
-            browserHistory.push('error');
+            // browserHistory.push('error');
         })
     }
 
@@ -291,6 +291,35 @@ class InfoInput extends Component {
         }
     }
 
+    previewFile(e) {
+        let preview = document.querySelectorAll('img')[1];
+        let file = document.querySelector('input[type=file]').files[0];
+        let reader = new FileReader();
+        let formData = new FormData();
+        formData.append('profile', file);
+
+        reader.onloadend = function(){
+            preview.src = reader.result;
+        }
+
+        if(file){
+            reader.readAsDataURL(file);
+            axios.put('/api/upload/profile', formData, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }).then(response => {
+                console.log(response);
+            }).catch(err => {
+                console.log(err);
+                console.log(err.request);
+                console.log(err.config)
+            })
+        } else {
+            preview.src = require('../images/file.png');
+        }
+    }
+
     openModal(){
         this.setState({
             modalIsOpen: true
@@ -337,7 +366,8 @@ class InfoInput extends Component {
                         openModal={this.openModal.bind(this)}
                         closeModal={this.closeModal.bind(this)}
                         setSchoolInfo={this.setSchoolInfo.bind(this)}
-                        setter={this.setter.bind(this)}/>
+                        setter={this.setter.bind(this)}
+                        previewFile={this.previewFile.bind(this)}/>
                     <Button router="/classification" buttonName="이전"/>
                     <Button onclick={this.submitInfo.bind(this)} buttonName="다음"/>
                 </div>

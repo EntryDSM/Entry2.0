@@ -166,10 +166,7 @@ class UserInfo extends Component {
                                     <p>대덕소프트웨어마이스터고등학교장 귀하</p>
                                 </td>
                                 <td>
-                                    <p>
-                                        사진<br/>
-                                        (3cm *  4cm)
-                                    </p>
+                                    <img id="profile" src="/api/upload/profile" />
                                 </td>
                             </tr>
                         </tbody>

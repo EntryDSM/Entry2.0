@@ -248,18 +248,22 @@ exports.reviseProfile = (req, res) => {
     const user = req.session.key;
     const file = req.files.profile;
     const src = UUID().slice(0, 12) + `.${file.mimetype.split("/")[1]}`;
-    console.log(src);
+    
     if (typeof file === "undefined" || file === null) return res.status(400).end();
 
     let _applyData;
 
     ApplyData.findOne({
-            user
-        })
+        user
+    })
         .then((applyData) => {
             if (!applyData) throw new Error('NOT FOUND');
             _applyData = applyData;
-            fs.unlinkSync(__dirname + `/../../uploads/${applyData.profile}`);
+            if (!fs.existsSync(__dirname + `/../../uploads`)) fs.mkdirSync(__dirname + `/../../uploads`);
+
+            if (fs.existsSync(__dirname + `/../../uploads/${applyData.profile}`)) {
+                fs.unlinkSync(__dirname + `/../../uploads/${applyData.profile}`);
+            }
             return file.mv(__dirname + `/../../uploads/${src}`);
         })
         .then(() => {
