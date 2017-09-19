@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Button from '../components/Button';
 import InputHeader from '../components/InputHeader';
 import '../css/Classification.css';
-import {classificationData} from '../actions';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {browserHistory} from 'react-router';
 import axios from 'axios';
@@ -20,7 +18,12 @@ class Classification extends Component {
             isCountryMerit: "",
             isSpecial: "",
             isSocietySelected: false,
-            isBlackTest: false
+            isBlackTest: false,
+            applyDetailType: {
+                IS_COMMON: true, 
+                IS_NATIONAL_MERIT: false, 
+                IS_EXCEPTIONEE: false
+            }
         }
         this.getAlreadyData = this.getAlreadyData.bind(this);
     }
@@ -32,13 +35,13 @@ class Classification extends Component {
     }
 
     onSocietyClick(e){
-        if(e.target.id === "meister" || e.target.id === "general"){
+        if(e.target.id === "MEISTER" || e.target.id === "COMMON"){
             this.setState({
                 type: e.target.id,
                 isSocietySelected: false,
                 detail: ""
             })
-        } else if(e.target.id === "society") {
+        } else if(e.target.id === "SOCIAL") {
             this.setState({
                 type: e.target.id,
                 isSocietySelected: !this.state.isSocietySelected
@@ -48,6 +51,10 @@ class Classification extends Component {
 
     radioSetter(e){
         switch(e.target.name){
+            case 'isBlackTest': this.setState({
+                    isBlackTest: e.target.id
+                })
+                break;
             case 'local': this.setState({
                     local: e.target.id
                 })
@@ -86,42 +93,38 @@ class Classification extends Component {
     }
 
     classificationSubmit(){
-        let store = this.context.store;
-        let isSpecial = false;
-        let isCountryMerit = false;
+        let applyDetailType = {};
         if(this.state.isSpecial === 'special_yes'){
-            isSpecial = true;
+            applyDetailType = {
+                IS_COMMON: false, 
+                IS_NATIONAL_MERIT: false, 
+                IS_EXCEPTIONEE: true
+            }
+        } else if(this.state.isCountryMerit === 'country_merit_yes'){
+            applyDetailType = {
+                IS_COMMON: false, 
+                IS_NATIONAL_MERIT: true, 
+                IS_EXCEPTIONEE: false
+            }
         } else {
-            isSpecial = false;
+            applyDetailType = {
+                IS_COMMON: true, 
+                IS_NATIONAL_MERIT: false, 
+                IS_EXCEPTIONEE: false
+            }
         }
-        if(this.state.isCountryMerit === 'country_merit_yes'){
-            isCountryMerit = true;
-        } else {
-            isCountryMerit = false;
-        }
-        let postData = {
-            local: this.state.local,
-            type: this.state.type,
-            graduation: this.state.graduation,
-            date: this.state.date,
-            detail: this.state.detail,
-            isSpecial: isSpecial,
-            isCountryMerit: isCountryMerit
-        }
-        store.dispatch(classificationData(postData));
-        let storeData = store.getState().selectClassification.CLASSIFICATION_DATA;
+        
         axios({
             method : "put",
             url : "/api/user/classification",
             data : {
                 classification: {
-                    local: storeData.local,
-                    type: storeData.type,
-                    graduation: storeData.graduation,
-                    date: storeData.date,
-                    detail: storeData.detail,
-                    isSpecial: storeData.isSpecial,
-                    isCountryMerit: storeData.isCountryMerit
+                    isBlack: this.state.isBlackTest,
+                    regionType: this.state.local,
+                    applyBaseType: this.state.type,
+                    graduateType: this.state.graduation,
+                    graduateYear: this.state.date,
+                    applyDetailType: applyDetailType
                 }
             },
             withCredentials : false,
@@ -148,26 +151,23 @@ class Classification extends Component {
             console.log(response)
             console.log(response.data);
             this.setState({
-                local: response.data.local,
-                type: response.data.type,
-                graduation: response.data.graduation,
-                date: response.data.date,
-                detail: "",
-                isCountryMerit: response.data.isCountryMerit,
-                isSpecial: response.data.isSpecial
+                isBlackTest: response.data.isBlack,
+                local: response.data.regionType,
+                type: response.data.applyBaseType,
+                graduation: response.data.graduateType,
+                date: response.data.graduateYear,
+                applyDetailType: response.data.applyDetailType
             })
         }).catch(err => {
             console.log(err);
         })
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.getAlreadyData();
     }
 
     render() {
-        const {store} = this.context;
-        let signUpData = store.getState().signUp.SIGNUP_DATA;
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>
@@ -175,15 +175,16 @@ class Classification extends Component {
                     <DefaultInfo
                         local={this.state.local}
                         isBlackTest={this.state.isBlackTest}
-                        setIsBlackTest={this.setIsBlackTest.bind(this)}
                         radioSetter={this.radioSetter.bind(this)}/>
                     <Graduate 
                         graduation={this.state.graduation}
                         radioSetter={this.radioSetter.bind(this)}/>
                     <TypeAndMemo
                         onSocietyClick={this.onSocietyClick.bind(this)} 
-                        radioSetter={this.radioSetter.bind(this)}/>
+                        radioSetter={this.radioSetter.bind(this)}
+                        applyBaseType={this.state.type}/>
                     <SocietyDetail
+                        applyDetailType={this.state.applyDetailType}
                         isSocietySelected={this.state.isSocietySelected} 
                         radioSetter={this.radioSetter.bind(this)}/>
                 </div>
@@ -204,18 +205,18 @@ const DefaultInfo = (props) => {
                 type="radio" 
                 name="isBlackTest"
                 id="test-yes"
-                checked = {props.isBlackTest}
                 value="yes"
-                onChange={props.setIsBlackTest}/>
+                checked = {props.isBlackTest}
+                onClick={props.radioSetter}/>
             <label htmlFor="test-yes">예</label>
 
             <input 
                 type="radio" 
                 name="isBlackTest" 
                 id="test-no" 
-                checked = {!props.isBlackTest}
                 value="no" 
-                onChange={props.setIsBlackTest}/> 
+                checked = {!props.isBlackTest}
+                onClick={props.radioSetter}/> 
             <label htmlFor="test-no">아니오</label><br />
 
             <span>지역</span>
@@ -248,19 +249,19 @@ const Graduate = (props) => {
         <input
             type="radio"
             name="graduation"
-            id="Will"
+            id="WILL"
             value="willGraduate"
             onClick={props.radioSetter}
-            checked={props.graduation === 'Will'}/>
+            checked={props.graduation === 'WILL'}/>
         <label htmlFor="will-graduate">졸업 예정</label>
 
         <input
             type="radio"
             name="graduation"
-            id="Done"
+            id="DONE"
             value="graduated"
             onClick={props.radioSetter}
-            checked={props.graduation === 'Done'}/>
+            checked={props.graduation === 'DONE'}/>
         <label htmlFor="graduated">졸업</label> <br />
 
         <span>졸업년도</span>
@@ -288,23 +289,26 @@ const TypeAndMemo = (props) => {
             <input
                 type="radio"
                 name="type"
-                id="general"
+                id="COMMON"
                 value="general"
-                onClick={props.onSocietyClick} />
+                onClick={props.onSocietyClick}
+                checked={props.applyBaseType === 'COMMON'} />
             <label htmlFor="general">일반</label>
             <input
                 type="radio"
                 name="type"
-                id="meister"
+                id="MEISTER"
                 value="meister"
-                onClick={props.onSocietyClick} />
+                onClick={props.onSocietyClick}
+                checked={props.applyBaseType === 'MEISTER'} />
             <label htmlFor="meister">마이스터 인재</label>
             <input
                 type="radio"
                 name="type"
-                id="society"
+                id="SOCIAL"
                 value="society"
-                onClick={props.onSocietyClick} />
+                onClick={props.onSocietyClick}
+                checked={props.applyBaseType === 'SOCIAL'} />
             <label htmlFor="society">사회통합</label> <br />
             <span>국가 유공자</span>
             <input 
@@ -354,8 +358,9 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="basic"
-                        id="basic"
-                        onClick={props.radioSetter} /> 
+                        id="BASIC_BENEFICIARY"
+                        onClick={props.radioSetter}
+                        checked={props.applyDetailType === 'BASIC_BENEFICIARY'} /> 
                         <label htmlFor="basic">기초생활수급권자</label>
                 </li>
                 <li>
@@ -363,8 +368,9 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="one-parent"
-                        id="one-parent"
-                        onClick={props.radioSetter} />
+                        id="SINGLE_PARENT"
+                        onClick={props.radioSetter}
+                        checked={props.applyDetailType === "SINGLE_PARENT"} />
                     <label htmlFor="one-parent">한부모가족보호대상자</label>
                 </li>
                 <li>
@@ -372,8 +378,9 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="poor"
-                        id="poor"
-                        onClick={props.radioSetter} />
+                        id="LOWER_INCOME"
+                        onClick={props.radioSetter}
+                        checked={props.applyDetailType === "LOWER_INCOME"} />
                     <label htmlFor="poor">차상위 계층</label>
                 </li>
                 <li>
@@ -381,8 +388,9 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="more-poor"
-                        id="more-poor"
-                        onClick={props.radioSetter} />
+                        id="LOW_INCOME"
+                        onClick={props.radioSetter}
+                        checked={props.applyDetailType === "LOW_INCOME"} />
                     <label htmlFor="more-poor">차차상위 계층</label>
                 </li>
                 <li>
@@ -390,8 +398,9 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="from-north"
-                        id="from-north"
-                        onClick={props.radioSetter} />
+                        id="FROM_NORTH"
+                        onClick={props.radioSetter}
+                        checked={props.applyDetailType === "FROM_NORTH"} />
                     <label htmlFor="from-north">북한이탈주민</label>
                 </li>
                 <li>
@@ -399,8 +408,9 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="multi-culture"
-                        id="multi-culture"
-                        onClick={props.radioSetter} />
+                        id="MULTICULTURAL"
+                        onClick={props.radioSetter}
+                        checked={props.applyDetailType === "MULTICULTURAL"} />
                     <label htmlFor="multi-culture">다문화가정</label>
                 </li>
                 <li>
@@ -408,20 +418,14 @@ const SocietyDetail = (props) => {
                         type="radio"
                         name="detail"
                         value="etc"
-                        id="etc"
-                        onClick={props.radioSetter} />
+                        id="ETC"
+                        onClick={props.radioSetter}
+                        checked={props.applyDetailType === "ETC"} />
                     <label htmlFor="etc">그 외 대상자</label>
                 </li>
             </ul>
         </div>
     )
 }
-Classification.contextTypes = {
-    store: PropTypes.object
-}
 
-function select(state){
-    classificationData: state.classificationData
-}
-
-export default connect(select)(Classification);
+export default Classification;

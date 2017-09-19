@@ -172,8 +172,8 @@ class GradeInput extends Component{
             withCredentials: false
         }).then(response => {
             console.log(response.data);
-            switch(response.data.graduation){
-                case "Will": 
+            switch(response.data.graduateType){
+                case "WILL": 
                     this.setState({
                         graduated: "hide"
                     })
@@ -227,7 +227,7 @@ class GradeInput extends Component{
                         ]
                     }
                     break;
-                case "Done":
+                case "DONE":
                     this.setState({
                         graduate_to_be: "hide"
                     })
