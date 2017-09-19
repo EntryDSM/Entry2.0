@@ -83,7 +83,7 @@ class InfoInput extends Component {
                 birthDay: birth[2]
             })
         }).catch(err => {
-            console.log(err);
+            browserHistory.push('error');
         })
     }
 

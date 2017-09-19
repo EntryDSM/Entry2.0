@@ -46,7 +46,7 @@ class Introduce extends Component {
                 plan: response.data.plan
             })
         }).catch(err => {
-            console.log(err);
+            browserHistory.push('error');
         })
     }
 

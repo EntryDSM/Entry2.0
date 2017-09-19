@@ -4,6 +4,7 @@ import PreviewHeader from '../components/PreviewHeader';
 import PreviewContent from '../components/PreviewContent';
 import Button from '../components/Button';
 import axios from 'axios';
+import {browserHistory} from 'react-router';
 import '../css/Preview.css';
 import '../css/Userinfo_table.css';
 
@@ -86,7 +87,7 @@ class Preview extends Component {
                 plan: response.data.introduce.plan
             })
         }).catch(err => {
-            console.log(err.config);
+            browserHistory.push('error');
         })
     }
 

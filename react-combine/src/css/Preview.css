@@ -327,13 +327,13 @@
     padding: 5px;
 }
 
-#privacy #footer{
+#privacy_footer{
     width: 100%;
     height: 30%;
     font-size: 15px;
 }
 
-#privacy #footer p:nth-child(2) {
+#privacy_footer p:nth-child(2) {
     position: relative;
     top: 10px;
     left: 800px;
