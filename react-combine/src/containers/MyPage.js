@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/MyPage2.css';
+import '../css/MyPage.css';
 import MyHeader from '../components/MyHeader';
 import MySection from '../components/MySection';
 import MyFooter from '../components/MyFooter';
@@ -37,7 +37,7 @@ class MyPage extends Component{
 
     render(){
         return(
-            <div id="mypage2">
+            <div id="mypage">
                 <MyHeader PageTitle = "MY PAGE"/>
                 <MySection MainTitle1 = "접수 현황"
                            MainTitle2 = "내가 올린 게시글"

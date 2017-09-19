@@ -1,309 +1,102 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-@keyframes biggerIcon{
+#main{
+    width:100%;
+    height:100%;
+    margin:0 auto;
+    position:relative;
+}
+
+#main *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    outline: none;
+    overflow-x: hidden;
+    font-family:'nanumsquare';
+}
+
+#main #headerCover{
+    width:100%;
+    height:4.5rem;
+    background-color:#404041;
+}
+
+#main #mainLogo{
+    display:block;
+    margin:0 auto;
+    width:7rem;
+    margin-top:9px;
+}
+
+#main #sectionCover{
+    width:100%;
+    height:43rem;
+    text-align: center;
+    font-size:0;
+}
+
+#main #sectionCover .sectionParts{
+    width:50%;
+    height:100%;
+    display:inline-block;
+}
+
+#main #sectionCover .sectionParts:nth-of-type(2){
+    background-color:#e9e9e9;
+}
+
+#main .sectionParts img{
+    display:block;
+    width:12rem;
+    margin:0 auto;
+    margin-top:13rem;
+    cursor:pointer;
+}
+
+#main .sectionParts img:hover{
+    animation : SideMove forwards 0.6s;
+    -webkit-animation : SideMove forwards 0.6s;
+    -ms-animation : SideMove forwards 0.6s;
+}
+
+@keyframes SideMove{
     0%{
-
+        transform: scale(1);
     }
     50%{
-        width: 12rem;
+        transform: scale(0.7);
     }
     100%{
-        width: 10rem;
+        transform: scale(1);
     }
 }
 
-body{
-    margin: 0;
-    padding: 0;
+#main .sectionParts h1{
+    font-size:1.15rem;
+    letter-spacing: 2px;
+    color:#505050;
+    margin-top:1rem;
 }
 
-#main-page{
-    font-family: 'Noto Sans KR';
-    font-weight: normal;
+#main .sectionParts h2{
+    font-size:0.95rem;
+    letter-spacing: 1px;
+    color:#c1c1c1;
+    margin-top:2px;
 }
 
-#main-page a{
-    color: #fff;
-}
+/* footer */
+footer{
+    width:100%;
+    height:170px;
+    background-color:#414140;
 
-#main-page #navigation-bar{
-    display: block;
-    position: fixed;
-    z-index: 9999;
-    /*height: 5rem;*/
-    width: 100%;
-    color: #fff;
-    text-align: right;
-    background-color: rgba(0, 0, 0, 0.2)
+    padding-left:5rem !important;
+    padding-top:3rem !important;
+    color:floralwhite;
+    font-size:0.85rem;
+    letter-spacing: 0.75px;
 }
-#main-page #navigation-bar span{
-    display: inline-block;
-    padding: 1.2rem;
-    font-size: 1.3rem;
-    cursor: pointer;
-}
-
-#main-page #navigation-bar span:nth-child(1){
-    float: left;
-    font-size: 45px;
-    margin-left: 20px;
-    word-spacing: 5px;
-    padding: 0;
-}
-#main-page header{
-    width: 100%;
-    height: auto;
-    background-image: url('../images/main-bg.jpg');
-    background-size: cover;
-    color: #fff;
-    /*text-shadow: 0.8px 0.8px 0.5px #999999;*/
-    box-shadow: 0px 3px 3px #d5d5d5;
-}
-#main-page #header-left{
-    display: inline-block;
-    width: 50%;
-    height: 100vh;
-    /*float: left;*/
-}
-
-#main-page #header-left div{
-    display: inline-block;
-}
-
-#main-page img[alt="logo"]{
-    padding: 1rem 0;
-    width: 35rem;
-}
-
-#main-page header section{
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to  right, rgba(62,75,255,0.9), rgba(33,213,255,0.9));
-    margin: 0;
-}
-
-#main-page #logo{
-    display: inline-block;
-    margin-top: 5rem;
-    margin-left: 8rem;
-}
-
-#main-page header span{
-    font-size: 4rem;
-    font-weight: bold;
-}
-#main-page section{
-    box-shadow: 0px 3px 3px #d5d5d5;
-}
-
-#main-page #renewal {
-    background: linear-gradient(to right bottom, rgba(44,181,115,0.85), rgba(51,204,231, 0.85));
-}
-
-#main-page #renewal #logo{
-    width: 256px;
-    margin : 70px 0 0 50px;
-}
-
-#main-page #renewal #logo+h1{
-    margin: 0;
-    margin-left: 50px;;
-}
-
-#main-page #renewal div:nth-child(1){
-    margin-left: 20px;
-}
-
-
-#main-page #renewal span{
-    font-size: 100px;
-    color: #fff;
-}
-
-#main-page #renewal h1{
-    margin: 0;
-    color: #fff;
-}
-
-#main-page #apply-menu{
-    width: 1000px;
-    text-align: center;
-    margin: 0 auto;
-}
-
-#main-page #renewal .icon{
-    width: 256px;
-}
-
-#main-page #renewal .icon-menu{
-    display: inline-block;
-    text-align: center;
-    cursor: pointer;
-}
-
-#main-page #apply-state h1{
-    text-align: center;
-    margin: 0;
-    padding: 2rem 0;
-    font-size: 12rem;
-    font-weight: bold;
-    color: white;
-    text-shadow: 0 1px 1px #999999;
-}
-
-#main-page #apply-state #charts>div{
-    display: inline-block;
-    width: 50%;
-}
-
-#main-page #apply-state #charts>div>div{
-    height: 600px;
-}
-
-#main-page header section h3{
-    margin: 0;
-    text-align: center;
-    font-size: 4rem;
-    font-weight: lighter;
-}
-
-#main-page #apply{
-    display: inline-block;
-    margin-left: 8rem;
-    margin-top: 4rem;
-}
-#main-page #apply div{
-    display: inline-block;
-}
-
-#main-page #apply img{
-    width: 10rem;
-}
-#main-page #apply {
-    text-align: center;
-}
-
-#main-page #apply div:hover img{
-    /*animation: biggerIcon 2s;*/
-    cursor: pointer;
-}
-
-
-#main-page #thumbnails{
-    display: inline-block;
-    margin-left: 4rem;
-    overflow: hidden;
-}
-
-#main-page .thumbnail{
-    display: inline-block;
-    border: 0.2px solid rgba(213, 213, 213, 0.5);
-    padding: 0.5rem 1rem;
-    width: 25rem;
-    letter-spacing: 1.5px;
-    color: #222;
-    box-shadow: 0px 1px 1px #999999;
-    background-color: #fff;
-    margin-top: 3rem;
-    margin-left: 5rem;
-}
-
-#main-page .thumbnail h3{
-    text-align: left;
-    padding-left: 1rem;
-    font-size: 2rem;
-    font-weight: normal;
-}
-
-#main-page ul{
-    list-style: none;
-    padding: 0;
-    font-size: 1.2rem;
-}
-
-#main-page ul li{
-    line-height: 1.4;
-    font-weight: normal;
-}
-
-#main-page ul>li::before{
-    font-size: 1rem;
-    content: '- ';
-    margin-right: 0.5rem;
-}
-
-#main-page ul>h3{
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-#main-page ul>h3>span{
-    float: right;
-    margin-right: 0.2rem;
-    font-size: 0.8rem;
-}
-
-#main-page #charts{
-    font-size: 0;
-}
-
-#main-page #charts h1{
-    font-size: 5rem;
-}
-
-#main-page #school-intro h1{
-    text-align: center;
-    font-size: 5rem;
-    background-image: linear-gradient(to  right, rgba(62,75,255,0.9), rgba(33,213,255,0.9));
-    padding: 2rem 0;
-    margin: 0;
-    color: #fff;
-}
-#main-page article{
-    width: 100%;
-    height: 45vh;
-}
-
-#main-page article:nth-child(odd){
-    background: #e5e5e5;
-}
-
-#main-page #school-intro .description{
-    display: inline-block;
-    width: 60%;
-}
-
-#main-page #school-intro .description h1{
-    font-size: 3rem;
-    background: rgba(0, 0, 0, 0);
-    font-family: 'Nanum Gothic';
-    font-weight: bold;
-    color: #000;
-    text-align: left;
-    padding-left: 12rem;
-}
-#main-page #school-intro article img{
-    width: 256px;
-    height: auto;
-    margin-left: 12rem;
-    margin-top: 4rem;
-}
-#main-page #school-intro .description pre{
-    padding-left: 12rem;
-    font-size: 2.2rem;
-    font-weight: normal;
-    text-align: left;
-    line-height: 1.4;
-    margin-top: 0;
-}
-
-#main-page footer{
-    font-weight: lighter;
-    font-size: 0.8rem;
-    padding: 2rem 12rem;
-    background-color: #d5d5d5;
-}
-
-

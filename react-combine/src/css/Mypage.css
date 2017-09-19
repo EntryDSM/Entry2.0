@@ -1,161 +1,159 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-#my-page body{
-    background-color: #f4f4f4;
-    font-family: 'Noto Sans KR';
+#mypage{
+    width:100%;
+    height:100%;
+    margin:0 auto;
+    background-color: #eef2f5;
+    position:relative;
 }
 
-#my-page #logoImg{
-    width: 256px;
-    margin: 1rem 0 0 2rem;
-}
-
-#my-page #logoImg+h2{
-    float: right;
-    font-size: 5rem;
+#mypage *{
+    box-sizing: border-box;
     margin: 0;
-    margin-top: 3rem;
-    margin-right: 5rem;
-}
-
-#my-page #apply-condition{
-    margin: 0 auto;
-    width: 95%;
-}
-
-#my-page #apply-condition h2,#notice-table h2{
-    font-size: 3rem;
-    font-family: 'Nanum Gothic';
-    font-weight: normal;
-    margin: 1.5rem 0;
-    padding: 0 0 0 0.25rem;
-}
-
-#my-page #apply-condition table{
-    border-collapse: collapse;
-    font-family: 'Noto Sans KR';
-    box-shadow: 0rem 0.25rem #d5d5d5;
-}
-
-#my-page #apply-condition td{
-    border: 0.1px solid #555;
-    font-size: 2rem;
-    padding: 1rem 1.5rem;
-    text-align: center;
-}
-
-#my-page #apply-condition thead td{
-    background: rgba(44, 181, 115, 1);
-    color: #fff;
-}
-
-#my-page #apply-condition table{
-    width: 100%;
-}
-
-#my-page #apply-condition tbody td{
-    font-size: 2rem;
-    text-align: center;
-    background-color: #fff;
-}
-
-#my-page #apply-condition tbody td:last-child{
     padding: 0;
-    margin: 0;
+    border: 0;
+    vertical-align: baseline;
+    outline: none;
+    overflow-x: auto;
+    font-family:'nanumsquare';
 }
 
-#my-page #apply-condition tbody td button{
-    margin: 0;
-    font-size: 1.5rem;
-    width: 80%;
-    height: 4rem;
-    border-style: none;
-    border-bottom: 0.5rem solid #d5d5d5;
-    border-right: 0.2rem solid #d5d5d5;
-    font-weight: bold;
-    background-color: #fcfcfc;
+/* Header 부분 */
+
+#mypage header{
+    width:100%;
+    height:5.5rem;
+    background-color:#414143;
+    overflow:hidden;
 }
 
-#my-page #apply-condition tbody td button:active{
-    background-color: #fff;
-    color: #555;
-    border-bottom : 0.2rem solid #d5d5d5;
+#mypage #pageTitle{
+    margin-left:5rem;
+    padding-top:1.85rem;
+
+    color:white;
+    font-family: 'nanumsquare';
+    font-size:1.7rem;
+    font-weight:bold;
+    letter-spacing: 1px;
 }
 
-#my-page #notice-table{
-    margin: 0 auto;
-    width: 95%;
-    box-shadow: 0rem 0.25rem #d5d5d5;
-    margin-bottom: 5rem;
+#mypage #logoCover{
+    /* 로고와 텍스트를 감싸기 위한 용도 */
+    position:absolute;
+    top:0;
+    right:4rem;
 }
 
-#my-page #notice-table table{
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#my-page #notice-table tr{
-    width: 100%;
-    height: auto;
-}
-
-#my-page #notice-table thead td{
-    background-color: rgba(44, 181, 115, 1);
-    color: #fff;
-    font-size: 1.2rem;
-    padding: 1rem 0.5rem;
-    text-align: center;
-    border: 0.01px solid #000;
-}
-
-
-#my-page #notice-table tbody td{
-    background-color: #fff;
-    color: #555;
-    font-size: 1.2rem;
-    padding: 1rem 0.5rem;
-    text-align: center;
-    border: 0.01px solid #000;
-}
-/*
-#my-page #notice-table tbody td{
-    background-color: #fff;
-    font-size: 1.2rem;
-    padding: 1rem 0.5rem;
-}
-*/
-
-#my-page #notice-table td:nth-child(1){
-    width: 10%;
-}
-
-#my-page #notice-table td:nth-child(2){
-    width: 65%;
-}
-
-#my-page #notice-table tbody td:nth-child(2){
-    text-align: left;
-    padding-left: 28px;
-    overflow-x: hidden;
-}
-
-#my-page #notice-table td:nth-child(3){
-    width: 15%;
-}
-
-#my-page #notice-table td:nth-child(4){
-    width: 10%;
-}
-
-#my-page #notice-table button{
-    display: block;
-    width: calc(1000% - 6px);
-    padding: 0;
-    margin: 0;
-    padding: 0.5rem 0;
-    font-size: 2rem;
-    background-color: #fafafa;
-    border: 0.1px solid #aaa;
+#mypage #logoCover #myLogo{
+    width:9rem;
     
+    padding-top:1.2rem;
+    display:inline-block;
+    vertical-align: top;
+}
+
+#mypage #logoCover #logoText{
+    color:white;
+    font-family:'Poiret One';
+    font-size:0.56rem;
+    font-weight:bold;
+    padding-left:-2px;
+}
+
+/* 여기까지 */
+/* section 시작 */
+
+#mypage section{
+    width:100%;
+    height:auto;
+}
+
+#mypage section h1{
+    color:#424242;
+    font-family:'noto sans kr';
+    letter-spacing: 2px;
+    margin-left:4rem;
+    margin-top:5rem;
+    font-size:1.7rem;
+    font-weight:500;
+}
+
+#mypage #checksCover{
+    text-align: center;
+}
+
+#mypage #checksCover .checkFiles{
+    display:inline-block;
+    vertical-align: top;
+    width:16rem;
+    height:20rem;
+    box-shadow:0 0 4px gray;
+    margin:10px;
+    margin-top:3rem;
+    border-radius: 4px;
+}
+
+#mypage .checkFiles .checkTitles{
+    color:#424242;
+    line-height:1.5;
+    margin-top:1.5rem;
+    letter-spacing: 1px;
+}
+
+#mypage .checkFiles .mainImgs{
+    display:block;
+    margin: 0 auto;
+    margin-top:1.8rem;
+}
+
+#mypage .checkFiles .checkImgs{
+    display:block;
+    width:2.2rem;
+    margin:0 auto;
+    margin-top:2rem;
+}
+
+/* 버튼 */
+#mypage #checkBtn{
+    width:10em;
+    height:2.6rem;
+    border:2.5px solid white;
+    box-shadow:0 0 5px gray;
+    border-radius: 50px;
+    margin:0 auto;
+    margin-top:3rem;
+    background: linear-gradient(to right, #8b63aa, #595a85);
+    cursor:pointer;
+    display:table;
+}
+
+#mypage #checkBtn #checkBtnText{
+    display:table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-family: 'nanumsquare';
+    color:#424242;
+    font-size:0.9rem;
+    letter-spacing: 1px;
+    color:white;
+}
+
+#mypage footer{
+    width:100%;
+    height:170px;
+    background-color:#242729;
+    color:floralwhite;
+    font-size:0.8rem;
+    line-height: 1.8;
+    margin-top:11rem;
+    padding-top:1.6rem;
+    overflow-y:hidden;
+}
+
+#mypage footer #Privacy{
+    width:60%;
+    margin-left:15rem;
+    padding-top:1rem;
 }
