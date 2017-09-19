@@ -51,7 +51,7 @@ class UserInfo extends Component {
                                 <td>{datas.parentsTel}</td>
                                 <td rowSpan="3">졸업<br/>구분</td>
                                 <td>
-                                    <input type="checkbox" checked={datas.graduation === 'will-graduate'} readOnly />
+                                    <input type="checkbox" checked={datas.graduation === 'WILL'} readOnly />
                                     &nbsp;&nbsp;&nbsp;2018년 중학교 졸업예정
                                 </td>
                             </tr>
@@ -59,7 +59,7 @@ class UserInfo extends Component {
                                 <td>학교</td>
                                 <td>{datas.schoolTel}</td>
                                 <td>
-                                    <input type="checkbox" checked={datas.graduation === 'graduated'} readOnly />
+                                    <input type="checkbox" checked={datas.graduation === 'DONE'} readOnly />
                                     &nbsp;&nbsp;&nbsp;2017년 중학교 졸업
                                 </td>
                             </tr>
@@ -78,40 +78,40 @@ class UserInfo extends Component {
                             <tr>
                                 <td rowSpan="4">전형유형</td>
                                 <td colSpan="2">
-                                    <input type="checkbox" checked={datas.type === 'general'} readOnly/>
+                                    <input type="checkbox" checked={datas.type === 'COMMON'} readOnly/>
                                     일반전형
                                 </td>
                                 <td rowSpan="4">지원자<br/>특기<br/>사항</td>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.isCountryMerit}/>
+                                    <input type="checkbox" checked={datas.isCountryMerit} readOnly/>
                                     국가유공자자녀
                                 </td>
                                 <td rowSpan="4">지역</td>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.local === 'daejeon'}/>
+                                    <input type="checkbox" checked={datas.local === 'HOME'}/>
                                     대전
                                 </td>
                             </tr>
                             <tr>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.type === 'meister'} readOnly/>
+                                    <input type="checkbox" checked={datas.type === 'MEISTER'} readOnly/>
                                     마이스터인재전형
                                 </td>
                                 <td rowSpan="3">특별<br/>전형</td>
                             </tr>
                             <tr>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.isSpecial}/>
+                                    <input type="checkbox" checked={datas.isSpecial} readOnly/>
                                     특례입학대상자
                                 </td>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.local === 'country'}/>
+                                    <input type="checkbox" checked={datas.local === 'AWAY'}/>
                                     전국
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" checked={datas.type === 'society'} readOnly/>
+                                    <input type="checkbox" checked={datas.type === 'SOCIAL'} readOnly/>
                                     사회통합전형
                                 </td>
                             </tr>
@@ -133,13 +133,13 @@ class UserInfo extends Component {
                                 <td>교과성적<br/>환산점수</td>
                             </tr>
                             <tr>
-                                <td>50</td>
-                                <td>50</td>
-                                <td>50</td>
-                                <td>150</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>180</td>
+                                <td>{datas.firstGrade}</td>
+                                <td>{datas.secondGrade}</td>
+                                <td>{datas.thirdGrade}</td>
+                                <td>{datas.totalSubjectGrade}</td>
+                                <td>{datas.attend}</td>
+                                <td>{datas.volunteer}</td>
+                                <td>{datas.totalGrade}</td>
                             </tr>
                         </tbody>
                     </table>

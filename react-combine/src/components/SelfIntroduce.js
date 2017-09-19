@@ -17,7 +17,7 @@ class SelfIntroduce extends Component {
                             </tr>
                             <tr>
                                 <td className="td_title">출신중학교</td>
-                                <td className="td_content">{datas.school}</td>
+                                <td className="td_content">{datas.schoolName}</td>
                             </tr>
                         </tbody>
                     </table>
