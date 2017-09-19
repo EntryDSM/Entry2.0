@@ -10,19 +10,20 @@ class Classification extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            local: "",
-            type: "",
+            local: "AWAY",
             graduation: "",
             date: "2018",
             detail: "",
-            isCountryMerit: "",
-            isSpecial: "",
             isSocietySelected: false,
             isBlackTest: false,
             applyDetailType: {
                 IS_COMMON: true, 
                 IS_NATIONAL_MERIT: false, 
                 IS_EXCEPTIONEE: false
+            },
+            applyBaseType: {
+                type: "COMMON",
+                cause: null
             }
         }
         this.getAlreadyData = this.getAlreadyData.bind(this);
@@ -37,14 +38,19 @@ class Classification extends Component {
     onSocietyClick(e){
         if(e.target.id === "MEISTER" || e.target.id === "COMMON"){
             this.setState({
-                type: e.target.id,
                 isSocietySelected: false,
-                detail: ""
+                applyBaseType: {
+                    type: e.target.id,
+                    cause: null
+                }
             })
         } else if(e.target.id === "SOCIAL") {
             this.setState({
-                type: e.target.id,
-                isSocietySelected: !this.state.isSocietySelected
+                isSocietySelected: !this.state.isSocietySelected,
+                applyBaseType: {
+                    type: e.target.id,
+                    cause: null
+                }
             })
         }
     }
@@ -60,7 +66,10 @@ class Classification extends Component {
                 })
                 break;
             case 'type': this.setState({
-                    type: e.target.id
+                    applyBaseType: {
+                        type: e.target.id,
+                        cause: null
+                    }
                 })
                 break;
             case 'graduation': this.setState({
@@ -72,19 +81,26 @@ class Classification extends Component {
                 })
                 break;
             case 'detail': this.setState({
-                    detail: e.target.id
-                })
-                break;
-            case 'note': this.setState({
-                    note: e.target.id
+                    applyBaseType: {
+                        type: "SOCIAL",
+                        cause: e.target.id
+                    }
                 })
                 break;
             case 'special': this.setState({
-                    isSpecial: e.target.id
+                    applyDetailType: {
+                        IS_COMMON: false, 
+                        IS_NATIONAL_MERIT: false, 
+                        IS_EXCEPTIONEE: true
+                    }
                 })
                 break;
             case 'country-merit': this.setState({
-                    isCountryMerit: e.target.id
+                    applyDetailType: {
+                        IS_COMMON: false, 
+                        IS_NATIONAL_MERIT: true, 
+                        IS_EXCEPTIONEE: false
+                    }
                 })
                 break;
             default:
@@ -93,27 +109,6 @@ class Classification extends Component {
     }
 
     classificationSubmit(){
-        let applyDetailType = {};
-        if(this.state.isSpecial === 'special_yes'){
-            applyDetailType = {
-                IS_COMMON: false, 
-                IS_NATIONAL_MERIT: false, 
-                IS_EXCEPTIONEE: true
-            }
-        } else if(this.state.isCountryMerit === 'country_merit_yes'){
-            applyDetailType = {
-                IS_COMMON: false, 
-                IS_NATIONAL_MERIT: true, 
-                IS_EXCEPTIONEE: false
-            }
-        } else {
-            applyDetailType = {
-                IS_COMMON: true, 
-                IS_NATIONAL_MERIT: false, 
-                IS_EXCEPTIONEE: false
-            }
-        }
-        
         axios({
             method : "put",
             url : "/api/user/classification",
@@ -121,10 +116,10 @@ class Classification extends Component {
                 classification: {
                     isBlack: this.state.isBlackTest,
                     regionType: this.state.local,
-                    applyBaseType: this.state.type,
+                    applyBaseType: this.state.applyBaseType,
                     graduateType: this.state.graduation,
                     graduateYear: this.state.date,
-                    applyDetailType: applyDetailType
+                    applyDetailType: this.state.applyDetailType
                 }
             },
             withCredentials : false,
@@ -153,7 +148,7 @@ class Classification extends Component {
             this.setState({
                 isBlackTest: response.data.isBlack,
                 local: response.data.regionType,
-                type: response.data.applyBaseType,
+                applyBaseType: response.data.applyBaseType,
                 graduation: response.data.graduateType,
                 date: response.data.graduateYear,
                 applyDetailType: response.data.applyDetailType
@@ -182,7 +177,8 @@ class Classification extends Component {
                     <TypeAndMemo
                         onSocietyClick={this.onSocietyClick.bind(this)} 
                         radioSetter={this.radioSetter.bind(this)}
-                        applyBaseType={this.state.type}/>
+                        applyBaseType={this.state.applyBaseType}
+                        applyDetailType={this.state.applyDetailType}/>
                     <SocietyDetail
                         applyDetailType={this.state.applyDetailType}
                         isSocietySelected={this.state.isSocietySelected} 
@@ -223,19 +219,19 @@ const DefaultInfo = (props) => {
             <input 
                 type="radio"
                 name="local"
-                id="country" 
+                id="AWAY" 
                 value="country"
                 onClick={props.radioSetter}
-                checked={props.local === 'country'} /> 
+                checked={props.local === 'AWAY'} /> 
             <label htmlFor="country">전국</label>
 
             <input 
                 type="radio" 
                 name="local" 
-                id="daejeon" 
+                id="HOME" 
                 value="daejeon"
                 onClick={props.radioSetter}
-                checked={props.local === 'daejeon'} /> 
+                checked={props.local === 'HOME'} /> 
             <label htmlFor="Daejeon">대전</label><br />
     </div>
     )
@@ -292,7 +288,7 @@ const TypeAndMemo = (props) => {
                 id="COMMON"
                 value="general"
                 onClick={props.onSocietyClick}
-                checked={props.applyBaseType === 'COMMON'} />
+                checked={props.applyBaseType.type === 'COMMON'} />
             <label htmlFor="general">일반</label>
             <input
                 type="radio"
@@ -300,7 +296,7 @@ const TypeAndMemo = (props) => {
                 id="MEISTER"
                 value="meister"
                 onClick={props.onSocietyClick}
-                checked={props.applyBaseType === 'MEISTER'} />
+                checked={props.applyBaseType.type === 'MEISTER'} />
             <label htmlFor="meister">마이스터 인재</label>
             <input
                 type="radio"
@@ -308,7 +304,7 @@ const TypeAndMemo = (props) => {
                 id="SOCIAL"
                 value="society"
                 onClick={props.onSocietyClick}
-                checked={props.applyBaseType === 'SOCIAL'} />
+                checked={props.applyBaseType.type === 'SOCIAL'} />
             <label htmlFor="society">사회통합</label> <br />
             <span>국가 유공자</span>
             <input 
@@ -316,7 +312,8 @@ const TypeAndMemo = (props) => {
                 name="country-merit"
                 id="country_merit_yes"
                 value="general"
-                onClick={props.radioSetter} />
+                onClick={props.radioSetter}
+                checked={props.applyDetailType.IS_NATIONAL_MERIT} />
             <label htmlFor="memo-general">예</label>
 
             <input 
@@ -324,7 +321,8 @@ const TypeAndMemo = (props) => {
                 name="country-merit"
                 id="country_merit_no"
                 value="no"
-                onClick={props.radioSetter} />
+                onClick={props.radioSetter}
+                checked={!props.applyDetailType.IS_NATIONAL_MERIT} />
             <label htmlFor="country-merit">아니요</label> <br />
 
             <span>특례 입학 대상자</span>
@@ -333,7 +331,8 @@ const TypeAndMemo = (props) => {
                 name="special"
                 id="special_yes"
                 value="general"
-                onClick={props.radioSetter} />
+                onClick={props.radioSetter}
+                checked={props.applyDetailType.IS_EXCEPTIONEE} />
             <label htmlFor="memo-general">예</label>
 
             <input 
@@ -341,7 +340,8 @@ const TypeAndMemo = (props) => {
                 name="special"
                 id="speicial_no"
                 value="special_no"
-                onClick={props.radioSetter} />
+                onClick={props.radioSetter}
+                checked={!props.applyDetailType.IS_EXCEPTIONEE} />
             <label htmlFor="country-merit">아니요</label>
         </div>
     )
