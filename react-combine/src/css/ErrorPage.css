@@ -23,3 +23,32 @@
     height:4.5rem;
     background-color:#404041;
 }
+
+#error-page #logo{
+    width:7rem;
+    margin:0 auto;
+    margin-top:9px;
+    display:block;
+}
+
+#error-page #warningImg{
+    width:20rem;
+    margin:0 auto;
+    display:block;
+    margin-top:6.5rem;
+}
+
+#error-page h1{
+    text-align: center;
+    color:#424242;
+    font-size:3rem;
+    margin-top:2rem;
+}
+
+#error-page h2{
+    text-align: center;
+    font-size:1.6rem;
+    color:#424242;
+    letter-spacing: 0.5px;
+    margin-top:0.5rem;
+}
