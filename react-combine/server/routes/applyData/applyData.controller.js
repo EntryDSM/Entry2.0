@@ -9,7 +9,7 @@ exports.getUserInfo = (req, res) => {
             user
         }, {
             "info": true,
-            "user" : true
+            "user": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -55,7 +55,7 @@ exports.getUserClassification = (req, res) => {
             user
         }, {
             "classification": true,
-            "user" : true
+            "user": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -102,7 +102,7 @@ exports.getUserGrade = (req, res) => {
         }, {
             "grade": true,
             "_id": false,
-            "user" : true
+            "user": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -147,7 +147,7 @@ exports.getUserIntroduce = (req, res) => {
             user
         }, {
             "introduce": true,
-            "user" : true
+            "user": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
