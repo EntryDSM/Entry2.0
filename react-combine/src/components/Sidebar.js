@@ -11,7 +11,11 @@ class Sidebar extends React.Component{
         return(
             <div className = "menu_area">
                 <Logo />
-                <Process />
+                <Process 
+                    moveClassification={this.props.moveClassification}
+                    moveInfoinput={this.props.moveInfoinput}
+                    moveGradeinput={this.props.moveGradeinput}
+                    moveIntroduce={this.props.moveIntroduce}/>
             </div>
         );
     }

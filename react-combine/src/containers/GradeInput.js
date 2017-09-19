@@ -6,8 +6,6 @@ import Button from '../components/Button';
 import Volunteer from '../components/Volunteer';
 import Attend from '../components/Attend';
 import axios from 'axios';
-import {connect} from 'react-redux';
-import {gradeInputData} from '../actions';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 import '../css/InputHeader.css';
@@ -114,34 +112,19 @@ class GradeInput extends Component{
     }
 
     gradeInputSubmit(){
-        let store = this.context.store;
-        let postData = {
-            volunteer: this.state.volunteer,
-            attend: {
-                absence: this.state.absence,
-                lateness: this.state.lateness,
-                earlyLeave: this.state.earlyLeave,
-                subjectEscape: this.state.subjectEscape
-            },
-            score: {
-                semesters: this.state.score.semesters
-            }
-        }
-        store.dispatch(gradeInputData(postData));
-        let storeData = store.getState().gradeinput.GRADEINPUT_DATA;
         axios({
             method: 'put',
             url: '/api/user/grade',
             data: {
                 grade: {
-                    volunteer: storeData.volunteer,
+                    volunteer: this.state.volunteer,
                     attend: {
-                        absence: storeData.attend.absence,
-                        lateness: storeData.attend.lateness,
-                        earlyLeave: storeData.attend.earlyLeave,
-                        subjectEscape: storeData.attend.subjectEscape
+                        absence: this.state.absence,
+                        lateness: this.state.lateness,
+                        earlyLeave: this.state.earlyLeave,
+                        subjectEscape: this.state.subjectEscape
                     },
-                    score: storeData.score
+                    score: this.state.score
                 }
             }
         }).then(response => {
@@ -312,9 +295,6 @@ class GradeInput extends Component{
             console.log(err);
         })
 
-        let store = this.context.store;
-        let storeData = this.context.store.getState().selectClassification.CLASSIFICATION_DATA;
-
         let mThis = this;
 
         let selectorToggle = (nodes, event, semester, subject) => {
@@ -462,7 +442,7 @@ class GradeInput extends Component{
                         scoreData.semesters[i][j].pass = false;
                         scoreData.semesters[i][j].grade = null;
                         mThis.setState({
-                            scoreData: scoreData
+                            score: scoreData
                         })
                         toBe_NotPass[i][j].checked = true;
                         Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
@@ -473,6 +453,9 @@ class GradeInput extends Component{
                     for(let j = 0; j < 7; j++){
                         toBe_Semesters[i][j].classList.remove('notpassedArea');
                         toBe_NotPass[i][j].checked = false;
+                        mThis.setState({
+                            score: scoreData
+                        })
                     }
                 }
             })
@@ -494,30 +477,59 @@ class GradeInput extends Component{
             response.data.grade.score.semesters.forEach((ele) => {
                 console.log(response.data.grade.score.semesters.length);
                 for(let i = 0; i < response.data.grade.score.semesters.length; i++){
+                    let MtoBe_SemesterNotPass = toBe_SemesterNotPass[i].children[0].children[1].children[0].children[0];
+                    let Mdid_SemesterNotPass = did_SemesterNotPass[i].children[0].children[1].children[0].children[0];
+                    let count = 0;
                     for(let j = 0; j < 7; j++){
                         if(response.data.grade.score.semesters.length === 5){
                             Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
                                 if(response.data.grade.score.semesters[i][j].grade === ele.textContent){
                                     ele.classList.add('selectedGrade');
                                     scoreData.semesters[i][j].grade = ele.textContent;
+                                    this.setState({
+                                        score: scoreData
+                                    })
                                 }
                             })
                             toBe_NotPass[i][j] = toBe_Semesters[i][j].children[0].children[0].children[1].children[0].children[0];
                             if(!response.data.grade.score.semesters[i][j].pass){
                                 toBe_NotPass[i][j].checked = true;
                                 toBe_Semesters[i][j].classList.add('notpassedArea');
+                                scoreData.semesters[i][j].pass = false;
+                                ++count;
+                                if(count === 7){
+                                    MtoBe_SemesterNotPass.checked = true;
+                                } else {
+                                    MtoBe_SemesterNotPass.checked = false;
+                                }
+                                this.setState({
+                                    score: scoreData
+                                })
                             }
                         } else if(response.data.grade.score.semesters.length === 6) {
                             Array.from(did_GradeSelector[i][j].children).forEach((ele) => {
                                 if(response.data.grade.score.semesters[i][j].grade === ele.textContent){
                                     ele.classList.add('selectedGrade');
                                     scoreData.semesters[i][j].grade = ele.textContent;
+                                    this.setState({
+                                        score: scoreData
+                                    })
                                 }
                             })
                             did_NotPass[i][j] = did_Semesters[i][j].children[0].children[0].children[1].children[0].children[0];
                             if(!response.data.grade.score.semesters[i][j].pass){
                                 did_NotPass[i][j].checked = true;
                                 did_Semesters[i][j].classList.add('notpassedArea');
+                                scoreData.semesters[i][j].pass = false;
+                                ++count;
+                                if(count === 7){
+                                    Mdid_SemesterNotPass.checked = true;
+                                } else {
+                                    Mdid_SemesterNotPass.checked = false;
+                                }
+                                this.setState({
+                                    score: scoreData
+                                })
                             }
                         }
                     }
@@ -704,12 +716,5 @@ class GradeInput extends Component{
         }
     }
 }
-GradeInput.contextTypes = {
-    store: PropTypes.object
-}
 
-function gradeInput(state){
-    gradeInputData: state.gradeInputData
-}
-
-export default connect(gradeInput)(GradeInput);
+export default GradeInput;
