@@ -194,16 +194,16 @@ ApplyData.statics.createEmpty = function (user) {
             let applyData = new this({
                 user,
                 "classification": documentTemplate.classification,
-                "info": documentTemplate.info,
+                "info": documentTemplate.info_not_black,
                 "grade": documentTemplate.grade,
                 "introduce": documentTemplate.introduce,
                 "createdAt": date_now,
                 "updatedAt": date_now,
                 "submitNumber": next
             });
-
+            console.log(applyData.grade);
             if (applyData.classification.isBlack) applyData.grade.score = documentTemplate.grade_black;
-            else applyData.grade.score = applyData.classification.graduateType === 'WILL' ? documentTemplate.grade_will : documentTemplate.grade_done;
+            else applyData.grade.score = applyData.classification.graduateType === 'WILL' ? grade_will : grade_done;
             return applyData.save();
         })
         .catch((err) => {
@@ -253,18 +253,26 @@ ApplyData.methods.reviseGrade = function (grade) {
     this.updatedAt = date_now;
 
     this.grade = grade;
+
+    const _applyData = this;
+
+    console.log(_applyData.classification);
     new Promise((resolve, reject) => {
-        resolve(gradeValidation(this.classification.isBlack ? 'BLACK' : this.classification.graduateType));
+        resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
     })
         .then((validationResult) => {
+            console.log(validationResult);
             if (validationResult.length === 0) {
-                return calculator(this.grade, this.classification.graduateType, this.classification.applyBaseType.type)();
+                return calculator.calculate(_applyData.grade, _applyData.classification.graduateType, _applyData.classification.applyBaseType.type);
             }
             else return;
         })
         .then(score => {
-            
+            console.log(score);
+            _applyData.calculatedScore = score;
+            return _applyData.save();
         })
+        .catch(console.log);
 }
 
 ApplyData.methods.reviseIntroduce = function (introduce) {
