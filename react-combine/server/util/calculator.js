@@ -13,7 +13,7 @@ exports.calculate = function (grade, graduateType, applyType) {
         const attend = grade.attend;
         const volunteer = grade.volunteer;
         const subjects = [null, 'E', 'D', 'C', 'B', 'A'];
-        g_score = grade.score.semester;
+        g_score = grade.score.semesters;
         g_score.forEach(function (element) {
             let item = []
             element.forEach(function (grade) {

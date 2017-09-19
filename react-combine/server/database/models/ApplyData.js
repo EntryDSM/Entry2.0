@@ -174,8 +174,18 @@ const documentTemplate = {
         "plan": ""
     },
     grade_black: {
-        scores: [null, null, null, null], // 차례대로 국어 수학 사회 과학
-        choose: { "subject": null, "score": null } // 선택과목 한 과목
+        "volunteer": 0,
+        "attend": {
+            "absence": 0, // 무단 결석
+            "lateness": 0, // 무단 지각
+            "earlyLeave": 0, // 무단 조퇴
+            "subjectEscape": 0 // 무단 결과
+        },
+        "calculatedScore": null,
+        "score" : {
+            scores: [null, null, null, null], // 차례대로 국어 수학 사회 과학
+            choose: { "subject": null, "score": null } // 선택과목 한 과목
+        }
     },
 }
 
@@ -255,8 +265,8 @@ ApplyData.methods.reviseGrade = function (grade) {
     this.grade = grade;
 
     const _applyData = this;
-
-    console.log(_applyData.classification);
+    console.log("=======================");
+    console.log(_applyData);
     new Promise((resolve, reject) => {
         resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
     })
@@ -269,7 +279,7 @@ ApplyData.methods.reviseGrade = function (grade) {
         })
         .then(score => {
             console.log(score);
-            _applyData.calculatedScore = score;
+            _applyData.grade.calculatedScore = score;
             return _applyData.save();
         })
         .catch(console.log);
