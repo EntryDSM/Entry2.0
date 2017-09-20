@@ -277,3 +277,31 @@ exports.reviseProfile = (req, res) => {
             res.status(500).end();
         })
 }
+
+
+exports.apply = (req, res) => {
+    const _id = req.session.key;
+
+    let _applyData;
+
+    ApplyData.findOneByUser(_id)
+        .then(applyData => {
+            if (!applyData) throw new Error('DATA NOT FOUND');
+            _applyData = applyData;
+            return applyData.validation();
+        })
+        .then(result => {
+            if (result.classification.length === 0 && result.info.length === 0 && result.grade.length === 0 && result.introduce.length === 0) {
+                return _applyData.apply();
+            } else throw new Error('not submitable');
+        })
+        .then(applyData => {
+            res.sendStatus(200);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                "message": err.message
+            });
+        });
+}

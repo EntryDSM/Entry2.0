@@ -189,6 +189,15 @@ const documentTemplate = {
     },
 }
 
+ApplyData.statics.findOneByUser = function (user) {
+    return this.findOne({ user }).exec();
+}
+
+ApplyData.methods.apply = function () {
+    this.applyStatus = true;
+    return this.save();
+}
+
 ApplyData.statics.createEmpty = function (user) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
@@ -330,7 +339,7 @@ function infoValidation(type, info) {
     if (info.birthday == null) result.push('생일을 입력해주세요.');
     if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
     if (type !== 'BLACK' && (info.class == null)) result.push('반을 입력해주세요.');
-    if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null || info.schoolTel)) result.push('학교 정보를 입력해주세요.');
+    if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null || info.schoolTel == null)) result.push('학교 정보를 입력해주세요.');
     if (info.tel == null) result.push('전화번호를 입력해주세요.');
     if (info.parentsName == null) result.push('부모님 성함을 입력해주세요.');
     if (info.parentsTel == null) result.push('부모님 전화번호를 입력해주세요.');
