@@ -15,5 +15,5 @@ router.route('/validation').get(onlyUser, controller.validation);
 router.route('/preview').get(onlyUser, controller.preview);
 router.route('/upload/profile').get(onlyUser, controller.getProfile);
 router.route('/upload/profile').put(onlyUser, controller.reviseProfile);
-router.route('/api/apply').post(onlyUser, controller.apply);
+router.route('/apply').post(onlyUser, controller.apply);
 module.exports = router;
