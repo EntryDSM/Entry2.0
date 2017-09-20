@@ -32,10 +32,10 @@
 }
 
 #error-page #warningImg{
-    width:20rem;
+    width:18rem;
     margin:0 auto;
     display:block;
-    margin-top:6.5rem;
+    margin-top:2rem;
 }
 
 #error-page h1{
@@ -52,3 +52,40 @@
     letter-spacing: 0.5px;
     margin-top:0.5rem;
 }
+
+#error-page h3{
+    text-align: center;
+    color:#424242;
+    font-size:0.9rem;
+    margin-top:10px;
+}
+
+#error-page #routerCover{
+    text-align: center;
+    height:10rem;
+    overflow: hidden;
+}
+
+#error-page #routerCover img{
+    display:block;
+    margin:0 auto;
+    width:5rem;
+    position:relative;
+    right:1rem;
+    margin-top:1rem;
+}
+
+#error-page #routerCover .links{
+    color:#505050;
+    font-weight:bold;
+    letter-spacing: 0.5px;
+    padding:1rem;
+    position:relative;
+    top:1rem;
+    right:3px;
+}
+
+#error-page #routerCover .links:hover{
+    text-decoration: underline;
+}
+
