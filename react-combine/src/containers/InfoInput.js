@@ -53,15 +53,11 @@ class InfoInput extends Component {
                 "ContentType": "application/json"
             }
         }).then(response => {
-            console.log('response data');
             console.log(response.data);
             let birth = response.data.birthday.split('-');
             let phoneNum = response.data.tel.split('-');
             let parentsTel = response.data.parentsTel.split('-');
             let schoolTel = response.data.schoolTel.split('-');
-            console.log(phoneNum);
-            console.log(parentsTel);
-            console.log(schoolTel);
 
             this.setState({
                 name: response.data.user.name,
@@ -83,7 +79,8 @@ class InfoInput extends Component {
                 birthDay: birth[2]
             })
         }).catch(err => {
-            // browserHistory.push('error');
+            console.log(err);
+            browserHistory.push('error');
         })
     }
 
@@ -114,7 +111,6 @@ class InfoInput extends Component {
                 "ContentType": "application/json"
             }
         }).then(response => {
-            console.log(response);
             browserHistory.push('/gradeinput');
         }).catch(error => {
             console.log(error.config);

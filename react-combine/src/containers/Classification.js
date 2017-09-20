@@ -109,12 +109,21 @@ class Classification extends Component {
     }
 
     classificationSubmit(){
+        let isBlackTest;
+        switch(this.state.isBlackTest){
+            case 'test-yes': {
+                isBlackTest = true;
+            }
+            case 'test-no': {
+                isBlackTest = false;
+            }
+        }
         axios({
             method : "put",
             url : "/api/user/classification",
             data : {
                 classification: {
-                    isBlack: this.state.isBlackTest,
+                    isBlack: isBlackTest,
                     regionType: this.state.local,
                     applyBaseType: this.state.applyBaseType,
                     graduateType: this.state.graduation,
@@ -143,8 +152,15 @@ class Classification extends Component {
                 "Access-Control-Allow-Origin" : "http://114.108.135.15"
             }
         }).then(response => {
-            console.log(response)
-            console.log(response.data);
+            if(response.data.isBlack){
+                this.setState({
+                    isBlackTest: 'test-yes'
+                })
+            } else {
+                this.setState({
+                    isBlackTest: 'test-no'
+                })
+            }
             this.setState({
                 isBlackTest: response.data.isBlack,
                 local: response.data.regionType,
@@ -202,7 +218,7 @@ const DefaultInfo = (props) => {
                 name="isBlackTest"
                 id="test-yes"
                 value="yes"
-                checked = {props.isBlackTest}
+                checked = {props.isBlackTest === "test-yes"}
                 onClick={props.radioSetter}/>
             <label htmlFor="test-yes">예</label>
 
@@ -211,7 +227,7 @@ const DefaultInfo = (props) => {
                 name="isBlackTest" 
                 id="test-no" 
                 value="no" 
-                checked = {!props.isBlackTest}
+                checked = {props.isBlackTest === "test-no"}
                 onClick={props.radioSetter}/> 
             <label htmlFor="test-no">아니오</label><br />
 
