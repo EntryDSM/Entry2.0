@@ -189,6 +189,15 @@ const documentTemplate = {
     },
 }
 
+ApplyData.statics.findOneByUser = function (user) {
+    return this.findOne({ user }).exec();
+}
+
+ApplyData.methods.apply = function () {
+    this.applyStatus = true;
+    return this.save();
+}
+
 ApplyData.statics.createEmpty = function (user) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
