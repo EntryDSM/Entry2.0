@@ -27,6 +27,13 @@ class PreviewContent extends Component {
                 local: datas.local,
                 isSpecial: datas.isSpecial,
                 isCountryMerit: datas.isCountryMerit,
+                firstGrade: datas.firstGrade,
+                secondGrade: datas.secondGrade,
+                thirdGrade: datas.thirdGrade,
+                totalSubjectGrade: datas.totalSubjectGrade,
+                attend: datas.attend,
+                volunteer: datas.volunteer,
+                totalGrade: datas.totalGrade
             }
         }
         let SelfIntroduceData = () => {
@@ -59,7 +66,7 @@ class PreviewContent extends Component {
                 name: datas.name
             }
         } 
-        if(true) {// this.props.target != null) {
+        if(true) {
             switch(this.props.target) {
                 case "userInfo":
                     content = <UserInfo datas= {UserInfoData}/>;

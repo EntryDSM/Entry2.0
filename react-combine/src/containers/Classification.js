@@ -154,7 +154,7 @@ class Classification extends Component {
                 applyDetailType: response.data.applyDetailType
             })
         }).catch(err => {
-            console.log(err);
+            browserHistory.push('error');
         })
     }
 

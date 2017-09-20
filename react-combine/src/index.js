@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import 'babel-polyfill';
-import { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete, MyPage } from './containers';
+import { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete, MyPage, ErrorPage } from './containers';
 import {createStore} from 'redux';
 import reducer from './reducers';
 import InputLayout from './components/InputLayout';
@@ -43,6 +43,7 @@ ReactDOM.render(
                 <Route path="/pwsendcomplete" component={PwSendComplete} />
                 <Route path="/SignupSendComplete" component={SignupSendComplete} />
                 <Route path="/mypage" component={MyPage}/>
+                <Route path="/error" component={ErrorPage}/>
                 <Route path="/input" component={InputLayout}>
                     <Route path="/signup" component={SignUp} />
                     <Route path="/classification" component={Classification} />

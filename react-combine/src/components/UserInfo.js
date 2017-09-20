@@ -51,7 +51,7 @@ class UserInfo extends Component {
                                 <td>{datas.parentsTel}</td>
                                 <td rowSpan="3">졸업<br/>구분</td>
                                 <td>
-                                    <input type="checkbox" checked={datas.graduation === 'will-graduate'} readOnly />
+                                    <input type="checkbox" checked={datas.graduation === 'WILL'} readOnly />
                                     &nbsp;&nbsp;&nbsp;2018년 중학교 졸업예정
                                 </td>
                             </tr>
@@ -59,7 +59,7 @@ class UserInfo extends Component {
                                 <td>학교</td>
                                 <td>{datas.schoolTel}</td>
                                 <td>
-                                    <input type="checkbox" checked={datas.graduation === 'graduated'} readOnly />
+                                    <input type="checkbox" checked={datas.graduation === 'DONE'} readOnly />
                                     &nbsp;&nbsp;&nbsp;2017년 중학교 졸업
                                 </td>
                             </tr>
@@ -78,40 +78,40 @@ class UserInfo extends Component {
                             <tr>
                                 <td rowSpan="4">전형유형</td>
                                 <td colSpan="2">
-                                    <input type="checkbox" checked={datas.type === 'general'} readOnly/>
+                                    <input type="checkbox" checked={datas.type === 'COMMON'} readOnly/>
                                     일반전형
                                 </td>
                                 <td rowSpan="4">지원자<br/>특기<br/>사항</td>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.isCountryMerit}/>
+                                    <input type="checkbox" checked={datas.isCountryMerit} readOnly/>
                                     국가유공자자녀
                                 </td>
                                 <td rowSpan="4">지역</td>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.local === 'daejeon'}/>
+                                    <input type="checkbox" checked={datas.local === 'HOME'}/>
                                     대전
                                 </td>
                             </tr>
                             <tr>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.type === 'meister'} readOnly/>
+                                    <input type="checkbox" checked={datas.type === 'MEISTER'} readOnly/>
                                     마이스터인재전형
                                 </td>
                                 <td rowSpan="3">특별<br/>전형</td>
                             </tr>
                             <tr>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.isSpecial}/>
+                                    <input type="checkbox" checked={datas.isSpecial} readOnly/>
                                     특례입학대상자
                                 </td>
                                 <td rowSpan="2">
-                                    <input type="checkbox" checked={datas.local === 'country'}/>
+                                    <input type="checkbox" checked={datas.local === 'AWAY'}/>
                                     전국
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" checked={datas.type === 'society'} readOnly/>
+                                    <input type="checkbox" checked={datas.type === 'SOCIAL'} readOnly/>
                                     사회통합전형
                                 </td>
                             </tr>
@@ -133,13 +133,13 @@ class UserInfo extends Component {
                                 <td>교과성적<br/>환산점수</td>
                             </tr>
                             <tr>
-                                <td>50</td>
-                                <td>50</td>
-                                <td>50</td>
-                                <td>150</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>180</td>
+                                <td>{datas.firstGrade}</td>
+                                <td>{datas.secondGrade}</td>
+                                <td>{datas.thirdGrade}</td>
+                                <td>{datas.totalSubjectGrade}</td>
+                                <td>{datas.attend}</td>
+                                <td>{datas.volunteer}</td>
+                                <td>{datas.totalGrade}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -166,10 +166,7 @@ class UserInfo extends Component {
                                     <p>대덕소프트웨어마이스터고등학교장 귀하</p>
                                 </td>
                                 <td>
-                                    <p>
-                                        사진<br/>
-                                        (3cm *  4cm)
-                                    </p>
+                                    <img id="profile" src="/api/upload/profile" />
                                 </td>
                             </tr>
                         </tbody>
@@ -203,7 +200,7 @@ class UserInfo extends Component {
                         6. (개인정보의 보유기간 및 이용기간) 수집한 개인정보는 입학관리 업무를 계속하는 동안 보유․이용할 수 있으며, 입학관리 업무 완료 후 본인의 삭제요청이 있을 경우에는 모두 삭제됩니다.<br/>
                         7. (개인정보의 수집․이용․제공에 대한 동의 거부) 지원자는 개인정보의 수집․이용․제공에 대한 동의를 거부할 수 있으며, 동의를 거부할 경우 지원결격 사유 조회 등 입학관리 업무를 수행할 수 없으므로 원서를 접수할 수 없습니다.<br/>
                     </div>
-                    <div id="footer">
+                    <div id="privacy_footer">
                         <p>본 입학원서의 개인정보 수집, 이용, 제공에 동의합니다.</p>
                         <p>
                             지원자 성명&nbsp;&nbsp;&nbsp;{datas.name}&nbsp;&nbsp;&nbsp; (인)

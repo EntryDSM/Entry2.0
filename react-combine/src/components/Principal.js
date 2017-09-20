@@ -67,7 +67,7 @@ class Principal extends Component {
                             출신중학교장<br/>
                             직인
                         </div>
-                        <div id="footer">
+                        <div id="principal_footer">
                             대덕소프트웨어마이스터고등학교장 귀하
                         </div>
                     </div>

@@ -110,10 +110,9 @@
     top: -90px;
 }
 
-#principal #footer {
+#principal_footer {
     text-align: right;
     font-size: 2rem;
     font-weight: 900;
-
     margin-top: 10%;
 }

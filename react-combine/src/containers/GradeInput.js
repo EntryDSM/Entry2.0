@@ -536,7 +536,7 @@ class GradeInput extends Component{
                 }
             })
         }).catch(err => {
-            console.log(err) 
+            browserHistory.push('error');
         })
 
         //계산 코드

@@ -23,7 +23,7 @@ class NoSmoke extends Component {
                                 <td className="table_title">연락처</td>
                                 <td className="table_input">{datas.phoneNum}</td>
                                 <td className="table_title">출신학교</td>
-                                <td className="table_input">{datas.school}</td>
+                                <td className="table_input">{datas.schoolName}</td>
                             </tr>
                             <tr>
                                 <td className="table_title">주&nbsp;&nbsp;소</td>
