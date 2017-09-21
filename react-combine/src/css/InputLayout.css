@@ -4,6 +4,7 @@
     padding: 0px 0px 0px 15px;
     display: inline-block;
     overflow-y: auto;
+    overflow-x:hidden;
 }
 
 .menu_area {
