@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/MyPage.css';
+import '../css/Mypage.css';
 import MyHeader from '../components/MyHeader';
 import MySection from '../components/MySection';
 import MyFooter from '../components/MyFooter';
