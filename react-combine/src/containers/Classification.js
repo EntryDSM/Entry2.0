@@ -76,9 +76,17 @@ class Classification extends Component {
                     graduation: e.target.id
                 })
                 break;
-            case 'date': this.setState({
-                    date: e.target.id
-                })
+            case 'date': {
+                    if(this.state.graduation === 'WILL'){
+                        this.setState({
+                            date: 2018
+                        })
+                    } else {
+                        this.setState({
+                            date: e.target.value
+                        })
+                    }
+                }
                 break;
             case 'detail': this.setState({
                     applyBaseType: {
@@ -152,17 +160,14 @@ class Classification extends Component {
                 "Access-Control-Allow-Origin" : "http://114.108.135.15"
             }
         }).then(response => {
+            let isBlackTest;
             if(response.data.isBlack){
-                this.setState({
-                    isBlackTest: 'test-yes'
-                })
+                isBlackTest = 'test-yes'
             } else {
-                this.setState({
-                    isBlackTest: 'test-no'
-                })
+                isBlackTest = 'test-no'
             }
             this.setState({
-                isBlackTest: response.data.isBlack,
+                isBlackTest: isBlackTest,
                 local: response.data.regionType,
                 applyBaseType: response.data.applyBaseType,
                 graduation: response.data.graduateType,
@@ -200,7 +205,7 @@ class Classification extends Component {
                         isSocietySelected={this.state.isSocietySelected} 
                         radioSetter={this.radioSetter.bind(this)}/>
                 </div>
-                 <Button 
+                 <Button
                     onclick={this.classificationSubmit.bind(this)}
                     buttonName="다음"/>
             </div>

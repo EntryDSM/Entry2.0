@@ -328,7 +328,6 @@ class InfoInput extends Component {
     }
     
     render(){
-        console.log(this.state);
         return(
             <div id="contents">
                 <div id="info_input">

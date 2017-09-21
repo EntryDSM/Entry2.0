@@ -7,7 +7,8 @@ exports.calculate = function (grade, graduateType, applyType) {
         let result = {
             "score": JSON,
             "volunteer": Number,
-            "attendance": Number
+            "attendance": Number,
+            "total": Number
         };
         let score = [];
         const attend = grade.attend;
@@ -44,6 +45,8 @@ exports.calculate = function (grade, graduateType, applyType) {
         }
         result.volunteer = calculateVolunteer(volunteer, graduateType, applyType);
         result.attendance = calculateAttendent(attend, graduateType, applyType);
+        if (graduateType === 'BLACK') result.total = Number(result.score) + Number(result.attendance) + Number(result.volunteer);
+        else result.total = Number(result.score.first) + Number(result.score.second) + Number(result.score.third) + Number(result.attendance) + Number(result.volunteer);
         resolve(result);
     })
 }
@@ -130,9 +133,9 @@ function calculateNormal(data, graduateType, applyType) {
         total: 0
     };
 
-    resultScore.first = Number(resultScore.first).toFixed(4);
-    resultScore.second = Number(resultScore.second).toFixed(4);
-    resultScore.third = Number(resultScore.third).toFixed(4);
+    resultScore.first = Number(Number(resultScore.first).toFixed(4));
+    resultScore.second = Number(Number(resultScore.second).toFixed(4));
+    resultScore.third = Number(Number(resultScore.third).toFixed(4));
     resultScore.total = Number(resultScore.first) + Number(resultScore.second) + Number(resultScore.third);
     return resultScore;
 }
@@ -155,7 +158,7 @@ function calculateBlack(data, applyType) {
     }
 
     total = (average - 50) / 50 * multiply;
-    total = total.toFixed(4);
+
     console.log("======" + total);
     return Number(total).toFixed(4);
 }
@@ -168,7 +171,7 @@ function calculateAttendent(data, graduateType) {
     if (toSub >= 15) {
         return 0;
     }
-    return Number(15 - toSub).toFixed(4);
+    return Number(Number(15 - toSub).toFixed(4));
 }
 
 function calculateVolunteer(data, applyType, graduateType) {
@@ -191,9 +194,8 @@ function calculateVolunteer(data, applyType, graduateType) {
     var result;
 
     result = 3 + (score - minus) / div * 12;
-    result = Number(result).toFixed(4);
 
-    return result;
+    return Number(Number(result).toFixed(4));
 }
 
 function checkNullArray(data, index) {

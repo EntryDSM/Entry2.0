@@ -26,7 +26,7 @@ class FindSchoolModalTable extends Component {
 
 const SchoolList = (props) => {
     return(
-        <tr onClick={props.setSchoolInfo}>
+        <tr className="tr_search_result" onClick={props.setSchoolInfo}>
             <td className="td_goverment">{props.goverment}</td>
             <td className="td_school_name">{props.schoolName}</td> 
             <td className="td_school_code">{props.schoolCode}</td>

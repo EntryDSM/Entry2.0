@@ -67,6 +67,7 @@
     width: 13%;
 }
 #userinfo_table_1 tbody tr:nth-child(1) td:nth-child(4){
+    text-align: center;
     width: 13%;
 }
 #userinfo_table_1 tbody tr:nth-child(1) td:nth-child(5){
@@ -74,6 +75,7 @@
     width: 5%;
 }
 #userinfo_table_1 tbody tr:nth-child(1) td:nth-child(6){
+    text-align: center;
     width: 7%;
 }
 #userinfo_table_1 tbody tr:nth-child(1) td:nth-child(7){
@@ -92,9 +94,15 @@
     text-align: center;
     width: 9%;
 }
+#userinfo_table_1 tbody tr:nth-child(2) td:nth-child(3){
+    text-align: center;
+}
 #userinfo_table_1 tbody tr:nth-child(2) td:nth-child(4){
     text-align: center;
     width: 12%;
+}
+#userinfo_table_1 tbody tr:nth-child(2) td:nth-child(5){
+    text-align: center;
 }
 #userinfo_table_1 tbody tr:nth-child(2) td:nth-child(6){
     text-align: center;
@@ -106,6 +114,9 @@
 #userinfo_table_1 tbody tr:nth-child(3) td:nth-child(1){
     text-align: center;
     width: 9%;
+}
+#userinfo_table_1 tbody tr:nth-child(3) td:nth-child(2){
+    text-align: center;
 }
 
 /* third row */

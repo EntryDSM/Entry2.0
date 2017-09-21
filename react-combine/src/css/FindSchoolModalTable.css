@@ -30,6 +30,11 @@
     width: 150px;
 }
 
+.tr_search_result:hover{
+    cursor: pointer;
+    color: blue;
+}
+
 .td_goverment{
     border-bottom:1px solid #c4daff;
     padding: 8px;
