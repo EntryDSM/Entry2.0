@@ -14,13 +14,24 @@ class Attend extends Component{
     }
 
     render(){
+        let attend_grades = [
+            "absence",
+            "late",
+            "leaving_early",
+            "not_attendence"
+        ];
         return(
             <div id="attend_table">
                 <div className="grade_table_title">출석성적</div>
                 <table className="grade_table">
                     <tbody>
                         {this.state.unauthorizedDays.map((unauthorizedDays, index) => {
-                            return <UnauthorizedDay unauthorizedDayType={unauthorizedDays.name} key={index}/>
+                            return <UnauthorizedDay 
+                                        unauthorizedDayType={unauthorizedDays.name}
+                                        setAttendData={this.props.setAttendData}
+                                        value={this.props.attendValue[index]}
+                                        name={attend_grades[index]} 
+                                        key={index}/>
                         })}
                     </tbody>
                 </table>
@@ -37,7 +48,7 @@ class UnauthorizedDay extends Component{
                     {this.props.unauthorizedDayType}
                 </td>
                 <td className="grade_td_content">
-                    <input id="unauthorized_input" type="number" />
+                    <input id="unauthorized_input" type="number" name={this.props.name} value={this.props.value} onChange={this.props.setAttendData} />
                 </td>
             </tr>
         );

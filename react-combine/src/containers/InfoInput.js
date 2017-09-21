@@ -5,7 +5,6 @@ import Button from '../components/Button';
 import '../css/InfoInput.css'
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {infoInputData} from '../actions';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 
@@ -14,42 +13,97 @@ class InfoInput extends Component {
         super(props);
         this.state = {
             sex: "",
-            grade: undefined,
-            class: undefined,
+            grade: 3,
+            class: null,
+            number: null,
             parentsName: "",
-            schoolCode: undefined,
+            schoolCode: "",
             schoolName: "",
-            schoolTel: "",
-            phoneNum: "",
-            parentsTel: "",
-            birth: "",
-            address: "",
-            detailAddress: "" 
+            goverment: "",
+            schoolTel: [
+                "", "", ""
+            ],
+            phoneNum: [
+                "", "", ""
+            ],
+            parentsTel: [
+                "", "", ""
+            ],
+            baseAddress: "",
+            detailAddress: "",
+            birthYear: "",
+            birthMonth: "",
+            birthDay: "",
+            name: "",
+            email: "",
+            schoolList: [],
+            modalIsOpen: false
         };
 
         this.submitInfo= this.submitInfo.bind(this);
     }
 
+    componentDidMount(){
+        axios({
+            method: 'get',
+            url: '/api/user/info',
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://114.108.135.15",
+                "ContentType": "application/json"
+            }
+        }).then(response => {
+            console.log(response.data);
+            let birth = response.data.birthday.split('-');
+            let phoneNum = response.data.tel.split('-');
+            let parentsTel = response.data.parentsTel.split('-');
+            let schoolTel = response.data.schoolTel.split('-');
+
+            this.setState({
+                name: response.data.user.name,
+                email: response.data.user.email,
+                number: response.data.number,
+                sex: response.data.sex,
+                grade: response.data.grade,
+                class: response.data.class,
+                parentsName: response.data.parentsName,
+                schoolCode: response.data.schoolCode,
+                schoolName: response.data.schoolName,
+                schoolTel: schoolTel,
+                phoneNum: phoneNum,
+                parentsTel: parentsTel,
+                baseAddress: response.data.addressBase,
+                detailAddress: response.data.addressDetail,
+                birthYear: birth[0],
+                birthMonth: birth[1],
+                birthDay: birth[2]
+            })
+        }).catch(err => {
+            console.log(err);
+            browserHistory.push('error');
+        })
+    }
+
     submitInfo(){
-        let store = this.context.store;
-        store.dispatch(infoInputData(this.state));
-        let storeData = store.getState().infoInput.INFO_INPUT_DATA;
         axios({
             method: 'put',
             url: '/api/user/info',
             data: {
-                sex: "남",
-                grade: 3,
-                class: 1,
-                schoolCode: 7680165,
-                schoolName: "해솔중학교",
-                schoolTel: "00012341234",
-                phoneNum: "01028962001",
-                parentsTel: "01090769392",
-                parentsName: "안영숙",
-                birth: "2000-04-29",
-                baseAddress: "경기도 파주시 가온로 67 (목동동, 해솔마을 5단지 삼부르네상스 아파트)",
-                detailAddress: "503동 802호"
+                info: {
+                    sex: this.state.sex,
+                    grade: this.state.grade,
+                    number: this.state.number,
+                    class: this.state.class,
+                    schoolCode: this.state.schoolCode,
+                    schoolName: this.state.schoolName,
+                    schoolTel: this.state.schoolTel[0] + '-' + this.state.schoolTel[1] + '-' + this.state.schoolTel[2],
+                    tel: this.state.phoneNum[0] + '-' + this.state.phoneNum[1] + '-' + this.state.phoneNum[2],
+                    parentsTel: this.state.parentsTel[0] + '-' + this.state.parentsTel[1] + '-' + this.state.parentsTel[2],
+                    parentsName: this.state.parentsName,
+                    birthday: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
+                    addressBase: this.state.baseAddress,
+                    addressDetail: this.state.detailAddress
+                }
             },
             withCredentials: false,
             headers: {
@@ -57,7 +111,6 @@ class InfoInput extends Component {
                 "ContentType": "application/json"
             }
         }).then(response => {
-            console.log(response);
             browserHistory.push('/gradeinput');
         }).catch(error => {
             console.log(error.config);
@@ -66,99 +119,216 @@ class InfoInput extends Component {
             console.log(error.request);
         })
     }
-    
-    getSchoolCode(){
-        axios({
-            method: 'get',
-            url: '/user/info/inquery',
-            params: {
-                department: "",
-                schoolName: ""
-            },
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15",
-                "ContentType": "application/json"
+
+    setSchoolInfo(e){
+        Array.from(e.target.parentElement.children).forEach((ele, index) => {
+            switch(index){
+                case 0: {
+                    this.setState({
+                        goverment: ele.textContent
+                    })
+                }
+                case 1: {
+                    this.setState({
+                        schoolName: ele.textContent
+                    })
+                }
+                case 2: {
+                    this.setState({
+                        schoolCode: ele.textContent
+                    })
+                }
+                default : break;
             }
-        }).then(response => {
-            console.log(response);
-            console.log(response.data);
-        }).catch(error => {
-            console.log(error.config);
-            console.log(error.response);
-            console.log(error.request);
+        })
+        this.setState({
+            modalIsOpen: false
+        })
+    }
+    
+    getSchoolCode(e){
+        let query;
+        if(e.target.id === 'input_searchschool'){
+            this.setState({
+                schoolName: e.target.value
+            })
+            if(this.state.goverment === ""){
+                query = '/api/schoolCode?name=' + e.target.value;
+            } else {
+                query = '/api/schoolCode?goverment=' + this.state.goverment + '&name=' + e.target.value;
+            }
+        } else if(e.target.id === 'select_goverment'){
+            if(e.target.value === "전체"){
+                this.setState({
+                    goverment: ""
+                })
+                if(this.state.schoolName === ""){
+                    query = '/api/schoolCode?name=';
+                } else {
+                    query = '/api/schoolCode?name=' + this.state.schoolName;
+                }
+            } else {
+                this.setState({
+                    goverment: e.target.value
+                })
+                if(this.state.schoolName === ""){
+                    query = '/api/schoolCode?goverment=' + e.target.value;
+                } else {
+                    query = '/api/schoolCode?goverment=' + e.target.value + '&name=' + this.state.schoolName;
+                }
+            }
+        }
+        axios.get(query)
+        .then(response => {
+            this.setState({
+                schoolList: response.data
+            })
+        }).catch(err => {
+            console.log(err);
         })
     }
 
-    setSex(e){
-        this.setState({
-            sex: e.target.value
-        })
+    setter(e){
+        switch(e.target.name){
+            case 'name': {
+                this.setState({
+                    name: e.target.value
+                })
+                break;
+            }
+            case 'sex': {
+                this.setState({
+                    sex: e.target.value
+                })
+                break;
+            }
+            case 'birthYear': {
+                this.setState({
+                    birthYear: e.target.value
+                })
+                break;
+            }
+            case 'birthMonth': {
+                this.setState({
+                    birthMonth: e.target.value
+                })
+                break;
+            }
+            case 'birthDay': {
+                this.setState({
+                    birthDay: e.target.value
+                })
+                break;
+            }
+            case 'class': {
+                this.setState({
+                    class: e.target.value
+                })
+                break;
+            }
+            case 'number': {
+                this.setState({
+                    number: e.target.value
+                })
+                break;
+            }
+            case 'parentsName': {
+                this.setState({
+                    parentsName: e.target.value
+                })
+                break;
+            }
+            case 'detailAddress': {
+                this.setState({
+                    detailAddress: e.target.value
+                })
+                break;
+            }
+            default: break;
+        }
     }
-    setGrade(e){
-        this.setState({
-            grade: e.target.value
-        })
-    }
-    setClass(e){
-        this.setState({
-            class: e.target.value
-        })
-    }
-    setParentsName(e){
-        this.setState({
-            parentsName: e.target.value
-        })
-    }
-    setSchoolCode(e){
-        this.setState({
-            schoolCode: e.target.value
-        })
-    }
-    setSchoolName(e){
-        this.setState({
-            schoolName: e.target.value
-        })
-    }
-    setSchoolTel(e){
-        this.setState({
-            schoolTel: e.target.value
-        })
-    }
+
     setPhoneNum(e){
+        let phoneNum = this.state.phoneNum;
+        phoneNum[e.target.name] = e.target.value;
         this.setState({
-            phoneNum: e.target.value
+            phoneNum: phoneNum
         })
     }
     setSchoolTel(e){
+        let schoolTel = this.state.schoolTel;
+        schoolTel[e.target.name] = e.target.value;
         this.setState({
-            schoolTel: e.target.value
+            schoolTel: schoolTel
         })
     }
     setParentsTel(e){
+        let parentsTel = this.state.parentsTel;
+        parentsTel[e.target.name] = e.target.value;
         this.setState({
-            parentsTel: e.target.value
+            parentsTel: parentsTel
         })
     }
-    setBirth(e){
+    setAddress(address){
         this.setState({
-            birth: e.targt.value
+            baseAddress: address
         })
     }
-    setAddress(e){
+
+    setGoverment(e){
+        if(e.target.value === "전체"){
+            this.setState({
+                goverment: ""
+            })
+        } else {
+            this.setState({
+                goverment: e.target.value
+            })
+        }
+    }
+
+    previewFile(e) {
+        let preview = document.querySelectorAll('img')[1];
+        let file = document.querySelector('input[type=file]').files[0];
+        let reader = new FileReader();
+        let formData = new FormData();
+        formData.append('profile', file);
+
+        reader.onloadend = function(){
+            preview.src = reader.result;
+        }
+
+        if(file){
+            reader.readAsDataURL(file);
+            axios.put('/api/upload/profile', formData, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }).then(response => {
+                console.log(response);
+            }).catch(err => {
+                console.log(err);
+                console.log(err.request);
+                console.log(err.config)
+            })
+        } else {
+            preview.src = require('../images/file.png');
+        }
+    }
+
+    openModal(){
         this.setState({
-            address: e.target.value
+            modalIsOpen: true
         })
     }
-    setDetailAddress(e){
+    closeModal(){
         this.setState({
-            detailAddress: e.target.value
+            modalIsOpen: false
         })
     }
     
     render(){
-        const {store} = this.context;
-        console.log(this.state)
+        console.log(this.state);
         return(
             <div id="contents">
                 <div id="info_input">
@@ -166,19 +336,34 @@ class InfoInput extends Component {
                         <InputHeader now={"인적 사항"} />
                     </div>
                     <InfoInputTable 
-                        name={"정근철"}
-                        email={"geni429"}
-                        emailDomain={"gmail.com"}
-                        setSex={this.setSex.bind(this)}
+                        name={this.state.name}
+                        email={this.state.email}
+                        schoolName={this.state.schoolName}
+                        schoolCode={this.state.schoolCode}
+                        phoneNum={this.state.phoneNum}
+                        parentsTel={this.state.parentsTel}
+                        schoolTel={this.state.schoolTel}
+                        sex={this.state.sex}
+                        birthYear={this.state.birthYear}
+                        birthMonth={this.state.birthMonth}
+                        birthDay={this.state.birthDay}
+                        class={this.state.class}
+                        number={this.state.number}
+                        detailAddress={this.state.detailAddress}
+                        baseAddress={this.state.baseAddress}
+                        parentsName={this.state.parentsName}
+                        modalIsOpen={this.state.modalIsOpen}
                         setAddress={this.setAddress.bind(this)}
-                        setBirth={this.setBirth.bind(this)}
-                        setClass={this.setClass.bind(this)}
-                        setDetailAddress={this.setDetailAddress.bind(this)}
-                        setGrade={this.setGrade.bind(this)}
-                        setParentsName={this.setParentsName.bind(this)}
                         setParentsTel={this.setParentsTel.bind(this)}
                         setPhoneNum={this.setPhoneNum.bind(this)}
-                        getSchoolCode={this.getSchoolCode.bind(this)}/>
+                        setSchoolTel={this.setSchoolTel.bind(this)}
+                        getSchoolCode={this.getSchoolCode.bind(this)}
+                        schoolList={this.state.schoolList}
+                        openModal={this.openModal.bind(this)}
+                        closeModal={this.closeModal.bind(this)}
+                        setSchoolInfo={this.setSchoolInfo.bind(this)}
+                        setter={this.setter.bind(this)}
+                        previewFile={this.previewFile.bind(this)}/>
                     <Button router="/classification" buttonName="이전"/>
                     <Button onclick={this.submitInfo.bind(this)} buttonName="다음"/>
                 </div>
@@ -186,12 +371,5 @@ class InfoInput extends Component {
         );
     }
 }
-InfoInput.contextTypes = {
-    store: PropTypes.object
-}
 
-function infoInputSubmit(state){
-    infoInput: state.infoInput
-}
-
-export default connect(infoInputSubmit)(InfoInput);
+export default InfoInput;

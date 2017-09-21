@@ -4,6 +4,7 @@ import PreviewHeader from '../components/PreviewHeader';
 import PreviewContent from '../components/PreviewContent';
 import Button from '../components/Button';
 import axios from 'axios';
+import {browserHistory} from 'react-router';
 import '../css/Preview.css';
 import '../css/Userinfo_table.css';
 
@@ -13,24 +14,88 @@ class Preview extends Component {
         
         this.state = {
             pageList: null,
-            getData: {
-                sex: "",
-                class: 0,
-                parentsName: "",
-                schoolCode: 0,
-                schoolNmae: "",
-                schoolTel: "",
-                phoneNum: "",
-                parentsTel: "",
-                birth: "",
-                address: "",
-                name: "",
-                resistration: 0,
-                examine: 0
-            }
+            submitNumber: "",
+            schoolCode: "",
+            class: "",
+            name: "",
+            birth: "",
+            sex: "",
+            address: "",
+            parentsTel: "",
+            parentsName: "",
+            schoolTel: "",
+            phoneNum: "",
+            graduation: "",
+            isSpecial: "",
+            isCountryMerit: "",
+            firstGrade: 0,
+            secondGrade: 0,
+            thirdGrade: 0,
+            totalSubjectGrade: 0,
+            attend: 0,
+            volunteer: 0,
+            totalGrade: 0,
+            type: "",
+
+            targetPage: "userInfo",
         };
         
         this.setPage = this.setPage.bind(this);
+        this.getUserData = this.getUserData.bind(this);
+    }
+
+    getUserData(){
+        axios({
+            method: 'get',
+            url: '/api/preview',
+            withCredentials: false,
+            headers : {
+                "Access-Control-Allow-Origin" : "http://114.108.135.15"
+            }
+        }).then(response => {
+            let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
+            let totalGrade = totalSubjectGrade + response.data.grade.calculatedScore.attendance + response.data.grade.calculatedScore.volunteer;
+            let address = response.data.info.addressBase + response.data.info.addressDetail;
+            let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
+            console.log(response);
+            this.setState({
+                submitNumber: "",
+                schoolCode: response.data.info.schoolCode,
+                class: response.data.info.class,
+                name: response.data.user.name,
+                birth: response.data.info.birthday,
+                sex: response.data.info.sex,
+                address: address,
+                parentsTel: response.data.info.parentsTel,
+                parentsName: response.data.info.parentsName,
+                schoolTel: response.data.info.schoolTel,
+                phoneNum: response.data.info.tel,
+                graduation: response.data.classification.graduateType,
+                local: response.data.classification.regionType,
+                isSpecial: response.data.classification.applyDetailType.IS_EXCEPTIONEE,
+                isCountryMerit: response.data.classification.applyDetailType.IS_NATIONAL_MERIT,
+                firstGrade: response.data.grade.calculatedScore.score.first,
+                secondGrade: response.data.grade.calculatedScore.score.second,
+                thirdGrade: response.data.grade.calculatedScore.score.third,
+                totalSubjectGrade: response.data.grade.calculatedScore.score.total,
+                attend: response.data.grade.calculatedScore.attendance,
+                volunteer: response.data.grade.calculatedScore.volunteer,
+                totalGrade: totalGrade,
+                schoolName: response.data.info.schoolName,
+                type: response.data.classification.applyBaseType.type,
+                introduce: response.data.introduce.introduce,
+                plan: response.data.introduce.plan
+            })
+        }).catch(err => {
+            browserHistory.push('error');
+        })
+    }
+
+    componentDidMount() {
+        this.getUserData();
+        this.setState({
+            targetPage: "userInfo"
+        });
     }
 
     setPage(target) {
@@ -39,20 +104,12 @@ class Preview extends Component {
         })
     }
 
-    getPreviewData(){
-        axios({
-            method: 'get',
-            url: '/preview',
-        }).then(response => {
-            
-        })
-    }
-
     render(){
         function printHandler(e) {
             e.preventDefault();
             window.print();
         }
+
         return(
             <div id="contents">
                 <div id="preview">
@@ -63,7 +120,9 @@ class Preview extends Component {
 
                         <div id="section-to-print">
                             <PreviewHeader datas={this.props.pageList} setPage={this.setPage} />
-                            <PreviewContent target={this.props.targetPage} />
+                            <PreviewContent 
+                                target={this.state.targetPage} 
+                                datas={this.state}/>
                         </div>
                         <button className="printButton" onClick={printHandler}>출력하기</button>                        
                     </div>
@@ -96,9 +155,7 @@ Preview.defaultProps = {
             name: "학교장 추천서",
             target: "principal"
         }
-    ],
-    targetPage: "principal"
+    ]
 }
 
 export default Preview;
-

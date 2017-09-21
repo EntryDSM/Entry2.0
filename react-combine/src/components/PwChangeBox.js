@@ -15,8 +15,6 @@ class PwChangeBox extends React.Component{
         var secondPw = document.getElementById('PwCheck2');
         var clickBtn = document.getElementById('PwSaveButton');
 
-        console.log("IE/Edge 출력 되나연?");
-
         secondPw.addEventListener('keyup', () => {
             if(firstPw.value !== "" && secondPw.value !== ""){
 
@@ -37,8 +35,6 @@ class PwChangeBox extends React.Component{
                 alert("저장되었습니다!");
                 //bdy.style.backgroundColor = "rgb(56, 205, 177)";d
                 let ChangedValue = firstPw.value;
-
-                console.log("저장된 비밀번호: " + ChangedValue);
             }
 
             else {

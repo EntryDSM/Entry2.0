@@ -7,7 +7,8 @@ class SignupSendComplete extends React.Component{
     render(){
         return(
             <div id="signup-complete-box">
-                <SignupCompleteChecked/>
+                <SignupCompleteChecked 
+                    getCertifyCode={this.props.getCertifyCode}/>
             </div>
         );
     }

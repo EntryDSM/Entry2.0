@@ -1,16 +1,8 @@
 import React, {Component} from 'react';
-import SelfIntroduce from './SelfIntroduce';
-import StudyPlan from './StudyPlan';
-import UserInfo from './UserInfo';
-import Principal from './Principal';
  
-class NoSmoke extends Component {
-
-    constructor() {
-        super();
-    }
- 
+class NoSmoke extends Component { 
      render() {
+        let datas = this.props.datas();
         return(
             <div id="no_smoke">
                 <div id="smoke_header">
@@ -23,19 +15,19 @@ class NoSmoke extends Component {
                             <tr>
                                 <td rowSpan="3" id="promise">서약서</td>
                                 <td className="table_title">성&nbsp;&nbsp;명</td>
-                                <td className="table_input"></td>
+                                <td className="table_input">{datas.name}</td>
                                 <td className="table_title">수험번호</td>
                                 <td className="table_input"></td>
                             </tr>
                             <tr>
                                 <td className="table_title">연락처</td>
-                                <td className="table_input"></td>
+                                <td className="table_input">{datas.phoneNum}</td>
                                 <td className="table_title">출신학교</td>
-                                <td className="table_input"></td>
+                                <td className="table_input">{datas.schoolName}</td>
                             </tr>
                             <tr>
-                                <td class="table_title">주&nbsp;&nbsp;소</td>
-                                <td colSpan="3" id="address"></td>
+                                <td className="table_title">주&nbsp;&nbsp;소</td>
+                                <td colSpan="3" id="address">{datas.address}</td>
                             </tr>
                         </tbody>
                     </table>

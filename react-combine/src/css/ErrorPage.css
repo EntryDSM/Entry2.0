@@ -1,0 +1,91 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+#error-page{
+    width:100%;
+    height:100vh;
+    margin:0 auto;
+    position:relative;
+}
+
+#error-page *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    outline: none;
+    overflow-x: hidden;
+    font-family:'nanumsquare';
+}
+
+#error-page #errorHeader{
+    width:100%;
+    height:4.5rem;
+    background-color:#404041;
+}
+
+#error-page #logo{
+    width:7rem;
+    margin:0 auto;
+    margin-top:9px;
+    display:block;
+}
+
+#error-page #warningImg{
+    width:18rem;
+    margin:0 auto;
+    display:block;
+    margin-top:2rem;
+}
+
+#error-page h1{
+    text-align: center;
+    color:#424242;
+    font-size:3rem;
+    margin-top:2rem;
+}
+
+#error-page h2{
+    text-align: center;
+    font-size:1.6rem;
+    color:#424242;
+    letter-spacing: 0.5px;
+    margin-top:0.5rem;
+}
+
+#error-page h3{
+    text-align: center;
+    color:#424242;
+    font-size:0.9rem;
+    margin-top:10px;
+}
+
+#error-page #routerCover{
+    text-align: center;
+    height:10rem;
+    overflow: hidden;
+}
+
+#error-page #routerCover img{
+    display:block;
+    margin:0 auto;
+    width:5rem;
+    position:relative;
+    right:1rem;
+    margin-top:1rem;
+}
+
+#error-page #routerCover .links{
+    color:#505050;
+    font-weight:bold;
+    letter-spacing: 0.5px;
+    padding:1rem;
+    position:relative;
+    top:1rem;
+    right:3px;
+}
+
+#error-page #routerCover .links:hover{
+    text-decoration: underline;
+}
+

@@ -5,7 +5,7 @@
 
 #principal #principal_box {
     width: 60rem;
-    height: 87rem;
+    height: 84rem;
 }
 
 #principal #title_box {
@@ -110,10 +110,9 @@
     top: -90px;
 }
 
-#principal #footer {
+#principal_footer {
     text-align: right;
     font-size: 2rem;
     font-weight: 900;
-
     margin-top: 10%;
 }

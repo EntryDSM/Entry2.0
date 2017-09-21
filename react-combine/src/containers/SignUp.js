@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
-import SubmitButton from '../components/SubmitButton';
-import {signUpData} from '../actions.js';
-import {connect} from 'react-redux';
+import EmailCertifyModal from '../components/EmailCertifyModal';
+import PersonalAgreeModal from '../components/PersonalAgreeModal';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -16,7 +15,10 @@ class SignUp extends Component{
             name: "",
             email: "",
             emailDomain: "naver.com",
-            password: ""
+            password: "",
+            certifyCode: "",
+            modalIsOpen: "",
+            isConfirm: false
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
@@ -48,50 +50,86 @@ class SignUp extends Component{
         })
     }
 
-    render(){
-        const {dispatch} = this.props;
-        const {store} = this.context;
-        let state = this.state;
-        let signUpSubmit = function(){
-            console.log('hello');
-            if(state.name !== "" && state.email !== "" && state.password !== ""){
-                store.dispatch(signUpData(state));
-                let storeData = store.getState().signUp.SIGN_UP_DATA;
-                axios({
-                    method:'post',
-                    url:'/api/signup',
-                    data: {
-                        name: storeData.name,
-                        email: storeData.email + "@" + storeData.emailDomain,
-                        password: storeData.password
-                    },
-                    withCredentials: false,
-                    headers: {
-                        "Access-Control-Allow-Origin": "http://114.108.135.15",
-                        "ContentType": "application/json"
-                    }
-                }).then(response => {
-                    console.log(response)
-                    browserHistory.push('/SignUpSendComplete');
-                }).catch((error) => {
-                    console.log(error);
-                    if(error.response){
-                        console.log(error.response);
-                    } else if(error.request){
-                        console.log(error.request);
-                    } else {
-                        console.log(error.message);
-                    }
-                    console.log(error.config);
-                });
-            } else if(state.name === "") {
-                console.log('enter name');
-            } else if(state.email === ""){
-                console.log('enter email');
-            } else if(state.password === ""){
-                console.log('enter password');
-            }
+    getCertifyCode(e){
+        this.setState({
+            certifyCode: e.target.value
+        })
+    }
+
+    confirmPassword(e){
+        if(this.state.password === e.target.value){
+            this.setState({
+                isConfirm: true
+            })
+        } else {
+            this.setState({
+                isConfirm: false
+            })
         }
+    }
+
+    closeModal(){
+        this.setState({
+            modalIsOpen: false
+        })
+    }
+
+    verifyCode(){
+        axios({
+            method: 'get',
+            url: '/api/email/authentication/' + this.state.certifyCode,
+            withCredentials: false
+        }).then(response => {
+            console.log(response);
+            this.setState({
+                modalIsOpen: false
+            })
+            browserHistory.push('/classification');
+        }).catch(err => {
+            console.log(err.config);
+            console.log(err.request);
+            this.setState({
+                modalIsOpen: true
+            })
+        })
+    }
+
+    signUpSubmit(){
+        this.setState({
+            modalIsOpen: true
+        })        
+        axios({
+            method:'post',
+            url:'/api/signup',
+            data: {
+                name: this.state.name,
+                email: this.state.email + '@' + this.state.emailDomain,
+                password: this.state.password
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://114.108.135.15",
+                "ContentType": "application/json"
+            }
+        }).then(response => {
+            console.log(response)
+        }).catch((error) => {
+            console.log(error);
+            if(error.response){
+                console.log(error.response);
+            } else if(error.request){
+                console.log(error.request);
+            } else {
+                console.log(error.message);
+            }
+            console.log(error.config);
+            this.setState({
+                modalIsOpen: false
+            })
+        });
+    }
+
+    render(){
         return(
             <div id="contents">
                 <div id="signUp">
@@ -124,21 +162,24 @@ class SignUp extends Component{
                                 {
                                     name: '비밀번호 확인',
                                     type: 'password',
-                                    className: 'input_style'
+                                    className: 'input_style',
+                                    onchange: this.confirmPassword.bind(this)
                                 }
                             ]
                         }/>
                     </table>
+                    <EmailCertifyModal 
+                        modalIsOpen={this.state.modalIsOpen}
+                        closeModal={this.closeModal.bind(this)}
+                        getCertifyCode={this.getCertifyCode.bind(this)}
+                        verifyCode={this.verifyCode.bind(this)} />
+                    <PersonalAgreeModal />
                 </div>
-                <Button onclick={signUpSubmit} buttonName="다음"/>
+                <Button onclick={this.signUpSubmit.bind(this)} buttonName="다음"/>
                 </div>
             </div>
         );
     }
-}
-
-SignUp.contextTypes = {
-    store: PropTypes.object
 }
 
 const SignUpInput = (props) => {
@@ -189,11 +230,5 @@ const Options = (props) => {
     );
 }
 
-function submit(state){
-    return {
-        signUp: state.signUp
-    }
-}
-
-export default connect(submit)(SignUp);
+export default SignUp;
 //submit = dispatch, SignUp = component

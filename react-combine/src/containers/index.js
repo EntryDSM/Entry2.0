@@ -12,6 +12,7 @@ import PwSendComplete from './PwSendComplete';
 import ChangePw from './ChangePw';
 import FinalSubmit from './FinalSubmit';
 import SignupSendComplete from './SignupSendComplete';
-import Mypage from './Mypage';
+import MyPage from './MyPage';
+import ErrorPage from './ErrorPage';
 
-export { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, PwSendComplete, SignupSendComplete, ChangePw, FinalSubmit,Mypage };
+export { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, PwSendComplete, SignupSendComplete, ChangePw, FinalSubmit, MyPage, ErrorPage };

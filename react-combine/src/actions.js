@@ -4,6 +4,7 @@ export const CLASSIFICATION_DATA = 'CLASSIFICATION_DATA';
 export const SIGN_IN_DATA = 'SIGN_IN_DATA';
 export const INFO_INPUT_DATA = 'INFO_INPUT_DATA';
 export const INTRODUCE_DATA = 'INTRODUCE_DATA';
+export const GRADEINPUT_DATA = 'GRADEINPUT_DATA';
 
 //Action Creator
 
@@ -28,5 +29,9 @@ export function infoInputData(data){
 }
 //Input5 자기소개서
 export function introduceData(data){
-    return {typs: INTRODUCE_DATA, data};
+    return {type: INTRODUCE_DATA, data};
+}
+
+export function gradeInputData(data){
+    return {type: GRADEINPUT_DATA, data};
 }
