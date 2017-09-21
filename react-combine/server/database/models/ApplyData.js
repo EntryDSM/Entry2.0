@@ -1,5 +1,6 @@
 let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const SchoolCode = require('./SchoolCode');
 const calculator = require('../../util/calculator');
 
 let ApplyData = Schema({
@@ -329,7 +330,26 @@ ApplyData.methods.validation = function () {
         }
         result.introduce = introduceValidation(this.introduce);
 
-        resolve(result);
+        const regionType = this.classification.regionType;
+
+        if (data.classification.isBlack === false) {
+
+            SchoolCode.findOne({ "code": this.info.schoolCode })
+                .then(school => {
+                    if (!school) throw new Error('SchoolCode Not Found');
+
+                    if (school.isRegionMismatch(regionType)) {
+                        if (regionType === 'HOME') result.info.push(`${school.name}은(는) 관내 중학교가 아닙니다.`);
+                        if (regionType === 'AWAY') result.info.push(`${school.name}은(는) 관외 중학교가 아닙니다.`);
+                    }
+
+                    resolve(result);
+                })
+                .catch(err => {
+                    if (err.message === 'SchoolCode Not Found') result.push('존재하지 않는 학교입니다.');
+                    resolve(result);
+                });
+        }
     })
 }
 

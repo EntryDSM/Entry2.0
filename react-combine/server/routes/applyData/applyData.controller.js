@@ -194,6 +194,7 @@ exports.validation = (req, res) => {
             return applyData.validation();
         })
         .then((result) => {
+            console.log("앙기모노");
             res.status(200).json(result);
         })
         .catch((err) => {

@@ -7,4 +7,12 @@ let School = mongoose.Schema({
     fullGoverment : {type:String , default: ""}
 },{collection : 'SchoolCode'});
 
+
+School.methods.isRegionMismatch = function(regionType){
+    console.log(regionType);
+    console.log(this.goverment);
+    console.log(this.goverment.includes("대전"));
+    if(regionType === 'HOME') return !this.goverment.includes('대전');
+    if(regionType === 'AWAY') return this.goverment.includes('대전');
+}
 module.exports = mongoose.model('SchoolCode', School);
