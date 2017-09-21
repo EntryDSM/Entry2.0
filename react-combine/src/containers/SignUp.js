@@ -3,8 +3,6 @@ import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import EmailCertifyModal from '../components/EmailCertifyModal';
 import PersonalAgreeModal from '../components/PersonalAgreeModal';
-import {signUpData} from '../actions.js';
-import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -97,22 +95,16 @@ class SignUp extends Component{
     }
 
     signUpSubmit(){
-        let store = this.context.store;
-        let postData = {
-            name: this.state.name,
-            email: this.state.email + '@' + this.state.emailDomain,
-            password: this.state.password
-        }
-        console.log(postData);
-        store.dispatch(signUpData(postData));
-        let storeData = store.getState().signUp.SIGN_UP_DATA;
+        this.setState({
+            modalIsOpen: true
+        })        
         axios({
             method:'post',
             url:'/api/signup',
             data: {
-                name: storeData.name,
-                email: storeData.email,
-                password: storeData.password
+                name: this.state.name,
+                email: this.state.email + '@' + this.state.emailDomain,
+                password: this.state.password
             },
             withCredentials: false,
             headers: {
@@ -121,9 +113,6 @@ class SignUp extends Component{
             }
         }).then(response => {
             console.log(response)
-            this.setState({
-                modalIsOpen: true
-            })
         }).catch((error) => {
             console.log(error);
             if(error.response){
@@ -193,10 +182,6 @@ class SignUp extends Component{
     }
 }
 
-SignUp.contextTypes = {
-    store: PropTypes.object
-}
-
 const SignUpInput = (props) => {
         return(
             <tbody>
@@ -245,11 +230,5 @@ const Options = (props) => {
     );
 }
 
-function submit(state){
-    return {
-        signUp: state.signUp
-    }
-}
-
-export default connect(submit)(SignUp);
+export default SignUp;
 //submit = dispatch, SignUp = component
