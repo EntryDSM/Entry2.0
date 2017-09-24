@@ -37,7 +37,8 @@ class InfoInput extends Component {
             name: "",
             email: "",
             schoolList: [],
-            modalIsOpen: false
+            modalIsOpen: false,
+            profileImg: "../images/file.png"
         };
 
         this.submitInfo= this.submitInfo.bind(this);
@@ -81,6 +82,20 @@ class InfoInput extends Component {
         }).catch(err => {
             console.log(err);
             browserHistory.push('error');
+        })
+
+        axios({
+            method: 'get',
+            url: '/api/upload/profile',
+            withCredentials: false
+        }).then(response => {
+            this.setState({
+                profileImg: '/api/upload/profile'
+            })
+        }).catch(err => {
+            this.setState({
+                profileImg: require('../images/file.png')
+            })
         })
     }
 
@@ -335,6 +350,7 @@ class InfoInput extends Component {
                         <InputHeader now={"인적 사항"} />
                     </div>
                     <InfoInputTable 
+                        profileImg={this.state.profileImg}
                         name={this.state.name}
                         email={this.state.email}
                         schoolName={this.state.schoolName}
