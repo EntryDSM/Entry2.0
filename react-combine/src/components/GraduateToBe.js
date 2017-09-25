@@ -4,15 +4,15 @@ import classnames from 'classnames';
 class GraduateToBe extends Component{
     render(){
         return (
-                <tbody id="did_table" className={this.props.visible}>
+                <tbody id="to_be_table" className={this.props.visible}>
                     <NotPass />
-                    <tr id="did_semester">
+                    <tr id="to_be_semester">
                         {this.props.semesters.map((semester, index) => {
                             return <StudentGrade semester={semester.name} key={index} />
                         })}
                     </tr>
                     {this.props.subjectsList.map((subjects, index) => {
-                        var btnGroups = [];
+                        let btnGroups = [];
                         for(var i=0; i<5; i++){
                             if(i === 0){
                                 btnGroups.push(<SubjectsInfo name={subjects.name} key={index}/>)
@@ -20,7 +20,7 @@ class GraduateToBe extends Component{
                             btnGroups.push(<GradeSelectBtn key={i + 7}/>);
                         }
                         return (
-                            <tr className="did_subjects" key={index}>{btnGroups}</tr>
+                            <tr className="to_be_subjects" key={index}>{btnGroups}</tr>
                         );
                     })}
                 </tbody>
@@ -53,18 +53,10 @@ const NotPass = () => {
             </td>);
         }
         return (
-            <tr id="did_not_pass">
+            <tr id="to_be_not_pass">
                 {checkBoxs}
             </tr>
         );
-}
-
-const CheckBox = () => {
-    return (
-        <td className="check_box">
-            <span><input type="checkbox" name="whole_checkbox"/></span>
-        </td>
-    );
 }
 
 const SwitchBox = (props) => {
@@ -85,7 +77,7 @@ const SwitchBox = (props) => {
 
 const GradeSelectBtn = (props) => {
     return (
-        <td className="did_select_grade">
+        <td className="to_be_select_grade">
             <div className="is_pass_check">
                     <SwitchBox textlabel="미이수" />
             </div>
@@ -101,7 +93,7 @@ const GradeSelectBtn = (props) => {
 
 const BtnGroup = (props) => {
     return (
-        <div className="did_select_btn_child">{props.group}</div>
+        <div className="to_be_select_btn_child">{props.group}</div>
     );
 }
 

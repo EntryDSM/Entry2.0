@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
-import styles from '../css/FinalSubmit.css';
 import Button from '../components/Button';
+import '../css/FinalSubmit.css';
 
-class FinalSubmit extends React.Component{
+class FinalSubmit extends Component{
     render(){
         return(
             <div id="contents">

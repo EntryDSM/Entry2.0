@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
 import '../css/Principal.css'
-class Principal extends Component {
-
-    constructor() {
-        super();
-    }
- 
+class Principal extends Component { 
      render() {
+         let datas = this.props.datas();
          return(
             <div id="principal">
                 <div id="principal_box">
                     <div id="title_box">
-                        학 교 장 추 천 서
+                        학교장추천서
                     </div>
                     <div id="content_box">
                         <div id="header_box">
@@ -22,7 +18,7 @@ class Principal extends Component {
                         <table id="type_box">
                             <tbody>
                                 <tr>
-                                    <td colSpan="4">
+                                    <td id="circle" colSpan="4">
                                         특별전형 추천분야(해당란에 O표)
                                     </td>
                                 </tr>
@@ -71,7 +67,7 @@ class Principal extends Component {
                             출신중학교장<br/>
                             직인
                         </div>
-                        <div id="footer">
+                        <div id="principal_footer">
                             대덕소프트웨어마이스터고등학교장 귀하
                         </div>
                     </div>

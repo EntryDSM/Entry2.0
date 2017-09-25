@@ -21,6 +21,7 @@ class AddressModal extends React.Component {
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.searchAddress = this.searchAddress.bind(this);
+        this.enter = this.enter.bind(this);
     }
  
     openModal() {
@@ -29,6 +30,12 @@ class AddressModal extends React.Component {
  
     closeModal() {
         this.setState({modalIsOpen: false});
+    }
+    
+    enter(event) {
+        if(event.keyCode === 13) {
+            this.searchAddress();
+        }
     }
 
     searchAddress(pagenum){
@@ -57,7 +64,6 @@ class AddressModal extends React.Component {
                 var totalPage = totalCount / countPerPage;
                 
                 // 주소목록 바인딩
-                var array = new Array();
                 var datas = [];
                 result.forEach(function(element) {
                     datas.push(
@@ -81,7 +87,7 @@ class AddressModal extends React.Component {
                 }
                 
                 datas = [];
-                if(startPage != 1) {
+                if(startPage !== 1) {
                     datas.push("<");
                 }
 
@@ -89,12 +95,10 @@ class AddressModal extends React.Component {
                 for(i=startPage; i<=endPage; i++) {
                     datas.push(i);
                 }
-                console.log('datas',datas);
 
                 if(endPage < totalPage) {
                     datas.push(">");
                 }
-                console.log('datas',datas);
 
                 that.setState({
                     pageData: datas
@@ -105,7 +109,7 @@ class AddressModal extends React.Component {
                 console.log(error);
             });
     }
-
+    
     render() {
         return (
             <div className="address_div">
@@ -123,10 +127,10 @@ class AddressModal extends React.Component {
                         <h2>주소찾기</h2>
                     </div>
                     <div id="modal_contents">
-                        <input type="text" placeholder="검색어를 입력하세요 (반포대로 58, 독립기념관, 삼성동 25)" id="input_searchaddress"/>
+                        <input type="text" placeholder="검색어를 입력하세요 (반포대로 58, 독립기념관, 삼성동 25)" id="input_searchaddress" onKeyDown={this.enter}/>
                         <img id="btn_searchaddress" src={require('../images/search.png')} onClick={()=> this.searchAddress(this.Firstpage)}/>
 
-                        <AddressModalTable datas={this.state.addressData} closeModal={this.closeModal}/>
+                        <AddressModalTable setAddress={this.props.setAddress} datas={this.state.addressData} closeModal={this.closeModal}/>
                         <AddressModalPagenum datas={this.state.pageData} searchAddr={this.searchAddress} />
                         
                     </div>

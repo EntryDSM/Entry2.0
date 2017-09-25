@@ -1,6 +1,6 @@
 let router = require('express').Router();
-let logic = require('./logic');
+const controller = require('./school.controller');
 
-router.route('/user/inquiry').get(logic.schoolcode);
+router.route('/schoolCode').get(controller.search);
 
 module.exports = router;

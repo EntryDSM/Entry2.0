@@ -118,7 +118,12 @@
     vertical-align: middle;
 }
 
-#userinfo{
+#selfintroduce #userinfo{
+    width: 100%;
+    height: 7%;
+}
+
+#study_plan #userinfo{
     width: 100%;
     height: 7%;
 }
@@ -178,6 +183,10 @@
     vertical-align: top;
 }
 
+#content .td_content{
+    font-size: 20px;
+}
+
 #content_title{
     font-size: 25px;
     font-weight: 500;
@@ -189,4 +198,159 @@
     font-weight: 200;
     border: 1px solid;
     padding: 10px;
+}
+
+/*No Smoke*/
+#no_smoke{
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+#smoke_header{
+    width: 100%;
+    height: 5%;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+
+#no_smoke #table_info {
+    font-size: 18px;
+}
+
+#no_smoke #table_info tr td{
+    border:1px solid black;
+    text-align: center;
+    padding: 1%;
+}
+
+#no_smoke #table_info{
+    border-collapse: collapse;
+}
+
+#promise{
+    width: 4%;
+    font-weight: bold;
+}
+
+#table_info .table_input{
+    width: 28%;
+}
+
+#table_info .table_title{
+    width: 20%;
+}
+
+#table_info #address{
+    text-align: left;
+} 
+
+#no_smoke #swear_content{
+    width: 99.8%;
+    height: 80%;
+    border:1px solid black;  
+    border-top: none;
+}
+
+#swear_content #swear_text, #swear_my{
+    padding: 60px;
+    font-size: 19px;
+    line-height: 60px;
+}
+
+#blank{
+    letter-spacing: 100px;
+}
+
+#swear_content #swear_date{
+    padding: 50px;
+    text-align: center;
+    font-size: 18px;
+}
+
+#swear_content #swear_sign {
+    font-size: 18px;
+    line-height: 50px;
+    padding-left: 530px;
+    padding-top: 80px;
+    padding-bottom: 30px;
+}
+
+#space{
+    letter-spacing: 120px;
+}
+
+/* Userinfo */
+#userinfo{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    font-size: 0px;
+}
+#header {
+    display: table;
+    width: 100%;
+    height: 5%;
+}
+#title {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+}
+#content {
+    width: 100%;
+    height: 60%;
+    font-size: 0px;
+}
+#privacy {
+    width: 100%;
+    height: 28%;
+    margin-top: 2%;
+}
+#privacy #title{
+    text-align: center;
+    font-size: 20px;
+    height: 10%;
+}
+#privacy #content{
+    width: 99%;
+    height: 70%;
+    border: solid 1px;
+    font-size: 13px;    /* limit */
+    word-break: break-all;
+    line-height: 150%;
+    padding: 5px;
+}
+
+#privacy_footer{
+    width: 100%;
+    height: 30%;
+    font-size: 15px;
+}
+
+#privacy_footer p:nth-child(2) {
+    position: relative;
+    top: 10px;
+    left: 800px;
+    line-height: 150%;
+}
+
+#userinfo_footer {
+    width: 100%;
+    height: 5%;
+}
+
+#userinfo_footer p{
+    font-size: 30px;
+    font-weight: 1000;
+}
+
+#profile{
+    width: 100%;
+    height: 215px;
 }

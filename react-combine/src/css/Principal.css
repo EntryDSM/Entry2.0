@@ -5,32 +5,32 @@
 
 #principal #principal_box {
     width: 60rem;
-    height: 87rem;
+    height: 84rem;
 }
 
 #principal #title_box {
     text-align: center;
-    font-size: 3rem;
-    margin: 10px 0px;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 40px 0px;
 }
 
 #principal #content_box {
     width: 90%;
     height: 90%;
 
-    border: 3px solid black;
+    border: 1px solid black;
     margin: 0px auto;
 }
 
 #principal #header_box {
-    width: 40%;
-    margin-left: 60%;
-    margin-top: 40px;
-    margin-bottom: 60px;
+    width: 32%;
+    margin-left: 68%;
+    margin-top: 10px;
+    margin-bottom: 20px;
     line-height: 1.8;
-    font-weight: bold;
 
-    font-size: 1.8rem;
+    font-size: 1.7rem;
 }
 
 #principal #type_box {
@@ -38,11 +38,14 @@
     height: 20%;
     font-size: 1.5rem;
     text-align: center;
-    font-weight: bold;
 
-    border: 2px solid black;
+    border: 1px solid black;
     border-collapse: collapse;
     margin: 0px auto;
+}
+
+#principal #circle {
+    font-weight: bold;
 }
 
 #principal #type_box tr, #principal #type_box td {
@@ -53,14 +56,13 @@
     width: 85%;
     line-height: 2.2;
 
-    margin: 50px auto 0px auto;
+    margin: 30px auto 0px auto;
 
     font-size: 1.77rem;
-    font-family: "Batang"
 }
 
 #principal #date_box {
-    margin-top: 30px;
+    margin-top: 60px;
     margin-bottom: 60px;
 
     text-align: center;
@@ -108,10 +110,9 @@
     top: -90px;
 }
 
-#principal #footer {
+#principal_footer {
     text-align: right;
     font-size: 2rem;
     font-weight: 900;
-
     margin-top: 10%;
 }

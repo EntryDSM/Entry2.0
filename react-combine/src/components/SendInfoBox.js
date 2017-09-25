@@ -40,13 +40,13 @@ class SendForm extends React.Component{
     Authentication3(){
         axios({
             method: "POST",
-            url: "http://localhost:8080/account/password/demand",
+            url: "http://114.108.135.15:8080/account/password/demand",
             data: {
                 email: this.state.sendArray[1]
             },
             withCredentials: false,
             headers: {
-                "Access-Control-Allow-Origin" : "http://localhost:8080"
+                "Access-Control-Allow-Origin" : "http://114.108.135.15"
             }
         }).then(function(response){
             console.log(response);
@@ -61,7 +61,6 @@ class SendForm extends React.Component{
         this.setState({
             formsValues: val
         });
-        console.log(this.state.formsValues);
     }
 
     render(){

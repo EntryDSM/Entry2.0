@@ -1,11 +1,13 @@
 let router = require('express').Router();
-let logic = require('./logic'); 
-router.route('/signin').post(logic.login); //로그인 라우팅
-router.route('/signup').post(logic.adduser); //회원가입 라우팅
-router.route('/unemail/:email').get(logic.unemail); //이메일 인증확인 라우팅
-router.route('/checkpw/:salt').get(logic.checkmail); //비밀번호를 찾기위해 이메일 입력시 ejs로 렌더링
-router.route('/findEmail').get(logic.findEmail); //이메일을 찾기위해서 이름 입력시 해당하는 이메일 출력
-router.route('/account/password/demand').post(logic.sendfindemail); //비밀번호 변경을위한 메일 보내기 라우팅
-router.route('/account/password/change').put(logic.changepassword); //비밀번호 인증 확인 라우팅
+
+const controller = require('./user.controller');
+
+router.route('/signin').post(controller.signin); //로그인
+router.route('/signup').post(controller.signup); //회원가입 
+router.route('/email/:name').get(controller.findEmail); // 이름을 기준으로 이메일 검색
+router.route('/email/authentication/:verifyCode').get(controller.emailAuthentication); //이메일 인증코드 인증
+router.route('/password').put(controller.changePassword); // 비밀번호 변경
+router.route('/password/find').post(controller.sendFindPasswordEmail); // 비밀번호 변경 인증코드 발신
+router.route('/password/change/authentication/:verifyCode').get(controller.passwordChangeAuthentication); // 비밀번호 변경 인증코드 인증
 
 module.exports = router;

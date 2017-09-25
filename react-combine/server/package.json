@@ -14,12 +14,14 @@
     "crypto": "0.0.3",
     "ejs": "^2.5.6",
     "express": "^4.15.3",
-    "express-fileupload": "^0.1.4",
+    "express-fileupload": "^0.2.0",
     "express-method-override": "0.0.3",
-    "express-session": "^1.15.3",
-    "mongoose": "^4.10.5",
+    "express-session": "^1.15.5",
+    "mongoose": "^4.11.9",
+    "node-cmd": "^3.0.0",
     "nodemailer": "^4.0.1",
     "nodemailer-smtp-pool": "^2.8.3",
-    "styliner": "^1.0.3"
+    "styliner": "^1.0.3",
+    "uuid": "^3.1.0"
   }
 }

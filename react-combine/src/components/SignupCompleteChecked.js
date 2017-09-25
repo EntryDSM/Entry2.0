@@ -1,11 +1,12 @@
 import React from 'react';
 
 class SignupCompleteChecked extends React.Component{
+
     render(){
         return(
             <div id="CheckedBox">
                 <CheckedTextBox/>
-                <CheckedSubBox/>
+                <CheckedSubBox getCertifyCode={this.props.getCertifyCode}/>
             </div>
         );
     }
@@ -43,9 +44,10 @@ const ImageBox = (props) =>{
     );
 }
 
-const CheckedSubBox = () =>{
+const CheckedSubBox = (props) =>{
     return(
         <div id="SubBox">
+            <input type="text" name="certification_num" id="certification_num" placeholder="인증번호 입력" onChange={props.getCertifyCode}/>
         </div>
     );
 }
