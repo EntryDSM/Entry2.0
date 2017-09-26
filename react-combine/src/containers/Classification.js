@@ -56,6 +56,7 @@ class Classification extends Component {
     }
 
     radioSetter(e){
+        console.log(e.target.name);
         switch(e.target.name){
             case 'isBlackTest': this.setState({
                     isBlackTest: e.target.id
@@ -76,11 +77,20 @@ class Classification extends Component {
                     graduation: e.target.id
                 })
                 break;
-            case 'date': this.setState({
-                    date: e.target.id
-                })
+            case 'date': {
+                    if(this.state.graduation === 'WILL'){
+                        this.setState({
+                            date: 2018
+                        })
+                    } else {
+                        this.setState({
+                            date: e.target.value
+                        })
+                    }
+                }
                 break;
-            case 'detail': this.setState({
+            case 'detail': 
+                this.setState({
                     applyBaseType: {
                         type: "SOCIAL",
                         cause: e.target.id
@@ -152,17 +162,14 @@ class Classification extends Component {
                 "Access-Control-Allow-Origin" : "http://114.108.135.15"
             }
         }).then(response => {
+            let isBlackTest;
             if(response.data.isBlack){
-                this.setState({
-                    isBlackTest: 'test-yes'
-                })
+                isBlackTest = 'test-yes'
             } else {
-                this.setState({
-                    isBlackTest: 'test-no'
-                })
+                isBlackTest = 'test-no'
             }
             this.setState({
-                isBlackTest: response.data.isBlack,
+                isBlackTest: isBlackTest,
                 local: response.data.regionType,
                 applyBaseType: response.data.applyBaseType,
                 graduation: response.data.graduateType,
@@ -179,6 +186,7 @@ class Classification extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>
@@ -196,11 +204,12 @@ class Classification extends Component {
                         applyBaseType={this.state.applyBaseType}
                         applyDetailType={this.state.applyDetailType}/>
                     <SocietyDetail
+                        applyBaseType={this.state.applyBaseType}
                         applyDetailType={this.state.applyDetailType}
                         isSocietySelected={this.state.isSocietySelected} 
                         radioSetter={this.radioSetter.bind(this)}/>
                 </div>
-                 <Button 
+                 <Button
                     onclick={this.classificationSubmit.bind(this)}
                     buttonName="다음"/>
             </div>
@@ -294,6 +303,7 @@ const Graduate = (props) => {
 }
 
 const TypeAndMemo = (props) => {
+    console.log(props);
     return (
         <div id="type-and-memo">
             <h2>전형 및 특기 사항</h2>
@@ -376,7 +386,7 @@ const SocietyDetail = (props) => {
                         value="basic"
                         id="BASIC_BENEFICIARY"
                         onClick={props.radioSetter}
-                        checked={props.applyDetailType === 'BASIC_BENEFICIARY'} /> 
+                        checked={props.applyBaseType.cause === 'BASIC_BENEFICIARY'} /> 
                         <label htmlFor="basic">기초생활수급권자</label>
                 </li>
                 <li>
@@ -386,7 +396,7 @@ const SocietyDetail = (props) => {
                         value="one-parent"
                         id="SINGLE_PARENT"
                         onClick={props.radioSetter}
-                        checked={props.applyDetailType === "SINGLE_PARENT"} />
+                        checked={props.applyBaseType.cause === "SINGLE_PARENT"} />
                     <label htmlFor="one-parent">한부모가족보호대상자</label>
                 </li>
                 <li>
@@ -396,7 +406,7 @@ const SocietyDetail = (props) => {
                         value="poor"
                         id="LOWER_INCOME"
                         onClick={props.radioSetter}
-                        checked={props.applyDetailType === "LOWER_INCOME"} />
+                        checked={props.applyBaseType.cause === "LOWER_INCOME"} />
                     <label htmlFor="poor">차상위 계층</label>
                 </li>
                 <li>
@@ -406,7 +416,7 @@ const SocietyDetail = (props) => {
                         value="more-poor"
                         id="LOW_INCOME"
                         onClick={props.radioSetter}
-                        checked={props.applyDetailType === "LOW_INCOME"} />
+                        checked={props.applyBaseType.cause=== "LOW_INCOME"} />
                     <label htmlFor="more-poor">차차상위 계층</label>
                 </li>
                 <li>
@@ -416,7 +426,7 @@ const SocietyDetail = (props) => {
                         value="from-north"
                         id="FROM_NORTH"
                         onClick={props.radioSetter}
-                        checked={props.applyDetailType === "FROM_NORTH"} />
+                        checked={props.applyBaseType.cause === "FROM_NORTH"} />
                     <label htmlFor="from-north">북한이탈주민</label>
                 </li>
                 <li>
@@ -436,7 +446,7 @@ const SocietyDetail = (props) => {
                         value="etc"
                         id="ETC"
                         onClick={props.radioSetter}
-                        checked={props.applyDetailType === "ETC"} />
+                        checked={props.applyBaseType.cause === "ETC"} />
                     <label htmlFor="etc">그 외 대상자</label>
                 </li>
             </ul>

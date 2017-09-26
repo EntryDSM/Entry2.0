@@ -12,7 +12,9 @@ class InfoInputTable extends React.Component {
                         <tr id="tr_name">
                             <td className="td_title">성명</td>
                             <td className="td_content"><input type="text" className="input_style" value={this.props.name} readOnly/></td>
-                            <td className="td_space" rowSpan="6"><UploadImage previewFile={this.props.previewFile}/></td>
+                            <td className="td_space" rowSpan="6"><UploadImage 
+                                                                        previewFile={this.props.previewFile}
+                                                                        profileImg={this.props.profileImg}/></td>
                         </tr>
                         <tr>
                             <td className="td_title">성별</td>

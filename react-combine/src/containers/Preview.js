@@ -54,7 +54,6 @@ class Preview extends Component {
             }
         }).then(response => {
             let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
-            let totalGrade = totalSubjectGrade + response.data.grade.calculatedScore.attendance + response.data.grade.calculatedScore.volunteer;
             let address = response.data.info.addressBase + response.data.info.addressDetail;
             let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
             console.log(response);
@@ -80,7 +79,7 @@ class Preview extends Component {
                 totalSubjectGrade: response.data.grade.calculatedScore.score.total,
                 attend: response.data.grade.calculatedScore.attendance,
                 volunteer: response.data.grade.calculatedScore.volunteer,
-                totalGrade: totalGrade,
+                totalGrade: response.data.grade.calculatedScore.total,
                 schoolName: response.data.info.schoolName,
                 type: response.data.classification.applyBaseType.type,
                 introduce: response.data.introduce.introduce,
