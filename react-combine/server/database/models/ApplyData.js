@@ -346,7 +346,7 @@ ApplyData.methods.validation = function () {
                     resolve(result);
                 })
                 .catch(err => {
-                    if (err.message === 'SchoolCode Not Found') result.push('존재하지 않는 학교입니다.');
+                    if (err.message === 'SchoolCode Not Found') result.info.push('존재하지 않는 학교입니다.');
                     resolve(result);
                 });
         }
