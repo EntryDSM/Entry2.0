@@ -91,6 +91,14 @@ class Preview extends Component {
     }
 
     componentDidMount() {
+        axios({
+            method: 'GET',
+            url: '/api/validation'
+        }).then(response => {
+            
+        }).catch(err => {
+            console.log(err);
+        })
         this.getUserData();
         this.setState({
             targetPage: "userInfo"

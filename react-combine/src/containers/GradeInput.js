@@ -142,6 +142,7 @@ class GradeInput extends Component{
             this.state.earlyLeave,
             this.state.subjectEscape
         ];
+        console.log(this.state);
         return(
             <div id="contents">
                 <InputHeader now={"성적입력"}/>

@@ -58,7 +58,7 @@ class ChecksCover extends Component{
             <div id = "checksCover">
                 {this.props.checkArrs.map((info, i) => {
                     return(
-                        <div className = {info.ClassName} key = {i}>
+                        <div className = {info.ClassName} key = {i} onClick={info.route}>
                             <div className = {info.ClassName2}>
                                 <span style = {{fontWeight : "bold"}}>
                                     {info.CheckTitle}
