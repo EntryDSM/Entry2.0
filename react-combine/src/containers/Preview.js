@@ -95,14 +95,17 @@ class Preview extends Component {
             method: 'GET',
             url: '/api/validation'
         }).then(response => {
-            
+            if(response.data.classification.length === 0 && response.data.grade.length === 0 && response.data.info.length === 0 && response.data.introduce.length === 0){
+                this.getUserData();
+                this.setState({
+                    targetPage: "userInfo"
+                });       
+            } else {
+                browserHistory.push('/validation');
+            }
         }).catch(err => {
             console.log(err);
         })
-        this.getUserData();
-        this.setState({
-            targetPage: "userInfo"
-        });
     }
 
     setPage(target) {

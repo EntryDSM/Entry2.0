@@ -17,6 +17,7 @@ class Validation extends Component{
             url: '/api/validation'
         }).then(response => {
             console.log(response);
+            let validation = new Array;
             this.setState({
                 validationResult: response.data.grade
             })

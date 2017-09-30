@@ -59,7 +59,7 @@ function calculateNormal(data, graduateType, applyType) {
         var average = 0,
             count = 0;
         for (var j = 0; j < data[i].length; j++) {
-            console.log(g_score[i][j].pass);
+            console.log(i+","+j+"="+g_score[i][j].pass);
             if (data[i][j] != null && g_score[i][j].pass) {
                 average += data[i][j];
                 count++;
@@ -125,7 +125,9 @@ function calculateNormal(data, graduateType, applyType) {
         first = (result[4] + result[5]) * fsMultiply;
         second = (result[4] + result[5]) * fsMultiply;
     }
-
+    console.log(first)
+    console.log(second)
+    console.log(third)
     var resultScore = {
         first: first,
         second: second,
