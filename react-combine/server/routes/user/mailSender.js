@@ -23,7 +23,6 @@ let smtpPoolOption = {
 
 exports.sendEmail = (wUser, type) => {
     return new Promise((resolve, reject) => {
-        console.log(wUser);
         let filePath = thisPath + (type === 'auth' ? '/../../public/mail.html' : '/../../public/findPassword.html');
 
         let file = fs.readFileSync(filePath, 'utf8');
@@ -33,7 +32,6 @@ exports.sendEmail = (wUser, type) => {
             .then((htmlFile) => {
                 let mailContent = htmlFile.replace('@verifyCode', wUser.verifyCode);
                 const sender = '대덕마이스터고등학교 입학전형 시스템 < syeutyu123@gmail.com >';
-                console.log(wUser.getDecryptedEmail());
                 const mailOptions = {
                     from: '대덕마이스터고등학교 입학전형 시스템 < syeutyu123@gmail.com >',
                     to: wUser.getDecryptedEmail(),
@@ -42,7 +40,6 @@ exports.sendEmail = (wUser, type) => {
                 };
 
                 const transporter = nodemailer.createTransport(smtpPool(smtpPoolOption));
-                console.log(smtpPoolOption);
                 transporter.sendMail(mailOptions, (err) => {
                     transporter.close();
                     if (err) {

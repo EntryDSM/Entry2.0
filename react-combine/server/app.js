@@ -11,8 +11,9 @@ const morgan = require('morgan')
 const app = express();
 
 const router = require('./routes');
+morgan.token('sessionKey', function getKey(req) { return req.session ? req.session.key : undefined })
+app.use(morgan('SessionKey - :sessionKey :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'));
 
-app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 app.use(bodyparser.urlencoded({
@@ -28,8 +29,9 @@ app.use(session({
 }));
 
 app.get('*', (req, res, next) => {
-    console.log(req.path);
-    if ((/email\/authentication\/.{1,}/.test(req.path)) || (/^(\/api\/)/.test(req.path))) next()
+    if ((/email\/authentication\/.{1,}/.test(req.path)) || (/^(\/api\/)/.test(req.path))) {
+        next()
+    }
     else res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 

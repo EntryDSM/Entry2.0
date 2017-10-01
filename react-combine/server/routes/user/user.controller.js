@@ -16,7 +16,6 @@ exports.signup = (req, res) => {
             return WUser.create(name, email, password); // 인증대기자 생성
         })
         .then((wUser) => {
-            console.log('asdsa');
             return mailSender.sendEmail(wUser, 'auth'); // 이메일 발신
         })
         .then(() => {
@@ -61,7 +60,6 @@ exports.emailAuthentication = (req, res) => {
             return ApplyData.createEmpty(user._id);
         })
         .then((applyData) => {
-            console.log(applyData);
             // 사용자, 빈 문서 생성 성공 :: 201
             req.session.key = key;
             return res.status(201).end();

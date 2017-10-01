@@ -25,7 +25,6 @@ WUser.statics.create = function (name, email, password) {
         "password": encryptedPassword,
         verifyCode: UUID().slice(0, 6).toUpperCase()
     });
-    console.log(wUser);
     return wUser.save();
 
 }

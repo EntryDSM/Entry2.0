@@ -3,10 +3,8 @@ const SchoolCode = require('../../database/models/SchoolCode');
 exports.search = (req, res) => {
     const name = req.query.name;
     const goverment = req.query.goverment;
-    console.log(name);
     search(name, goverment)
         .then((schools) => {
-            console.log(schools)
             res.status(200).json(schools);
         })
         .catch((err) => {
