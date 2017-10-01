@@ -66,11 +66,35 @@ input[type=text]::-ms-clear {
     border-bottom: 2px solid #c4daff;
 }
 
+#modal_area{
+    margin-top: 10px;
+}
+
+   /* border-radius: 20px;   
+    width: 800px;
+    height: 600px;
+    overflow: auto;
+    margin: auto;
+    margin-top: 150px;
+    padding-left: 30px;
+    padding-right: 30   px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    background-color: white;
+    margin-top: 80px; */
 /*EmailCertifyModal*/
-#emailcertify .modal_style {
+#emailcertify{
+    width: 800px;
+    margin: auto;
+    margin-top: 150px;
+    overflow: auto;
+}
+
+.email_modal_style {
     padding: 0;
-    height: 360px;
-    margin-top: 8%;
+    width: 800px;
+    margin: auto;
 }
 
 #emailcertify #btn_emailcertify {

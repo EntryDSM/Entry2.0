@@ -7,13 +7,11 @@ class PersonalAgreeModal extends React.Component {
         super(props);
 
         this.state = {
-            modalIsOpen: false,
-            isChecked: false
+            modalIsOpen: false
         };
 
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.isCheckDone = this.isCheckDone.bind(this);
     }
 
     openModal() {
@@ -22,12 +20,6 @@ class PersonalAgreeModal extends React.Component {
 
     closeModal() {
         this.setState({ modalIsOpen: false });
-    }
-
-    isCheckDone() {
-        this.setState({
-            isChecked: !this.state.isChecked
-        });
     }
 
     render() {
@@ -74,7 +66,7 @@ class PersonalAgreeModal extends React.Component {
                     </div>
                     <div id="modal_footer">
                         본 입학원서의 개인정부 수집‧이용‧제공에 동의합니다.&nbsp;
-                        <input type="checkbox" id="agree_check" checked={this.state.isChecked} onClick={this.isCheckDone}/>
+                        <input type="checkbox" id="agree_check" checked={this.props.isChecked} onClick={this.props.paCheck}/>
                     </div>
                     <button type="button" id="btn_submit" onClick={this.closeModal} >확인</button>
                 </Modal>

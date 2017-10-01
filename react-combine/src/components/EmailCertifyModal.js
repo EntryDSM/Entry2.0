@@ -16,9 +16,9 @@ class EmailCertifyModal extends React.Component {
     render() {
         return (
             <Modal
-                isOpen={this.props.modalIsOpen}
+                isOpen={this.props.emailModalIsOpen}
                 contentLabel="이메일인증"
-                className="modal_style">
+                className="email_modal_style">
                 <div id="emailcertify">
                     <SignupSendComplete 
                         getCertifyCode={this.props.getCertifyCode}/>

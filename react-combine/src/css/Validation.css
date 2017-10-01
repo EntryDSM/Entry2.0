@@ -30,3 +30,17 @@
     height:4.5rem;
     background-color:#404041;
 }
+
+.validationResult{
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 25px;
+}
+
+.validationResult:hover{
+    cursor: pointer;
+    color: blue;
+    font-size: 26px;
+    margin-top: 10px;
+}
