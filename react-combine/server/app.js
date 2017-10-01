@@ -7,10 +7,12 @@ const database = require('./database');
 const bodyparser = require('body-parser');
 const crypto = require('crypto');
 const fileUpload = require('express-fileupload');
+const morgan = require('morgan')
 const app = express();
 
 const router = require('./routes');
 
+app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 app.use(bodyparser.urlencoded({
