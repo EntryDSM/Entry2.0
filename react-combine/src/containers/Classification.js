@@ -436,7 +436,7 @@ const SocietyDetail = (props) => {
                         value="multi-culture"
                         id="MULTICULTURAL"
                         onClick={props.radioSetter}
-                        checked={props.applyDetailType === "MULTICULTURAL"} />
+                        checked={props.applyBaseType.cause === "MULTICULTURAL"} />
                     <label htmlFor="multi-culture">다문화가정</label>
                 </li>
                 <li>

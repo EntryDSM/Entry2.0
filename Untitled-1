@@ -1,0 +1,173 @@
+require('./util/calculator').calculate({
+        "calculatedScore" : {
+            "attendance" : "15.0000",
+            "volunteer" : 15,
+            "score" : {
+                "total" : 150,
+                "third" : "60.0000",
+                "second" : "45.0000",
+                "first" : "45.0000"
+            }
+        },
+        "score" : {
+            "semesters" : [ 
+                [ 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }
+                ], 
+                [ 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }
+                ], 
+                [ 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }
+                ], 
+                [ 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }
+                ], 
+                [ 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "E",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }, 
+                    {
+                        "grade" : "A",
+                        "pass" : true
+                    }
+                ]
+            ]
+        },
+        "attend" : {
+            "subjectEscape" : 0,
+            "earlyLeave" : 0,
+            "lateness" : 0,
+            "absence" : 0
+        },
+        "volunteer" : "50"
+    },'WILL','COMMON');

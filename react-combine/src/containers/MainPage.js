@@ -2,9 +2,24 @@ import React, { Component } from 'react';
 import MainHeader from '../components/MainHeader';
 import MainSection from '../components/MainSection';
 import MainFooter from '../components/MainFooter';
+import axios from 'axios';
+import {browserHistory} from 'react-router';
 import '../css/MainPage.css';
 
 class MainPage extends Component{
+    signInCheck(){
+        axios({
+            method: 'GET',
+            url: '/api/user/classification'
+        }).then(response => {
+            console.log(response);
+            browserHistory.push('/mypage')
+        }).catch(err => {
+            console.log(err);
+            browserHistory.push('/signin')
+        })
+    }
+
     render(){
         return(
             <div id = "main">
@@ -22,7 +37,7 @@ class MainPage extends Component{
                                     ImgUrl : require('../images/group.png'),
                                     MainTitle : "원서 조회",
                                     SubTitle : "INQUIRY",
-                                    Route : "/mypage"
+                                    route: this.signInCheck.bind(this)
                                 }
                             ]
                         }/>

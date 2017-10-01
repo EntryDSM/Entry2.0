@@ -1,9 +1,34 @@
 import React, {Component} from 'react';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
+import axios from 'axios';
+import {browserHistory} from 'react-router';
 import '../css/FinalSubmit.css';
 
 class FinalSubmit extends Component{
+    finalSubmitBtn(){
+        axios({
+            method: 'post',
+            url: '/api/apply'
+        }).then(response => {
+            console.log(response);
+            browserHistory.push('/')
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    componentDidMount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+        }).catch(err => {
+            console.log(err);
+            browserHistory.push('/error');
+        })
+    }
+
     render(){
         return(
             <div id="contents">
@@ -12,7 +37,7 @@ class FinalSubmit extends Component{
                 <WarnText title = "주의!"/>
                 <WarnText2 text1 = "버튼을 클릭하시면 더 이상 수정할 수 없습니다."
                           text2 = "신중히 결정해주세요!"/>
-                <FinalBtn name = "최종제출"/>
+                <FinalBtn onclick = {this.finalSubmitBtn.bind(this)} name = "최종제출"/>
             </div>
         );
     }
@@ -46,7 +71,7 @@ const WarnText2 = (props) =>{
 const FinalBtn = (props) =>{
     return(
         <div id="FinalBtn">
-            <Button buttonName={props.name} router="/main"/>
+            <Button onclick={props.finalSubmitBtn} buttonName={props.name}/>
         </div>  
     );
 }

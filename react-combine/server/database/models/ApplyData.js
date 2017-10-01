@@ -313,7 +313,7 @@ ApplyData.methods.reviseIntroduce = function (introduce) {
 ApplyData.methods.validation = function () {
     const data = this;
     return new Promise((resolve, reject) => {
-        let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [], 'isSubmitted': data.applyStatus };
+        let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [], 'isSubmited': data.applyStatus };
 
 
         if (data.classification.isBlack) {

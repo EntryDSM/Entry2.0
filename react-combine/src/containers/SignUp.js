@@ -17,8 +17,10 @@ class SignUp extends Component{
             emailDomain: "naver.com",
             password: "",
             certifyCode: "",
-            modalIsOpen: "",
-            isConfirm: false
+            emailModalIsOpen: false,
+            personalAgreeModalIsOpen: false,
+            isConfirm: false,
+            isChecked: false
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
@@ -70,7 +72,13 @@ class SignUp extends Component{
 
     closeModal(){
         this.setState({
-            modalIsOpen: false
+            emailModalIsOpen: false
+        })
+    }
+
+    paCheck(){
+        this.setState({
+            isChecked: !this.state.isChecked
         })
     }
 
@@ -80,53 +88,60 @@ class SignUp extends Component{
             url: '/api/email/authentication/' + this.state.certifyCode,
             withCredentials: false
         }).then(response => {
+            console.log(this.state.certifyCode);
             console.log(response);
             this.setState({
-                modalIsOpen: false
+                emailModalIsOpen: false
             })
             browserHistory.push('/classification');
         }).catch(err => {
-            console.log(err.config);
-            console.log(err.request);
             this.setState({
-                modalIsOpen: true
+                emailModalIsOpen: true
             })
         })
     }
 
     signUpSubmit(){
-        this.setState({
-            modalIsOpen: true
-        })        
-        axios({
-            method:'post',
-            url:'/api/signup',
-            data: {
-                name: this.state.name,
-                email: this.state.email + '@' + this.state.emailDomain,
-                password: this.state.password
-            },
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15",
-                "ContentType": "application/json"
-            }
-        }).then(response => {
-            console.log(response)
-        }).catch((error) => {
-            console.log(error);
-            if(error.response){
-                console.log(error.response);
-            } else if(error.request){
-                console.log(error.request);
-            } else {
-                console.log(error.message);
-            }
-            console.log(error.config);
+        if(this.state.isConfirm && this.state.isChecked){
             this.setState({
-                modalIsOpen: false
-            })
-        });
+                emailModalIsOpen: true
+            })        
+            axios({
+                method:'post',
+                url:'/api/signup',
+                data: {
+                    name: this.state.name,
+                    email: this.state.email + '@' + this.state.emailDomain,
+                    password: this.state.password
+                },
+                withCredentials: false,
+                headers: {
+                    "Access-Control-Allow-Origin": "http://114.108.135.15",
+                    "ContentType": "application/json"
+                }
+            }).then(response => {
+                console.log(response)
+            }).catch((error) => {
+                console.log(error);
+                if(error.response){
+                    console.log(error.response);
+                } else if(error.request){
+                    console.log(error.request);
+                } else {
+                    console.log(error.message);
+                }
+                console.log(error.config);
+                this.setState({
+                    emailModalIsOpen: false
+                })
+            });
+        } else if(!this.state.isChecked){
+            alert("개인정보 활용 동의서에 동의해주세요.");
+        } else if(!this.state.isConfirm){
+            alert("비밀번호 재확인에 실패했습니다.");
+        } else {
+            alert("입력을 완료해주세요");
+        }
     }
 
     render(){
@@ -169,11 +184,13 @@ class SignUp extends Component{
                         }/>
                     </table>
                     <EmailCertifyModal 
-                        modalIsOpen={this.state.modalIsOpen}
+                        emailModalIsOpen={this.state.emailModalIsOpen}
                         closeModal={this.closeModal.bind(this)}
                         getCertifyCode={this.getCertifyCode.bind(this)}
                         verifyCode={this.verifyCode.bind(this)} />
-                    <PersonalAgreeModal />
+                    <PersonalAgreeModal 
+                        paCheck={this.paCheck.bind(this)}
+                        isChecked={this.state.isChecked}/>
                 </div>
                 <Button onclick={this.signUpSubmit.bind(this)} buttonName="다음"/>
                 </div>

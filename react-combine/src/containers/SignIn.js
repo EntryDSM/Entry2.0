@@ -47,7 +47,7 @@ class SignIn extends React.Component{
             }
         }).then(response => {
             console.log(response)
-            browserHistory.push('/classification');
+            browserHistory.push('/mypage');
         }).catch((error) => {
             console.log(error.config);
             console.log(error);
