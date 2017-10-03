@@ -3,7 +3,7 @@ import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
 import {connect} from 'react-redux';
 import {signInData} from '../actions';
-import {browserHistory} from 'react-router';
+import {browserHistory, Link} from 'react-router';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../css/FormIndex.css';
@@ -145,7 +145,10 @@ const LoginSubBox = (props) => {
     return(
         <div id="LoginSubBox">
             <h3> {props.hTitle} </h3>
-            <a href="#"> {props.aTitle} </a>
+            <Link to="/signup">
+                {props.aTitle}
+            </Link>
+            <a href="#">  </a>
         </div>
     );
 }

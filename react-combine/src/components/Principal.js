@@ -11,9 +11,9 @@ class Principal extends Component {
                     </div>
                     <div id="content_box">
                         <div id="header_box">
-                            [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] 중학교 <br/>
-                            3학년 &nbsp;&nbsp;&nbsp;반 <br/>
-                            성 명 :
+                            [&nbsp;&nbsp;&nbsp;{datas.schoolName.replace("중학교", "")}&nbsp;&nbsp;&nbsp;] 중학교 <br/>
+                            3학년 {datas.class}반 <br/>
+                            성 명 : {datas.name}
                         </div>
                         <table id="type_box">
                             <tbody>

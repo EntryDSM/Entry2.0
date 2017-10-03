@@ -19,18 +19,46 @@ class Introduce extends Component {
     }
 
     setSelf(e){
-        this.setState({
-            introduce: e.target.value,
-            introduceCount: e.target.value.length
-        })
+        // if(e.keyCode === 13){
+        //     this.setState({
+        //         introduce: this.state.introduce + "\n",
+        //         introduceCount: this.state.introduceCount
+        //     })
+        // } else {
+            this.setState({
+                introduce: e.target.value,
+                introduceCount: e.target.value.length
+            })
+        // }
     }
 
     setPlan(e){
-        this.setState({
-            plan: e.target.value,
-            planCount: e.target.value.length
-        })
+        // if(e.keyCode === 13){
+        //     this.setState({
+        //         plan: this.state.plan + "\n",
+        //         planCount: this.state.planCount
+        //     })
+        // } else {
+            this.setState({
+                plan: e.target.value,
+                planCount: e.target.value.length
+            })
+        // }
     }
+
+    // onSelfEnterClick(e){
+    //     if(e.keyCode === 13){
+    //         this.setState({
+                
+    //         })
+    //     }
+    // }
+
+    // onPlanEnterClick(e){
+    //     if(e.keyCode === 13){
+    //         console.log()
+    //     }
+    // }
 
     componentDidMount(){
         axios({
@@ -73,6 +101,7 @@ class Introduce extends Component {
     }
 
     render(){
+        console.log(this.state.introduce);
         return(
             <div id="contents">
                 <InputHeader now={"자기소개서 및 학업계획서"} />

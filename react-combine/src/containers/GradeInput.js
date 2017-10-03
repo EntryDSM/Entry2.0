@@ -77,36 +77,40 @@ class GradeInput extends Component{
     }
 
     setVolunteer(e){
-        this.setState({
-            volunteer: e.target.value
-        })
+        if(e.target.value >= 0){    
+            this.setState({
+                volunteer: e.target.value
+            })
+        }
     }
 
     setAttendData(e){
-        switch(e.target.name){
-            case "absence": {
-                this.setState({
-                    absence: e.target.value
-                })
-                break;
-            }
-            case "late": {
-                this.setState({
-                    lateness: e.target.value
-                })
-                break;
-            }
-            case "leaving_early": {
-                this.setState({
-                    earlyLeave: e.target.value
-                })
-                break;
-            }
-            case "not_attendence": {
-                this.setState({
-                    subjectEscape: e.target.value
-                })
-                break;
+        if(e.target.value >= 0){
+            switch(e.target.name){
+                case "absence": {
+                    this.setState({
+                        absence: e.target.value
+                    })
+                    break;
+                }
+                case "late": {
+                    this.setState({
+                        lateness: e.target.value
+                    })
+                    break;
+                }
+                case "leaving_early": {
+                    this.setState({
+                        earlyLeave: e.target.value
+                    })
+                    break;
+                }
+                case "not_attendence": {
+                    this.setState({
+                        subjectEscape: e.target.value
+                    })
+                    break;
+                }
             }
         }
     }

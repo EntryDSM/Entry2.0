@@ -82,7 +82,7 @@ class Preview extends Component {
                 totalGrade: response.data.grade.calculatedScore.total,
                 schoolName: response.data.info.schoolName,
                 type: response.data.classification.applyBaseType.type,
-                introduce: response.data.introduce.introduce,
+                introduce: response.data.introduce.introduce.replace(/(\r\n|\n|\r)/gm, "\n"),
                 plan: response.data.introduce.plan
             })
         }).catch(err => {

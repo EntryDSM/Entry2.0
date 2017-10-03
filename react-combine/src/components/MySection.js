@@ -14,7 +14,8 @@ class MySection extends Component{
                                 ClassName2 : "checkTitles",
                                 CheckTitle : "구분선택",
                                 CheckTitle2 : "Classification",
-                                ImgUrl1 : require("../images/myClassi.png")
+                                ImgUrl1 : require("../images/myClassi.png"),
+                                route: 
                             },
                             {
                                 ClassName : "checkFiles",
