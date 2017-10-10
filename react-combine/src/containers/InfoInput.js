@@ -194,13 +194,15 @@ class InfoInput extends Component {
                 }
             }
         }
-        axios.get(query)
-        .then(function(response){
+        axios({
+            method: 'GET',
+            url: query
+        }).then(response => {
             console.log(response.data);
             this.setState({
                 schoolList: response.data
             })
-        }).catch(function(err){
+        }).catch(err => {
             console.log(err);
         })
     }
