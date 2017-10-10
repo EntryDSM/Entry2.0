@@ -95,6 +95,10 @@
     font-weight:bold;
 }
 
+#landing-page ul li a{
+    color:white;
+}
+
 #landing-page #Header_Image_Cover #Header_MainPart{
     width:85.675%;
     height:70%;
