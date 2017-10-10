@@ -162,10 +162,6 @@ Preview.defaultProps = {
         {
             name: "금연 서약서",
             target: "noSmoke"
-        },
-        {
-            name: "학교장 추천서",
-            target: "principal"
         }
     ]
 }
