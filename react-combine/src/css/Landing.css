@@ -83,11 +83,13 @@
 #landing-page #Header_Navigation ul li{
     float:left;
     color:white;
-    padding-left:1.7rem;
+    padding-left:1.8rem;
     font-size:1.1rem;
     letter-spacing:0.75px;
     padding-top:1.075rem;
     overflow:hidden;
+    position:relative;
+    left:4.7rem;
 }
 
 #landing-page #Header_Navigation ul li:hover{

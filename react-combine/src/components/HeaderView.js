@@ -28,16 +28,12 @@ const NavigationBar = () =>{
             {
                 [
                     {
-                        "nav" : "Home",
+                        "nav" : "Main",
                         "link" : "/main"
                     },
                     {
                         "nav" : "Contact",
                         "link" : "https://www.facebook.com/Entry-DSM-1386708261424912/?ref=bookmarks"
-                    },
-                    {
-                        "nav" : "Main",
-                        "link" : "/main"
                     },
                     {
                         "nav" : "About DSM",
@@ -71,7 +67,7 @@ const HeaderNavigationPart = (props) =>{
         <div id="Header_Navigation">
             <ul>
                 {props.menuList.map((menu, i) => {
-                    if(i == 1 || i == 3){
+                    if(i == 1 || i == 2){
                         return(
                             <li key={i}>
                                 <a href = {menu.link}
