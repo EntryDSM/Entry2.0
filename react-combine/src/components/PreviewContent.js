@@ -33,7 +33,9 @@ class PreviewContent extends Component {
                 totalSubjectGrade: datas.totalSubjectGrade,
                 attend: datas.attend,
                 volunteer: datas.volunteer,
-                totalGrade: datas.totalGrade
+                totalGrade: datas.totalGrade,
+                submitNumber: datas.submitNumber,
+                graduateYear: datas.graduateYear
             }
         }
         let SelfIntroduceData = () => {

@@ -3,6 +3,22 @@ import React, {Component} from 'react';
 class UserInfo extends Component {
     render() {
         let datas = this.props.datas();
+        let submitNumber;
+        if(datas.submitNumber < 10){
+            submitNumber = "00" + datas.submitNumber;
+        } else if(10 <= datas.submitNumber && datas.submitNumber < 100){
+            submitNumber = "0" + datas.submitNumber;
+        } else {
+            submitNumber = datas.submitNumber;
+        }
+
+        let graduateYear = 2017;
+        let successExamYear = 2017;
+        if(datas.graduation === "Done"){
+            graduateYear = datas.graduateYear;
+        } else if(datas.graduation === "Black"){
+            successExamYear = datas.graduateYear
+        }
         return(
             <div id="userinfo">
                 <div id="header">
@@ -15,7 +31,7 @@ class UserInfo extends Component {
                         <tbody>
                             <tr>
                                 <td>접수번호</td>
-                                <td colSpan="2"></td>
+                                <td colSpan="2">{submitNumber}</td>
                                 <td>중학교 코드</td>
                                 <td>{datas.schoolCode}</td>
                                 <td>반</td>
@@ -52,7 +68,7 @@ class UserInfo extends Component {
                                 <td rowSpan="3">졸업<br/>구분</td>
                                 <td>
                                     <input type="checkbox" checked={datas.graduation === 'WILL'} readOnly />
-                                    &nbsp;&nbsp;&nbsp;2018년 중학교 졸업예정
+                                    &nbsp;&nbsp;&nbsp;{graduateYear}년 중학교 졸업예정
                                 </td>
                             </tr>
                             <tr>
@@ -60,7 +76,7 @@ class UserInfo extends Component {
                                 <td>{datas.schoolTel}</td>
                                 <td>
                                     <input type="checkbox" checked={datas.graduation === 'DONE'} readOnly />
-                                    &nbsp;&nbsp;&nbsp;2017년 중학교 졸업
+                                    &nbsp;&nbsp;&nbsp;{successExamYear}년 중학교 졸업
                                 </td>
                             </tr>
                             <tr>
@@ -68,7 +84,7 @@ class UserInfo extends Component {
                                 <td>{datas.phoneNum}</td>
                                 <td>
                                     <input type="checkbox"/>
-                                    &nbsp;&nbsp;&nbsp;2017년 고입 검정고시 합격
+                                    &nbsp;&nbsp;&nbsp;{datas.graduateYear}년 고입 검정고시 합격
                                 </td>
                             </tr>
                         </tbody>
