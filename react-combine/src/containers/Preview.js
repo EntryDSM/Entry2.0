@@ -59,7 +59,7 @@ class Preview extends Component {
             let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
             console.log(response);
             this.setState({
-                submitNumber: "",
+                submitNumber: response.data.submitNumber,
                 schoolCode: response.data.info.schoolCode,
                 class: response.data.info.class,
                 name: response.data.user.name,
@@ -71,6 +71,7 @@ class Preview extends Component {
                 schoolTel: response.data.info.schoolTel,
                 phoneNum: response.data.info.tel,
                 graduation: response.data.classification.graduateType,
+                graduateYear: response.data.classification.graduateYear,
                 local: response.data.classification.regionType,
                 isSpecial: response.data.classification.applyDetailType.IS_EXCEPTIONEE,
                 isCountryMerit: response.data.classification.applyDetailType.IS_NATIONAL_MERIT,

@@ -61,6 +61,7 @@
 }
 #userinfo_table_1 tbody tr:nth-child(1) td:nth-child(2){
     width: 20%;
+    text-align: center;
 }
 #userinfo_table_1 tbody tr:nth-child(1) td:nth-child(3){
     text-align: center;

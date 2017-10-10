@@ -25,7 +25,8 @@ class Classification extends Component {
             applyBaseType: {
                 type: "COMMON",
                 cause: null
-            }
+            },
+            disabled: "disabled"
         }
         this.getAlreadyData = this.getAlreadyData.bind(this);
     }
@@ -74,9 +75,19 @@ class Classification extends Component {
                     }
                 })
                 break;
-            case 'graduation': this.setState({
-                    graduation: e.target.id
-                })
+            case 'graduation': 
+                if(e.target.id === "WILL"){
+                    this.setState({
+                        graduation: e.target.id,
+                        date: "2018",
+                        disabled: "disabled"
+                    })
+                } else {    
+                    this.setState({
+                        graduation: e.target.id,
+                        disabled: ""
+                    })
+                }
                 break;
             case 'date': {
                     if(this.state.graduation === 'WILL'){
@@ -198,7 +209,8 @@ class Classification extends Component {
                         radioSetter={this.radioSetter.bind(this)}/>
                     <Graduate 
                         graduation={this.state.graduation}
-                        radioSetter={this.radioSetter.bind(this)}/>
+                        radioSetter={this.radioSetter.bind(this)}
+                        disabled={this.state.disabled}/>
                     <TypeAndMemo
                         onSocietyClick={this.onSocietyClick.bind(this)} 
                         radioSetter={this.radioSetter.bind(this)}
@@ -292,12 +304,12 @@ const Graduate = (props) => {
             id="graduation-year" 
             value={props.date}
             onChange={props.setDate}>
-            <option value="2018">2018년</option>
-            <option value="2017">2017년</option>
-            <option value="2016">2016년</option>
-            <option value="2015">2015년</option>
-            <option value="2014">2014년</option>
-            <option value="2013">2013년</option>
+            <option value="2018" selected={props.graduation === 'WILL'}>2018년</option>
+            <option value="2017" disabled={props.disabled}>2017년</option>
+            <option value="2016" disabled={props.disabled}>2016년</option>
+            <option value="2015" disabled={props.disabled}>2015년</option>
+            <option value="2014" disabled={props.disabled}>2014년</option>
+            <option value="2013" disabled={props.disabled}>2013년</option>
         </select>
     </div>
     );
