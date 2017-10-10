@@ -1,6 +1,6 @@
 #login-form #LoginBox{
     width:40rem;
-    height:22.5rem;
+    height:20rem;
     background-color:white;
     margin:0 auto;
     margin-top:2rem;
@@ -10,7 +10,7 @@
 
 #login-form #LoginBox{
      width:40rem;
-     height:22.5rem;
+     height:20rem !important;
      background-color:white;
      margin:0 auto;
      margin-top:2rem;
@@ -31,7 +31,7 @@
      font-weight:normal;
      letter-spacing: 2px;
      color: #272727;
-     padding-top:1rem;
+     padding-top:1.75rem;
  }
  
 #login-form #LoginForm .MainInput{
