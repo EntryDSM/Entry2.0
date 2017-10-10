@@ -6,6 +6,7 @@ import '../css/InfoInput.css'
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
+import 'babel-polyfill';
 import PropTypes from 'prop-types';
 
 class InfoInput extends Component {

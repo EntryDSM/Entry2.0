@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MainBoard from '../components/MainBoard';
+import 'babel-polyfill';
 import '../css/Board.css';
 
 class Board extends Component{

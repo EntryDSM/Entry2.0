@@ -1,5 +1,6 @@
 import React from 'react';
 import PwCompleteCheckedBox from '../components/PwCompleteCheckedBox';
+import 'babel-polyfill';
 import '../css/FormIndex.css';
 import '../css/CompleteCheckedBox.css';
 

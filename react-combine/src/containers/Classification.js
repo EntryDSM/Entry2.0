@@ -4,6 +4,7 @@ import InputHeader from '../components/InputHeader';
 import '../css/Classification.css';
 import PropTypes from 'prop-types';
 import {browserHistory} from 'react-router';
+import 'babel-polyfill';
 import axios from 'axios';
 
 class Classification extends Component {

@@ -5,6 +5,7 @@ import PreviewContent from '../components/PreviewContent';
 import Button from '../components/Button';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
+import 'babel-polyfill';
 import '../css/Preview.css';
 import '../css/Userinfo_table.css';
 

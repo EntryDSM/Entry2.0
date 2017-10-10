@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import MainHeader from '../components/MainHeader';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
+import 'babel-polyfill';
 import '../css/Validation.css';
 
 class Validation extends Component{

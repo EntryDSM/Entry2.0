@@ -4,6 +4,7 @@ import MainSection from '../components/MainSection';
 import MainFooter from '../components/MainFooter';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
+import 'babel-polyfill';
 import '../css/MainPage.css';
 
 class MainPage extends Component{

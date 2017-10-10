@@ -4,6 +4,7 @@ import FormTitle from '../components/FormTitle';
 import {connect} from 'react-redux';
 import {signInData} from '../actions';
 import {browserHistory, Link} from 'react-router';
+import 'babel-polyfill';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../css/FormIndex.css';

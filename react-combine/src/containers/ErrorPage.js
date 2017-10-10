@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/ErrorPage.css';
 import {Link} from 'react-router';
+import 'babel-polyfill';
 
 class ErrorPage extends Component{
     render(){

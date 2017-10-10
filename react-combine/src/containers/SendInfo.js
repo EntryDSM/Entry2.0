@@ -2,6 +2,7 @@ import React from 'react';
 import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
 import SendInfoBox from '../components/SendInfoBox';
+import 'babel-polyfill';
 import '../css/SendInfo.css';
 import '../css/FormIndex.css';
 

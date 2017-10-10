@@ -3,6 +3,8 @@ import '../css/MyPage.css';
 import MyHeader from '../components/MyHeader';
 import MySection from '../components/MySection';
 import MyFooter from '../components/MyFooter';
+import {browserHistory} from 'react-router';
+import 'babel-polyfill';
 import axios from 'axios';
 
 class MyPage extends Component{
@@ -16,6 +18,17 @@ class MyPage extends Component{
                 "",
                 ""
             ]
+        }
+    }
+
+    route(e){
+        console.log(e.target.id)
+        switch(e.target.id){
+            case "mClassification": browserHistory.push('/classification'); break;
+            case "mInfoInput": browserHistory.push('/infoinput'); break;
+            case "mGradeInput": browserHistory.push('/gradeinput'); break;
+            case "mIntroduce": browserHistory.push('/introduce'); break;
+            case "mSubmit": browserHistory.push('/finalsubmit'); break;
         }
     }
 
@@ -69,10 +82,6 @@ class MyPage extends Component{
         })
     }
 
-    route(){
-        console.log('hello');
-    }
-
     render(){
         return(
             <div id="mypage">
@@ -80,7 +89,7 @@ class MyPage extends Component{
                 <MySection MainTitle1 = "접수 현황"
                            MainTitle2 = "내가 올린 게시글"
                            checkUrl = {this.state.checkImgSrc}
-                           route = {this.props.route}/>
+                           route = {this.route.bind(this)}/>
                 <MyFooter/>
             </div>
         );

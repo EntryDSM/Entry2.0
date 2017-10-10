@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
+import 'babel-polyfill';
 import '../css/Introduce.css';
 import '../css/WritingArea.css';
 

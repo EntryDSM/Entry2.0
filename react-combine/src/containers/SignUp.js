@@ -6,6 +6,7 @@ import PersonalAgreeModal from '../components/PersonalAgreeModal';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import 'babel-polyfill';
 import '../css/SignUp.css';
 
 class SignUp extends Component{

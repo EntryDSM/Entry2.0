@@ -7,6 +7,7 @@ import Volunteer from '../components/Volunteer';
 import Attend from '../components/Attend';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
+import 'babel-polyfill';
 import PropTypes from 'prop-types';
 import '../css/InputHeader.css';
 import '../css/GradeInput.css';

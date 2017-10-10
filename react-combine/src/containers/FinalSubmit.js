@@ -3,6 +3,7 @@ import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
+import 'babel-polyfill';
 import '../css/FinalSubmit.css';
 
 class FinalSubmit extends Component{

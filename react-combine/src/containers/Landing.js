@@ -4,6 +4,7 @@ import HeaderView from '../components/HeaderView';
 import SimpleIntro from '../components/SimpleIntro';
 import MainIntro from '../components/MainIntro';
 import Footer from '../components/Footer';
+import 'babel-polyfill';
 import '../css/Landing.css';
 
 
