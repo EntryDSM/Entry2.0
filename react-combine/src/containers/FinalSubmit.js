@@ -7,7 +7,12 @@ import 'babel-polyfill';
 import '../css/FinalSubmit.css';
 
 class FinalSubmit extends Component{
+    constructor(props){
+        super(props);
+    }
+
     finalSubmitBtn(){
+        console.log('test');
         axios({
             method: 'post',
             url: '/api/apply'
@@ -70,10 +75,11 @@ const WarnText2 = (props) =>{
 }
 
 const FinalBtn = (props) =>{
+    console.log(props);
     return(
         <div id="FinalBtn">
-            <Button onclick={props.finalSubmitBtn} buttonName={props.name}/>
-        </div>  
+            <Button onclick={props.onclick} buttonName={props.name}/>
+        </div>
     );
 }
 export default FinalSubmit;

@@ -3,6 +3,22 @@ import '../css/Principal.css'
 class Principal extends Component { 
      render() {
          let datas = this.props.datas();
+         let check = [["", "", ""], ["", "", ""]];
+         if(datas.local === 'HOME'){
+            if(datas.type === 'MEISTER'){
+                check[0][0] = 'O';
+            } else if(datas.type === 'SOCIETY') {
+                check[0][1] = 'O';
+                check[0][2] = 'O';
+            }
+         } else if(datas.local === 'AWAY') {
+            if(datas.type === 'MEISTER'){
+                check[1][0] = 'O';
+            } else if(datas.type === 'SOCIETY') {
+                check[1][1] = 'O';
+                check[1][2] = 'O';
+            }
+         }
          return(
             <div id="principal">
                 <div id="principal_box">
@@ -33,15 +49,15 @@ class Principal extends Component {
                                 </tr>
                                 <tr>
                                     <td>대전시 교육청 관내</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                     <td>{check[0][0]}</td>
+                                    <td>{check[0][1]}</td>
+                                    <td>{check[0][2]}</td> 
                                 </tr>
                                 <tr>
                                     <td>대전시 교육청 관외</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                     <td>{check[1][0]}</td>
+                                    <td>{check[1][1]}</td>
+                                    <td>{check[1][2]}</td> 
                                 </tr>
                             </tbody>
                         </table>

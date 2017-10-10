@@ -63,6 +63,7 @@ class PreviewContent extends Component {
         let PrincipalData = () => {
             return { 
                 schoolName: datas.schoolName,
+                local: datas.local,
                 type: datas.type,
                 class: datas.class,
                 name: datas.name
