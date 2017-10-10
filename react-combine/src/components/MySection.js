@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {browserHistory} from 'react-router';
 
 class MySection extends Component{
     render(){
@@ -56,7 +57,7 @@ class MySection extends Component{
                             }
                         ]
                     }/>
-                <CheckBtn/>
+                <CheckBtn onClick={this.props.goPreview}/>
             </section>
         );
     }
@@ -92,9 +93,9 @@ const CheckImgs = (props) => {
     );
 }
 
-const CheckBtn = () => {
+const CheckBtn = (props) => {
     return(
-        <div id = "checkBtn" onClick = {this.setImages}>
+        <div id = "checkBtn" onClick = {props.onClick}>
             <CheckBtnText BtnText = "확인하기"/>
         </div>
     );

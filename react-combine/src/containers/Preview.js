@@ -58,6 +58,31 @@ class Preview extends Component {
             let address = response.data.info.addressBase + response.data.info.addressDetail;
             let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
             console.log(response);
+
+            if(response.data.classification.applyBaseType.type !== 'COMMON'){
+                this.props.pageList = [
+                    {
+                        name: "입학 원서",
+                        target: "userInfo"
+                    },
+                    {
+                        name: "자기 소개서",
+                        target: "self"
+                    },
+                    {
+                        name: "학업 계획서",
+                        target: "plan"
+                    },
+                    {
+                        name: "금연 서약서",
+                        target: "noSmoke"
+                    },
+                    {
+                        name: "학교장 추천서",
+                        target: "principal"
+                    }
+                ]
+            }
             this.setState({
                 submitNumber: response.data.submitNumber,
                 schoolCode: response.data.info.schoolCode,
@@ -88,6 +113,7 @@ class Preview extends Component {
                 plan: response.data.introduce.plan
             })
         }).catch(err => {
+            console.log(err);
             browserHistory.push('error');
         })
     }

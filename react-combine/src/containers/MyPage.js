@@ -82,6 +82,10 @@ class MyPage extends Component{
         })
     }
 
+    goPreview(){
+        browserHistory.push('/preview');
+    }
+
     render(){
         return(
             <div id="mypage">
@@ -89,6 +93,7 @@ class MyPage extends Component{
                 <MySection MainTitle1 = "접수 현황"
                            MainTitle2 = "내가 올린 게시글"
                            checkUrl = {this.state.checkImgSrc}
+                           goPreview = {this.goPreview.bind(this)}
                            route = {this.route.bind(this)}/>
                 <MyFooter/>
             </div>
