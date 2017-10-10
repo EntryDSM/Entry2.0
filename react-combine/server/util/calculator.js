@@ -128,9 +128,9 @@ function calculateNormal(data, graduateType, applyType) {
         total: 0
     };
 
-    resultScore.first = Number(Number(resultScore.first).toFixed(4));
-    resultScore.second = Number(Number(resultScore.second).toFixed(4));
-    resultScore.third = Number(Number(resultScore.third).toFixed(4));
+    resultScore.first = Number(Number(resultScore.first).toFixed(3));
+    resultScore.second = Number(Number(resultScore.second).toFixed(3));
+    resultScore.third = Number(Number(resultScore.third).toFixed(3));
     resultScore.total = Number(resultScore.first) + Number(resultScore.second) + Number(resultScore.third);
     return resultScore;
 }
@@ -154,7 +154,7 @@ function calculateBlack(data, applyType) {
 
     total = (average - 50) / 50 * multiply;
 
-    return Number(total).toFixed(4);
+    return Number(total).toFixed(3);
 }
 
 function calculateAttendent(data, graduateType) {
@@ -165,7 +165,7 @@ function calculateAttendent(data, graduateType) {
     if (toSub >= 15) {
         return 0;
     }
-    return Number(Number(15 - toSub).toFixed(4));
+    return Number(Number(15 - toSub).toFixed(3));
 }
 
 function calculateVolunteer(data, applyType, graduateType) {
@@ -189,7 +189,7 @@ function calculateVolunteer(data, applyType, graduateType) {
 
     result = 3 + (score - minus) / div * 12;
 
-    return Number(Number(result).toFixed(4));
+    return Number(Number(result).toFixed(3));
 }
 
 function checkNullArray(data, index) {
