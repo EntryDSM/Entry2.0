@@ -249,14 +249,14 @@ exports.reviseProfile = (req, res) => {
     const user = req.session.key;
     const file = req.files.profile;
     const src = UUID().slice(0, 12) + `.${file.mimetype.split("/")[1]}`;
-    
+
     if (typeof file === "undefined" || file === null) return res.status(400).end();
 
     let _applyData;
 
     ApplyData.findOne({
-        user
-    })
+            user
+        })
         .then((applyData) => {
             if (!applyData) throw new Error('NOT FOUND');
             _applyData = applyData;
@@ -301,8 +301,14 @@ exports.apply = (req, res) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({
-                "message": err.message
-            });
+            if (err.message === 'not submitable') {
+                res.status(400).json({
+                    "message": err.message
+                });
+            } else {
+                res.status(500).json({
+                    "message": err.message
+                });
+            }
         });
 }
