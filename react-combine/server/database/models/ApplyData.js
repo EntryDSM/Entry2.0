@@ -92,8 +92,7 @@ updatedAt : 수정 날짜 (시간)
 
 function gradeTableGenerate(semester) {
     let grade = {
-        "semesters": [
-        ]
+        "semesters": []
     }
     let inSemester = [];
     for (let j = 0; j < 7; j++) {
@@ -120,14 +119,14 @@ const documentTemplate = {
         "applyBaseType": {
             "type": 'COMMON', // or MEISTER or SOCIAL
             "cause": null
-            // cause === 사회통합전형 사유
-            // BASIC_BENEFICIARY : 기초생활수급권자
-            // SINGLE_PARENT : 한부모가정
-            // LOWER_INCOME : 차상위계층
-            // LOW_INCOME : 차사상위계층
-            // FROM_NORTH : 북한이탈주민
-            // MULTICULTURAL : 다문화가정
-            // ETC : 기타
+                // cause === 사회통합전형 사유
+                // BASIC_BENEFICIARY : 기초생활수급권자
+                // SINGLE_PARENT : 한부모가정
+                // LOWER_INCOME : 차상위계층
+                // LOW_INCOME : 차사상위계층
+                // FROM_NORTH : 북한이탈주민
+                // MULTICULTURAL : 다문화가정
+                // ETC : 기타
         },
         applyDetailType: {
             "IS_COMMON": true, // 일반
@@ -183,28 +182,27 @@ const documentTemplate = {
             "subjectEscape": 0 // 무단 결과
         },
         "calculatedScore": null,
-        "score" : {
+        "score": {
             scores: [null, null, null, null], // 차례대로 국어 수학 사회 과학
             choose: { "subject": null, "score": null } // 선택과목 한 과목
         }
     },
 }
 
-ApplyData.statics.findOneByUser = function (user, option) {
+ApplyData.statics.findOneByUser = function(user, option) {
     if (typeof option !== "undefined") {
         return this.findOne({ user }, option).exec();
-    }
-    else {
+    } else {
         return this.findOne({ user }).exec();
     }
 }
 
-ApplyData.methods.apply = function () {
+ApplyData.methods.apply = function() {
     this.applyStatus = true;
     return this.save();
 }
 
-ApplyData.statics.createEmpty = function (user) {
+ApplyData.statics.createEmpty = function(user) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -236,13 +234,13 @@ ApplyData.statics.createEmpty = function (user) {
         })
 }
 
-ApplyData.methods.reviseProfile = function (src) {
+ApplyData.methods.reviseProfile = function(src) {
     this.profile = src;
 
     return this.save();
 }
 
-ApplyData.methods.reviseClassification = function (classification) {
+ApplyData.methods.reviseClassification = function(classification) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -251,8 +249,7 @@ ApplyData.methods.reviseClassification = function (classification) {
     if ((this.classification.isBlack !== classification.isBlack) && classification.isBlack) {
         this.info = documentTemplate.info_black;
         this.grade = documentTemplate.grade_black;
-    }
-    else if (this.classification.isBlack && (this.classification.isBlack !== classification.isBlack)) {
+    } else if (this.classification.isBlack && (this.classification.isBlack !== classification.isBlack)) {
         this.info = documentTemplate.info_not_black;
         this.grade = documentTemplate[classification.graduateType == 'WILL' ? 'grade_will' : 'grade_done'];
     }
@@ -260,7 +257,7 @@ ApplyData.methods.reviseClassification = function (classification) {
     return this.save();
 }
 
-ApplyData.methods.reviseInfo = function (info) {
+ApplyData.methods.reviseInfo = function(info) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -271,7 +268,7 @@ ApplyData.methods.reviseInfo = function (info) {
     return this.save();
 }
 
-ApplyData.methods.reviseGrade = function (grade) {
+ApplyData.methods.reviseGrade = function(grade) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -283,14 +280,13 @@ ApplyData.methods.reviseGrade = function (grade) {
     console.log("=======================");
     console.log(_applyData);
     new Promise((resolve, reject) => {
-        resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
-    })
+            resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
+        })
         .then((validationResult) => {
             console.log(validationResult);
             if (validationResult.length === 0) {
                 return calculator.calculate(_applyData.grade, _applyData.classification.graduateType, _applyData.classification.applyBaseType.type);
-            }
-            else return;
+            } else return;
         })
         .then(score => {
             console.log(score);
@@ -300,7 +296,7 @@ ApplyData.methods.reviseGrade = function (grade) {
         .catch(console.log);
 }
 
-ApplyData.methods.reviseIntroduce = function (introduce) {
+ApplyData.methods.reviseIntroduce = function(introduce) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -315,7 +311,7 @@ ApplyData.methods.reviseIntroduce = function (introduce) {
  * 
  * TO DO :: ApplyData Validation
  */
-ApplyData.methods.validation = function () {
+ApplyData.methods.validation = function() {
     const data = this;
     return new Promise((resolve, reject) => {
         let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [], 'isSubmited': data.applyStatus };
@@ -324,12 +320,10 @@ ApplyData.methods.validation = function () {
         if (data.classification.isBlack) {
             result.info = infoValidation('BLACK', this.info);
             result.grade = gradeValidation('BLACK', this.grade);
-        }
-        else if (data.classification.graduateType === 'WILL') {
+        } else if (data.classification.graduateType === 'WILL') {
             result.info = infoValidation('WILL', this.info)
             result.grade = gradeValidation('WILL', this.grade);
-        }
-        else {
+        } else {
             result.info = infoValidation('DONE', this.info)
             result.grade = infoValidation('DONE', this.grade)
         }
@@ -356,6 +350,16 @@ ApplyData.methods.validation = function () {
                 });
         }
     })
+}
+
+ApplyData.methods.updateExamNumber = function(examNum) {
+    return new Promise((resolve, reject) => {
+        this.examNumber = examNum;
+        console.log(this);
+        this.save((err) => {
+            err ? reject(err) : resolve();
+        });
+    });
 }
 
 function infoValidation(type, info) {
@@ -398,8 +402,7 @@ function gradeValidation(type, grade) {
                 }
             }
         }
-    }
-    else if (type === 'DONE') {
+    } else if (type === 'DONE') {
         let subjects = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어']
         const semesters = grade.score.semesters;
 
@@ -422,8 +425,7 @@ function gradeValidation(type, grade) {
                 }
             }
         }
-    }
-    else if (type === 'BLACK') {
+    } else if (type === 'BLACK') {
         let subjects = ['국어', '수학', '사회', '과학'];
         const score = grade.score;
 

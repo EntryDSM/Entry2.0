@@ -3,7 +3,7 @@ const applyFormat = require('./adminApply');
 const applyDataModel = require('../database/models/ApplyData');
 const user = require('../database/models/User');
 
-exports.findBase = (userId, database) => { // 성현이랑 겹치는 로직 중복 최적화 필요해 제작 setData();
+exports.findBase = (userId, database) => { // 겹치는 로직 중복 최적화 필요해 제작 setData();
     return new Promise((resolve, reject) => {
         applyDataModel.findOne({
             "user": userId
@@ -159,8 +159,8 @@ exports.createNum = (userId) => {
                     if (!find.examNumber) {
                         let examNum = new Array();
                         examNum.push(getNumber(find.classification)); // 일반, 마이스터, 사회 통합 
-                        (applyFormat.regionCheck(find.classification.regionType) === '대전') ? examNum.push(1): examNum.push(2);
-                        examNum.push(applyFormat.check(find.classification, 'Number')); // detail부분 숫자 
+                        applyFormat.regionCheck(find.classification.regionType) === '대전' ? examNum.push(1) : examNum.push(2);
+                        examNum.push(applyFormat.getDetailType(find.classification, 'Number')); // detail부분 숫자 
                         examNum.push(changeExamNum(find.submitNumber));
                         console.log(formatNum(examNum));
                         find.updateExamNumber(formatNum(examNum))
@@ -170,7 +170,6 @@ exports.createNum = (userId) => {
                                 console.log('수험번호 생성중 오류 ' + err);
                                 reject(err);
                             })
-
                     } else {
                         reject('이미 존재하는 값 입니다 ');
                     }

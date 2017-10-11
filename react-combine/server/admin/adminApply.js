@@ -7,53 +7,6 @@ exports.check = (detail, type) => { // applyDetailType 리턴
         type == 'String' ? re = '특례입학 대상자' : re = parseInt('9');
         return re;
     }
-    if (detail.applyBaseType.type == 'SOCIAL') {
-        switch (detail.applyBaseType.cause) {
-            case 'BASIC_BENEFICIARY':
-                {
-                    type == 'String' ? re = '기초생활수급권자' : re = parseInt('1');
-                    return re;
-                }
-            case 'SINGLE_PARENT':
-                {
-                    type == 'String' ? re = '한부모가족보호대상자' : re = parseInt('2');
-                    return re;
-                }
-            case 'LOWER_INCOME':
-                {
-                    type == 'String' ? re = '차상위 계층' : re = parseInt('3');
-                    return re;
-                }
-            case 'LOW_INCOME':
-                {
-                    type == 'String' ? re = '차차상위 계층 등' : re = parseInt('4');
-                    return re;
-                }
-            case 'FROM_NORTH':
-                {
-                    type == 'String' ? re = '북한 이탈주민' : re = parseInt('5');
-                    return re;
-                }
-            case 'MULTICULTURAL':
-                {
-                    type == 'String' ? re = '다문화가정' : re = parseInt('6');
-                    return re;
-                }
-            case 'ETC':
-                {
-                    type == 'String' ? re = '그 외 대상자' : re = parseInt('7');
-                    return re;
-                }
-        }
-    } else if (detail.applyBaseType.type == 'COMMON') {
-        type == 'String' ? re = '일반' : re = parseInt('0');
-        return re;
-        //break;
-    } else if (detail.applyBaseType.type == 'MEISTER') {
-        type == 'String' ? re = '마이스터 전형' : re = parseInt('0');
-        return re;
-    }
-
 };
 
 exports.checkType = (str) => {
@@ -105,6 +58,52 @@ exports.checkGrade = (score) => { // 성적 숫자로 들어간것 ABC로 표시
                 break;
             }
 
+    }
+};
+
+exports.getDetailType = (data, type) => {
+    let re;
+    if (data.applyBaseType.cause) {
+        switch (data.applyBaseType.cause) {
+            case 'BASIC_BENEFICIARY':
+                {
+                    type == 'String' ? re = '기초생활수급권자' : re = parseInt('1');
+                    return re;
+                }
+            case 'SINGLE_PARENT':
+                {
+                    type == 'String' ? re = '한부모가족보호대상자' : re = parseInt('2');
+                    return re;
+                }
+            case 'LOWER_INCOME':
+                {
+                    type == 'String' ? re = '차상위 계층' : re = parseInt('3');
+                    return re;
+                }
+            case 'LOW_INCOME':
+                {
+                    type == 'String' ? re = '차차상위 계층 등' : re = parseInt('4');
+                    return re;
+                }
+            case 'FROM_NORTH':
+                {
+                    type == 'String' ? re = '북한 이탈주민' : re = parseInt('5');
+                    return re;
+                }
+            case 'MULTICULTURAL':
+                {
+                    type == 'String' ? re = '다문화가정' : re = parseInt('6');
+                    return re;
+                }
+            case 'ETC':
+                {
+                    type == 'String' ? re = '그 외 대상자' : re = parseInt('7');
+                    return re;
+                }
+        }
+    } else {
+        type == 'String' ? re = '일반' : re = parseInt('0');
+        return re;
     }
 };
 

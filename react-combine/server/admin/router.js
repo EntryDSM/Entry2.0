@@ -10,7 +10,7 @@ router.route('/admin').get((req, res) => {
     let key = req.session.key;
     let applyDataModel = require('../database/models/ApplyData');
 
-    if(key != 'ADMIN' || key != 'MEISTER'){
+    if (key != 'ADMIN' || key != 'MEISTER') {
         res.send('<script>alert("권한이 존재 하지 않습니다");history.go(-1);</script>');
         res.end();
     }
@@ -82,24 +82,24 @@ router.route('/admin').get((req, res) => {
         //TODO: regeionType, applyBaseType 변경사항 체킹 후 변수명 변경
 
     let userCount = {
-            home: {
-                common: NaN,
-                meister: NaN,
-                social: NaN,
-                sum: NaN
-            },
-            away: {
-                common: NaN,
-                meister: NaN,
-                social: NaN,
-                sum: NaN
-            },
-            sum: {
-                common: NaN,
-                meister: NaN,
-                social: NaN,
-                sum: NaN
-            }
+        home: {
+            common: NaN,
+            meister: NaN,
+            social: NaN,
+            sum: NaN
+        },
+        away: {
+            common: NaN,
+            meister: NaN,
+            social: NaN,
+            sum: NaN
+        },
+        sum: {
+            common: NaN,
+            meister: NaN,
+            social: NaN,
+            sum: NaN
+        }
     }
 
     function categorizeScore(array, isSpecial, isHome) {
@@ -133,7 +133,7 @@ router.route('/admin').get((req, res) => {
                     else;
                 }, this);
             }
-            
+
         } else if (isSpecial === false) {
             array.forEach(function(score) {
                 if (isHome === true) {
@@ -393,13 +393,13 @@ router.route('/admin').get((req, res) => {
 
 
     Promise.all([scoreCommonAway(), scoreCommonHome(),
-        scoreSpecialAway(), scoreSpecialHome(), 
-        countAwayCommon(), countAwayMeister(), countAwaySocial(), 
+        scoreSpecialAway(), scoreSpecialHome(),
+        countAwayCommon(), countAwayMeister(), countAwaySocial(),
         countHomeCommon(), countHomeMeister(), countHomeSocial(),
         countSum()
     ]).then((data) => {
-        
-        userCount.sum.common = userCount.home.common +  userCount.away.common;
+
+        userCount.sum.common = userCount.home.common + userCount.away.common;
         userCount.sum.meister = userCount.home.meister + userCount.away.meister;
         userCount.sum.social = userCount.home.social + userCount.away.social;
         userCount.sum.sum = userCount.sum.common + userCount.sum.meister + userCount.sum.social;
@@ -407,7 +407,7 @@ router.route('/admin').get((req, res) => {
         userCount.home.sum = userCount.home.common + userCount.home.meister + userCount.home.social;
         console.log("THEN");
         console.log(userCount);
-        
+
         res.render('admin_main', {
             viewScores: viewScores,
             userCount: userCount
@@ -416,7 +416,7 @@ router.route('/admin').get((req, res) => {
     }).catch((err) => {
         console.log("CATCH");
         console.log(userCount);
-        res.sendStatus(400); 
+        res.sendStatus(400);
         res.render('admin_main', {
             viewScores: viewScores,
             userCount: userCount
