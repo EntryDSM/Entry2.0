@@ -92,8 +92,6 @@ function getScoreData(uData, callback) {
     let obj = new Array();
     scoreLogic.calculate(uData.grade, uData.classification.graduateType, uData.classification.applyBaseType.type)
         .then((data) => {
-            console.log('더하기 부분');
-            console.log(data);
 
             if (uData.classification.graduateType != 'BLACK') {
                 obj.push({
@@ -200,7 +198,6 @@ function formatNum(arr) {
 }
 
 function changeExamNum(n) { // 1,2,3 등의 한자리숫자 001,002등으로 변경
-    console.log(n + ' 값들어옴');
     n = n + '';
     return n.length >= 3 ? n : new Array(3 - n.length + 1).join('0') + n;
 }
@@ -274,8 +271,6 @@ function getSearch(body, check) {
             "classification.regionType": body.region
         };
     }
-    console.log('return data')
-    console.log(returnData);
     return returnData;
 }
 
