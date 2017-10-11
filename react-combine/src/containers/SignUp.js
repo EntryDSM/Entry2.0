@@ -21,7 +21,8 @@ class SignUp extends Component{
             emailModalIsOpen: false,
             personalAgreeModalIsOpen: false,
             isConfirm: false,
-            isChecked: false
+            isChecked: false,
+            isPassword: false
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
@@ -48,15 +49,31 @@ class SignUp extends Component{
     }
 
     getPassword(e){
-        this.setState({
-            password: e.target.value
-        })
+        console.log(e.target.value.length);
+        if(e.target.value.length >= 8){
+            this.setState({
+                password: e.target.value,
+                isPassword: true
+            })
+        } else {    
+            this.setState({
+                password: e.target.value,
+                isPassword: false
+            })
+        }
     }
 
     getCertifyCode(e){
         this.setState({
             certifyCode: e.target.value
         })
+    }
+
+    checkPassword(e){
+        console.log(e.target.value);
+        let pwd = e.target.value + "";
+        console.log(pwd.length);
+        console.log(e.target.value.length);
     }
 
     confirmPassword(e){
