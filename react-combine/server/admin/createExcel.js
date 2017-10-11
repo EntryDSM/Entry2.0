@@ -39,8 +39,6 @@ exports.excel = (userId, callback) => {
                             })
                             .then((arr) => {
                                 if (arr) {
-                                    console.log('배열');
-                                    console.log(arr);
                                     let model = mongoXlsx.buildDynamicModel(arr);
                                     callback(arr, model);
                                 }
@@ -104,7 +102,6 @@ function addSubject(data) {
         console.log('성적 - 일반');
         let count = checkCount(data);
         let arrayObj = getArr(sub);
-        console.log(arrayObj);
         for (let i = 0; i < count; i++) {
             let obj = {};
             for (let j = 0; j <= 6; j++) {
