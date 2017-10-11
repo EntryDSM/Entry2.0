@@ -58,89 +58,81 @@
             <p class="typeof_count"><%= userCount.away.common %>&nbsp;&nbsp;&nbsp;&nbsp;<%= userCount.away.meister %>&nbsp;&nbsp;&nbsp;&nbsp;<%= userCount.away.social %></p>
         </div>
 
-        <!-- 현재 성적 현황 리스팅 -->
         <div>
             <div>
                 <h2 class='title'>지원자 성적 현황</h2>
             </div>
-            <table id="score_list">
+            <table class="score_list">
                 <tr>
-                    <td>급간</td>
-                    <td>전체</td>
-                    <td>전국</td>
-                    <td>대전</td>
+                    <td>급간 (일반전형)</td><td>전체</td><td>전국</td><td>대전</td>
                 </tr>
                 <tr>
-                    <td>~300</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~180</td><td><%= viewScores.common.home.to180  +  viewScores.common.away.to180 %></td><td><%= viewScores.common.home.to180 %></td><td><%= viewScores.common.away.to180 %></td>
                 </tr>
                 <tr>
-                    <td>~290</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~170</td><td><%= viewScores.common.home.to170  +  viewScores.common.away.to170 %></td><td><%= viewScores.common.home.to170 %></td><td><%= viewScores.common.away.to170 %></td>
                 </tr>
                 <tr>
-                    <td>~280</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~160</td><td><%= viewScores.common.home.to160  +  viewScores.common.away.to160 %></td><td><%= viewScores.common.home.to160 %></td><td><%= viewScores.common.away.to160 %></td>
                 </tr>
                 <tr>
-                    <td>~270</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~150</td><td><%= viewScores.common.home.to150  +  viewScores.common.away.to150 %></td><td><%= viewScores.common.home.to150 %></td><td><%= viewScores.common.away.to150 %></td>
                 </tr>
                 <tr>
-                    <td>~260</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~140</td><td><%= viewScores.common.home.to140  +  viewScores.common.away.to140 %></td><td><%= viewScores.common.home.to140 %></td><td><%= viewScores.common.away.to140 %></td>
                 </tr>
                 <tr>
-                    <td>~250</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~130</td><td><%= viewScores.common.home.to130  +  viewScores.common.away.to130 %></td><td><%= viewScores.common.home.to130 %></td><td><%= viewScores.common.away.to130 %></td>
                 </tr>
                 <tr>
-                    <td>~240</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~120</td><td><%= viewScores.common.home.to120  +  viewScores.common.away.to120 %></td><td><%= viewScores.common.home.to120 %></td><td><%= viewScores.common.away.to120 %></td>
                 </tr>
                 <tr>
-                    <td>~230</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~110</td><td><%= viewScores.common.home.to110  +  viewScores.common.away.to110 %></td><td><%= viewScores.common.home.to110 %></td><td><%= viewScores.common.away.to110 %></td>
                 </tr>
                 <tr>
-                    <td>~220</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~100</td><td><%= viewScores.common.home.to100  +  viewScores.common.away.to100 %></td><td><%= viewScores.common.home.to100 %></td><td><%= viewScores.common.away.to100 %></td>
                 </tr>
                 <tr>
-                    <td>~210</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>90 미만</td><td><%= viewScores.common.home.under90  +  viewScores.common.away.under90 %></td><td><%= viewScores.common.home.under90 %><</td><td><%= viewScores.common.away.under90 %></td>
+                </tr>
+            </table>
+            <table class="score_list">
+                <tr>
+                    <td>급간 (특별전형)</td><td>전체</td><td>전국</td><td>대전</td>
                 </tr>
                 <tr>
-                    <td>200~</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~120</td><td><%= viewScores.special.home.to120  +  viewScores.special.away.to120 %></td><td><%= viewScores.special.home.to120 %></td><td><%= viewScores.special.away.to120 %></td>
                 </tr>
                 <tr>
-                    <td>200 미만</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
-                    <td>NaN</td>
+                    <td>~110</td><td><%= viewScores.special.home.to110  +  viewScores.special.away.to110 %></td><td><%= viewScores.special.home.to110 %></td><td><%= viewScores.special.away.to110 %></td>
+                </tr>
+                <tr>
+                    <td>~100</td><td><%= viewScores.special.home.to100  +  viewScores.special.away.to100 %></td><td><%= viewScores.special.home.to100 %></td><td><%= viewScores.special.away.to100 %></td>
+                </tr>
+                <tr>
+                    <td>~90</td><td><%= viewScores.special.home.to90  +  viewScores.special.away.to90 %></td><td><%= viewScores.special.home.to90 %></td><td><%= viewScores.special.away.to90 %></td>
+                </tr>
+                <tr>
+                    <td>~80</td><td><%= viewScores.special.home.to80  +  viewScores.special.away.to80 %></td><td><%= viewScores.special.home.to80 %></td><td><%= viewScores.special.away.to80 %></td>
+                </tr>
+                <tr>
+                    <td>~70</td><td><%= viewScores.special.home.to70  +  viewScores.special.away.to70 %></td><td><%= viewScores.special.home.to70 %></td><td><%= viewScores.special.away.to70 %></td>
+                </tr>
+                <tr>
+                    <td>~60</td><td><%= viewScores.special.home.to60  +  viewScores.special.away.to60 %></td><td><%= viewScores.special.home.to60 %></td><td><%= viewScores.special.away.to60 %></td>
+                </tr>
+                <tr>
+                    <td>~50</td><td><%= viewScores.special.home.to50  +  viewScores.special.away.to50 %></td><td><%= viewScores.special.home.to50 %></td><td><%= viewScores.special.away.to50 %></td>
+                </tr>
+                <tr>
+                    <td>~40</td><td><%= viewScores.special.home.to40  +  viewScores.special.away.to40 %></td><td><%= viewScores.special.home.to40 %></td><td><%= viewScores.special.away.to40 %></td>
+                </tr>
+                <tr>
+                    <td>~30</td><td><%= viewScores.special.home.to30  +  viewScores.special.away.to30 %></td><td><%= viewScores.special.home.to30 %></td><td><%= viewScores.special.away.to30 %></td>
+                </tr>
+                <tr>
+                    <td>20 미만</td><td><%= viewScores.special.home.under20  +  viewScores.special.away.under20 %></td><td><%= viewScores.special.home.under20 %></td><td><%= viewScores.special.away.under20 %></td>
                 </tr>
             </table>
         </div>
