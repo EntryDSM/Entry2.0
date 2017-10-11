@@ -9,6 +9,12 @@ const adminApply = require('./adminApply');
 router.route('/admin').get((req, res) => {
     let key = req.session.key;
     let applyDataModel = require('../database/models/ApplyData');
+
+    if(key != 'ADMIN' || key != 'MEISTER'){
+        res.send('<script>alert("권한이 존재 하지 않습니다");history.go(-1);</script>');
+        res.end();
+    }
+
     let viewScores = {
         common: {
             home: {
