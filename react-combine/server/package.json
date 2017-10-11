@@ -17,6 +17,7 @@
     "express-fileupload": "^0.2.0",
     "express-method-override": "0.0.3",
     "express-session": "^1.15.5",
+    "mongo-xlsx": "^1.0.12",
     "mongoose": "^4.11.9",
     "morgan": "^1.9.0",
     "node-cmd": "^3.0.0",

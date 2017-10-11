@@ -132,7 +132,7 @@ router.route('/admin').get((req, res) => {
                     else if (score === 3) viewScores.special.away.to30++;
                     else;
                 }, this);
-            }]
+            }
             
         } else if (isSpecial === false) {
             array.forEach(function(score) {
