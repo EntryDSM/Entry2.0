@@ -86,7 +86,7 @@ class GradeInput extends Component{
     }
 
     setAttendData(e){
-        if(e.target.value >= 0){
+        if(e.target.value >= 0 && e.target.value !== NaN){
             switch(e.target.name){
                 case "absence": {
                     this.setState({
