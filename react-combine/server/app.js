@@ -12,6 +12,10 @@ const app = express();
 
 const router = require('./routes');
 const adminRouter = require('./admin/router');
+
+app.set('views', __dirname + '/public');
+app.set('view engine', 'ejs');
+
 morgan.token('sessionKey', function getKey(req) { return req.session ? req.session.key : undefined })
 app.use(morgan('SessionKey - :sessionKey :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'));
 
