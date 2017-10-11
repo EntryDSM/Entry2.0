@@ -396,7 +396,6 @@ router.route('/admin').get((req, res) => {
         scoreSpecialAway(), scoreSpecialHome(),
         countAwayCommon(), countAwayMeister(), countAwaySocial(),
         countHomeCommon(), countHomeMeister(), countHomeSocial(),
-        countSum()
     ]).then((data) => {
 
         userCount.sum.common = userCount.home.common + userCount.away.common;
