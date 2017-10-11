@@ -31,11 +31,10 @@ exports.calculate = function (grade, graduateType, applyType) {
                     } else {
                         if (i === 5 && graduateType === 'DONE') continue;
 
-                        score[i - 1] = score[i];
+                        score[i] = score[i - 1];
                     }
                 }
             }
-
             result.score = calculateNormal(score, graduateType, applyType);
         } else {
             result.score = calculateBlack(score, applyType);
@@ -127,7 +126,7 @@ function calculateNormal(data, graduateType, applyType) {
         third: third,
         total: 0
     };
-
+    
     resultScore.first = Number(Number(resultScore.first).toFixed(3));
     resultScore.second = Number(Number(resultScore.second).toFixed(3));
     resultScore.third = Number(Number(resultScore.third).toFixed(3));

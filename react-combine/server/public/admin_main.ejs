@@ -1,0 +1,150 @@
+<!-- 관리자 페이지 메인. -->
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style/default_layout.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <nav>
+        <div id='sidebar'>
+            <div id='logo'>
+                <img src="res/logo.png">
+            </div>
+            <p id="below_logo">관리자 페이지</p>
+            <div id="sidemenu">
+                <p class="sidemenu_text root">입학 원서 관리</p>
+                <a class="sidemenu_text root" href="/admin/search">입학 원서 검색</a> 
+            </div>
+        </div>
+    </nav>
+
+    <!-- 정보 -->
+    <article id='info'>
+        <div>
+            <h2 class='title'>확인된 원서 현황</h2>
+        </div>
+        <div class='default_margin circle_base blue'>
+            <p class='typeof_local'>전체</p>
+            <p class="people_count"><%= userCount.sum.sum %></p>
+        </div>
+        <div class='default_margin circle_base yellow'>
+            <p class='typeof_local'>대전</p>
+            <p class="people_count"><%= userCount.home.sum %></p>
+        </div>
+        <div class='default_margin circle_base purple'>
+            <p class='typeof_local'>전국</p>
+            <p class="people_count"><%= userCount.away.sum %></p>
+        </div>
+        <br>
+        <div class="rect_for_count blue_color">
+            <p class="typeof_input">일반 마이스터 사회통합</p>
+            <p class="typeof_count"><%= userCount.sum.common %>&nbsp;&nbsp;&nbsp;&nbsp;<%= userCount.sum.meister %>&nbsp;&nbsp;&nbsp;&nbsp;<%= userCount.sum.social %></p>
+        </div>
+        <div class="rect_for_count yellow_color">
+            <p class="typeof_input">일반 마이스터 사회통합</p>
+            <p class="typeof_count"><%= userCount.home.common %>&nbsp;&nbsp;&nbsp;&nbsp;<%= userCount.home.meister %>&nbsp;&nbsp;&nbsp;&nbsp;<%= userCount.home.social %></p>
+        </div>
+        <div class="rect_for_count purple_color">
+            <p class="typeof_input">일반 마이스터 사회통합</p>
+            <p class="typeof_count"><%= userCount.away.common %>&nbsp;&nbsp;&nbsp;&nbsp;<%= userCount.away.meister %>&nbsp;&nbsp;&nbsp;&nbsp;<%= userCount.away.social %></p>
+        </div>
+
+        <!-- 현재 성적 현황 리스팅 -->
+        <div>
+            <div>
+                <h2 class='title'>지원자 성적 현황</h2>
+            </div>
+            <table id="score_list">
+                <tr>
+                    <td>급간</td>
+                    <td>전체</td>
+                    <td>전국</td>
+                    <td>대전</td>
+                </tr>
+                <tr>
+                    <td>~300</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>~290</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>~280</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>~270</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>~260</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>~250</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>~240</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>~230</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>~220</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>~210</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>200~</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+                <tr>
+                    <td>200 미만</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                    <td>NaN</td>
+                </tr>
+            </table>
+        </div>
+    </article>
+</body>
+
+</html>
