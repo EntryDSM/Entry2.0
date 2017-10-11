@@ -350,6 +350,7 @@ class InfoInput extends Component {
     }
     
     render(){
+        console.log(this.state);
         return(
             <div id="contents">
                 <div id="info_input">
@@ -366,9 +367,7 @@ class InfoInput extends Component {
                         parentsTel={this.state.parentsTel}
                         schoolTel={this.state.schoolTel}
                         sex={this.state.sex}
-                        birthYear={this.state.birthYear}
-                        birthMonth={this.state.birthMonth}
-                        birthDay={this.state.birthDay}
+                        month={this.state.birthMonth}
                         class={this.state.class}
                         number={this.state.number}
                         detailAddress={this.state.detailAddress}
