@@ -342,6 +342,9 @@ class InfoInput extends Component {
     }
     closeModal(){
         this.setState({
+            schoolList: [],
+            goverment: "",
+            schoolName: "",
             modalIsOpen: false
         })
     }
