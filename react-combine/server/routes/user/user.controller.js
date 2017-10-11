@@ -2,6 +2,7 @@ const WUser = require('../../database/models/WUser');
 const User = require('../../database/models/User');
 const ApplyData = require('../../database/models/ApplyData');
 const mailSender = require('./mailSender');
+const admin = require('../../database/models/Admin');
 
 exports.signup = (req, res) => {
     const email = req.body.email;
