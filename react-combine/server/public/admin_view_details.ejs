@@ -1,0 +1,271 @@
+<!-- 상세보기 페이지 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style/default_layout.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <nav>
+        <div id='sidebar'>
+            <div id='logo'>
+                <img src="res/logo.png">
+            </div>
+            <p id="below_logo">관리자 페이지</p>
+            <div id="sidemenu">
+                <p class="sidemenu_text root">입학 원서 관리</p>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 정보 -->
+    <article id='info'>
+        <div>
+            <h2 class='title'>상세보기</h2>
+        </div>
+        <div id="view_panel">
+            <!-- 기본 정보 -->
+            <h3>기본 정보</h3>
+            <table>
+                <tr>
+                    <!-- 지역 -->
+                    <td class="info_cell">
+                        지역
+                    </td>
+                    <td class="info_cell">
+                        <%= data.regionType%>
+                    </td>
+
+                    <!-- 중학교 코드 -->
+                    <td class="info_cell">
+                        중학교 코드
+                    </td>
+                    <td class="info_cell">
+                        <%= data.schoolCode%>
+                    </td>
+
+                    <!-- 수험 번호 -->
+                    <td class="info_cell">
+                        수험 번호
+                    </td>
+                    <td class="info_cell">
+                        <%= data.examNumber%>
+                    </td>
+
+                    <!-- 프로필 사진 -->
+                    <td class="info_cell" rowspan="4">
+                        <img src="<%= data.memberImage%>">
+                    </td>
+                </tr>
+                <tr>
+
+                    <!-- 확인 여부 -->
+                    <td class=" info_cell ">
+                        확인 여부
+                    </td>
+                    <td class="info_cell ">
+                        <%let receipt = data.receipt%>
+                            <%if(receipt){%>
+                                <%= '완료'%>
+                                    <%}else{%>
+                                        <%= '미완료'%>
+                                            <%}%>
+                    </td>
+
+                    <!-- 중학교 반 -->
+                    <td class="info_cell ">
+                        반
+                    </td>
+                    <td class="info_cell ">
+                        <%= data.class%>
+                    </td>
+
+                    <!-- 전형  -->
+                    <td class="info_cell ">
+                        전형
+                    </td>
+                    <td class="info_cell ">
+                        <%= data.applyBaseType%>
+                    </td>
+                </tr>
+                <tr>
+
+                    <!-- 결재 여부 -->
+                    <td class="info_cell ">
+                        결재 여부
+                    </td>
+                    <td class="info_cell ">
+                        <%let payment = data.payment%>
+                            <%if(payment){%>
+                                <%= '완료'%>
+                                    <%}else{%>
+                                        <%= '미완료'%>
+                                            <%}%>
+                    </td>
+
+                    <!-- 성별 -->
+                    <td class="info_cell ">
+                        성별
+                    </td>
+                    <td class="info_cell ">
+                        <%let sex = data.sex%>
+                            <%if(sex =='남'){%>
+                                <%= '남자'%>
+                                    <%}else{%>
+                                        <%= '여자'%>
+                                            <%}%>
+                    </td>
+
+                    <!-- 이름 -->
+                    <td class="info_cell ">
+                        이름
+                    </td>
+                    <td class="info_cell ">
+                        <%= data.name%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_cell ">
+                        &nbsp;
+                    </td>
+
+                </tr>
+            </table>
+
+            <h3>상세 정보</h3>
+            <table>
+                <tr>
+                    <td class="info_cell info_gap ">주소</td>
+                    <td class="info_cell info_gap ">
+                        <%= data.address%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_cell info_gap ">생년월일</td>
+                    <td class="info_cell info_gap ">
+                        <%= data.birthday%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_cell info_gap ">졸업구분</td>
+                    <td class="info_cell info_gap ">
+                        <%= data.graduateType%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_cell info_gap ">지원자 특기사항</td>
+                    <td class="info_cell info_gap ">
+                        <%= data.remarks%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_cell info_gap " rowspan="3 ">전화 연락처</td>
+                    <td class="info_cell info_gap ">
+                        <%= data.parentTel%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_cell info_gap ">
+                        <%= data.schoolTel%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_cell info_gap ">
+                        <%= data.myTel%>
+                    </td>
+                </tr>
+            </table>
+            <h3>내신 성적</h3>
+            <table>
+                <tr>
+                    <td class="info_cell info_gap ">1학년 평균평점</td>
+                    <td class="info_cell info_gap ">
+                        <%if(data.graduateType != '검정고시'){%>
+                            <%= data.score[0].first%>
+                                <%} else %>
+                                    <%= ''%>
+                    </td>
+                    <td class="info_cell info_gap ">3학년 평균평점</td>
+                    <td class="info_cell info_gap ">
+                        <%if(data.graduateType != '검정고시'){%>
+                            <%= data.score[2].third%>
+                                <%} else %>
+                                    <%= ''%>
+                    </td>
+                    <td class="info_cell info_gap ">출석</td>
+                    <td class="info_cell info_gap ">
+                        <%if(data.graduateType != '검정고시'){%>
+                            <%= data.score[5].attend%>
+                                <%} else {%>
+                                    <%= data.score[2].attend%>
+                                        <%} %>
+                    </td>
+                    <td class="info_cell info_gap ">총점</td>
+                    <td class="info_cell info_gap ">
+                        <%if(data.graduateType != '검정고시'){%>
+                            <%= data.score[6].finalSum%>
+                                <%} else {%>
+                                    <%= data.score[3].finalSum%>
+                                        <%} %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_cell info_gap ">2학년 평균평점</td>
+                    <td class="info_cell info_gap ">
+                        <%if(data.graduateType != '검정고시'){%>
+                            <%= data.score[1].second%>
+                                <%} else %>
+                                    <%= ''%>
+                    </td>
+                    <td class="info_cell info_gap ">교과성적 환산점수</td>
+                    <td class="info_cell info_gap ">
+                        <%if(data.graduateType != '검정고시'){%>
+                            <%= data.score[3].subjectTotal%>
+                                <%} else {%>
+                                    <%= data.score[0].blackTotal%>
+                                        <%} %>
+                    </td>
+                    <td class="info_cell info_gap ">봉사</td>
+                    <td class="info_cell info_gap ">
+                        <%if(data.graduateType != '검정고시'){%>
+                            <%= data.score[4].volunteer%>
+                                <%} else {%>
+                                    <%= data.score[1].volunteer%>
+                                        <%} %>
+                    </td>
+                </tr>
+                <table id="modify_buttons ">
+                    <tr>
+                        <td id="edit " class="info_cell info_gap ">수정</td>
+                        <form action="/api/excel" method="POST">
+                            <td id="get_excel " class="info_cell info_gap ">
+                                <input type="submit" value="해당 학생 엑셀 출력 보기">
+                            </td>
+                            <input type="hidden" name="userId" value="<%= data._id%>">
+                        </form>
+                    </tr>
+                    <tr>
+                        <form action="/api/admin/create" method="POST">
+                            <td id="get_excel " class="info_cell info_gap ">
+                                <td id="number_gen " class="info_cell info_gap ">
+                                    <input type="submit" value="수험번호 생성">
+                                </td>
+                            </td>
+                            <input type="hidden" name="userId" value="<%= data._id%>">
+                        </form>
+                    </tr>
+                </table>
+            </table>
+            </table>
+        </div>
+    </article>
+
+</body>
+
+</html>
