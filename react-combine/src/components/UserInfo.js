@@ -11,14 +11,7 @@ class UserInfo extends Component {
         } else {
             submitNumber = datas.submitNumber;
         }
-
-        let graduateYear = 2017;
-        let successExamYear = 2017;
-        if(datas.graduation === "Done"){
-            graduateYear = datas.graduateYear;
-        } else if(datas.graduation === "Black"){
-            successExamYear = datas.graduateYear
-        }
+        
         return(
             <div id="userinfo">
                 <div id="header">
@@ -68,7 +61,7 @@ class UserInfo extends Component {
                                 <td rowSpan="3">졸업<br/>구분</td>
                                 <td>
                                     <input type="checkbox" checked={datas.graduation === 'WILL'} readOnly />
-                                    &nbsp;&nbsp;&nbsp;{graduateYear}년 중학교 졸업예정
+                                    &nbsp;&nbsp;&nbsp;2018년 중학교 졸업예정
                                 </td>
                             </tr>
                             <tr>
@@ -76,7 +69,7 @@ class UserInfo extends Component {
                                 <td>{datas.schoolTel}</td>
                                 <td>
                                     <input type="checkbox" checked={datas.graduation === 'DONE'} readOnly />
-                                    &nbsp;&nbsp;&nbsp;{successExamYear}년 중학교 졸업
+                                    &nbsp;&nbsp;&nbsp;{datas.graduateYear}년 중학교 졸업
                                 </td>
                             </tr>
                             <tr>
@@ -84,7 +77,7 @@ class UserInfo extends Component {
                                 <td>{datas.phoneNum}</td>
                                 <td>
                                     <input type="checkbox"/>
-                                    &nbsp;&nbsp;&nbsp;{datas.graduateYear}년 고입 검정고시 합격
+                                    &nbsp;&nbsp;&nbsp;고입 검정고시 합격
                                 </td>
                             </tr>
                         </tbody>
