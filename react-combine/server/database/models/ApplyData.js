@@ -190,8 +190,13 @@ const documentTemplate = {
     },
 }
 
-ApplyData.statics.findOneByUser = function (user) {
-    return this.findOne({ user }).exec();
+ApplyData.statics.findOneByUser = function (user, option) {
+    if (typeof option !== "undefined") {
+        return this.findOne({ user }, option).exec();
+    }
+    else {
+        return this.findOne({ user }).exec();
+    }
 }
 
 ApplyData.methods.apply = function () {
@@ -210,7 +215,7 @@ ApplyData.statics.createEmpty = function (user) {
             console.log("===================\n" + current.length);
             const next = typeof current[0] !== "undefined" ? current[0].submitNumber + 1 : 1;
             console.log("===================\n" + next)
-            
+
             let applyData = new this({
                 user,
                 "classification": documentTemplate.classification,

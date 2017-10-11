@@ -9,7 +9,8 @@ exports.getUserInfo = (req, res) => {
             user
         }, {
             "info": true,
-            "user": true
+            "user": true,
+            "applyStatus": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -18,6 +19,7 @@ exports.getUserInfo = (req, res) => {
             console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             applyData.info.user = applyData.user;
+            applyData.info.applyStatus = applyData.applyStatus;
             res.status(200).json(applyData.info);
         })
         .catch((err) => {
@@ -55,7 +57,8 @@ exports.getUserClassification = (req, res) => {
             user
         }, {
             "classification": true,
-            "user": true
+            "user": true,
+            "applyStatus": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -64,6 +67,7 @@ exports.getUserClassification = (req, res) => {
             console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             applyData.classification.user = applyData.user;
+            applyData.classification.applyStatus = applyData.applyStatus;
             res.status(200).json(applyData.classification);
         })
         .catch((err) => {
@@ -102,7 +106,8 @@ exports.getUserGrade = (req, res) => {
         }, {
             "grade": true,
             "_id": false,
-            "user": true
+            "user": true,
+            "applyStatus": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -147,13 +152,15 @@ exports.getUserIntroduce = (req, res) => {
             user
         }, {
             "introduce": true,
-            "user": true
+            "user": true,
+            "applyStatus": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
         })
         .then((applyData) => {
             console.log(applyData);
+            applyData.introduce.applyStatus = applyData.applyStatus;
             res.status(200).json(applyData.introduce);
         })
         .catch((err) => {
@@ -311,4 +318,23 @@ exports.apply = (req, res) => {
                 });
             }
         });
+}
+
+exports.getApplyStatus = (req, res) => {
+    const _id = req.session.key;
+    console.log(_id);
+    ApplyData.findOneByUser(_id, {
+            "applyStatus": 1
+        })
+        .then(applyData => {
+            console.log(applyData);
+            res.status(200).json({
+                "applyStatus": applyData.applyStatus
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                "message": err.message
+            });
+        })
 }
