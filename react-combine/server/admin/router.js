@@ -10,17 +10,10 @@ router.route('/admin').get((req, res) => {
     let key = req.session.key;
     let applyDataModel = require('../database/models/ApplyData');
 
-<<<<<<< HEAD
-    // if(key != 'ADMIN' || key != 'MEISTER'){
-    //     res.send('<script>alert("권한이 존재 하지 않습니다");history.go(-1);</script>');
-    //     res.end();
-    // }
-=======
     if (key != 'ADMIN' || key != 'MEISTER') {
         res.send('<script>alert("권한이 존재 하지 않습니다");history.go(-1);</script>');
         res.end();
     }
->>>>>>> 02c83946956e6184354294f40bbc421dba6d16de
 
     let viewScores = {
         common: {
