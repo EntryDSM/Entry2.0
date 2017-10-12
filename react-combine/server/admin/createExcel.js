@@ -69,7 +69,7 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                     성명: user.name, // user에서 찾은 유저 정보 합치기
                     생년월일: findData.info.birthday, //info.birthday
                     지원자주소: findData.info.addressBase + findData.info.addressDetail, //info
-                    지원자휴대폰: findData.info.myTel, //info.tel
+                    지원자휴대폰: findData.info.tel, //info.tel
                     성별: findData.info.sex, //info.sex
                     학력구분: detailType.checkType(findData.classification.graduateType), //classification.graduateType
                     졸업년도: findData.classification.graduateYear, //classification.graduateYear
