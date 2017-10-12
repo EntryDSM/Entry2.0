@@ -7,17 +7,14 @@ class InfoInputTable extends Component {
     render() {
         let days = new Array;
         if(this.props.month == 1 || this.props.month == 3 || this.props.month == 5 || this.props.month == 7 || this.props.month == 8 || this.props.month == 10 || this.props.month == 12){
-            console.log("?");
             for(let i = 1; i <= 31; i++){
                 days.push(<Birth_day day={i}/>)
             }
         } else if(this.props.month == 2){
-            console.log("-");
             for(let i = 1; i <= 28; i++){
                 days.push(<Birth_day day={i}/>)
             }
         } else {
-            console.log("!");
             for(let i = 1; i <= 30; i++){
                 days.push(<Birth_day day={i}/>)
             }
@@ -43,19 +40,19 @@ class InfoInputTable extends Component {
                         <tr>
                             <td className="td_title">생년월일</td>
                             <td className="td_content">
-                                <select name="birthYear" onChange={this.props.setter} className="birth_select">
-                                    <option>1990</option>
-                                    <option>1991</option>
-                                    <option>1992</option>
-                                    <option>1993</option>
-                                    <option>1994</option>
-                                    <option>1995</option>
-                                    <option>1996</option>
-                                    <option>1997</option>
-                                    <option>1998</option>
-                                    <option>1999</option>
-                                    <option>2000</option>
+                                <select name="birthYear" onChange={this.props.setter} className="birth_select">                                    
                                     <option>2001</option>
+                                    <option>2000</option>
+                                    <option>1999</option>
+                                    <option>1998</option>
+                                    <option>1997</option>
+                                    <option>1996</option>
+                                    <option>1995</option>
+                                    <option>1994</option>
+                                    <option>1993</option>
+                                    <option>1992</option>
+                                    <option>1991</option>
+                                    <option>1990</option>
                                 </select>
                                 <label className="birth_select_label">년</label>
                                 <select name="birthMonth" onChange={this.props.setter} className="birth_select">

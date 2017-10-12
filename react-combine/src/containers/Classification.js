@@ -64,7 +64,6 @@ class Classification extends Component {
     }
 
     radioSetter(e){
-        console.log(e.target.name);
         switch(e.target.name){
             case 'isBlackTest': this.setState({
                     isBlackTest: e.target.id
@@ -115,21 +114,43 @@ class Classification extends Component {
                     }
                 })
                 break;
-            case 'special': this.setState({
-                    applyDetailType: {
-                        IS_COMMON: false, 
-                        IS_NATIONAL_MERIT: false, 
-                        IS_EXCEPTIONEE: true
-                    }
-                })
+            case 'special': 
+                if(e.target.id === 'special_yes'){
+                    this.setState({
+                        applyDetailType: {
+                            IS_COMMON: false, 
+                            IS_NATIONAL_MERIT: this.state.applyDetailType.IS_NATIONAL_MERIT, 
+                            IS_EXCEPTIONEE: true
+                        }
+                    })
+                } else if(e.target.id === 'special_no'){
+                    this.setState({
+                        applyDetailType: {
+                            IS_COMMON: false, 
+                            IS_NATIONAL_MERIT: this.state.applyDetailType.IS_NATIONAL_MERIT, 
+                            IS_EXCEPTIONEE: false
+                        }
+                    })
+                }
                 break;
-            case 'country-merit': this.setState({
-                    applyDetailType: {
-                        IS_COMMON: false, 
-                        IS_NATIONAL_MERIT: true, 
-                        IS_EXCEPTIONEE: false
-                    }
-                })
+            case 'country-merit': 
+                if(e.target.id === 'country_merit_yes'){
+                    this.setState({
+                        applyDetailType: {
+                            IS_COMMON: false, 
+                            IS_NATIONAL_MERIT: true, 
+                            IS_EXCEPTIONEE: this.state.applyDetailType.IS_EXCEPTIONEE
+                        }
+                    })
+                } else if(e.target.id === 'country_merit_no'){
+                    this.setState({
+                        applyDetailType: {
+                            IS_COMMON: false, 
+                            IS_NATIONAL_MERIT: false, 
+                            IS_EXCEPTIONEE: this.state.applyDetailType.IS_EXCEPTIONEE
+                        }
+                    })
+                }            
                 break;
             default:
                 break;
@@ -392,7 +413,7 @@ const TypeAndMemo = (props) => {
             <input 
                 type="radio"
                 name="special"
-                id="speicial_no"
+                id="special_no"
                 value="special_no"
                 onClick={props.radioSetter}
                 checked={!props.applyDetailType.IS_EXCEPTIONEE} />

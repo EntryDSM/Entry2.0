@@ -55,7 +55,7 @@ class UserInfo extends Component {
                     <table id="userinfo_table_2">
                         <tbody>
                             <tr>
-                                <td rowSpan="3">전화<br/>연락처</td>
+                                <td rowSpan="3">연락처</td>
                                 <td>보호자</td>
                                 <td>{datas.parentsTel}</td>
                                 <td rowSpan="3">졸업<br/>구분</td>
