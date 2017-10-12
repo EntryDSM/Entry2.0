@@ -142,13 +142,13 @@ class UserInfo extends Component {
                                 <td>교과성적<br/>환산점수</td>
                             </tr>
                             <tr>
-                                <td>{datas.firstGrade.toFixed(3)}</td>
-                                <td>{datas.secondGrade.toFixed(3)}</td>
-                                <td>{datas.thirdGrade.toFixed(3)}</td>
-                                <td>{datas.totalSubjectGrade.toFixed(3)}</td>
-                                <td>{datas.attend.toFixed(3)}</td>
-                                <td>{datas.volunteer.toFixed(3)}</td>
-                                <td>{datas.totalGrade.toFixed(3)}</td>
+                                <td>{Number(datas.firstGrade).toFixed(3)}</td>
+                                <td>{Number(datas.secondGrade).toFixed(3)}</td>
+                                <td>{Number(datas.thirdGrade).toFixed(3)}</td>
+                                <td>{Number(datas.totalSubjectGrade).toFixed(3)}</td>
+                                <td>{Number(datas.attend).toFixed(3)}</td>
+                                <td>{Number(datas.volunteer).toFixed(3)}</td>
+                                <td>{Number(datas.totalGrade).toFixed(3)}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -157,7 +157,7 @@ class UserInfo extends Component {
                             <tr>
                                 <td>
                                     <p>
-                                        보훈번호:( 123456 )
+                                        보훈번호:( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
                                         <br/>
                                         위는 국가유공자
                                         <br/>
@@ -165,7 +165,7 @@ class UserInfo extends Component {
                                         <br/>
                                         2017. 10. 31.
                                         <br/>
-                                        작성자: {this.props.datas.name} (인)
+                                        작성자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)
                                     </p>
                                 </td>
                                 <td>
