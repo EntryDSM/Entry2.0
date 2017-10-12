@@ -2,12 +2,18 @@ const WUser = require('../../database/models/WUser');
 const User = require('../../database/models/User');
 const ApplyData = require('../../database/models/ApplyData');
 const mailSender = require('./mailSender');
-const admin = require('../../database/models/Admin');
+const crypto = require('crypto');
 
 exports.signup = (req, res) => {
     const email = req.body.email;
     const name = req.body.name;
     const password = req.body.password;
+
+    /**
+     * 정상적인 코드
+     */
+
+
     User.findOneByEmail(email)
         .then((user) => {
             if (user) throw new Error('CONFLICT');
@@ -30,6 +36,52 @@ exports.signup = (req, res) => {
                 "message": err.message
             });
         });
+}
+
+exports.signup_testing = (req, res) => {
+    const email = req.body.email;
+    const name = req.body.name;
+    const password = req.body.password;
+
+    /**
+     * 유저 제약조건을 없앤 임시코드
+     */
+
+    let _wUser;
+    let uid;
+
+    User.findOneByEmail(email)
+        .then(user => {
+            if (user !== null) user.remove();
+            return ApplyData.findOneAndRemove({
+                "user": user === null ? null : user._id
+            });
+        })
+        .then(removed => {
+            return WUser.create(name, email, password);
+        })
+        .then(wUser => {
+            return User.create(wUser.name, wUser.email, wUser.password);
+        })
+        .then(user => {
+            console.log("=====USER=====")
+            console.log(user);
+            uid = user._id;
+            console.log(user.email);
+            WUser.find({
+                "email": user.email
+            }).remove(() => {});
+
+            return ApplyData.createEmpty(user._id);
+        })
+        .then(applyData => {
+            req.session.key = uid;
+            res.status(201).end();
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).end();
+        })
 }
 
 /*
@@ -78,24 +130,8 @@ exports.signin = (req, res) => {
     const password = req.body.password;
     User.findOneByEmail(email)
         .then((user) => {
-            // if (!user) return res.status(401).end();
-            if (!user) {
-                admin.findOne({ "id": email, "password": password })
-                    .then((findData) => {
-                        if (findData.admin) {
-                            console.log('마이스터 관리자 로그인');
-                            req.session.key = process.env.MEISTER;
-                            res.render('admin_search', { data: '' });
-                        } else if (!findData.admin) {
-                            console.log('일반 관리자 로그인');
-                            req.session.key = process.env.NOMAL;
-                            res.render('admin_search', { data: '' });
-                        } else {
-                            res.status(401).end();
-                        }
-
-                    });
-            } else if (user.verify(password)) {
+            if (!user) return res.status(401).end();
+            else if (user.verify(password)) {
                 req.session.key = user._id;
                 res.status(200).end();
             } else res.status(401).end();
