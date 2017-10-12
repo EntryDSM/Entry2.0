@@ -137,7 +137,6 @@
 }
 
 #userinfo_table .td_title{
-    width: 20%;
     border: 1px solid;
     font-size: 25px;
     word-spacing: 60px;
@@ -145,7 +144,19 @@
 }
 
 #userinfo_table .td_content{
-    width: 80%;
+    border: 1px solid;
+}
+
+#userinfo_table .td_title_h{
+    width: 20%;
+    border: 1px solid;
+    font-size: 25px;
+    word-spacing: 60px;
+    text-align: center;
+}
+
+#userinfo_table .td_content_h{
+    width: 30%;
     border: 1px solid;
 }
 
