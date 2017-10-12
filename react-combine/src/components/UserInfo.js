@@ -12,13 +12,6 @@ class UserInfo extends Component {
             submitNumber = datas.submitNumber;
         }
 
-        let graduateYear = 2017;
-        let successExamYear = 2017;
-        if(datas.graduation === "Done"){
-            graduateYear = datas.graduateYear;
-        } else if(datas.graduation === "Black"){
-            successExamYear = datas.graduateYear
-        }
         return(
             <div id="userinfo">
                 <div id="header">
@@ -62,13 +55,13 @@ class UserInfo extends Component {
                     <table id="userinfo_table_2">
                         <tbody>
                             <tr>
-                                <td rowSpan="3">전화<br/>연락처</td>
+                                <td rowSpan="3">연락처</td>
                                 <td>보호자</td>
                                 <td>{datas.parentsTel}</td>
                                 <td rowSpan="3">졸업<br/>구분</td>
                                 <td>
                                     <input type="checkbox" checked={datas.graduation === 'WILL'} readOnly />
-                                    &nbsp;&nbsp;&nbsp;{graduateYear}년 중학교 졸업예정
+                                    &nbsp;&nbsp;&nbsp;2018년 중학교 졸업예정
                                 </td>
                             </tr>
                             <tr>
@@ -76,7 +69,7 @@ class UserInfo extends Component {
                                 <td>{datas.schoolTel}</td>
                                 <td>
                                     <input type="checkbox" checked={datas.graduation === 'DONE'} readOnly />
-                                    &nbsp;&nbsp;&nbsp;{successExamYear}년 중학교 졸업
+                                    &nbsp;&nbsp;&nbsp;{datas.graduateYear}년 중학교 졸업
                                 </td>
                             </tr>
                             <tr>
@@ -84,7 +77,7 @@ class UserInfo extends Component {
                                 <td>{datas.phoneNum}</td>
                                 <td>
                                     <input type="checkbox"/>
-                                    &nbsp;&nbsp;&nbsp;{datas.graduateYear}년 고입 검정고시 합격
+                                    &nbsp;&nbsp;&nbsp;고입 검정고시 합격
                                 </td>
                             </tr>
                         </tbody>
@@ -149,13 +142,13 @@ class UserInfo extends Component {
                                 <td>교과성적<br/>환산점수</td>
                             </tr>
                             <tr>
-                                <td>{datas.firstGrade}</td>
-                                <td>{datas.secondGrade}</td>
-                                <td>{datas.thirdGrade}</td>
-                                <td>{datas.totalSubjectGrade}</td>
-                                <td>{datas.attend}</td>
-                                <td>{datas.volunteer}</td>
-                                <td>{datas.totalGrade}</td>
+                                <td>{Number(datas.firstGrade).toFixed(3)}</td>
+                                <td>{Number(datas.secondGrade).toFixed(3)}</td>
+                                <td>{Number(datas.thirdGrade).toFixed(3)}</td>
+                                <td>{Number(datas.totalSubjectGrade).toFixed(3)}</td>
+                                <td>{Number(datas.attend).toFixed(3)}</td>
+                                <td>{Number(datas.volunteer).toFixed(3)}</td>
+                                <td>{Number(datas.totalGrade).toFixed(3)}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -164,7 +157,7 @@ class UserInfo extends Component {
                             <tr>
                                 <td>
                                     <p>
-                                        보훈번호:( 123456 )
+                                        보훈번호:( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
                                         <br/>
                                         위는 국가유공자
                                         <br/>
@@ -172,11 +165,11 @@ class UserInfo extends Component {
                                         <br/>
                                         2017. 10. 31.
                                         <br/>
-                                        작성자: {this.props.datas.name} (인)
+                                        작성자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)
                                     </p>
                                 </td>
                                 <td>
-                                    <p>본인은 귀 고등학교에 입학하고자 소정의 소류를 갖추어 지원합니다.</p>
+                                    <p>본인은 귀 고등학교에 입학하고자 소정의 서류를 갖추어 지원합니다.</p>
                                     <p>2017년 10월 31일</p>
                                     <p>지원자:&nbsp; {datas.name} (인)&nbsp;&nbsp;&nbsp; 보호자:&nbsp; {datas.parentsName} (인)</p>
                                     <p>대덕소프트웨어마이스터고등학교장 귀하</p>
@@ -193,7 +186,7 @@ class UserInfo extends Component {
                                 <td>
                                     <p>추천서</p>
                                     <p>
-                                        본 입학원서의 내용은 사실과 다름이 없으며 상기자는 귀교에 입학 적격자로 인정되었으므로 추천합니다.
+                                        본 입학원서의 내용은 사실과 다름이 없으며 상기자는 귀교에 입학 적격자로 인정됐으므로 추천합니다.
                                         <br/>
                                         2017년&nbsp;&nbsp;&nbsp;10월&nbsp;&nbsp;&nbsp;31일
                                     </p>
@@ -221,7 +214,8 @@ class UserInfo extends Component {
                         <p>
                             지원자 성명&nbsp;&nbsp;&nbsp;{datas.name}&nbsp;&nbsp;&nbsp; (인)
                             <br/>
-                            지원자 성명&nbsp;&nbsp;&nbsp;{datas.parentsName}&nbsp;&nbsp;&nbsp; (인)
+                            <br/>
+                            학부모 성명&nbsp;&nbsp;&nbsp;{datas.parentsName}&nbsp;&nbsp;&nbsp; (인)
                         </p>
                     </div>
                 </div>

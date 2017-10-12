@@ -43,11 +43,11 @@ const StudentGrade = (props) => {
 const NotPass = () => {
         var checkBoxs = [];
         for(var i=0; i<6; i++){
-            <SwitchBox textlabel="미이수" />
+            <SwitchBox textlabel="성적없음" />
             if(i === 0) checkBoxs.push(<th className="not_pass_title grade_table_title" key={i + 7}></th>);
             checkBoxs.push(
             <td className="check_box">
-                <SwitchBox textlabel="학기 미이수" column="topColumn" />
+                <SwitchBox textlabel="학기 성적없음" column="topColumn" />
             </td>);
         }
         return (
@@ -77,7 +77,7 @@ const GradeSelectBtn = (props) => {
     return (
         <td className="did_select_grade">
             <div className="is_pass_check">
-                    <SwitchBox textlabel="미이수" />
+                    <SwitchBox textlabel="성적없음" />
             </div>
             <div>
                 {props.btnGroup.map((grades, i) => {

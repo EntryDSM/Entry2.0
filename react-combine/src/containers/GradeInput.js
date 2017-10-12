@@ -78,37 +78,41 @@ class GradeInput extends Component{
     }
 
     setVolunteer(e){
-        if(e.target.value >= 0){    
+        if(e.target.value >= 0 && e.target.value !== NaN){    
             this.setState({
-                volunteer: e.target.value
+                volunteer: Number(e.target.value)
+            })
+        } else {
+            this.setState({
+                volunteer: Number(e.target.value)
             })
         }
     }
 
     setAttendData(e){
-        if(e.target.value >= 0){
+        if(e.target.value >= 0 && e.target.value !== NaN){
             switch(e.target.name){
                 case "absence": {
                     this.setState({
-                        absence: e.target.value
+                        absence: Number(e.target.value)
                     })
                     break;
                 }
                 case "late": {
                     this.setState({
-                        lateness: e.target.value
+                        lateness: Number(e.target.value)
                     })
                     break;
                 }
                 case "leaving_early": {
                     this.setState({
-                        earlyLeave: e.target.value
+                        earlyLeave: Number(e.target.value)
                     })
                     break;
                 }
                 case "not_attendence": {
                     this.setState({
-                        subjectEscape: e.target.value
+                        subjectEscape: Number(e.target.value)
                     })
                     break;
                 }
@@ -147,7 +151,6 @@ class GradeInput extends Component{
             this.state.earlyLeave,
             this.state.subjectEscape
         ];
-        console.log(this.state);
         return(
             <div id="contents">
                 <InputHeader now={"성적입력"}/>

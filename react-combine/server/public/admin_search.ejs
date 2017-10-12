@@ -1,0 +1,249 @@
+﻿<!-- 원서 검색 페이지 -->
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/default_layout.css" rel="stylesheet">
+    <style>
+        #detail_option {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 사이드바 -->
+    <nav>
+        <div id='sidebar'>
+            <div id='logo'>
+                <img src="/res/logo.png">
+            </div>
+
+            <p id="below_logo">관리자 페이지</p>
+            <div id="sidemenu">
+                <a class="sidemenu_text root" href="/admin">입학 원서 관리</a>
+                <p class="sidemenu_text root">입학 원서 검색</p>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 정보 -->
+    <article id='info'>
+        <div>
+            <h2 class='title'>원서 관리</h2>
+        </div>
+        <!-- 검색 필터가 담긴 영역 -->
+        <section>
+            <form action="/admin/search" method="POST">
+                <table class="search_option">
+                    <tr>
+                        <!-- 지역 -->
+                        <td class="search_option_column">지역&nbsp;
+                            <input type="radio" name="region" value="HOME" checked="true">대전
+                            <input type="radio" name="region" value="AWAY">전국
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- 상세 검색 여부 -->
+                        <td class="search_option_column">상세 검색&nbsp;
+                            <input type="radio" name="advanceSearch" value="true" onchange="on_detail()">예
+                            <input type="radio" name="advanceSearch" value="false" checked="true" onchange="on_detail()">아니오
+                        </td>
+
+                        <td class="search_option_column"><input type="submit" value="조회" id="select"></td>
+                    </tr>
+                </table>
+                <table id="detail_option" class="search_option">
+                    <tr>
+                        <!-- 이름 -->
+                        <td class="search_option_column">이름&nbsp;
+                            <input type="text" name="name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- 성별 -->
+                        <td class="search_option_column">성별&nbsp;
+                            <input type="radio" name="gender" value="남" checked="true">남성
+                            <input type="radio" name="gender" value="여">여성
+                        </td>
+                        <!-- 수험번호 -->
+                        <td class="search_option_column">수험번호&nbsp;
+                            <input type="text" name="examNumber">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="search_option_column">전형&nbsp;
+                            <input type="radio" name="applyType" value="COMMON" checked="true">일반
+                            <input type="radio" name="applyType" value="MEISTER">마이스터 인재
+                            <input type="radio" name="applyType" value="SOCIAL">사회통합
+                        </td>
+                        <td class="search_option_column">중학교명&nbsp;
+                            <input type="text" name="schoolName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="search_option_column">접수 여부&nbsp;
+                            <input type="radio" name="receipt" value="true" checked="true">예
+                            <input type="radio" name="receipt" value="false">아니오
+                        </td>
+                        <td class="search_option_column">결재 여부&nbsp;
+                            <input type="radio" name="payment" value="true" checked="true">예
+                            <input type="radio" name="payment" value="false">아니오
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="조회"></td>
+                    </tr>
+                </table>
+            </form>
+        </section>
+        <form action="/excel" method="POST">
+            <input type="submit" value="Excel 학생 전체 출력" id="excel">
+        </form>
+    </article>
+    <%if(data.length)%>
+        <!-- 정보 -->
+        <article id='info'>
+            <div>
+
+                <!-- 아래는 리스트의 타이틀이다. -->
+                <div id="list_title">
+                    <!-- 수험 번호 -->
+                    <div class="list_element_data fix_width_short">
+                        수험 번호
+                    </div>
+                    <!-- 전형 -->
+                    <div class="list_element_data fix_width_long">
+                        전형
+                    </div>
+                    <!-- 이름 -->
+                    <div class="list_element_data fix_width_long">
+                        이름
+                    </div>
+                    <!-- 확인 여부 -->
+                    <div class="list_element_data fix_width_short">
+                        확인 여부
+                    </div>
+                    <!-- 결재 여부 -->
+                    <div class="list_element_data fix_width_short">
+                        결재 여부
+                    </div>
+                    <!-- 중학교명 -->
+                    <div class="list_element_data fix_width_long">
+                        중학교명
+                    </div>
+                    <div class="list_element_data fix_width_long">
+
+                    </div>
+                    <div class="list_element_data fix_width_long">
+
+                    </div>
+                    <div class="list_element_data fix_width_short">
+
+                    </div>
+                </div>
+
+                <!-- 아래는 리스트의 행이다. -->
+                <%for( let i = 0; i< data.length; i++){%>
+                    <div class="list_element">
+                        <!-- 수험 번호 -->
+                        <div class="list_element_data fix_width_short">
+                            <%= data[i].examNumber%>>
+                        </div>
+                        <!-- 전형 -->
+                        <div class="list_element_data fix_width_long">
+                            <%= data[i].applyBaseType%>
+                        </div>
+                        <!-- 이름 -->
+                        <div class="list_element_data fix_width_long">
+                            <%= data[i].name%>
+                        </div>
+                        <!-- 확인 여부 -->
+                        <div class="list_element_data fix_width_short">
+                            <% if(data[i].receipt == true) {%>
+                                <form action="/admin/search/value" method="POST">
+                                    <input type="hidden" name="checkReceipt" value="false">
+                                    <input type="hidden" name="userId" value="<%= data[i].user%>">
+                                    <input type="submit" value="접수 취소">
+                                </form>
+                                <%} else{%>
+                                    <form action="/admin/search/value" method="POST">
+                                        <input type="hidden" name="checkReceipt" value="true">
+                                        <input type="hidden" name="userId" value="<%= data[i].user%>">
+                                        <input type="submit" value="접수 확인">
+                                    </form>
+                                    <%}%>
+
+                        </div>
+                        <!-- 결재 여부 -->
+                        <div class="list_element_data fix_width_short">
+                            <% if(data[i].payment == true) {%>
+                                <form action="/admin/search/value" method="POST">
+                                    <input type="hidden" name="checkPayment" value="false">
+                                    <input type="hidden" name="userId" value="<%= data[i].user%>">
+                                    <input type="submit" value="결제 취소">
+                                </form>
+                                <%} else{%>
+                                    <form action="/admin/search/value" method="POST">
+                                        <input type="hidden" name="checkPayment" value="true">
+                                        <input type="hidden" name="userId" value="<%= data[i].user%>">
+                                        <input type="submit" value="결제 확인">
+                                    </form>
+                                    <%}%>
+                        </div>
+                        <!-- 중학교명 -->
+                        <div class="list_element_data fix_width_long">
+                            <%= data[i].schoolName%>
+                        </div>
+                        <div class="list_element_data fix_width_long">
+                            <form action="/admin/create" method="post">
+                                <input type="hidden" name="userId" value="<%= data[i].user%>">
+                                <input type="submit" value="수험번호 발급">
+                            </form>
+                        </div>
+                        <div class="list_element_data fix_width_long">
+                            <form action="/admin/search/detail" method="get">
+                                <input type="hidden" name="userId" value="<%= data[i].user%>">
+                                <input type="submit" value="상세정보 보기">
+
+                            </form>
+                        </div>
+
+                        <div class="list_element_data fix_width_short" style="color: red">
+                            <form action="/admin/search/delete" method="POST">
+                                <input type="hidden" name="userId" value="<%= data[i].user%>">
+                                <input type="submit" value="삭제 ">
+                            </form>
+                        </div>
+                    </div>
+                    <%}%>
+            </div>
+        </article>
+
+        <script charset="UTF-8">
+            var on_detail = function() {
+                var advanceSearch = document.getElementsByName("advanceSearch");
+                var detail_view = document.getElementById("detail_option");
+                let select = document.getElementById("select");
+                if (advanceSearch[0].checked == true) { // 
+                    console.log('상세검색 부분');
+                    detail_view.style.visibility = "visible";
+                    select.style.visibility = "hidden";
+                } else {
+                    console.log('전체검색 부분');
+                    detail_view.style.visibility = "hidden";
+                    select.style.visibility = "visible";
+                    $("#detail_option").empty();
+                }
+            };
+            window.onload = on_detail;
+        </script>
+</body>
+
+</html>

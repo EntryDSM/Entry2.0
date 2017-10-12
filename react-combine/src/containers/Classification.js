@@ -19,7 +19,7 @@ class Classification extends Component {
             isBlackTest: false,
             applyDetailType: {
                 IS_COMMON: true, 
-                IS_NATIONAL_MERIT: false, 
+                IS_NATIONAL_MERIT: false,
                 IS_EXCEPTIONEE: false
             },
             applyBaseType: {
@@ -31,7 +31,13 @@ class Classification extends Component {
         this.getAlreadyData = this.getAlreadyData.bind(this);
     }
 
-    setIsBlackTest(){
+    setIsBlackTest(e){
+        if(e.target.id === 'test-yes'){
+            this.setState({
+                isBlackTest: true,
+                graduation: ""
+            })
+        }
         this.setState({
             isBlackTest: !this.state.isBlackTest
         })
@@ -58,7 +64,6 @@ class Classification extends Component {
     }
 
     radioSetter(e){
-        console.log(e.target.name);
         switch(e.target.name){
             case 'isBlackTest': this.setState({
                     isBlackTest: e.target.id
@@ -109,21 +114,43 @@ class Classification extends Component {
                     }
                 })
                 break;
-            case 'special': this.setState({
-                    applyDetailType: {
-                        IS_COMMON: false, 
-                        IS_NATIONAL_MERIT: false, 
-                        IS_EXCEPTIONEE: true
-                    }
-                })
+            case 'special': 
+                if(e.target.id === 'special_yes'){
+                    this.setState({
+                        applyDetailType: {
+                            IS_COMMON: false, 
+                            IS_NATIONAL_MERIT: this.state.applyDetailType.IS_NATIONAL_MERIT, 
+                            IS_EXCEPTIONEE: true
+                        }
+                    })
+                } else if(e.target.id === 'special_no'){
+                    this.setState({
+                        applyDetailType: {
+                            IS_COMMON: false, 
+                            IS_NATIONAL_MERIT: this.state.applyDetailType.IS_NATIONAL_MERIT, 
+                            IS_EXCEPTIONEE: false
+                        }
+                    })
+                }
                 break;
-            case 'country-merit': this.setState({
-                    applyDetailType: {
-                        IS_COMMON: false, 
-                        IS_NATIONAL_MERIT: true, 
-                        IS_EXCEPTIONEE: false
-                    }
-                })
+            case 'country-merit': 
+                if(e.target.id === 'country_merit_yes'){
+                    this.setState({
+                        applyDetailType: {
+                            IS_COMMON: false, 
+                            IS_NATIONAL_MERIT: true, 
+                            IS_EXCEPTIONEE: this.state.applyDetailType.IS_EXCEPTIONEE
+                        }
+                    })
+                } else if(e.target.id === 'country_merit_no'){
+                    this.setState({
+                        applyDetailType: {
+                            IS_COMMON: false, 
+                            IS_NATIONAL_MERIT: false, 
+                            IS_EXCEPTIONEE: this.state.applyDetailType.IS_EXCEPTIONEE
+                        }
+                    })
+                }            
                 break;
             default:
                 break;
@@ -210,6 +237,7 @@ class Classification extends Component {
                     <Graduate 
                         graduation={this.state.graduation}
                         radioSetter={this.radioSetter.bind(this)}
+                        isBlackTest={this.state.isBlackTest}
                         disabled={this.state.disabled}/>
                     <TypeAndMemo
                         onSocietyClick={this.onSocietyClick.bind(this)} 
@@ -276,6 +304,12 @@ const DefaultInfo = (props) => {
 }
 
 const Graduate = (props) => {
+    let graduationDisabled = "";
+    let disabled = props.disabled;
+    if(props.isBlackTest === "test-yes"){
+        graduationDisabled = "disabled";
+        disabled = "disabled";
+    }
     return(
         <div id="graduate">
         <h2>졸업 구분</h2>
@@ -286,7 +320,8 @@ const Graduate = (props) => {
             id="WILL"
             value="willGraduate"
             onClick={props.radioSetter}
-            checked={props.graduation === 'WILL'}/>
+            checked={props.graduation === 'WILL'}
+            disabled={graduationDisabled}/>
         <label htmlFor="will-graduate">졸업 예정</label>
 
         <input
@@ -295,7 +330,8 @@ const Graduate = (props) => {
             id="DONE"
             value="graduated"
             onClick={props.radioSetter}
-            checked={props.graduation === 'DONE'}/>
+            checked={props.graduation === 'DONE'}
+            disabled={graduationDisabled}/>
         <label htmlFor="graduated">졸업</label> <br />
 
         <span>졸업년도</span>
@@ -304,12 +340,12 @@ const Graduate = (props) => {
             id="graduation-year" 
             value={props.date}
             onChange={props.setDate}>
-            <option value="2018" selected={props.graduation === 'WILL'}>2018년</option>
-            <option value="2017" disabled={props.disabled}>2017년</option>
-            <option value="2016" disabled={props.disabled}>2016년</option>
-            <option value="2015" disabled={props.disabled}>2015년</option>
-            <option value="2014" disabled={props.disabled}>2014년</option>
-            <option value="2013" disabled={props.disabled}>2013년</option>
+            <option value="2018" selected={props.graduation === 'WILL'} disabled={graduationDisabled}>2018년</option>
+            <option value="2017" disabled={disabled}>2017년</option>
+            <option value="2016" disabled={disabled}>2016년</option>
+            <option value="2015" disabled={disabled}>2015년</option>
+            <option value="2014" disabled={disabled}>2014년</option>
+            <option value="2013" disabled={disabled}>2013년</option>
         </select>
     </div>
     );
@@ -377,7 +413,7 @@ const TypeAndMemo = (props) => {
             <input 
                 type="radio"
                 name="special"
-                id="speicial_no"
+                id="special_no"
                 value="special_no"
                 onClick={props.radioSetter}
                 checked={!props.applyDetailType.IS_EXCEPTIONEE} />

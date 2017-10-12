@@ -31,19 +31,18 @@ exports.calculate = function (grade, graduateType, applyType) {
                     } else {
                         if (i === 5 && graduateType === 'DONE') continue;
 
-                        score[i - 1] = score[i];
+                        score[i] = score[i - 1];
                     }
                 }
             }
-
             result.score = calculateNormal(score, graduateType, applyType);
         } else {
             result.score = calculateBlack(score, applyType);
         }
         result.volunteer = calculateVolunteer(volunteer, graduateType, applyType);
         result.attendance = calculateAttendent(attend, graduateType, applyType);
-        if (graduateType === 'BLACK') result.total = Number(result.score) + Number(result.attendance) + Number(result.volunteer);
-        else result.total = Number(result.score.first) + Number(result.score.second) + Number(result.score.third) + Number(result.attendance) + Number(result.volunteer);
+        if (graduateType === 'BLACK') result.total = (Number(result.score) + Number(result.attendance) + Number(result.volunteer)).toFixed(3);
+        else result.total = (Number(result.score.first) + Number(result.score.second) + Number(result.score.third) + Number(result.attendance) + Number(result.volunteer)).toFixed(3);
         resolve(result);
     })
 }
@@ -127,11 +126,11 @@ function calculateNormal(data, graduateType, applyType) {
         third: third,
         total: 0
     };
-
-    resultScore.first = Number(Number(resultScore.first).toFixed(3));
-    resultScore.second = Number(Number(resultScore.second).toFixed(3));
-    resultScore.third = Number(Number(resultScore.third).toFixed(3));
-    resultScore.total = Number(resultScore.first) + Number(resultScore.second) + Number(resultScore.third);
+    
+    resultScore.first = Number(resultScore.first).toFixed(3);
+    resultScore.second = Number(resultScore.second).toFixed(3);
+    resultScore.third = Number(resultScore.third).toFixed(3);
+    resultScore.total = (Number(resultScore.first) + Number(resultScore.second) + Number(resultScore.third)).toFixed(3);
     return resultScore;
 }
 
@@ -165,7 +164,7 @@ function calculateAttendent(data, graduateType) {
     if (toSub >= 15) {
         return 0;
     }
-    return Number(Number(15 - toSub).toFixed(3));
+    return Number(15 - toSub).toFixed(3);
 }
 
 function calculateVolunteer(data, applyType, graduateType) {
@@ -189,7 +188,7 @@ function calculateVolunteer(data, applyType, graduateType) {
 
     result = 3 + (score - minus) / div * 12;
 
-    return Number(Number(result).toFixed(3));
+    return Number(result).toFixed(3);
 }
 
 function checkNullArray(data, index) {

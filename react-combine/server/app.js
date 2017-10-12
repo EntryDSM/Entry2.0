@@ -11,6 +11,11 @@ const morgan = require('morgan')
 const app = express();
 
 const router = require('./routes');
+const adminRouter = require('./admin/router');
+
+app.set('views', __dirname + '/public');
+app.set('view engine', 'ejs');
+
 morgan.token('sessionKey', function getKey(req) { return req.session ? req.session.key : undefined })
 app.use(morgan('SessionKey - :sessionKey :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'));
 
@@ -28,11 +33,13 @@ app.use(session({
     resave: false
 }));
 
+app.use(morgan('dev'));
+app.use(express.static(__dirname + '/public'));
+
 app.get('*', (req, res, next) => {
-    if ((/email\/authentication\/.{1,}/.test(req.path)) || (/^(\/api\/)/.test(req.path))) {
+    if ((/email\/authentication\/.{1,}/.test(req.path)) || (/^(\/api\/)/.test(req.path)) || (/^(\/admin)/.test(req.path))) {
         next()
-    }
-    else res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+    } else res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
 app.use(bodyparser.json());
@@ -41,9 +48,10 @@ app.use(bodyparser.json());
 app.use(fileUpload());
 
 app.use('/', router);
+app.use('/', adminRouter);
 
 
-app.listen(process.env.ENTRYDSM_PORT, function () {
+app.listen(process.env.ENTRYDSM_PORT, function() {
     console.log(process.env.ENTRYDSM_PORT + ' ON');
     database();
 });

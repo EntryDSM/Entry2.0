@@ -140,3 +140,12 @@
     padding: 5px;
     width: 50px;
 }
+
+.birth_select{
+    margin: 0;
+    margin-right: 5px;
+}
+
+.birth_select_label{
+    margin-right: 10px;
+}

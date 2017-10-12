@@ -1,10 +1,24 @@
-import React from 'react';
+import React, {Component} from 'react';
 import AddressModal from './AddressModal';
 import FindSchoolModal from './FindSchoolModal';
 import UploadImage from './UploadImage';
 
-class InfoInputTable extends React.Component {
+class InfoInputTable extends Component {
     render() {
+        let days = new Array;
+        if(this.props.month == 1 || this.props.month == 3 || this.props.month == 5 || this.props.month == 7 || this.props.month == 8 || this.props.month == 10 || this.props.month == 12){
+            for(let i = 1; i <= 31; i++){
+                days.push(<Birth_day day={i}/>)
+            }
+        } else if(this.props.month == 2){
+            for(let i = 1; i <= 28; i++){
+                days.push(<Birth_day day={i}/>)
+            }
+        } else {
+            for(let i = 1; i <= 30; i++){
+                days.push(<Birth_day day={i}/>)
+            }
+        }
         return(
             <div id="info_input_table">
                 <table id="table">
@@ -26,16 +40,49 @@ class InfoInputTable extends React.Component {
                         <tr>
                             <td className="td_title">생년월일</td>
                             <td className="td_content">
-                                <input type="text" className="input_style" name="birthYear" id="year" value={this.props.birthYear} onChange={this.props.setter}/>년 
-                                <input type="text" className="input_style" name="birthMonth" id="month" value={this.props.birthMonth} onChange={this.props.setter}/>월 
-                                <input type="text" className="input_style" name="birthDay" id="day" value={this.props.birthDay} onChange={this.props.setter}/>일 
+                                <select name="birthYear" onChange={this.props.setter} className="birth_select">                                    
+                                    <option>2001</option>
+                                    <option>2000</option>
+                                    <option>1999</option>
+                                    <option>1998</option>
+                                    <option>1997</option>
+                                    <option>1996</option>
+                                    <option>1995</option>
+                                    <option>1994</option>
+                                    <option>1993</option>
+                                    <option>1992</option>
+                                    <option>1991</option>
+                                    <option>1990</option>
+                                </select>
+                                <label className="birth_select_label">년</label>
+                                <select name="birthMonth" onChange={this.props.setter} className="birth_select">
+                                    <option value="" selected disabled hidden></option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>
+                                <label className="birth_select_label">월</label>
+                                <select name="birthDay" onChange={this.props.setter} className="birth_select">
+                                    <option value="" selected disabled hidden></option>
+                                    {days}
+                                </select>
+                                <label className="birth_select_label">일</label>
                             </td>
                         </tr>
                         <tr>
                             <td className="td_title">학반</td>
                             <td className="td_content">
                                 &nbsp;&nbsp;&nbsp;3학년
-                                <input type="text" className="input_style" name="class" id="class" value={this.props.class} onChange={this.props.setter}/>반
+                                <input type="text" className="input_style" name="class" id="class" value={this.props.class} onChange={this.props.setter} maxLength="2"/>반
                                 <input type="text" className="input_style" name="number" id="class" value={this.props.number} onChange={this.props.setter} maxLength="2" />번
                             </td>
                         </tr>
@@ -100,6 +147,12 @@ class InfoInputTable extends React.Component {
             </div>
         );
     }
+}
+
+const Birth_day = (props) => {
+    return(
+        <option>{props.day}</option>
+    );
 }
 
 export default InfoInputTable;
