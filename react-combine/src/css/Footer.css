@@ -11,9 +11,9 @@ footer #Privacy{
 }
 
 #Privacy #Privacy_Sub{
-    color:floralwhite;
+    color:floralwhite !important;
     font-size:0.85rem;
     line-height:1.5;
     word-spacing: 1.5px;
-    margin-top:2rem;
+    margin-top:-0.4rem !important;
 }
