@@ -7,6 +7,10 @@ const mongoXlsx = require('mongo-xlsx');
 const adminApply = require('./adminApply');
 const admin = require('../database/models/Admin');
 
+router.route('/admin/directPage').get((req, res) => {
+    res.render('adminLogin');
+});
+
 router.route('/admin/signin').post((req, res) => {
     let email = req.body.email;
     let password = req.body.password;
