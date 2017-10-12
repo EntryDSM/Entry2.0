@@ -20,46 +20,18 @@ class Introduce extends Component {
     }
 
     setSelf(e){
-        // if(e.keyCode === 13){
-        //     this.setState({
-        //         introduce: this.state.introduce + "\n",
-        //         introduceCount: this.state.introduceCount
-        //     })
-        // } else {
-            this.setState({
-                introduce: e.target.value,
-                introduceCount: e.target.value.length
-            })
-        // }
+        this.setState({
+            introduce: e.target.value,
+            introduceCount: e.target.value.length
+        })
     }
 
     setPlan(e){
-        // if(e.keyCode === 13){
-        //     this.setState({
-        //         plan: this.state.plan + "\n",
-        //         planCount: this.state.planCount
-        //     })
-        // } else {
-            this.setState({
-                plan: e.target.value,
-                planCount: e.target.value.length
-            })
-        // }
+        this.setState({
+            plan: e.target.value,
+            planCount: e.target.value.length
+        })
     }
-
-    // onSelfEnterClick(e){
-    //     if(e.keyCode === 13){
-    //         this.setState({
-                
-    //         })
-    //     }
-    // }
-
-    // onPlanEnterClick(e){
-    //     if(e.keyCode === 13){
-    //         console.log()
-    //     }
-    // }
 
     componentDidMount(){
         axios({
@@ -70,10 +42,14 @@ class Introduce extends Component {
                 "Access-Control-Allow-Origin": "http://114.108.135.15"
             }
         }).then(response => {
-            this.setState({
-                introduce: response.data.introduce,
-                plan: response.data.plan
-            })
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
+            } else {
+                this.setState({
+                    introduce: response.data.introduce,
+                    plan: response.data.plan
+                })
+            }
         }).catch(err => {
             browserHistory.push('error');
         })

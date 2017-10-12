@@ -201,20 +201,25 @@ class Classification extends Component {
                 "Access-Control-Allow-Origin" : "http://114.108.135.15"
             }
         }).then(response => {
-            let isBlackTest;
-            if(response.data.isBlack){
-                isBlackTest = 'test-yes'
+            console.log(response.data);
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
             } else {
-                isBlackTest = 'test-no'
+                let isBlackTest;
+                if(response.data.isBlack){
+                    isBlackTest = 'test-yes'
+                } else {
+                    isBlackTest = 'test-no'
+                }
+                this.setState({
+                    isBlackTest: isBlackTest,
+                    local: response.data.regionType,
+                    applyBaseType: response.data.applyBaseType,
+                    graduation: response.data.graduateType,
+                    date: response.data.graduateYear,
+                    applyDetailType: response.data.applyDetailType
+                })
             }
-            this.setState({
-                isBlackTest: isBlackTest,
-                local: response.data.regionType,
-                applyBaseType: response.data.applyBaseType,
-                graduation: response.data.graduateType,
-                date: response.data.graduateYear,
-                applyDetailType: response.data.applyDetailType
-            })
         }).catch(err => {
             browserHistory.push('error');
         })
