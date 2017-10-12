@@ -63,9 +63,9 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                 let date = findData.birthday + '';
                 let baseData = {
                     수험번호: findData.examNumber,
-                    전형유형: detailType.check(findData.classification, 'String'), //classification.applyBaseType
+                    전형유형: detailType.baseType(findData.classification.applyBaseType.type), //classification.applyBaseType
                     지역: detailType.regionCheck(findData.classification.regionType), //classification.regionType
-                    세부유형: detailType.check(findData.classification, 'String'), //classification.applyDetailType 여기서 3개로 또나뉨
+                    세부유형: detailType.getDetailType(findData.classification.applyBaseType.cause, 'String'),
                     성명: user.name, // user에서 찾은 유저 정보 합치기
                     생년월일: findData.info.birthday, //info.birthday
                     지원자주소: findData.info.addressBase + findData.info.addressDetail, //info
@@ -79,11 +79,17 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                     보호자성명: findData.info.parentsName, // info.parentsName
                     보호자연락처: findData.info.parentsTel, // info.parentsTel
                 };
+                console.log('base');
+                console.log(baseData);
                 let detailData = addSubject(findData);
+                console.log('score')
+                console.log(detailData);
                 getScore(findData)
                     .then((scoreData) => {
                         // Object 통합    
                         let addData = Object.assign(baseData, detailData[0], detailData[1], detailData[2], detailData[3], detailData[4], detailData[5], scoreData);
+                        console.log('return')
+                        console.log(addData);
                         if (check) resolve([addData]);
                         resolve(addData);
                     });
@@ -104,7 +110,7 @@ function addSubject(data) {
         let arrayObj = getArr(sub);
         for (let i = 0; i < count; i++) {
             let obj = {};
-            for (let j = 0; j < 6; j++) {
+            for (let j = 0; j <= 6; j++) {
 
                 if (data.grade.score.semesters[i][j].pass) {
                     arrayObj[(i + 1) + sub[j]] = data.grade.score.semesters[i][j].grade;
@@ -119,7 +125,7 @@ function addSubject(data) {
         console.log('성적 - 검정고시');
         for (let i = 0; i < 6; i++) {
             let obj = {};
-            for (let j = 0; j < 6; j++) {
+            for (let j = 0; j <= 6; j++) {
                 obj[(i + 1) + sub[j]] = "";
             }
             arr.push(obj);
@@ -138,7 +144,7 @@ function checkCount(data) {
 function getArr(sub) {
     let obj = {};
     for (let i = 0; i < 6; i++) {
-        for (let j = 0; j < 6; j++) {
+        for (let j = 0; j <= 6; j++) {
             obj[(i + 1) + sub[j]] = "";
         }
     }
