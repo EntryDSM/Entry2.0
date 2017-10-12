@@ -215,7 +215,7 @@ class UserInfo extends Component {
                             지원자 성명&nbsp;&nbsp;&nbsp;{datas.name}&nbsp;&nbsp;&nbsp; (인)
                             <br/>
                             <br/>
-                            지원자 성명&nbsp;&nbsp;&nbsp;{datas.parentsName}&nbsp;&nbsp;&nbsp; (인)
+                            학부모 성명&nbsp;&nbsp;&nbsp;{datas.parentsName}&nbsp;&nbsp;&nbsp; (인)
                         </p>
                     </div>
                 </div>

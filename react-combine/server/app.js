@@ -53,5 +53,16 @@ app.use('/', adminRouter);
 
 app.listen(process.env.ENTRYDSM_PORT, function() {
     console.log(process.env.ENTRYDSM_PORT + ' ON');
+    const secret = process.env.ENTRYDSM_SECRET;
+    const cipher = crypto.createCipher('aes192', secret);
+    let encryptedEmail = cipher.update('super@entrydsm.hs.kr', 'utf8', 'hex');
+    encryptedEmail += cipher.final('hex');
+    console.log(encryptedEmail);
+
+    const encryptedPassword = crypto.createHmac('sha1', secret)
+    .update('welcome18freshmen!')
+    .digest('base64');
+
+    console.log(encryptedPassword);
     database();
 });

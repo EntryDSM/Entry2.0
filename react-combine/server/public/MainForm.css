@@ -117,8 +117,7 @@
                 box-shadow: 0 0 5px darkgray;
                 display: table;
             }
-            
-            input[type=submit] {
+            /* input[type=submit] {
                 display: table-cell;
                 vertical-align: middle;
                 text-align: center;
@@ -129,7 +128,7 @@
                 font-size: 1.1rem;
                 cursor: pointer;
                 transition: 1s;
-            }
+            } */
             
             #LoginButton #LoginText:hover {
                 letter-spacing: 7.5px;
