@@ -20,22 +20,9 @@ router.route('/admin/signin').post((req, res) => {
             if (admin === null) {
                 res.send('<script>alert("관리자 계정을 찾지 못했습니다");history.go(-1);</script>');
                 res.end();
-<<<<<<< HEAD
-            } else if (findData.admin) {
-                console.log('마이스터 관리자 로그인');
-                req.session.key = 'MEISTER';
-                res.redirect('/admin');
-            } else if (!findData.admin) {
-                console.log('일반 관리자 로그인');
-                req.session.key = 'ADMIN';
-                res.redirect('/admin');
-            }
-
-            console.log('=====================\n' + req.session.key);
-=======
             } else if (admin.verify(password)) {
                 req.session.key = admin._id;
-                res.render('admin_search', { data: '' });
+                res.redirect('/admin')
             } else {
                 res.send('<script>alert("비밀번호를 틀리셨습니다.");history.go(-1);</script>');
                 res.end();
@@ -44,7 +31,6 @@ router.route('/admin/signin').post((req, res) => {
         .catch(err => {
             res.send('<script>alert("로그인 과정에서 오류가 발생했습니다! 다시 시도해주세요.");history.go(-1);</script>');
             res.end();
->>>>>>> 18cd1ab1acbb55306315bab668a8fbcc7a0cb32e
         });
 });
 router.route('/admin').get(onlyAdmin, (req, res) => {
