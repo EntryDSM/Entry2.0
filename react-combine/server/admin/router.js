@@ -23,11 +23,11 @@ router.route('/admin/signin').post((req, res) => {
             } else if (findData.admin) {
                 console.log('마이스터 관리자 로그인');
                 req.session.key = 'MEISTER';
-                res.render('admin_search', { data: '' });
+                res.redirect('/admin');
             } else if (!findData.admin) {
                 console.log('일반 관리자 로그인');
                 req.session.key = 'ADMIN';
-                res.render('admin_search', { data: '' });
+                res.redirect('/admin');
             }
         });
 });
@@ -440,7 +440,6 @@ router.route('/admin').get((req, res) => {
     }).catch((err) => {
         console.log("CATCH");
         console.log(userCount);
-        res.sendStatus(400);
         res.render('admin_main', {
             viewScores: viewScores,
             userCount: userCount
