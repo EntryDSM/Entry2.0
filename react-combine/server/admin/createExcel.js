@@ -28,7 +28,7 @@ exports.excel = (userId, callback) => {
         console.log('전체 엑셀 출력');
         applyDataModel.find({})
             .then((find) => {
-                if (find) {
+                if (0 < find.length) {
                     let arr = new Array();
                     for (let i = 0; i < find.length; i++) {
                         getObject(find[i])
