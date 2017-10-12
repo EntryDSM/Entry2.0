@@ -104,14 +104,11 @@ function addSubject(data) {
         let arrayObj = getArr(sub);
         for (let i = 0; i < count; i++) {
             let obj = {};
-            for (let j = 0; j <= 6; j++) {
+            for (let j = 0; j < 6; j++) {
+
                 if (data.grade.score.semesters[i][j].pass) {
                     arrayObj[(i + 1) + sub[j]] = data.grade.score.semesters[i][j].grade;
                 }
-                if (i == count) {
-                    break;
-                }
-
             }
             arr.push(arrayObj);
         }
@@ -122,7 +119,7 @@ function addSubject(data) {
         console.log('성적 - 검정고시');
         for (let i = 0; i < 6; i++) {
             let obj = {};
-            for (let j = 0; j <= 6; j++) {
+            for (let j = 0; j < 6; j++) {
                 obj[(i + 1) + sub[j]] = "";
             }
             arr.push(obj);
@@ -141,7 +138,7 @@ function checkCount(data) {
 function getArr(sub) {
     let obj = {};
     for (let i = 0; i < 6; i++) {
-        for (let j = 0; j <= 6; j++) {
+        for (let j = 0; j < 6; j++) {
             obj[(i + 1) + sub[j]] = "";
         }
     }
