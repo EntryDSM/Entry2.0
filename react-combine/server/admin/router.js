@@ -7,7 +7,7 @@ const mongoXlsx = require('mongo-xlsx');
 const adminApply = require('./adminApply');
 const admin = require('../database/models/Admin');
 
-router.route('/admin/directPage').get((req, res) => {
+router.route('/admin/login').get((req, res) => {
     res.render('adminLogin');
 });
 
@@ -29,6 +29,8 @@ router.route('/admin/signin').post((req, res) => {
                 req.session.key = 'ADMIN';
                 res.redirect('/admin');
             }
+
+            console.log('=====================\n' + req.session.key);
         });
 });
 router.route('/admin').get((req, res) => {
