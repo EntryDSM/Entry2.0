@@ -60,6 +60,14 @@ class InfoInput extends Component {
             let phoneNum;
             let parentsTel;
             let schoolTel;
+            
+            Array.from(birth).forEach((ele, index) => {
+                console.log(ele);
+                if(ele == undefined || ele == 'undefined'){
+                    birth[index] = "";
+                }
+            })
+            console.log(birth);
             if(!response.data.tel === ""){
                 phoneNum = response.data.tel.split('-');
             } else {
@@ -397,7 +405,9 @@ class InfoInput extends Component {
                         parentsTel={this.state.parentsTel}
                         schoolTel={this.state.schoolTel}
                         sex={this.state.sex}
+                        birthDay={this.state.birthDay}
                         month={this.state.birthMonth}
+                        birthYear={this.state.birthYear}
                         class={this.state.class}
                         number={this.state.number}
                         detailAddress={this.state.detailAddress}
