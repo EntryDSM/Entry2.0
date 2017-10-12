@@ -12,6 +12,10 @@ class UserInfo extends Component {
             submitNumber = datas.submitNumber;
         }
 
+        if(datas.isCountryMerit === true){
+            document.getElementById('country_merit_area').style.visibility = 'visible';
+        }
+
         return(
             <div id="userinfo">
                 <div id="header">
@@ -156,17 +160,19 @@ class UserInfo extends Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <p>
-                                        보훈번호:( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
-                                        <br/>
-                                        위는 국가유공자
-                                        <br/>
-                                        자녀임을 확인함
-                                        <br/>
-                                        2017. 10. 31.
-                                        <br/>
-                                        작성자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)
-                                    </p>
+                                    <div id="country_merit_area">
+                                        <p>
+                                            보훈번호:( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+                                            <br/>
+                                            위는 국가유공자
+                                            <br/>
+                                            자녀임을 확인함
+                                            <br/>
+                                            2017. 10. 31.
+                                            <br/>
+                                            작성자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)
+                                        </p>
+                                    </div>
                                 </td>
                                 <td>
                                     <p>본인은 귀 고등학교에 입학하고자 소정의 서류를 갖추어 지원합니다.</p>

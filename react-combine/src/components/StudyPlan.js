@@ -14,13 +14,12 @@ class StudyPlan extends Component {
                             <tr>
                                 <td className="td_title" id="name">성 명</td>
                                 <td className="td_content">{datas.name}</td>
-
-                                <td className="td_title" id="name">접수번호</td>
-                                <td className="td_content">{datas.name}</td>
+                                <td className="td_title_h" id="name">접수번호</td>
+                                <td className="td_content_h">{datas.submitNumber}</td>
                             </tr>
                             <tr>
                                 <td className="td_title">출신중학교</td>
-                                <td className="td_content">{datas.schoolName}</td>
+                                <td colSpan={3} className="td_content">{datas.schoolName}</td>
                             </tr>
                         </tbody>
                     </table>
