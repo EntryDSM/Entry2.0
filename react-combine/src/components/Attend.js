@@ -52,7 +52,7 @@ class UnauthorizedDay extends Component{
                     {this.props.unauthorizedDayType}
                 </td>
                 <td className="grade_td_content">
-                    <input id="unauthorized_input" type="text" name={this.props.name} value={value} onChange={this.props.setAttendData} />
+                    <input id="unauthorized_input" type="text" name={this.props.name} value={value} onChange={this.props.setAttendData} maxLength="3" />
                 </td>
             </tr>
         );
