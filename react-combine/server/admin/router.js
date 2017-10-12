@@ -20,12 +20,10 @@ router.route('/admin/signin').post((req, res) => {
             if (admin === null) {
                 res.send('<script>alert("관리자 계정을 찾지 못했습니다");history.go(-1);</script>');
                 res.end();
-            }
-            else if (admin.verify(password)) {
+            } else if (admin.verify(password)) {
                 req.session.key = admin._id;
                 res.render('admin_search', { data: '' });
-            }
-            else {
+            } else {
                 res.send('<script>alert("비밀번호를 틀리셨습니다.");history.go(-1);</script>');
                 res.end();
             }
@@ -98,12 +96,12 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
     }
 
     let tmpScores = {
-        scoreCommonHome: [],
-        scoreCommonAway: [],
-        scoreSpecialHome: [],
-        scoreSpecialAway: []
-    }
-    //TODO: regeionType, applyBaseType 변경사항 체킹 후 변수명 변경
+            scoreCommonHome: [],
+            scoreCommonAway: [],
+            scoreSpecialHome: [],
+            scoreSpecialAway: []
+        }
+        //TODO: regeionType, applyBaseType 변경사항 체킹 후 변수명 변경
 
     let userCount = {
         home: {
@@ -129,7 +127,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
     function categorizeScore(array, isSpecial, isHome) {
         if (isSpecial === true) {
             if (isHome === true) {
-                array.forEach(function (score) {
+                array.forEach(function(score) {
                     if (score === 12) viewScores.special.home.to120++;
                     else if (score === 11) viewScores.special.home.to110++;
                     else if (score === 10) viewScores.special.home.to100++;
@@ -143,7 +141,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
                     else;
                 }, this);
             } else if (isHome === false) {
-                array.forEach(function (score) {
+                array.forEach(function(score) {
                     if (score === 12) viewScores.special.away.to120++;
                     else if (score === 11) viewScores.special.away.to110++;
                     else if (score === 10) viewScores.special.away.to100++;
@@ -159,9 +157,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             }
 
         } else if (isSpecial === false) {
-            array.forEach(function (score) {
+            array.forEach(function(score) {
                 if (isHome === true) {
-                    array.forEach(function (score) {
+                    array.forEach(function(score) {
                         if (score === 18) viewScores.common.home.to180++;
                         else if (score === 17) viewScores.common.home.to170++;
                         else if (score === 16) viewScores.common.home.to160++;
@@ -173,7 +171,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
                         else if (score === 10) viewScores.common.home.to100++;
                     }, this);
                 } else if (isHome === false) {
-                    array.forEach(function (score) {
+                    array.forEach(function(score) {
                         if (score === 18) viewScores.common.away.to180++;
                         else if (score === 17) viewScores.common.away.to170++;
                         else if (score === 16) viewScores.common.away.to160++;
@@ -189,16 +187,16 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         }
     }
 
-    var scoreCommonHome = function () {
-        return new Promise(function (resolved, reject) {
+    var scoreCommonHome = function() {
+        return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
                 $and: [{ 'classification.regeionType': 'HOME' },
-                { 'classfication.applyBaseType.type': 'COMMON' }
+                    { 'classfication.applyBaseType.type': 'COMMON' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
-                find.forEach(function (element) {
+                find.forEach(function(element) {
                     score = element.grade.calculatedScore.total;
                     score = (score - (score % 10)) / 10;
                     if (score > 9) {
@@ -213,16 +211,16 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         })
     }
 
-    var scoreCommonAway = function () {
-        return new Promise(function (resolved, reject) {
+    var scoreCommonAway = function() {
+        return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
                 $and: [{ 'classification.regeionType': 'AWAY' },
-                { 'classfication.applyBaseType.type': 'COMMON' }
+                    { 'classfication.applyBaseType.type': 'COMMON' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
-                find.forEach(function (element) {
+                find.forEach(function(element) {
                     score = element.grade.calculatedScore.total;
                     score = (score - (score % 10)) / 10;
                     if (score > 9) {
@@ -237,17 +235,17 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         })
     }
 
-    var scoreSpecialHome = function () {
-        return new Promise(function (resolved, reject) {
+    var scoreSpecialHome = function() {
+        return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
                 'classification.regeionType': 'HOME',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                { 'classfication.applyBaseType.type': 'SOCIAL' }
+                    { 'classfication.applyBaseType.type': 'SOCIAL' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
-                find.forEach(function (element) {
+                find.forEach(function(element) {
                     score = element.grade.calculatedScore.total;
                     score = (score - (score % 10)) / 10;
                     if (score > 2) {
@@ -262,17 +260,17 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         })
     }
 
-    var scoreSpecialAway = function () {
-        return new Promise(function (resolved, reject) {
+    var scoreSpecialAway = function() {
+        return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
                 'classification.regeionType': 'AWAY',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                { 'classfication.applyBaseType.type': 'SOCIAL' }
+                    { 'classfication.applyBaseType.type': 'SOCIAL' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
-                find.forEach(function (element) {
+                find.forEach(function(element) {
                     score = element.grade.calculatedScore.total;
                     score = (score - (score % 10)) / 10;
                     if (score > 2) {
@@ -291,14 +289,14 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
     지역별 조회 후 if 문으로 분류.
     */
 
-    var countHomeCommon = function () {
-        return new Promise(function (resolved, reject) {
+    var countHomeCommon = function() {
+        return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'HOME',
                 'classfication.applyBaseType.type': 'COMMON',
                 applyStatus: true
-            }).count(function (err, count) {
+            }).count(function(err, count) {
                 userCount.home.common = count;
 
                 resolved(true);
@@ -306,14 +304,14 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         })
     }
 
-    var countHomeMeister = function () {
-        return new Promise(function (resolved, reject) {
+    var countHomeMeister = function() {
+        return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'HOME',
                 'classfication.applyBaseType.type': 'MEISTER',
                 applyStatus: true
-            }).count(function (err, count) {
+            }).count(function(err, count) {
                 userCount.home.meister = count;
 
                 resolved(true);
@@ -321,14 +319,14 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         })
     }
 
-    var countHomeSocial = function () {
-        return new Promise(function (resolved, reject) {
+    var countHomeSocial = function() {
+        return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'HOME',
                 'classfication.applyBaseType.type': 'SOCIAL',
                 applyStatus: true
-            }).count(function (err, count) {
+            }).count(function(err, count) {
                 userCount.home.social = count;
 
                 resolved(true);
@@ -336,14 +334,14 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         })
     }
 
-    var countAwayCommon = function () {
-        return new Promise(function (resolved, reject) {
+    var countAwayCommon = function() {
+        return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'AWAY',
                 'classfication.applyBaseType.type': 'COMMON',
                 applyStatus: true
-            }).count(function (err, count) {
+            }).count(function(err, count) {
                 userCount.away.common = count;
 
                 resolved(true);
@@ -351,14 +349,14 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         })
     }
 
-    var countAwayMeister = function () {
-        return new Promise(function (resolved, reject) {
+    var countAwayMeister = function() {
+        return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'AWAY',
                 'classfication.applyBaseType.type': 'MEISTER',
                 applyStatus: true
-            }).count(function (err, count) {
+            }).count(function(err, count) {
                 userCount.away.meister = count;
 
                 resolved(true);
@@ -366,14 +364,14 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         })
     }
 
-    var countAwaySocial = function () {
-        return new Promise(function (resolved, reject) {
+    var countAwaySocial = function() {
+        return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'AWAY',
                 'classfication.applyBaseType.type': 'SOCIAL',
                 applyStatus: true
-            }).count(function (err, count) {
+            }).count(function(err, count) {
                 userCount.away.social = count;
                 console.log(count + "away social");
 
@@ -398,9 +396,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
 
 
     Promise.all([scoreCommonAway(), scoreCommonHome(),
-    scoreSpecialAway(), scoreSpecialHome(),
-    countAwayCommon(), countAwayMeister(), countAwaySocial(),
-    countHomeCommon(), countHomeMeister(), countHomeSocial(),
+        scoreSpecialAway(), scoreSpecialHome(),
+        countAwayCommon(), countAwayMeister(), countAwaySocial(),
+        countHomeCommon(), countHomeMeister(), countHomeSocial(),
     ]).then((data) => {
 
         userCount.sum.common = userCount.home.common + userCount.away.common;
@@ -439,9 +437,11 @@ router.route('/admin/search').post(onlyAdmin, (req, res) => {
             res.end();
         })
         .catch((err) => {
-            res.send(`<script>alert("${err}");history.go(-1);</script>`);
+            res.send(`<script>alert("${err}");location.href="/admin/search";</script>`);
             res.end();
         });
+}).get((req, res) => {
+    res.render('admin_search', { data: '' });
 })
 
 router.route('/admin/search/detail').get(onlyAdmin, (req, res) => {
@@ -536,7 +536,7 @@ router.route('/excel').post((req, res) => {
     excel.excel(userId, (data, model) => {
         if (data && 0 < model.length) {
             mongoXlsx.mongoData2Xlsx(data, model, (err, data) => {
-                if(err) console.log(err);
+                if (err) console.log(err);
                 res.download(data.fullPath, 'Entry Dsm User Excel.xlsx', (err) => {
                     if (err)
                         console.log(err);
