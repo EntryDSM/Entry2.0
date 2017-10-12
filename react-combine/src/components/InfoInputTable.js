@@ -56,6 +56,7 @@ class InfoInputTable extends Component {
                                 </select>
                                 <label className="birth_select_label">년</label>
                                 <select name="birthMonth" onChange={this.props.setter} className="birth_select">
+                                    <option value="" selected disabled hidden></option>
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -71,6 +72,7 @@ class InfoInputTable extends Component {
                                 </select>
                                 <label className="birth_select_label">월</label>
                                 <select name="birthDay" onChange={this.props.setter} className="birth_select">
+                                    <option value="" selected disabled hidden></option>
                                     {days}
                                 </select>
                                 <label className="birth_select_label">일</label>
@@ -80,7 +82,7 @@ class InfoInputTable extends Component {
                             <td className="td_title">학반</td>
                             <td className="td_content">
                                 &nbsp;&nbsp;&nbsp;3학년
-                                <input type="text" className="input_style" name="class" id="class" value={this.props.class} onChange={this.props.setter}/>반
+                                <input type="text" className="input_style" name="class" id="class" value={this.props.class} onChange={this.props.setter} maxLength="2"/>반
                                 <input type="text" className="input_style" name="number" id="class" value={this.props.number} onChange={this.props.setter} maxLength="2" />번
                             </td>
                         </tr>
