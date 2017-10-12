@@ -34,22 +34,12 @@ app.use(session({
 }));
 
 app.use(morgan('dev'));
-app.use('/public', static(path.join(__dirname, '/public'))),
-    app.use('/style', static(path.join(__dirname, '/public/style'))),
-    app.use('/res', static(path.join(__dirname, '/public/res'))),
-    app.use('/api/res', static(path.join(__dirname, '/public/res'))),
-    app.use('/admin/style', static(path.join(__dirname, '/public/style'))),
-    app.use('/admin/res', static(path.join(__dirname, '/public/res'))),
-    app.use('/admin/search/style', static(path.join(__dirname, '/public/style'))),
-    app.use('/admin/search/res', static(path.join(__dirname, '/public/res'))),
-    app.use('/admin/search/profileImages', static(path.join(__dirname, '/profileImages')));
+app.use(express.static(__dirname + '/public'));
 
-app.use('/public', static(path.join(__dirname, '/public')));
 app.get('*', (req, res, next) => {
-    if ((/email\/authentication\/.{1,}/.test(req.path)) || (/^(\/api\/)/.test(req.path))|| (/^(\/admin)/.test(req.path))) {
+    if ((/email\/authentication\/.{1,}/.test(req.path)) || (/^(\/api\/)/.test(req.path)) || (/^(\/admin)/.test(req.path))) {
         next()
-    }
-    else res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+    } else res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
 app.use(bodyparser.json());
@@ -61,7 +51,7 @@ app.use('/', router);
 app.use('/', adminRouter);
 
 
-app.listen(process.env.ENTRYDSM_PORT, function () {
+app.listen(process.env.ENTRYDSM_PORT, function() {
     console.log(process.env.ENTRYDSM_PORT + ' ON');
     database();
 });

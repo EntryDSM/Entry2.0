@@ -5,7 +5,28 @@ const createScore = require('../util/calculator');
 const excel = require('./createExcel');
 const mongoXlsx = require('mongo-xlsx');
 const adminApply = require('./adminApply');
+const admin = require('../database/models/Admin');
 
+router.route('/admin/signin').post((req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+
+    admin.findOne({ "id": email, "password": password })
+        .then((findData) => {
+            if (!findData) {
+                res.send('<script>alert("관리자 계정을 찾지 못했습니다");history.go(-1);</script>');
+                res.end();
+            } else if (findData.admin) {
+                console.log('마이스터 관리자 로그인');
+                req.session.key = 'MEISTER';
+                res.render('admin_search', { data: '' });
+            } else if (!findData.admin) {
+                console.log('일반 관리자 로그인');
+                req.session.key = 'ADMIN';
+                res.render('admin_search', { data: '' });
+            }
+        });
+});
 router.route('/admin').get((req, res) => {
     let key = req.session.key;
     let applyDataModel = require('../database/models/ApplyData');

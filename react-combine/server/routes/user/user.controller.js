@@ -2,7 +2,6 @@ const WUser = require('../../database/models/WUser');
 const User = require('../../database/models/User');
 const ApplyData = require('../../database/models/ApplyData');
 const mailSender = require('./mailSender');
-const admin = require('../../database/models/Admin');
 const crypto = require('crypto');
 
 exports.signup = (req, res) => {
@@ -131,31 +130,8 @@ exports.signin = (req, res) => {
     const password = req.body.password;
     User.findOneByEmail(email)
         .then((user) => {
-            // if (!user) return res.status(401).end();
-            if (!user) {
-                admin.findOne({
-                        "id": email,
-                        "password": password
-                    })
-                    .then((findData) => {
-                        if (findData.admin) {
-                            console.log('마이스터 관리자 로그인');
-                            req.session.key = process.env.MEISTER;
-                            res.render('admin_search', {
-                                data: ''
-                            });
-                        } else if (!findData.admin) {
-                            console.log('일반 관리자 로그인');
-                            req.session.key = process.env.NOMAL;
-                            res.render('admin_search', {
-                                data: ''
-                            });
-                        } else {
-                            res.status(401).end();
-                        }
-
-                    });
-            } else if (user.verify(password)) {
+            if (!user) return res.status(401).end();
+            else if (user.verify(password)) {
                 req.session.key = user._id;
                 res.status(200).end();
             } else res.status(401).end();
@@ -177,7 +153,7 @@ exports.findEmail = (req, res) => {
             name
         })
         .then((users) => {
-            users.forEach(function (user) {
+            users.forEach(function(user) {
                 let username = user.getDecryptedEmail().split('@')[0];
                 let service = user.getDecryptedEmail().split('@')[1];
                 emails.push(username.split("").fill('*', 2).join("") + "@" + service);
