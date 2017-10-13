@@ -191,8 +191,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
-                $and: [{ 'classification.regeionType': 'HOME' },
-                    { 'classfication.applyBaseType.type': 'COMMON' }
+                $and: [{ 'classification.regionType': 'HOME' },
+                    { 'classification.applyBaseType.type': 'COMMON' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
@@ -215,8 +215,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
-                $and: [{ 'classification.regeionType': 'AWAY' },
-                    { 'classfication.applyBaseType.type': 'COMMON' }
+                $and: [{ 'classification.regionType': 'AWAY' },
+                    { 'classification.applyBaseType.type': 'COMMON' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
@@ -239,9 +239,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
-                'classification.regeionType': 'HOME',
+                'classification.regionType': 'HOME',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classfication.applyBaseType.type': 'SOCIAL' }
+                    { 'classification.applyBaseType.type': 'SOCIAL' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
@@ -264,9 +264,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
-                'classification.regeionType': 'AWAY',
+                'classification.regionType': 'AWAY',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classfication.applyBaseType.type': 'SOCIAL' }
+                    { 'classification.applyBaseType.type': 'SOCIAL' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
@@ -293,8 +293,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'HOME',
-                'classfication.applyBaseType.type': 'COMMON',
+                'classification.regionType': 'HOME',
+                'classification.applyBaseType.type': 'COMMON',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.home.common = count;
@@ -308,8 +308,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'HOME',
-                'classfication.applyBaseType.type': 'MEISTER',
+                'classification.regionType': 'HOME',
+                'classification.applyBaseType.type': 'MEISTER',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.home.meister = count;
@@ -323,8 +323,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'HOME',
-                'classfication.applyBaseType.type': 'SOCIAL',
+                'classification.regionType': 'HOME',
+                'classification.applyBaseType.type': 'SOCIAL',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.home.social = count;
@@ -338,10 +338,11 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'AWAY',
-                'classfication.applyBaseType.type': 'COMMON',
+                'classification.regionType': 'AWAY',
+                'classification.applyBaseType.type': 'COMMON',
                 applyStatus: true
             }).count(function(err, count) {
+                console.log(count)
                 userCount.away.common = count;
 
                 resolved(true);
@@ -354,7 +355,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'AWAY',
-                'classfication.applyBaseType.type': 'MEISTER',
+                'classification.applyBaseType.type': 'MEISTER',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.away.meister = count;
@@ -369,7 +370,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'AWAY',
-                'classfication.applyBaseType.type': 'SOCIAL',
+                'classification.applyBaseType.type': 'SOCIAL',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.away.social = count;
