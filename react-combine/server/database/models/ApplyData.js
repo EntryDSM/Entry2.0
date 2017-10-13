@@ -16,7 +16,7 @@ let ApplyData = Schema({
     createdAt: { type: String, required: true },
     updatedAt: { type: String, required: true },
     profile: { type: String, required: false, default: null },
-    payment: { type: Boolean, default: false }
+    checkPayment: { type: Boolean, default: false }
 }, { collection: 'ApplyData' });
 
 /*

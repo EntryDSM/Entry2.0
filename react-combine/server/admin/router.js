@@ -192,8 +192,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var score;
             applyDataModel.find({
                 $and: [{ 'classification.regionType': 'HOME' },
-                    { 'classification.applyBaseType.type': 'COMMON' }
-                ]
+                    { 'classification.applyBaseType.type': 'COMMON' },
+                    {applyStatus:true}]
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -216,8 +216,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var score;
             applyDataModel.find({
                 $and: [{ 'classification.regionType': 'AWAY' },
-                    { 'classification.applyBaseType.type': 'COMMON' }
-                ]
+                    { 'classification.applyBaseType.type': 'COMMON'},
+                    {applyStatus:true}]
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -241,8 +241,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             applyDataModel.find({
                 'classification.regionType': 'HOME',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classification.applyBaseType.type': 'SOCIAL' }
-                ]
+                    { 'classification.applyBaseType.type': 'SOCIAL' },
+                    {applyStatus:true}]
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -266,8 +266,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             applyDataModel.find({
                 'classification.regionType': 'AWAY',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classification.applyBaseType.type': 'SOCIAL' }
-                ]
+                    { 'classification.applyBaseType.type': 'SOCIAL' },
+                    {applyStatus:true}]
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -484,7 +484,7 @@ router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
     if (req.isSuper === false) {
         console.log('일반 관리자 ');
         if (typeof req.body.checkPayment != 'undefined') {
-            applyDataModel.findOneAndUpdate({ user: id }, { $set: { "payment": req.body.checkPayment } }, (err, doc) => {
+            applyDataModel.findOneAndUpdate({ user: id }, { $set: { "checkPayment": req.body.checkPayment } }, (err, doc) => {
                 if (err) {
                     res.send('<script>alert("오류가 발생했습니다");location.href="/admin/search";</script>');
                     res.end();
