@@ -18,7 +18,8 @@ class FinalSubmit extends Component{
             url: '/api/apply'
         }).then(response => {
             console.log(response);
-            browserHistory.push('/')
+            alert("최종제출이 완료되었습니다!");
+            browserHistory.push('/main');
         }).catch(err => {
             console.log(err);
         })

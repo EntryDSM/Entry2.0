@@ -71,23 +71,28 @@ class Preview extends Component {
                 this.props.pageList = [
                     {
                         name: "입학 원서",
-                        target: "userInfo"
+                        target: "userInfo",
+                        id: 'name_userinfo'
                     },
                     {
                         name: "자기 소개서",
-                        target: "self"
+                        target: "self",
+                        id: 'name_selfintroduce'
                     },
                     {
                         name: "학업 계획서",
-                        target: "plan"
+                        target: "plan",
+                        id: 'name_study_plan'
                     },
                     {
                         name: "금연 서약서",
-                        target: "noSmoke"
+                        target: "noSmoke",
+                        id: 'name_no_smoke'
                     },
                     {
-                        name: "학교장 추천서",
-                        target: "principal"
+                        name: '학교장 추천서',
+                        target: 'principal',
+                        id: 'name_principal'
                     }
                 ]
             }
@@ -135,10 +140,12 @@ class Preview extends Component {
                 this.getUserData();
                 this.setState({
                     targetPage: "userInfo"
-                });       
+                });
             } else {
                 browserHistory.push('/validation');
             }
+            console.log(document.getElementById('name_userinfo'));
+            document.getElementById('name_userinfo').style.background = "#ddd";
         }).catch(err => {
             console.log(err);
         })
@@ -148,14 +155,80 @@ class Preview extends Component {
         this.setState( {
             targetPage: target
         })
+
+        Array.from(document.getElementsByClassName('tabButton')).forEach(ele => {
+            ele.style.background = "inherit";
+        })
+
+        switch(target){
+            case 'userInfo':
+                document.getElementById('name_userinfo').style.background = "#ddd";
+                break;
+            case 'self':
+                document.getElementById('name_selfintroduce').style.background = "#ddd";
+                break;
+            case 'plan':
+                document.getElementById('name_study_plan').style.background = "#ddd";
+                break;
+            case 'noSmoke':
+                document.getElementById('name_no_smoke').style.background = "#ddd";
+                break;
+            case 'principal':
+                document.getElementById('name_principal').style.background = "#ddd";
+                break;
+        }
+    }
+
+    printHandler(e){
+        console.log(this.state.targetPage);
+        let green = Array.from(document.getElementsByClassName('printed'));
+        switch(this.state.targetPage){
+            case 'userInfo':
+                green[0].style.visibility = 'visible';
+                document.getElementById('name_userinfo').style.background = "inherit";
+                document.getElementById('name_selfintroduce').style.background = "#ddd";
+                this.setState({
+                    targetPage: 'self'
+                })
+                window.scrollTo(0, 0);
+                break;
+            case 'self':
+                green[1].style.visibility = 'visible';
+                document.getElementById('name_selfintroduce').style.background = "inherit";
+                document.getElementById('name_study_plan').style.background = "#ddd";
+                this.setState({
+                    targetPage: 'plan'
+                })
+                window.scrollTo(0, 0);
+                break;
+            case 'plan':
+                green[2].style.visibility = 'visible';
+                document.getElementById('name_study_plan').style.background = "inherit";
+                document.getElementById('name_no_smoke').style.background = "#ddd";
+                this.setState({
+                    targetPage: 'noSmoke'
+                })
+                window.scrollTo(0, 0);
+                break;
+            case 'noSmoke':
+                green[3].style.visibility = 'visible';
+                if(this.state.type !== 'COMMON'){
+                    document.getElementById('name_no_smoke').style.background = "inherit";
+                    document.getElementById('name_principal').style.background = "#ddd";
+                    this.setState({
+                        targetPage: 'principal'
+                    })
+                }
+                break;
+            case 'principal':
+                green[4].style.visibility = 'visible';
+                break;
+        }
+        e.preventDefault();
+        window.print();
     }
 
     render(){
-        function printHandler(e) {
-            e.preventDefault();
-            window.print();
-        }
-
         return(
             <div id="contents">
                 <div id="preview">
@@ -170,7 +243,7 @@ class Preview extends Component {
                                 target={this.state.targetPage} 
                                 datas={this.state}/>
                         </div>
-                        <button className="printButton" onClick={printHandler}>출력하기</button>                        
+                        <button className="printButton" onClick={this.printHandler.bind(this)}>출력하기</button>                        
                     </div>
                     <Button router='/introduce' buttonName="이전"/>
                     <Button router='/finalsubmit' buttonName="다음"/>
@@ -183,19 +256,23 @@ Preview.defaultProps = {
     pageList: [
         {
             name: "입학 원서",
-            target: "userInfo"
+            target: "userInfo",
+            id: 'name_userinfo'
         },
         {
             name: "자기 소개서",
-            target: "self"
+            target: "self",
+            id: 'name_selfintroduce'
         },
         {
             name: "학업 계획서",
-            target: "plan"
+            target: "plan",
+            id: 'name_study_plan'
         },
         {
             name: "금연 서약서",
-            target: "noSmoke"
+            target: "noSmoke",
+            id: 'name_no_smoke'
         }
     ]
 }
