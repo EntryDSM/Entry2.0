@@ -79,17 +79,10 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                     보호자성명: findData.info.parentsName, // info.parentsName
                     보호자연락처: findData.info.parentsTel, // info.parentsTel
                 };
-                console.log('base');
-                console.log(baseData);
                 let detailData = addSubject(findData);
-                console.log('score')
-                console.log(detailData);
                 getScore(findData)
                     .then((scoreData) => {
-                        // Object 통합    
-                        let addData = Object.assign(baseData, detailData[0], detailData[1], detailData[2], detailData[3], detailData[4], detailData[5], scoreData);
-                        console.log('return')
-                        console.log(addData);
+                        let addData = Object.assign(baseData, detailData, scoreData);
                         if (check) resolve([addData]);
                         resolve(addData);
                     });
@@ -104,28 +97,25 @@ function addSubject(data) {
     const sub = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어'];
 
     if (data.classification.graduateType != 'BLACK') {
-        let arr = new Array();
         console.log('성적 - 일반');
         let count = checkCount(data);
         let arrayObj = getArr(sub);
         for (let i = 0; i < count; i++) {
             let obj = {};
-            for (let j = 0; j <= 6; j++) {
-
+            for (let j = 0; j < 7; j++) {
                 if (data.grade.score.semesters[i][j].pass) {
                     arrayObj[(i + 1) + sub[j]] = data.grade.score.semesters[i][j].grade;
                 }
             }
-            arr.push(arrayObj);
         }
-        return arr;
+        return arrayObj;
 
     } else {
         let arr = new Array();
         console.log('성적 - 검정고시');
         for (let i = 0; i < 6; i++) {
             let obj = {};
-            for (let j = 0; j <= 6; j++) {
+            for (let j = 0; j < 7; j++) {
                 obj[(i + 1) + sub[j]] = "";
             }
             arr.push(obj);
@@ -144,7 +134,7 @@ function checkCount(data) {
 function getArr(sub) {
     let obj = {};
     for (let i = 0; i < 6; i++) {
-        for (let j = 0; j <= 6; j++) {
+        for (let j = 0; j < 7; j++) {
             obj[(i + 1) + sub[j]] = "";
         }
     }
