@@ -8,7 +8,8 @@ exports.excel = (userId, callback) => {
     if (typeof userId != 'undefined') {
         console.log('학생 엑셀 출력');
         applyDataModel.findOne({
-                "user": userId
+                "user": userId,
+                "applyStatus": true
             })
             .then((findData) => {
                 if (findData) {
@@ -26,7 +27,9 @@ exports.excel = (userId, callback) => {
             });
     } else {
         console.log('전체 엑셀 출력');
-        applyDataModel.find({})
+        applyDataModel.find({
+                "applyStatus": true
+            })
             .then((find) => {
                 if (0 < find.length) {
                     let arr = new Array();
