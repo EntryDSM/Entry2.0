@@ -327,7 +327,7 @@ ApplyData.methods.validation = function() {
             result.grade = gradeValidation('WILL', this.grade);
         } else {
             result.info = infoValidation('DONE', this.info)
-            result.grade = infoValidation('DONE', this.grade)
+            result.grade = gradeValidation('DONE', this.grade)
         }
         result.introduce = introduceValidation(this.introduce);
         
