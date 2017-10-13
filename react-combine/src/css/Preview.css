@@ -50,6 +50,13 @@
     margin-bottom: 30px;
 }
 
+.printed {
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+    visibility: hidden; 
+}
+
 #preview #menu-area {
     padding-left: 8rem;
 }

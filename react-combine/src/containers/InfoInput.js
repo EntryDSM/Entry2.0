@@ -300,6 +300,16 @@ class InfoInput extends Component {
 
     setPhoneNum(e){
         let phoneNum = this.state.phoneNum;
+        let phNums = Array.from(document.getElementsByClassName('input_tel'));
+
+        if(e.target.name !== 2){
+            if(e.target.name == 0 && String(e.target.value).length === 3){
+                phNums[1].focus(); 
+            } else if(e.target.name == 1 && String(e.target.value).length === 4){
+                phNums[2].focus();
+            }
+        }
+
         if(e.target.value !== NaN && e.target.value >= 0){
             phoneNum[e.target.name] = e.target.value;
         }
@@ -309,6 +319,16 @@ class InfoInput extends Component {
     }
     setSchoolTel(e){
         let schoolTel = this.state.schoolTel;
+        let phNums = Array.from(document.getElementsByClassName('input_tel'));
+
+        if(e.target.name !== 2){
+            if(e.target.name == 0 && String(e.target.value).length === 3){
+                phNums[7].focus(); 
+            } else if(e.target.name == 1 && String(e.target.value).length === 4){
+                phNums[8].focus();
+            }
+        }
+
         if(e.target.value !== NaN && e.target.value >= 0){
             schoolTel[e.target.name] = e.target.value;
         }
@@ -318,6 +338,16 @@ class InfoInput extends Component {
     }
     setParentsTel(e){
         let parentsTel = this.state.parentsTel;
+        let phNums = Array.from(document.getElementsByClassName('input_tel'));
+
+        if(e.target.name !== 2){
+            if(e.target.name == 0 && String(e.target.value).length === 3){
+                phNums[4].focus(); 
+            } else if(e.target.name == 1 && String(e.target.value).length === 4){
+                phNums[5].focus();
+            }
+        }
+
         if(e.target.value !== NaN && e.target.value >= 0){
             parentsTel[e.target.name] = e.target.value;
         }

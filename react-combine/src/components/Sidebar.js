@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Process from './Process';
+import {browserHistory} from 'react-router';
 
-class Sidebar extends React.Component{
+class Sidebar extends Component{
     componentWillMount(){
         document.body.style.margin = 0;
         document.body.style.padding = 0;
     }
 
+    toMain(){
+        browserHistory.push('/main');
+    }
+
     render(){
         return(
             <div className = "menu_area">
-                <Logo />
+                <Logo onclick={this.toMain.bind(this)} />
                 <Process 
                     moveClassification={this.props.moveClassification}
                     moveInfoinput={this.props.moveInfoinput}
@@ -21,9 +26,9 @@ class Sidebar extends React.Component{
     }
 }
 
-const Logo = () => {
+const Logo = (props) => {
     return (
-        <div className="logo_area">
+        <div className="logo_area" onClick={props.onclick}>
             <img src= {require('../images/nav-logo.png')} alt="nav-logo" className="LogoImage" />
         </div>
     );
