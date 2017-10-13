@@ -382,8 +382,15 @@ ApplyData.methods.updateExamNumber = function(examNum) {
 
 function infoValidation(type, info) {
     let result = [];
+    let date;
     if (info.sex == null) result.push('성별 정보를 입력해주세요.');
-    if (info.birthday == null) result.push('생일을 입력해주세요.');
+    date = info.birthday.split('-');
+    for(let i=0;i<date.length;i++){
+        if(date[i] == null || date[i] == 'undefined'){
+            if (info.birthday == null) result.push('생일을 입력해주세요.');
+            break;
+        }
+    }
     if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
     if (type !== 'BLACK' && (info.class == null)) result.push('반을 입력해주세요.');
     if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null || info.schoolTel == null)) result.push('학교 정보를 입력해주세요.');
