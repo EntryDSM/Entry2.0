@@ -158,7 +158,7 @@ exports.createNum = (userId) => {
                         let examNum = new Array();
                         examNum.push(getNumber(find.classification)); // 일반, 마이스터, 사회 통합 
                         applyFormat.regionCheck(find.classification.regionType) === '대전' ? examNum.push(1) : examNum.push(2);
-                        examNum.push(applyFormat.getDetailType(find.classification, 'Number')); // detail부분 숫자 
+                        examNum.push(applyFormat.getDetailType(find.classification.applyBaseType.cause, 'Number')); // detail부분 숫자 
                         examNum.push(changeExamNum(find.submitNumber));
                         console.log(formatNum(examNum));
                         find.updateExamNumber(formatNum(examNum))

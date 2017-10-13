@@ -29,6 +29,9 @@ class FinalSubmit extends Component{
             method: 'get',
             url: '/api/user/classification'
         }).then(response => {
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
+            }
         }).catch(err => {
             console.log(err);
             browserHistory.push('/error');

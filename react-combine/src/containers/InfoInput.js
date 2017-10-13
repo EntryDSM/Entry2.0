@@ -55,63 +55,75 @@ class InfoInput extends Component {
                 "ContentType": "application/json"
             }
         }).then(response => {
-            console.log(response.data);
-            let birth = response.data.birthday.split('-');
-            let phoneNum;
-            let parentsTel;
-            let schoolTel;
-            if(!response.data.tel === ""){
-                phoneNum = response.data.tel.split('-');
-            } else {
-                phoneNum = ["", "", ""];
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
+            } else {    
+                console.log(response.data);
+                let birth = response.data.birthday.split('-');
+                let phoneNum;
+                let parentsTel;
+                let schoolTel;
+                
+                Array.from(birth).forEach((ele, index) => {
+                    console.log(ele);
+                    if(ele == undefined || ele == 'undefined'){
+                        birth[index] = "";
+                    }
+                })
+                console.log(birth);
+                if(!response.data.tel === ""){
+                    phoneNum = response.data.tel.split('-');
+                } else {
+                    phoneNum = ["", "", ""];
+                }
+                if(!response.data.parentsTel === ""){
+                    parentsTel = response.data.parentsTel.split('-');                
+                } else {
+                    console.log(response.data.parentsTel.split('-').length);
+                    parentsTel = ["", "", ""];
+                }
+                if(!response.data.schoolTel === ""){
+                    schoolTel = response.data.schoolTel.split('-');
+                } else {
+                    schoolTel = ["", "", ""];
+                }
+                this.setState({
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    number: response.data.number,
+                    sex: response.data.sex,
+                    grade: response.data.grade,
+                    class: response.data.class,
+                    parentsName: response.data.parentsName,
+                    schoolCode: response.data.schoolCode,
+                    schoolName: response.data.schoolName,
+                    schoolTel: schoolTel,
+                    phoneNum: phoneNum,
+                    parentsTel: parentsTel,
+                    baseAddress: response.data.addressBase,
+                    detailAddress: response.data.addressDetail,
+                    birthYear: birth[0],
+                    birthMonth: birth[1],
+                    birthDay: birth[2]
+                })
+                
+                axios({
+                    method: 'get',
+                    url: '/api/upload/profile',
+                    withCredentials: false
+                }).then(response => {
+                    this.setState({
+                        profileImg: '/api/upload/profile'
+                    })
+                }).catch(err => {
+                    this.setState({
+                        profileImg: require('../images/file.png')
+                    })
+                })
             }
-            if(!response.data.parentsTel === ""){
-                parentsTel = response.data.parentsTel.split('-');                
-            } else {
-                console.log(response.data.parentsTel.split('-').length);
-                parentsTel = ["", "", ""];
-            }
-            if(!response.data.schoolTel === ""){
-                schoolTel = response.data.schoolTel.split('-');
-            } else {
-                schoolTel = ["", "", ""];
-            }
-            this.setState({
-                name: response.data.user.name,
-                email: response.data.user.email,
-                number: response.data.number,
-                sex: response.data.sex,
-                grade: response.data.grade,
-                class: response.data.class,
-                parentsName: response.data.parentsName,
-                schoolCode: response.data.schoolCode,
-                schoolName: response.data.schoolName,
-                schoolTel: schoolTel,
-                phoneNum: phoneNum,
-                parentsTel: parentsTel,
-                baseAddress: response.data.addressBase,
-                detailAddress: response.data.addressDetail,
-                birthYear: birth[0],
-                birthMonth: birth[1],
-                birthDay: birth[2]
-            })
         }).catch(err => {
             console.log(err);
             browserHistory.push('error');
-        })
-
-        axios({
-            method: 'get',
-            url: '/api/upload/profile',
-            withCredentials: false
-        }).then(response => {
-            this.setState({
-                profileImg: '/api/upload/profile'
-            })
-        }).catch(err => {
-            this.setState({
-                profileImg: require('../images/file.png')
-            })
         })
     }
 
@@ -397,7 +409,9 @@ class InfoInput extends Component {
                         parentsTel={this.state.parentsTel}
                         schoolTel={this.state.schoolTel}
                         sex={this.state.sex}
+                        birthDay={this.state.birthDay}
                         month={this.state.birthMonth}
+                        birthYear={this.state.birthYear}
                         class={this.state.class}
                         number={this.state.number}
                         detailAddress={this.state.detailAddress}

@@ -63,8 +63,8 @@ exports.checkGrade = (score) => { // 성적 숫자로 들어간것 ABC로 표시
 
 exports.getDetailType = (data, type) => {
     let re;
-    if (data.applyBaseType.cause) {
-        switch (data.applyBaseType.cause) {
+    if (data != null) {
+        switch (data) {
             case 'BASIC_BENEFICIARY':
                 {
                     type == 'String' ? re = '기초생활수급권자' : re = parseInt('1');
@@ -116,7 +116,6 @@ exports.regionCheck = (region) => {
 };
 
 exports.baseType = (base) => {
-    console.log(base);
     if (base == 'COMMON') {
         return '일반 전형';
     } else if (base == 'MEISTER') {
