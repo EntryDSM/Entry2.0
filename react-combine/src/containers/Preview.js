@@ -57,6 +57,14 @@ class Preview extends Component {
             let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
             let address = response.data.info.addressBase + response.data.info.addressDetail;
             let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
+            let submitNumber; 
+            if(response.data.submitNumber > 0 && response.data.submitNumber < 10){
+                submitNumber = '00' + response.data.submitNumber;
+            } else if(response.data.submitNumber >= 10 && response.data.submitNumber < 100){
+                submitNumber = '0' + response.data.submitNumber;
+            } else {
+                submitNumber = response.data.submitNumber;
+            }
             console.log(response);
 
             if(response.data.classification.applyBaseType.type !== 'COMMON'){
@@ -84,7 +92,7 @@ class Preview extends Component {
                 ]
             }
             this.setState({
-                submitNumber: response.data.submitNumber,
+                submitNumber: submitNumber,
                 schoolCode: response.data.info.schoolCode,
                 class: response.data.info.class,
                 name: response.data.user.name,
@@ -119,21 +127,21 @@ class Preview extends Component {
     }
 
     componentDidMount() {
-        // axios({
-        //     method: 'GET',
-        //     url: '/api/validation'
-        // }).then(response => {
-        //     if(response.data.classification.length === 0 && response.data.grade.length === 0 && response.data.info.length === 0 && response.data.introduce.length === 0){
+        axios({
+            method: 'GET',
+            url: '/api/validation'
+        }).then(response => {
+            if(response.data.classification.length === 0 && response.data.grade.length === 0 && response.data.info.length === 0 && response.data.introduce.length === 0){
                 this.getUserData();
                 this.setState({
                     targetPage: "userInfo"
                 });       
-        //     } else {
-        //         browserHistory.push('/validation');
-        //     }
-        // }).catch(err => {
-        //     console.log(err);
-        // })
+            } else {
+                browserHistory.push('/validation');
+            }
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     setPage(target) {

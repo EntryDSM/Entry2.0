@@ -107,7 +107,7 @@ const TitlePart = (props) =>{
             <MainUnderLine/>
             <SubTitle Explain1= "2018학년도 DSM 입학전형 페이지입니다. 영 마이스터(Young Meister) 인재를 양성하며,"
                       Explain2= "창의, 열정, 배려가 넘치는 여러분을 기다리고 있습니다."/>
-            <MainBox BoxTitle= "main page"/>
+            <MainBox BoxTitle= "원서 접수하러가기"/>
         </div>
     );
 }

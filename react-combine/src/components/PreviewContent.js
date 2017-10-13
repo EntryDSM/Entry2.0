@@ -59,7 +59,8 @@ class PreviewContent extends Component {
                 name: datas.name,
                 phoneNum: datas.phoneNum,
                 schoolName: datas.schoolName,
-                address: datas.address
+                address: datas.address,
+                submitNumber: datas.submitNumber
             }
         }
         let PrincipalData = () => {
