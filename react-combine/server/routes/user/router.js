@@ -3,7 +3,7 @@ let router = require('express').Router();
 const controller = require('./user.controller');
 
 router.route('/signin').post(controller.signin); //로그인
-router.route('/signup').post(controller.signup_testing); //회원가입 
+router.route('/signup').post(controller.signup); //회원가입 
 
 router.route('/email/authentication/').get((req, res) => {
     console.log("CATCH");
