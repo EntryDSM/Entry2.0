@@ -248,12 +248,21 @@ ApplyData.methods.reviseClassification = function(classification) {
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
 
-    if ((this.classification.isBlack !== classification.isBlack) && classification.isBlack) {
-        this.info = documentTemplate.info_black;
-        this.grade = documentTemplate.grade_black;
-    } else if (this.classification.isBlack && (this.classification.isBlack !== classification.isBlack)) {
-        this.info = documentTemplate.info_not_black;
-        this.grade = documentTemplate[classification.graduateType == 'WILL' ? 'grade_will' : 'grade_done'];
+    if (classification.isBlack) {
+        if (!this.classification.isBlack) {
+            this.info = documentTemplate.info_black;
+            this.grade = documentTemplate.grade_black;
+        }
+    }
+    else {
+        if (this.classification.graduateType !== classification.graduateType) {
+            if (classification.graduateType === 'WILL') {
+                this.grade = grade_will;
+            }
+            else {
+                this.grade = grade_done;
+            }
+        }
     }
     this.classification = classification;
     return this.save();
