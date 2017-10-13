@@ -2,6 +2,7 @@ let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const SchoolCode = require('./SchoolCode');
 const calculator = require('../../util/calculator');
+const fs = require('fs');
 
 let ApplyData = Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
@@ -316,7 +317,7 @@ ApplyData.methods.validation = function() {
     const data = this;
     return new Promise((resolve, reject) => {
         let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [], 'isSubmited': data.applyStatus };
-
+        
 
         if (data.classification.isBlack) {
             result.info = infoValidation('BLACK', this.info);
@@ -329,7 +330,14 @@ ApplyData.methods.validation = function() {
             result.grade = infoValidation('DONE', this.grade)
         }
         result.introduce = introduceValidation(this.introduce);
-
+        
+        let file;
+        try{
+            file = fs.readFileSync(__dirname + `/../../uploads/${applyData.profile}`);
+        }catch(err){
+            result.info.push('증명사진을 등록해주세요.');
+        }
+        
         const regionType = this.classification.regionType;
 
         if (data.classification.isBlack === false) {
