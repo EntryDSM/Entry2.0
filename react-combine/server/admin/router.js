@@ -191,8 +191,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
-                $and: [{ 'classification.regeionType': 'HOME' },
-                    { 'classfication.applyBaseType.type': 'COMMON' }
+                $and: [{ 'classification.regionType': 'HOME' },
+                    { 'classification.applyBaseType.type': 'COMMON' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
@@ -215,8 +215,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
-                $and: [{ 'classification.regeionType': 'AWAY' },
-                    { 'classfication.applyBaseType.type': 'COMMON' }
+                $and: [{ 'classification.regionType': 'AWAY' },
+                    { 'classification.applyBaseType.type': 'COMMON' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
@@ -239,9 +239,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
-                'classification.regeionType': 'HOME',
+                'classification.regionType': 'HOME',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classfication.applyBaseType.type': 'SOCIAL' }
+                    { 'classification.applyBaseType.type': 'SOCIAL' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
@@ -264,9 +264,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var score;
             applyDataModel.find({
-                'classification.regeionType': 'AWAY',
+                'classification.regionType': 'AWAY',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classfication.applyBaseType.type': 'SOCIAL' }
+                    { 'classification.applyBaseType.type': 'SOCIAL' }
                 ]
             }, (err, find) => {
                 if (err) reject(err);
@@ -293,8 +293,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'HOME',
-                'classfication.applyBaseType.type': 'COMMON',
+                'classification.regionType': 'HOME',
+                'classification.applyBaseType.type': 'COMMON',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.home.common = count;
@@ -308,8 +308,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'HOME',
-                'classfication.applyBaseType.type': 'MEISTER',
+                'classification.regionType': 'HOME',
+                'classification.applyBaseType.type': 'MEISTER',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.home.meister = count;
@@ -323,8 +323,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'HOME',
-                'classfication.applyBaseType.type': 'SOCIAL',
+                'classification.regionType': 'HOME',
+                'classification.applyBaseType.type': 'SOCIAL',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.home.social = count;
@@ -338,10 +338,11 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'AWAY',
-                'classfication.applyBaseType.type': 'COMMON',
+                'classification.regionType': 'AWAY',
+                'classification.applyBaseType.type': 'COMMON',
                 applyStatus: true
             }).count(function(err, count) {
+                console.log(count)
                 userCount.away.common = count;
 
                 resolved(true);
@@ -354,7 +355,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'AWAY',
-                'classfication.applyBaseType.type': 'MEISTER',
+                'classification.applyBaseType.type': 'MEISTER',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.away.meister = count;
@@ -369,7 +370,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var count;
             applyDataModel.count({
                 'classification.regeionType': 'AWAY',
-                'classfication.applyBaseType.type': 'SOCIAL',
+                'classification.applyBaseType.type': 'SOCIAL',
                 applyStatus: true
             }).count(function(err, count) {
                 userCount.away.social = count;
@@ -465,10 +466,10 @@ router.route('/admin/search/delete').post(onlyAdmin, (req, res) => {
         user: userId
     }, (err) => {
         if (err) {
-            res.send('<script>alert("학생 정보 찾지 못함");history.go(-1);</script>');
+            res.send('<script>alert("학생 정보 찾지 못함");location.href="/admin/search";</script>');
             res.end();
         } else {
-            res.send('<script>alert("학생 정보 삭제 완료");history.go(-1);</script>');
+            res.send('<script>alert("학생 정보 삭제 완료");location.href="/admin/search";</script>');
             res.end();
         }
     })
@@ -485,11 +486,11 @@ router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
         if (typeof req.body.checkPayment != 'undefined') {
             applyDataModel.findOneAndUpdate({ user: id }, { $set: { "payment": req.body.checkPayment } }, (err, doc) => {
                 if (err) {
-                    res.send('<script>alert("오류가 발생했습니다");history.go(-1);</script>');
+                    res.send('<script>alert("오류가 발생했습니다");location.href="/admin/search";</script>');
                     res.end();
                     console.log(err + Date.now);
                 } else {
-                    res.send('<script>alert("결제 변경 완료했습니다.");history.go(-2);</script>');
+                    res.send('<script>alert("결제 변경 완료했습니다.");location.href="/admin/search";</script>');
 
                 }
             })
@@ -499,16 +500,16 @@ router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
         if (typeof req.body.checkReceipt != 'undefined') {
             applyDataModel.findOneAndUpdate({ user: id }, { $set: { applyStatus: req.body.checkReceipt } }, (err, doc) => {
                 if (err) {
-                    res.send('<script>alert("오류가 발생했습니다");history.go(-1);</script>');
+                    res.send('<script>alert("오류가 발생했습니다");location.href="/admin/search";</script>');
                     res.end();
                     console.log(err + Date.now);
                 } else {
-                    res.send('<script>alert("결제 변경 완료했습니다.");history.go(-2);</script>');
+                    res.send('<script>alert("결제 변경 완료했습니다.");location.href="/admin/search";</script>');
 
                 }
             })
         } else {
-            res.send('<script>alert("권한이 존재 하지 않습니다");history.go(-1);</script>');
+            res.send('<script>alert("권한이 존재 하지 않습니다");location.href="/admin/search";</script>');
             res.end();
         }
     }
@@ -519,12 +520,12 @@ router.route('/admin/create').post(onlyAdmin, (req, res) => { // 수험번호 �
     console.log(userId);
     logic.createNum(userId)
         .then(() => {
-            res.send('<script>alert("수험번호 생성 완료"); history.go(-1);</script>');
+            res.send('<script>alert("수험번호 생성 완료"); location.href="/admin/search";</script>');
             res.end();
         })
         .catch((err) => {
             console.log(err);
-            res.send('<script>alert("' + err + '"); history.go(-1);</script>');
+            res.send('<script>alert("' + err + '"); location.href="/admin/search";</script>');
             res.end();
         })
 });
@@ -542,7 +543,7 @@ router.route('/excel').post((req, res) => {
                 });
             });
         } else {
-            res.send('<script>alert("정보 찾지 못함 - Excel"); history.go(-1); </script>')
+            res.send('<script>alert("정보 찾지 못함 - Excel"); location.href="/admin/search"; </script>')
         }
     });
 });
