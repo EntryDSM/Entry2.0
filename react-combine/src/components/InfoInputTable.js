@@ -51,6 +51,9 @@ class InfoInputTable extends Component {
                             <td className="td_title">생년월일</td>
                             <td className="td_content">
                                 <select name="birthYear" onChange={this.props.setter} className="birth_select">                                    
+                                    <option selected={this.props.birthYear == 2004 ? 'selected' : ''}>2004</option>
+                                    <option selected={this.props.birthYear == 2003 ? 'selected' : ''}>2003</option>
+                                    <option selected={this.props.birthYear == 2002 ? 'selected' : ''}>2002</option>
                                     <option selected={this.props.birthYear == 2001 ? 'selected' : ''}>2001</option>
                                     <option selected={this.props.birthYear == 2000 ? 'selected' : ''}>2000</option>
                                     <option selected={this.props.birthYear == 1999 ? 'selected' : ''}>1999</option>

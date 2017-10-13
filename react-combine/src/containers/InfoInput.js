@@ -297,11 +297,6 @@ class InfoInput extends Component {
     setPhoneNum(e){
         let phoneNum = this.state.phoneNum;
         phoneNum[e.target.name] = e.target.value;
-        phoneNum.forEach((ele, index) => {
-            if(index !== e.target.name){
-                phoneNum[index] = "";
-            }
-        })
         this.setState({
             phoneNum: phoneNum
         })
@@ -309,11 +304,6 @@ class InfoInput extends Component {
     setSchoolTel(e){
         let schoolTel = this.state.schoolTel;
         schoolTel[e.target.name] = e.target.value;
-        schoolTel.forEach((ele, index) => {
-            if(index !== e.target.name){
-                schoolTel[index] = "";
-            }
-        })
         this.setState({
             schoolTel: schoolTel
         })
@@ -321,11 +311,6 @@ class InfoInput extends Component {
     setParentsTel(e){
         let parentsTel = this.state.parentsTel;
         parentsTel[e.target.name] = e.target.value;
-        parentsTel.forEach((ele, index) => {
-            if(index !== e.target.name){
-                parentsTel[index] = "";
-            }
-        })
         this.setState({
             parentsTel: parentsTel
         })
