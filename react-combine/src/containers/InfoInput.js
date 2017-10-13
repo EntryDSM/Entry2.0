@@ -71,18 +71,18 @@ class InfoInput extends Component {
                     }
                 })
                 console.log(birth);
-                if(!response.data.tel === ""){
+                if(!response.data.tel == ""){
                     phoneNum = response.data.tel.split('-');
                 } else {
                     phoneNum = ["", "", ""];
                 }
-                if(!response.data.parentsTel === ""){
+                if(!response.data.parentsTel == ""){
                     parentsTel = response.data.parentsTel.split('-');                
                 } else {
                     console.log(response.data.parentsTel.split('-').length);
                     parentsTel = ["", "", ""];
                 }
-                if(!response.data.schoolTel === ""){
+                if(!response.data.schoolTel == ""){
                     schoolTel = response.data.schoolTel.split('-');
                 } else {
                     schoolTel = ["", "", ""];
