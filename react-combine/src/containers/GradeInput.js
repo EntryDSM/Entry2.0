@@ -489,6 +489,8 @@ class GradeInput extends Component{
                 subjectEscape: response.data.grade.attend.subjectEscape,
             })
 
+            console.log(response);
+
             response.data.grade.score.semesters.forEach((ele) => {
                 for(let i = 0; i < response.data.grade.score.semesters.length; i++){
                     console.log(graduateType)

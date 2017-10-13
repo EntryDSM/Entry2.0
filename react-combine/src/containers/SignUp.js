@@ -166,20 +166,20 @@ class SignUp extends Component{
         return(
             <div id="contents">
                 <div id="signUp">
-                <InputHeader now={"기본 정보"} />
+                <InputHeader now={"지원자 정보"} />
                 <div className="inputPart">
                     <table id="inputTable">
                         <SignUpInput inputs = {
                             [
                                 {
-                                    name: '이름',
+                                    name: '지원자 성명',
                                     type: 'text',
                                     className: 'input_style nameInput',
                                     onchange: this.getName,
                                     value: this.state.name
                                 },
                                 {
-                                    name: '이메일',
+                                    name: '지원자 이메일',
                                     type: 'text',
                                     className: 'input_style emailInput',
                                     onchange: this.getEmail,

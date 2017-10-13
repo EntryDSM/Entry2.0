@@ -28,7 +28,7 @@ class InfoInputTable extends Component {
                 days.push(<Birth_day day={i} selected=""/>)
             }
         }
-        console.log(this.props);
+
         return(
             <div id="info_input_table">
                 <table id="table">
