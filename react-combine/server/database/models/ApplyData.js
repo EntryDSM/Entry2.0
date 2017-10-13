@@ -257,10 +257,10 @@ ApplyData.methods.reviseClassification = function(classification) {
     else {
         if (this.classification.graduateType !== classification.graduateType) {
             if (classification.graduateType === 'WILL') {
-                this.grade = grade_will;
+                this.grade.score = grade_will;
             }
             else {
-                this.grade = grade_done;
+                this.grade.score = grade_done;
             }
         }
     }
