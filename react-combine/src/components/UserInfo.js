@@ -3,14 +3,6 @@ import React, {Component} from 'react';
 class UserInfo extends Component {
     render() {
         let datas = this.props.datas();
-        let submitNumber;
-        if(datas.submitNumber < 10){
-            submitNumber = "00" + datas.submitNumber;
-        } else if(10 <= datas.submitNumber && datas.submitNumber < 100){
-            submitNumber = "0" + datas.submitNumber;
-        } else {
-            submitNumber = datas.submitNumber;
-        }
 
         if(datas.isCountryMerit === true){
             document.getElementById('country_merit_area').style.visibility = 'visible';
@@ -28,7 +20,7 @@ class UserInfo extends Component {
                         <tbody>
                             <tr>
                                 <td>접수번호</td>
-                                <td colSpan="2">{submitNumber}</td>
+                                <td colSpan="2">{datas.submitNumber}</td>
                                 <td>중학교 코드</td>
                                 <td>{datas.schoolCode}</td>
                                 <td>반</td>

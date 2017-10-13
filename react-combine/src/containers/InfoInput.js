@@ -32,7 +32,7 @@ class InfoInput extends Component {
             ],
             baseAddress: "",
             detailAddress: "",
-            birthYear: "",
+            birthYear: "2002",
             birthMonth: "",
             birthDay: "",
             name: "",
@@ -70,7 +70,7 @@ class InfoInput extends Component {
                         birth[index] = "";
                     }
                 })
-                console.log(birth);
+
                 if(response.data.tel.length > 0){
                     phoneNum = response.data.tel.split('-');
                 } else {
@@ -267,15 +267,19 @@ class InfoInput extends Component {
                 break;
             }
             case 'class': {
-                this.setState({
-                    class: e.target.value
-                })
+                if(e.target.value !== NaN && e.target.value >= 0){    
+                    this.setState({
+                        class: e.target.value
+                    })
+                }
                 break;
             }
             case 'number': {
-                this.setState({
-                    number: e.target.value
-                })
+                if(e.target.value !== NaN && e.target.value >= 0){    
+                    this.setState({
+                        number: e.target.value
+                    })
+                }
                 break;
             }
             case 'parentsName': {
@@ -296,21 +300,27 @@ class InfoInput extends Component {
 
     setPhoneNum(e){
         let phoneNum = this.state.phoneNum;
-        phoneNum[e.target.name] = e.target.value;
+        if(e.target.value !== NaN && e.target.value >= 0){
+            phoneNum[e.target.name] = e.target.value;
+        }
         this.setState({
             phoneNum: phoneNum
         })
     }
     setSchoolTel(e){
         let schoolTel = this.state.schoolTel;
-        schoolTel[e.target.name] = e.target.value;
+        if(e.target.value !== NaN && e.target.value >= 0){
+            schoolTel[e.target.name] = e.target.value;
+        }
         this.setState({
             schoolTel: schoolTel
         })
     }
     setParentsTel(e){
         let parentsTel = this.state.parentsTel;
-        parentsTel[e.target.name] = e.target.value;
+        if(e.target.value !== NaN && e.target.value >= 0){
+            parentsTel[e.target.name] = e.target.value;
+        }
         this.setState({
             parentsTel: parentsTel
         })

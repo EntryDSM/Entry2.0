@@ -42,15 +42,21 @@ class Introduce extends Component {
                 "Access-Control-Allow-Origin": "http://114.108.135.15"
             }
         }).then(response => {
+            console.log(response);
             if(response.data.applyStatus){
                 browserHistory.push('/finalError');
             } else {
+                let introduceCount = response.data.introduce.length;
+                let planCount = response.data.plan.length;
                 this.setState({
                     introduce: response.data.introduce,
-                    plan: response.data.plan
+                    plan: response.data.plan,
+                    introduceCount: introduceCount,
+                    planCount: planCount
                 })
             }
         }).catch(err => {
+            console.log(err);
             browserHistory.push('error');
         })
     }
