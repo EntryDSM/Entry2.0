@@ -498,7 +498,7 @@ router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
     } else {
         console.log('마이스터 관리자 ');
         if (typeof req.body.checkReceipt != 'undefined') {
-            applyDataModel.findOneAndUpdate({ user: id }, { $set: { applyStatus: req.body.checkReceipt } }, (err, doc) => {
+            applyDataModel.findOneAndUpdate({ user: id }, { $set: { "checkReceipt": req.body.checkReceipt } }, (err, doc) => {
                 if (err) {
                     res.send('<script>alert("오류가 발생했습니다");location.href="/admin/search";</script>');
                     res.end();
