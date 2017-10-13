@@ -2,6 +2,7 @@ let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const SchoolCode = require('./SchoolCode');
 const calculator = require('../../util/calculator');
+const fs = require('fs');
 
 let ApplyData = Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
@@ -247,12 +248,21 @@ ApplyData.methods.reviseClassification = function(classification) {
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
 
-    if ((this.classification.isBlack !== classification.isBlack) && classification.isBlack) {
-        this.info = documentTemplate.info_black;
-        this.grade = documentTemplate.grade_black;
-    } else if (this.classification.isBlack && (this.classification.isBlack !== classification.isBlack)) {
-        this.info = documentTemplate.info_not_black;
-        this.grade = documentTemplate[classification.graduateType == 'WILL' ? 'grade_will' : 'grade_done'];
+    if (classification.isBlack) {
+        if (!this.classification.isBlack) {
+            this.info = documentTemplate.info_black;
+            this.grade = documentTemplate.grade_black;
+        }
+    }
+    else {
+        if (this.classification.graduateType !== classification.graduateType) {
+            if (classification.graduateType === 'WILL') {
+                this.grade = grade_will;
+            }
+            else {
+                this.grade = grade_done;
+            }
+        }
     }
     this.classification = classification;
     return this.save();
@@ -316,7 +326,7 @@ ApplyData.methods.validation = function() {
     const data = this;
     return new Promise((resolve, reject) => {
         let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [], 'isSubmited': data.applyStatus };
-
+        
 
         if (data.classification.isBlack) {
             result.info = infoValidation('BLACK', this.info);
@@ -326,10 +336,17 @@ ApplyData.methods.validation = function() {
             result.grade = gradeValidation('WILL', this.grade);
         } else {
             result.info = infoValidation('DONE', this.info)
-            result.grade = infoValidation('DONE', this.grade)
+            result.grade = gradeValidation('DONE', this.grade)
         }
         result.introduce = introduceValidation(this.introduce);
-
+        
+        let file;
+        try{
+            file = fs.readFileSync(__dirname + `/../../uploads/${applyData.profile}`);
+        }catch(err){
+            result.info.push('증명사진을 등록해주세요.');
+        }
+        
         const regionType = this.classification.regionType;
 
         if (data.classification.isBlack === false) {

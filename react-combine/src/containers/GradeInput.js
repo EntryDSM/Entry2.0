@@ -174,16 +174,17 @@ class GradeInput extends Component{
 
     componentDidMount(){
         let scoreData;
+        let graduateType;
 
         axios({
             method: 'get',
             url: '/api/user/classification',
             withCredentials: false
         }).then(response => {
-            console.log(response.data);
             if(response.data.applyStatus){
                 browserHistory.push('/finalError');
             } else {
+                graduateType = response.data.graduateType;
                 switch(response.data.graduateType){
                     case "WILL": 
                         this.setState({
@@ -480,7 +481,6 @@ class GradeInput extends Component{
             url: '/api/user/grade',
             withCredentials: false
         }).then(response => {
-            console.log(response.data);
             this.setState({
                 volunteer: response.data.grade.volunteer,
                 absence: response.data.grade.attend.absence,
@@ -488,11 +488,19 @@ class GradeInput extends Component{
                 earlyLeave: response.data.grade.attend.earlyLeave,
                 subjectEscape: response.data.grade.attend.subjectEscape,
             })
+            
             response.data.grade.score.semesters.forEach((ele) => {
-                console.log(response.data.grade.score.semesters.length);
                 for(let i = 0; i < response.data.grade.score.semesters.length; i++){
-                    let MtoBe_SemesterNotPass = toBe_SemesterNotPass[i].children[0].children[1].children[0].children[0];
-                    let Mdid_SemesterNotPass = did_SemesterNotPass[i].children[0].children[1].children[0].children[0];
+                    console.log(graduateType)
+                    let MtoBe_SemesterNotPass;
+                    let Mdid_SemesterNotPass;
+
+                    if(graduateType === 'DONE'){
+                        Mdid_SemesterNotPass = did_SemesterNotPass[i].children[0].children[1].children[0].children[0];
+                    } else {
+                        MtoBe_SemesterNotPass = toBe_SemesterNotPass[i].children[0].children[1].children[0].children[0];
+                    }
+
                     let count = 0;
                     for(let j = 0; j < 7; j++){
                         if(response.data.grade.score.semesters.length === 5){
@@ -550,6 +558,7 @@ class GradeInput extends Component{
                 }
             })
         }).catch(err => {
+            console.log(err);
             browserHistory.push('error');
         })
     }
