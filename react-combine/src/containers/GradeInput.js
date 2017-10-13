@@ -488,7 +488,7 @@ class GradeInput extends Component{
                 earlyLeave: response.data.grade.attend.earlyLeave,
                 subjectEscape: response.data.grade.attend.subjectEscape,
             })
-            
+
             response.data.grade.score.semesters.forEach((ele) => {
                 for(let i = 0; i < response.data.grade.score.semesters.length; i++){
                     console.log(graduateType)
@@ -503,7 +503,7 @@ class GradeInput extends Component{
 
                     let count = 0;
                     for(let j = 0; j < 7; j++){
-                        if(response.data.grade.score.semesters.length === 5){
+                        if(graduateType === 'WILL'){
                             Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
                                 if(response.data.grade.score.semesters[i][j].grade === ele.textContent){
                                     ele.classList.add('selectedGrade');
@@ -528,7 +528,7 @@ class GradeInput extends Component{
                                     score: scoreData
                                 })
                             }
-                        } else if(response.data.grade.score.semesters.length === 6) {
+                        } else if(graduateType === 'DONE') {
                             Array.from(did_GradeSelector[i][j].children).forEach((ele) => {
                                 if(response.data.grade.score.semesters[i][j].grade === ele.textContent){
                                     ele.classList.add('selectedGrade');
