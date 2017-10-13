@@ -87,11 +87,14 @@ exports.reviseUserClassification = (req, res) => {
         .then((applyData) => {
             return applyData.reviseClassification(classification);
         })
-        .then((applyData) => {
-            console.log(applyData);
+        .then((_applyData) => {
+            // console.log(applyData);
+            console.log("ASDASDASDASD");
+            console.log(_applyData.grade.score);
             res.sendStatus(200);
         })
         .catch((err) => {
+            console.log(err);
             res.status(500).json({
                 "message": err.message
             });

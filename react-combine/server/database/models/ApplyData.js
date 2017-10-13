@@ -266,6 +266,7 @@ ApplyData.methods.reviseClassification = function (classification) {
         }
     }
     this.classification = classification;
+    this.markModified('grade');
     return this.save();
 }
 
