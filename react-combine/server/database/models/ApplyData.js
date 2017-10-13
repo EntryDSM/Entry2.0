@@ -257,10 +257,10 @@ ApplyData.methods.reviseClassification = function(classification) {
     else {
         if (this.classification.graduateType !== classification.graduateType) {
             if (classification.graduateType === 'WILL') {
-                this.grade = grade_will;
+                this.grade.score = grade_will;
             }
             else {
-                this.grade = grade_done;
+                this.grade.score = grade_done;
             }
         }
     }
@@ -339,11 +339,13 @@ ApplyData.methods.validation = function() {
             result.grade = gradeValidation('DONE', this.grade)
         }
         result.introduce = introduceValidation(this.introduce);
-        
+        console.log(result.info);
         let file;
         try{
-            file = fs.readFileSync(__dirname + `/../../uploads/${applyData.profile}`);
+            console.log(data.profile);
+            file = fs.readFileSync(__dirname + `/../../uploads/${data.profile}`);
         }catch(err){
+            console.log(err);
             result.info.push('증명사진을 등록해주세요.');
         }
         
@@ -385,12 +387,18 @@ function infoValidation(type, info) {
     let date;
     if (info.sex == null) result.push('성별 정보를 입력해주세요.');
     date = info.birthday.split('-');
-    for(let i=0;i<date.length;i++){
-        if(date[i] == null || date[i] == 'undefined'){
-            if (info.birthday == null) result.push('생일을 입력해주세요.');
+    for (let i = 0; i < date.length; i++) {
+        console.log(i);
+        console.log(date[i]);
+        console.log(date[i] == 'undefined');
+        console.log(date[i] == '');
+        console.log(typeof date[i]);
+        if (date[i] == null || date[i] == '' || date[i] == 'undefined') {
+            result.push('생일을 입력해주세요.')
             break;
         }
     }
+    console.log("!@#!@#!@#!@#!@#");
     if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
     if (type !== 'BLACK' && (info.class == null)) result.push('반을 입력해주세요.');
     if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null || info.schoolTel == null)) result.push('학교 정보를 입력해주세요.');
@@ -398,7 +406,7 @@ function infoValidation(type, info) {
     if (info.parentsName == null) result.push('부모님 성함을 입력해주세요.');
     if (info.parentsTel == null) result.push('부모님 전화번호를 입력해주세요.');
     if ((info.addressBase == null) || (info.addressDetail == null)) result.push('주소를 빠짐없이 입력해주세요.');
-
+    console.log(result);
     return result;
 }
 
