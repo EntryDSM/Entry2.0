@@ -8,17 +8,27 @@ class InfoInputTable extends Component {
         let days = new Array;
         if(this.props.month == 1 || this.props.month == 3 || this.props.month == 5 || this.props.month == 7 || this.props.month == 8 || this.props.month == 10 || this.props.month == 12){
             for(let i = 1; i <= 31; i++){
-                days.push(<Birth_day day={i}/>)
+                if(i == this.props.birthDay){
+                    days.push(<Birth_day day={i} selected="selected"/>)
+                }
+                days.push(<Birth_day day={i} selected=""/>)
             }
         } else if(this.props.month == 2){
             for(let i = 1; i <= 28; i++){
-                days.push(<Birth_day day={i}/>)
+                if(i == this.props.birthDay){
+                    days.push(<Birth_day day={i} selected="selected"/>)
+                }
+                days.push(<Birth_day day={i} selected=""/>)
             }
         } else {
             for(let i = 1; i <= 30; i++){
-                days.push(<Birth_day day={i}/>)
+                if(i == this.props.birthDay){
+                    days.push(<Birth_day day={i} selected="selected"/>)
+                }
+                days.push(<Birth_day day={i} selected=""/>)
             }
         }
+
         return(
             <div id="info_input_table">
                 <table id="table">
@@ -41,36 +51,41 @@ class InfoInputTable extends Component {
                             <td className="td_title">생년월일</td>
                             <td className="td_content">
                                 <select name="birthYear" onChange={this.props.setter} className="birth_select">                                    
-                                    <option>2001</option>
-                                    <option>2000</option>
-                                    <option>1999</option>
-                                    <option>1998</option>
-                                    <option>1997</option>
-                                    <option>1996</option>
-                                    <option>1995</option>
-                                    <option>1994</option>
-                                    <option>1993</option>
-                                    <option>1992</option>
-                                    <option>1991</option>
-                                    <option>1990</option>
+                                    <option selected={this.props.birthYear == 2004 ? 'selected' : ''}>2004</option>
+                                    <option selected={this.props.birthYear == 2003 ? 'selected' : ''}>2003</option>
+                                    <option selected={this.props.birthYear == 2002 ? 'selected' : ''}>2002</option>
+                                    <option selected={this.props.birthYear == 2001 ? 'selected' : ''}>2001</option>
+                                    <option selected={this.props.birthYear == 2000 ? 'selected' : ''}>2000</option>
+                                    <option selected={this.props.birthYear == 1999 ? 'selected' : ''}>1999</option>
+                                    <option selected={this.props.birthYear == 1998 ? 'selected' : ''}>1998</option>
+                                    <option selected={this.props.birthYear == 1997 ? 'selected' : ''}>1997</option>
+                                    <option selected={this.props.birthYear == 1996 ? 'selected' : ''}>1996</option>
+                                    <option selected={this.props.birthYear == 1995 ? 'selected' : ''}>1995</option>
+                                    <option selected={this.props.birthYear == 1994 ? 'selected' : ''}>1994</option>
+                                    <option selected={this.props.birthYear == 1993 ? 'selected' : ''}>1993</option>
+                                    <option selected={this.props.birthYear == 1992 ? 'selected' : ''}>1992</option>
+                                    <option selected={this.props.birthYear == 1991 ? 'selected' : ''}>1991</option>
+                                    <option selected={this.props.birthYear == 1990 ? 'selected' : ''}>1990</option> 
                                 </select>
                                 <label className="birth_select_label">년</label>
                                 <select name="birthMonth" onChange={this.props.setter} className="birth_select">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>11</option>
-                                    <option>12</option>
+                                    <option value="" selected disabled hidden></option>
+                                    <option selected={this.props.month == 1 ? 'selected' : ''}>1</option>
+                                    <option selected={this.props.month == 2 ? 'selected' : ''}>2</option>
+                                    <option selected={this.props.month == 3 ? 'selected' : ''}>3</option>
+                                    <option selected={this.props.month == 4 ? 'selected' : ''}>4</option>
+                                    <option selected={this.props.month == 5 ? 'selected' : ''}>5</option>
+                                    <option selected={this.props.month == 6 ? 'selected' : ''}>6</option>
+                                    <option selected={this.props.month == 7 ? 'selected' : ''}>7</option>
+                                    <option selected={this.props.month == 8 ? 'selected' : ''}>8</option>
+                                    <option selected={this.props.month == 9 ? 'selected' : ''}>9</option>
+                                    <option selected={this.props.month == 10 ? 'selected' : ''}>10</option>
+                                    <option selected={this.props.month == 11 ? 'selected' : ''}>11</option>
+                                    <option selected={this.props.month == 12 ? 'selected' : ''}>12</option>                                 
                                 </select>
                                 <label className="birth_select_label">월</label>
                                 <select name="birthDay" onChange={this.props.setter} className="birth_select">
+                                    <option value="" selected disabled hidden></option>
                                     {days}
                                 </select>
                                 <label className="birth_select_label">일</label>
@@ -80,7 +95,7 @@ class InfoInputTable extends Component {
                             <td className="td_title">학반</td>
                             <td className="td_content">
                                 &nbsp;&nbsp;&nbsp;3학년
-                                <input type="text" className="input_style" name="class" id="class" value={this.props.class} onChange={this.props.setter}/>반
+                                <input type="text" className="input_style" name="class" id="class" value={this.props.class} onChange={this.props.setter} maxLength="2"/>반
                                 <input type="text" className="input_style" name="number" id="class" value={this.props.number} onChange={this.props.setter} maxLength="2" />번
                             </td>
                         </tr>
@@ -149,7 +164,7 @@ class InfoInputTable extends Component {
 
 const Birth_day = (props) => {
     return(
-        <option>{props.day}</option>
+        <option selected={props.selected}>{props.day}</option>
     );
 }
 

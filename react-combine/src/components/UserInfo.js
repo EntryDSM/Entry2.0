@@ -3,13 +3,9 @@ import React, {Component} from 'react';
 class UserInfo extends Component {
     render() {
         let datas = this.props.datas();
-        let submitNumber;
-        if(datas.submitNumber < 10){
-            submitNumber = "00" + datas.submitNumber;
-        } else if(10 <= datas.submitNumber && datas.submitNumber < 100){
-            submitNumber = "0" + datas.submitNumber;
-        } else {
-            submitNumber = datas.submitNumber;
+
+        if(datas.isCountryMerit === true){
+            document.getElementById('country_merit_area').style.visibility = 'visible';
         }
 
         return(
@@ -24,7 +20,7 @@ class UserInfo extends Component {
                         <tbody>
                             <tr>
                                 <td>접수번호</td>
-                                <td colSpan="2">{submitNumber}</td>
+                                <td colSpan="2">{datas.submitNumber}</td>
                                 <td>중학교 코드</td>
                                 <td>{datas.schoolCode}</td>
                                 <td>반</td>
@@ -156,17 +152,19 @@ class UserInfo extends Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <p>
-                                        보훈번호:( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
-                                        <br/>
-                                        위는 국가유공자
-                                        <br/>
-                                        자녀임을 확인함
-                                        <br/>
-                                        2017. 10. 31.
-                                        <br/>
-                                        작성자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)
-                                    </p>
+                                    <div id="country_merit_area">
+                                        <p>
+                                            보훈번호:( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+                                            <br/>
+                                            위는 국가유공자
+                                            <br/>
+                                            자녀임을 확인함
+                                            <br/>
+                                            2017. 10. 31.
+                                            <br/>
+                                            작성자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)
+                                        </p>
+                                    </div>
                                 </td>
                                 <td>
                                     <p>본인은 귀 고등학교에 입학하고자 소정의 서류를 갖추어 지원합니다.</p>
@@ -215,7 +213,7 @@ class UserInfo extends Component {
                             지원자 성명&nbsp;&nbsp;&nbsp;{datas.name}&nbsp;&nbsp;&nbsp; (인)
                             <br/>
                             <br/>
-                            지원자 성명&nbsp;&nbsp;&nbsp;{datas.parentsName}&nbsp;&nbsp;&nbsp; (인)
+                            학부모 성명&nbsp;&nbsp;&nbsp;{datas.parentsName}&nbsp;&nbsp;&nbsp; (인)
                         </p>
                     </div>
                 </div>

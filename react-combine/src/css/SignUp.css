@@ -160,6 +160,7 @@ input[type=text]::-ms-clear {
 }
 
 #btn_personalagree{
+    display: inline;
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 20px;

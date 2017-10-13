@@ -8,7 +8,8 @@ exports.excel = (userId, callback) => {
     if (typeof userId != 'undefined') {
         console.log('학생 엑셀 출력');
         applyDataModel.findOne({
-                "user": userId
+                "user": userId,
+                "applyStatus": true
             })
             .then((findData) => {
                 if (findData) {
@@ -26,9 +27,11 @@ exports.excel = (userId, callback) => {
             });
     } else {
         console.log('전체 엑셀 출력');
-        applyDataModel.find({})
+        applyDataModel.find({
+                "applyStatus": true
+            })
             .then((find) => {
-                if (find) {
+                if (0 < find.length) {
                     let arr = new Array();
                     for (let i = 0; i < find.length; i++) {
                         getObject(find[i])
@@ -63,13 +66,13 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                 let date = findData.birthday + '';
                 let baseData = {
                     수험번호: findData.examNumber,
-                    전형유형: detailType.check(findData.classification, 'String'), //classification.applyBaseType
+                    전형유형: detailType.baseType(findData.classification.applyBaseType.type), //classification.applyBaseType
                     지역: detailType.regionCheck(findData.classification.regionType), //classification.regionType
-                    세부유형: detailType.check(findData.classification, 'String'), //classification.applyDetailType 여기서 3개로 또나뉨
+                    세부유형: detailType.getDetailType(findData.classification.applyBaseType.cause, 'String'),
                     성명: user.name, // user에서 찾은 유저 정보 합치기
                     생년월일: findData.info.birthday, //info.birthday
                     지원자주소: findData.info.addressBase + findData.info.addressDetail, //info
-                    지원자휴대폰: findData.info.myTel, //info.tel
+                    지원자휴대폰: findData.info.tel, //info.tel
                     성별: findData.info.sex, //info.sex
                     학력구분: detailType.checkType(findData.classification.graduateType), //classification.graduateType
                     졸업년도: findData.classification.graduateYear, //classification.graduateYear
@@ -82,8 +85,7 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                 let detailData = addSubject(findData);
                 getScore(findData)
                     .then((scoreData) => {
-                        // Object 통합    
-                        let addData = Object.assign(baseData, detailData[0], detailData[1], detailData[2], detailData[3], detailData[4], detailData[5], scoreData);
+                        let addData = Object.assign(baseData, detailData, scoreData);
                         if (check) resolve([addData]);
                         resolve(addData);
                     });
@@ -98,31 +100,25 @@ function addSubject(data) {
     const sub = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어'];
 
     if (data.classification.graduateType != 'BLACK') {
-        let arr = new Array();
         console.log('성적 - 일반');
         let count = checkCount(data);
         let arrayObj = getArr(sub);
         for (let i = 0; i < count; i++) {
             let obj = {};
-            for (let j = 0; j <= 6; j++) {
+            for (let j = 0; j < 7; j++) {
                 if (data.grade.score.semesters[i][j].pass) {
                     arrayObj[(i + 1) + sub[j]] = data.grade.score.semesters[i][j].grade;
                 }
-                if (i == count) {
-                    break;
-                }
-
             }
-            arr.push(arrayObj);
         }
-        return arr;
+        return arrayObj;
 
     } else {
         let arr = new Array();
         console.log('성적 - 검정고시');
         for (let i = 0; i < 6; i++) {
             let obj = {};
-            for (let j = 0; j <= 6; j++) {
+            for (let j = 0; j < 7; j++) {
                 obj[(i + 1) + sub[j]] = "";
             }
             arr.push(obj);
@@ -141,7 +137,7 @@ function checkCount(data) {
 function getArr(sub) {
     let obj = {};
     for (let i = 0; i < 6; i++) {
-        for (let j = 0; j <= 6; j++) {
+        for (let j = 0; j < 7; j++) {
             obj[(i + 1) + sub[j]] = "";
         }
     }

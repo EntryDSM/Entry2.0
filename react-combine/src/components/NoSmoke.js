@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 class NoSmoke extends Component { 
      render() {
         let datas = this.props.datas();
+        console.log(datas);
         return(
             <div id="no_smoke">
                 <div id="smoke_header">
@@ -16,8 +17,8 @@ class NoSmoke extends Component {
                                 <td rowSpan="3" id="promise">서약서</td>
                                 <td className="table_title">성&nbsp;&nbsp;명</td>
                                 <td className="table_input">{datas.name}</td>
-                                <td className="table_title">수험번호</td>
-                                <td className="table_input"></td>
+                                <td className="table_title">접수번호</td>
+                                <td className="table_input">{datas.submitNumber}</td>
                             </tr>
                             <tr>
                                 <td className="table_title">연락처</td>

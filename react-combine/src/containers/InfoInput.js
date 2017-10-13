@@ -32,7 +32,7 @@ class InfoInput extends Component {
             ],
             baseAddress: "",
             detailAddress: "",
-            birthYear: "",
+            birthYear: "2002",
             birthMonth: "",
             birthDay: "",
             name: "",
@@ -55,48 +55,75 @@ class InfoInput extends Component {
                 "ContentType": "application/json"
             }
         }).then(response => {
-            console.log(response.data);
-            let birth = response.data.birthday.split('-');
-            let phoneNum = response.data.tel.split('-');
-            let parentsTel = response.data.parentsTel.split('-');
-            let schoolTel = response.data.schoolTel.split('-');
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
+            } else {    
+                console.log(response.data);
+                let birth = response.data.birthday.split('-');
+                let phoneNum;
+                let parentsTel;
+                let schoolTel;
+                
+                Array.from(birth).forEach((ele, index) => {
+                    console.log(ele);
+                    if(ele == undefined || ele == 'undefined'){
+                        birth[index] = "";
+                    }
+                })
 
-            this.setState({
-                name: response.data.user.name,
-                email: response.data.user.email,
-                number: response.data.number,
-                sex: response.data.sex,
-                grade: response.data.grade,
-                class: response.data.class,
-                parentsName: response.data.parentsName,
-                schoolCode: response.data.schoolCode,
-                schoolName: response.data.schoolName,
-                schoolTel: schoolTel,
-                phoneNum: phoneNum,
-                parentsTel: parentsTel,
-                baseAddress: response.data.addressBase,
-                detailAddress: response.data.addressDetail,
-                birthYear: birth[0],
-                birthMonth: birth[1],
-                birthDay: birth[2]
-            })
+                if(response.data.tel.length > 0){
+                    phoneNum = response.data.tel.split('-');
+                } else {
+                    phoneNum = ["", "", ""];
+                }
+                if(response.data.parentsTel.length > 0){
+                    parentsTel = response.data.parentsTel.split('-');                
+                } else {
+                    console.log(response.data.parentsTel.split('-').length);
+                    parentsTel = ["", "", ""];
+                }
+                if(response.data.schoolTel.length > 0){
+                    schoolTel = response.data.schoolTel.split('-');
+                } else {
+                    schoolTel = ["", "", ""];
+                }
+                this.setState({
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    number: response.data.number,
+                    sex: response.data.sex,
+                    grade: response.data.grade,
+                    class: response.data.class,
+                    parentsName: response.data.parentsName,
+                    schoolCode: response.data.schoolCode,
+                    schoolName: response.data.schoolName,
+                    schoolTel: schoolTel,
+                    phoneNum: phoneNum,
+                    parentsTel: parentsTel,
+                    baseAddress: response.data.addressBase,
+                    detailAddress: response.data.addressDetail,
+                    birthYear: birth[0],
+                    birthMonth: birth[1],
+                    birthDay: birth[2]
+                })
+                
+                axios({
+                    method: 'get',
+                    url: '/api/upload/profile',
+                    withCredentials: false
+                }).then(response => {
+                    this.setState({
+                        profileImg: '/api/upload/profile'
+                    })
+                }).catch(err => {
+                    this.setState({
+                        profileImg: require('../images/file.png')
+                    })
+                })
+            }
         }).catch(err => {
             console.log(err);
             browserHistory.push('error');
-        })
-
-        axios({
-            method: 'get',
-            url: '/api/upload/profile',
-            withCredentials: false
-        }).then(response => {
-            this.setState({
-                profileImg: '/api/upload/profile'
-            })
-        }).catch(err => {
-            this.setState({
-                profileImg: require('../images/file.png')
-            })
         })
     }
 
@@ -240,15 +267,19 @@ class InfoInput extends Component {
                 break;
             }
             case 'class': {
-                this.setState({
-                    class: e.target.value
-                })
+                if(e.target.value !== NaN && e.target.value >= 0){    
+                    this.setState({
+                        class: e.target.value
+                    })
+                }
                 break;
             }
             case 'number': {
-                this.setState({
-                    number: e.target.value
-                })
+                if(e.target.value !== NaN && e.target.value >= 0){    
+                    this.setState({
+                        number: e.target.value
+                    })
+                }
                 break;
             }
             case 'parentsName': {
@@ -269,21 +300,27 @@ class InfoInput extends Component {
 
     setPhoneNum(e){
         let phoneNum = this.state.phoneNum;
-        phoneNum[e.target.name] = e.target.value;
+        if(e.target.value !== NaN && e.target.value >= 0){
+            phoneNum[e.target.name] = e.target.value;
+        }
         this.setState({
             phoneNum: phoneNum
         })
     }
     setSchoolTel(e){
         let schoolTel = this.state.schoolTel;
-        schoolTel[e.target.name] = e.target.value;
+        if(e.target.value !== NaN && e.target.value >= 0){
+            schoolTel[e.target.name] = e.target.value;
+        }
         this.setState({
             schoolTel: schoolTel
         })
     }
     setParentsTel(e){
         let parentsTel = this.state.parentsTel;
-        parentsTel[e.target.name] = e.target.value;
+        if(e.target.value !== NaN && e.target.value >= 0){
+            parentsTel[e.target.name] = e.target.value;
+        }
         this.setState({
             parentsTel: parentsTel
         })
@@ -367,7 +404,9 @@ class InfoInput extends Component {
                         parentsTel={this.state.parentsTel}
                         schoolTel={this.state.schoolTel}
                         sex={this.state.sex}
+                        birthDay={this.state.birthDay}
                         month={this.state.birthMonth}
+                        birthYear={this.state.birthYear}
                         class={this.state.class}
                         number={this.state.number}
                         detailAddress={this.state.detailAddress}

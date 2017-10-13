@@ -42,14 +42,16 @@ class PreviewContent extends Component {
             return  {
                 name: datas.name,
                 schoolName: datas.schoolName,
-                introduce: datas.introduce
+                introduce: datas.introduce,
+                submitNumber: datas.submitNumber
             }
         }
         let StudyPlanData = () => { 
             return {
                 name: datas.name,
                 schoolName: datas.schoolName,
-                plan: datas.plan
+                plan: datas.plan,
+                submitNumber: datas.submitNumber
             }
          } 
         let NoSmokeData = () => {
@@ -57,7 +59,8 @@ class PreviewContent extends Component {
                 name: datas.name,
                 phoneNum: datas.phoneNum,
                 schoolName: datas.schoolName,
-                address: datas.address
+                address: datas.address,
+                submitNumber: datas.submitNumber
             }
         }
         let PrincipalData = () => {

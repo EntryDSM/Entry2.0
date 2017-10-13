@@ -236,7 +236,7 @@ exports.getProfile = (req, res) => {
             "profile": true
         })
         .then((applyData) => {
-            if (applyData.profile === null) res.status(404).end();
+            if (applyData.profile === null) res.status(400).end();
             else {
                 const file = fs.readFileSync(__dirname + `/../../uploads/${applyData.profile}`);
                 res.writeHead(200, {

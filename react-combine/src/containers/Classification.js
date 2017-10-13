@@ -90,20 +90,9 @@ class Classification extends Component {
                 } else {    
                     this.setState({
                         graduation: e.target.id,
+                        date: "2017",
                         disabled: ""
                     })
-                }
-                break;
-            case 'date': {
-                    if(this.state.graduation === 'WILL'){
-                        this.setState({
-                            date: 2018
-                        })
-                    } else {
-                        this.setState({
-                            date: e.target.value
-                        })
-                    }
                 }
                 break;
             case 'detail': 
@@ -157,6 +146,13 @@ class Classification extends Component {
         }
     }
 
+    setDate(e){
+        console.log(e.target.value);
+        this.setState({
+            date: e.target.value
+        })
+    }
+
     classificationSubmit(){
         let isBlackTest;
         switch(this.state.isBlackTest){
@@ -201,20 +197,34 @@ class Classification extends Component {
                 "Access-Control-Allow-Origin" : "http://114.108.135.15"
             }
         }).then(response => {
-            let isBlackTest;
-            if(response.data.isBlack){
-                isBlackTest = 'test-yes'
+            console.log(response.data);
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
             } else {
-                isBlackTest = 'test-no'
+                let isBlackTest;
+                let date;
+
+                if(response.data.isBlack){
+                    isBlackTest = 'test-yes'
+                } else {
+                    isBlackTest = 'test-no'
+                }
+
+                if(response.data.graduateType === 'DONE'){
+                    date = "2017";
+                } else {
+                    date = "2018"
+                }
+
+                this.setState({
+                    isBlackTest: isBlackTest,
+                    local: response.data.regionType,
+                    applyBaseType: response.data.applyBaseType,
+                    graduation: response.data.graduateType,
+                    date: date,
+                    applyDetailType: response.data.applyDetailType
+                })
             }
-            this.setState({
-                isBlackTest: isBlackTest,
-                local: response.data.regionType,
-                applyBaseType: response.data.applyBaseType,
-                graduation: response.data.graduateType,
-                date: response.data.graduateYear,
-                applyDetailType: response.data.applyDetailType
-            })
         }).catch(err => {
             browserHistory.push('error');
         })
@@ -237,6 +247,8 @@ class Classification extends Component {
                     <Graduate 
                         graduation={this.state.graduation}
                         radioSetter={this.radioSetter.bind(this)}
+                        setDate={this.setDate.bind(this)}
+                        date={this.state.date}
                         isBlackTest={this.state.isBlackTest}
                         disabled={this.state.disabled}/>
                     <TypeAndMemo
@@ -309,6 +321,9 @@ const Graduate = (props) => {
     if(props.isBlackTest === "test-yes"){
         graduationDisabled = "disabled";
         disabled = "disabled";
+    } else if(props.graduation === 'DONE'){
+        graduationDisabled = "disabled";
+        disabled = "";
     }
     return(
         <div id="graduate">
@@ -321,7 +336,7 @@ const Graduate = (props) => {
             value="willGraduate"
             onClick={props.radioSetter}
             checked={props.graduation === 'WILL'}
-            disabled={graduationDisabled}/>
+            disabled={props.isBlackTest === 'test-yes' ? 'disabled' : ''}/>
         <label htmlFor="will-graduate">졸업 예정</label>
 
         <input
@@ -331,21 +346,20 @@ const Graduate = (props) => {
             value="graduated"
             onClick={props.radioSetter}
             checked={props.graduation === 'DONE'}
-            disabled={graduationDisabled}/>
+            disabled={props.isBlackTest === 'test-yes' ? 'disabled' : ''}/>
         <label htmlFor="graduated">졸업</label> <br />
 
         <span>졸업년도</span>
         <select 
             name="graduateYear"
             id="graduation-year" 
-            value={props.date}
             onChange={props.setDate}>
             <option value="2018" selected={props.graduation === 'WILL'} disabled={graduationDisabled}>2018년</option>
-            <option value="2017" disabled={disabled}>2017년</option>
-            <option value="2016" disabled={disabled}>2016년</option>
-            <option value="2015" disabled={disabled}>2015년</option>
-            <option value="2014" disabled={disabled}>2014년</option>
-            <option value="2013" disabled={disabled}>2013년</option>
+            <option value="2017" selected={props.date == 2017 ? 'selected' : ''} disabled={disabled}>2017년</option>
+            <option value="2016" selected={props.date == 2016 ? 'selected' : ''} disabled={disabled}>2016년</option>
+            <option value="2015" selected={props.date == 2015 ? 'selected' : ''} disabled={disabled}>2015년</option>
+            <option value="2014" selected={props.date == 2014 ? 'selected' : ''} disabled={disabled}>2014년</option>
+            <option value="2013" selected={props.date == 2013 ? 'selected' : ''} disabled={disabled}>2013년</option>
         </select>
     </div>
     );

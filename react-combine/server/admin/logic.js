@@ -6,7 +6,8 @@ const user = require('../database/models/User');
 exports.findBase = (userId, database) => { // 겹치는 로직 중복 최적화 필요해 제작 setData();
     return new Promise((resolve, reject) => {
         applyDataModel.findOne({
-            "user": userId
+            "user": userId,
+            "applyStatus": true
         }).then((find) => {
             if (find) {
                 setData(find)
@@ -26,7 +27,8 @@ exports.findBase = (userId, database) => { // 겹치는 로직 중복 최적화 
 exports.getDetail = (userId) => { // 상세보기 나머지 데이터 부분 addObj()
     return new Promise((resolve, reject) => {
         applyDataModel.findOne({
-            "user": userId
+            "user": userId,
+            "applyStatus": true
         }).then((data) => {
             if (data) {
                 addObj(data)
@@ -45,7 +47,8 @@ function setData(find) {
     let obj = {};
     return new Promise((resolve, reject) => {
         user.findOne({
-                "_id": find.user
+                "_id": find.user,
+                "applyStatus": true
             })
             .then((data) => {
                 if (data) {
@@ -150,7 +153,8 @@ function verification(data) {
 exports.createNum = (userId) => {
     return new Promise((resolve, reject) => {
         applyDataModel.findOne({
-                "user": userId
+                "user": userId,
+                "applyStatus": true
             })
             .then((find) => {
                 if (verification(find)) {
@@ -158,7 +162,7 @@ exports.createNum = (userId) => {
                         let examNum = new Array();
                         examNum.push(getNumber(find.classification)); // 일반, 마이스터, 사회 통합 
                         applyFormat.regionCheck(find.classification.regionType) === '대전' ? examNum.push(1) : examNum.push(2);
-                        examNum.push(applyFormat.getDetailType(find.classification, 'Number')); // detail부분 숫자 
+                        examNum.push(applyFormat.getDetailType(find.classification.applyBaseType.cause, 'Number')); // detail부분 숫자 
                         examNum.push(changeExamNum(find.submitNumber));
                         console.log(formatNum(examNum));
                         find.updateExamNumber(formatNum(examNum))
