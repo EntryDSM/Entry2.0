@@ -160,7 +160,7 @@ function calculateAttendent(data, graduateType) {
     if (graduateType == 'BLACK') {
         return 15;
     }
-    var toSub = (data.absence + (data.lateness + data.earlyLeave + data.subjectEscape) / 3) % 1;
+    var toSub = (data.absence + (data.lateness + data.earlyLeave + data.subjectEscape) / 3);
     if (toSub >= 15) {
         return 0;
     }
