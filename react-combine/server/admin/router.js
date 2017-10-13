@@ -354,7 +354,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'AWAY',
+                'classification.regionType': 'AWAY',
                 'classification.applyBaseType.type': 'MEISTER',
                 applyStatus: true
             }).count(function(err, count) {
@@ -369,7 +369,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         return new Promise(function(resolved, reject) {
             var count;
             applyDataModel.count({
-                'classification.regeionType': 'AWAY',
+                'classification.regionType': 'AWAY',
                 'classification.applyBaseType.type': 'SOCIAL',
                 applyStatus: true
             }).count(function(err, count) {
