@@ -385,28 +385,68 @@ ApplyData.methods.updateExamNumber = function(examNum) {
 function infoValidation(type, info) {
     let result = [];
     let date;
-    if (info.sex == null) result.push('성별 정보를 입력해주세요.');
+    let tel;
+    let parentsTel;
+    let schoolTel;
+
+    // 성별
+    if (info.sex == null || info.sex == '' || info.sex == 'undefined') result.push('성별 정보를 입력해주세요.');
+    
+    // 생일
     date = info.birthday.split('-');
     for (let i = 0; i < date.length; i++) {
-        console.log(i);
-        console.log(date[i]);
-        console.log(date[i] == 'undefined');
-        console.log(date[i] == '');
-        console.log(typeof date[i]);
         if (date[i] == null || date[i] == '' || date[i] == 'undefined') {
-            result.push('생일을 입력해주세요.')
+            result.push('생일을 입력해주세요.');
             break;
         }
     }
-    console.log("!@#!@#!@#!@#!@#");
+
+    // 학년 정보
     if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
+
+    // 반 정보
     if (type !== 'BLACK' && (info.class == null)) result.push('반을 입력해주세요.');
-    if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null || info.schoolTel == null)) result.push('학교 정보를 입력해주세요.');
-    if (info.tel == null) result.push('전화번호를 입력해주세요.');
-    if (info.parentsName == null) result.push('부모님 성함을 입력해주세요.');
-    if (info.parentsTel == null) result.push('부모님 전화번호를 입력해주세요.');
-    if ((info.addressBase == null) || (info.addressDetail == null)) result.push('주소를 빠짐없이 입력해주세요.');
-    console.log(result);
+
+    // 학교정보(학교코드, 학교명 / 전화번호)
+    if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null)) {
+        result.push('학교 정보를 입력해주세요.');
+    }
+    else {
+        schoolTel = info.schoolTel.split('-');
+        for (let i = 0; i < schoolTel.length; i++) {
+            if (schoolTel[i] == null || schoolTel[i] == '' || schoolTel[i] == 'undefined') {
+                result.push('학교 정보를 입력해주세요.');
+                break;
+            }
+        }
+    }
+
+    // 전화번호
+    tel = info.tel.split('-');
+    for (let i = 0; i < tel.length; i++) {
+        if (tel[i] == null || tel[i] == '' || tel[i] == 'undefined') {
+            result.push('전화번호를 입력해주세요.');
+            break;
+        }
+    }
+
+    // 보호자 전화번호
+    parentsTel = info.parentsTel.split('-');
+    for (let i = 0; i < parentsTel.length; i++) {
+        if (parentsTel[i] == null || parentsTel[i] == '' || parentsTel[i] == 'undefined') {
+            result.push('보호자 전화번호를 입력해주세요.');
+            break;
+        }
+    }
+
+    // 보호자 성함
+    if (info.parentsName == null || info.parentsName == '' || info.parentsName == 'undefined') result.push('부모님 성함을 입력해주세요.');
+
+    // 주소 정보
+    if ((info.addressBase == null || info.addressBase == 'undefined' || info.addressBase == '') || (info.addressDetail == null || info.addressDetail == 'undefined' || info.addressDetail == '')) {
+        result.push('주소를 빠짐없이 입력해주세요.');
+    }
+
     return result;
 }
 
