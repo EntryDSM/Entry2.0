@@ -204,7 +204,7 @@ ApplyData.methods.apply = function() {
     return this.save();
 }
 
-ApplyData.statics.createEmpty = function(user) {
+ApplyData.statics.createEmpty = function (user) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -236,13 +236,13 @@ ApplyData.statics.createEmpty = function(user) {
         })
 }
 
-ApplyData.methods.reviseProfile = function(src) {
+ApplyData.methods.reviseProfile = function (src) {
     this.profile = src;
 
     return this.save();
 }
 
-ApplyData.methods.reviseClassification = function(classification) {
+ApplyData.methods.reviseClassification = function (classification) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -268,7 +268,7 @@ ApplyData.methods.reviseClassification = function(classification) {
     return this.save();
 }
 
-ApplyData.methods.reviseInfo = function(info) {
+ApplyData.methods.reviseInfo = function (info) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -279,7 +279,7 @@ ApplyData.methods.reviseInfo = function(info) {
     return this.save();
 }
 
-ApplyData.methods.reviseGrade = function(grade) {
+ApplyData.methods.reviseGrade = function (grade) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -291,8 +291,8 @@ ApplyData.methods.reviseGrade = function(grade) {
     console.log("=======================");
     console.log(_applyData);
     new Promise((resolve, reject) => {
-            resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
-        })
+        resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
+    })
         .then((validationResult) => {
             console.log(validationResult);
             if (validationResult.length === 0) {
@@ -307,7 +307,7 @@ ApplyData.methods.reviseGrade = function(grade) {
         .catch(console.log);
 }
 
-ApplyData.methods.reviseIntroduce = function(introduce) {
+ApplyData.methods.reviseIntroduce = function (introduce) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -322,11 +322,11 @@ ApplyData.methods.reviseIntroduce = function(introduce) {
  * 
  * TO DO :: ApplyData Validation
  */
-ApplyData.methods.validation = function() {
+ApplyData.methods.validation = function () {
     const data = this;
     return new Promise((resolve, reject) => {
         let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [], 'isSubmited': data.applyStatus };
-        
+
 
         if (data.classification.isBlack) {
             result.info = infoValidation('BLACK', this.info);
@@ -341,14 +341,14 @@ ApplyData.methods.validation = function() {
         result.introduce = introduceValidation(this.introduce);
         console.log(result.info);
         let file;
-        try{
+        try {
             console.log(data.profile);
             file = fs.readFileSync(__dirname + `/../../uploads/${data.profile}`);
-        }catch(err){
+        } catch (err) {
             console.log(err);
             result.info.push('증명사진을 등록해주세요.');
         }
-        
+
         const regionType = this.classification.regionType;
 
         if (data.classification.isBlack === false) {
@@ -372,7 +372,7 @@ ApplyData.methods.validation = function() {
     })
 }
 
-ApplyData.methods.updateExamNumber = function(examNum) {
+ApplyData.methods.updateExamNumber = function (examNum) {
     return new Promise((resolve, reject) => {
         this.examNumber = examNum;
         console.log(this);
@@ -391,7 +391,7 @@ function infoValidation(type, info) {
 
     // 성별
     if (info.sex == null || info.sex == '' || info.sex == 'undefined') result.push('성별 정보를 입력해주세요.');
-    
+
     // 생일
     date = info.birthday.split('-');
     for (let i = 0; i < date.length; i++) {
@@ -405,10 +405,10 @@ function infoValidation(type, info) {
     if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
 
     // 반 정보
-    if (type !== 'BLACK' && (info.class == null)) result.push('반을 입력해주세요.');
+    if (type !== 'BLACK' && (info.class == null || info.class == '' || info.class == 'undefined')) result.push('반을 입력해주세요.');
 
     // 학교정보(학교코드, 학교명 / 전화번호)
-    if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null)) {
+    if (type !== 'BLACK' && ((info.schoolCode == null || info.schoolCode == '' || info.schoolCode == 'undefined') || (info.schoolName == null || info.schoolName == '' || info.schoolName == 'undefined'))) {
         result.push('학교 정보를 입력해주세요.');
     }
     else {
