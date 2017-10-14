@@ -37,8 +37,8 @@ class Preview extends Component {
             volunteer: 0,
             totalGrade: 0,
             type: "",
-
             targetPage: "userInfo",
+            printCheck: ["", "", "", "", ""]
         };
         
         this.setPage = this.setPage.bind(this);
@@ -180,14 +180,25 @@ class Preview extends Component {
     }
 
     printHandler(e){
-        console.log(this.state.targetPage);
         let green = Array.from(document.getElementsByClassName('printed'));
+        let checkArr = this.state.printCheck;
+
+        green.forEach(ele => {
+            console.log(ele);
+            ele.style.visibility = ""
+        })
+
+        e.preventDefault();
+        window.print();
+
         switch(this.state.targetPage){
             case 'userInfo':
-                green[0].style.visibility = 'visible';
+                green[0].style.visibility = 'visible';        
                 document.getElementById('name_userinfo').style.background = "inherit";
                 document.getElementById('name_selfintroduce').style.background = "#ddd";
+                checkArr[0] = "visible";
                 this.setState({
+                    printCheck: checkArr,
                     targetPage: 'self'
                 })
                 window.scrollTo(0, 0);
@@ -196,7 +207,9 @@ class Preview extends Component {
                 green[1].style.visibility = 'visible';
                 document.getElementById('name_selfintroduce').style.background = "inherit";
                 document.getElementById('name_study_plan').style.background = "#ddd";
+                checkArr[1] = "visible";
                 this.setState({
+                    printCheck: checkArr,
                     targetPage: 'plan'
                 })
                 window.scrollTo(0, 0);
@@ -205,18 +218,28 @@ class Preview extends Component {
                 green[2].style.visibility = 'visible';
                 document.getElementById('name_study_plan').style.background = "inherit";
                 document.getElementById('name_no_smoke').style.background = "#ddd";
+                checkArr[2] = "visible";
                 this.setState({
+                    printCheck: checkArr,
                     targetPage: 'noSmoke'
                 })
                 window.scrollTo(0, 0);
                 break;
             case 'noSmoke':
                 green[3].style.visibility = 'visible';
+                document.getElementById('name_no_smoke').style.background = "inherit";
+                checkArr[3] = "visible";
                 if(this.state.type !== 'COMMON'){
-                    document.getElementById('name_no_smoke').style.background = "inherit";
                     document.getElementById('name_principal').style.background = "#ddd";
                     this.setState({
+                        printCheck: checkArr,
                         targetPage: 'principal'
+                    })
+                    window.scrollTo(0, 0);                    
+                } else {
+                    console.log('te');
+                    this.setState({
+                        printCheck: checkArr
                     })
                 }
                 break;
@@ -224,11 +247,20 @@ class Preview extends Component {
                 green[4].style.visibility = 'visible';
                 break;
         }
-        e.preventDefault();
-        window.print();
+
+        if(this.state.type === 'COMMON'){
+            for(let i=0; i<4; i++){
+                green[i].style.visibility = this.state.printCheck[i];
+            }
+        } else {
+            for(let i=0; i<5; i++){
+                green[i].style.visibility = this.state.printCheck[i];
+            }
+        }
     }
 
     render(){
+        console.log(this.state.printCheck);
         return(
             <div id="contents">
                 <div id="preview">
