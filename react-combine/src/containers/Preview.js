@@ -245,6 +245,10 @@ class Preview extends Component {
                 break;
             case 'principal':
                 green[4].style.visibility = 'visible';
+                checkArr[4] = "visible";
+                this.setState({
+                    printCheck: checkArr
+                })
                 break;
         }
 
