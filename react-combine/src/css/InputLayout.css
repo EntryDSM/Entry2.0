@@ -246,7 +246,7 @@
 
 #svg {
   width: 100%;
-  height: 500px;
+  height: 530px;
 }
 
 .point {
@@ -256,8 +256,8 @@
 }
 
 .point:hover {
-  stroke: whitesmoke;
-  fill: whitesmoke;
+  /* stroke: whitesmoke;
+  fill: whitesmoke; */
   cursor: pointer;
 }
 
