@@ -7,9 +7,9 @@ class MySection extends Component{
             <section>
                 <h1> {this.props.MainTitle1} </h1>
                 <div id="mypage_check">
-                    결제 여부: {this.props.isPayment}
+                    전형료 입급확인 여부: {this.props.isPayment}
                     <br />
-                    원서 제출 확인 여부: {this.props.isReceived}
+                    제출 서류(우편) 도착 여부: {this.props.isReceived}
                 </div>
                 <ChecksCover
                     checkUrl = {this.props.checkUrl}

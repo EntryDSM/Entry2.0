@@ -186,6 +186,12 @@ class SignUp extends Component{
         }
     }
 
+    canclePersonalAgree(){
+        this.setState({
+            isChecked: false
+        })
+    }
+
     render(){
         return(
             <div id="contents">
@@ -225,12 +231,13 @@ class SignUp extends Component{
                             ]
                         }/>
                     </table>
-                    <EmailCertifyModal 
+                    <EmailCertifyModal
                         emailModalIsOpen={this.state.emailModalIsOpen}
                         closeModal={this.closeModal.bind(this)}
                         getCertifyCode={this.getCertifyCode.bind(this)}
                         verifyCode={this.verifyCode.bind(this)} />
-                    <PersonalAgreeModal 
+                    <PersonalAgreeModal
+                        canclePersonalAgree={this.canclePersonalAgree.bind(this)}
                         paCheck={this.paCheck.bind(this)}
                         isChecked={this.state.isChecked}/>
                 </div>

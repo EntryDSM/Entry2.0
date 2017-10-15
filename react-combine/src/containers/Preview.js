@@ -65,6 +65,18 @@ class Preview extends Component {
             } else {
                 submitNumber = response.data.submitNumber;
             }
+
+            let birth = response.data.info.birthday.split('-');
+            let birthMonth;
+            let birthDay;
+            if(Number(birth[1]) < 10){
+                birthMonth = '0' + birth[1];
+            }
+
+            if(Number(birth[2]) < 10){
+                birthDay = '0' + birth[2];
+            }
+
             console.log(response);
 
             if(response.data.classification.applyBaseType.type !== 'COMMON'){
@@ -101,7 +113,7 @@ class Preview extends Component {
                 schoolCode: response.data.info.schoolCode,
                 class: response.data.info.class,
                 name: response.data.user.name,
-                birth: response.data.info.birthday,
+                birth: birth[0] + ' - ' +  birthMonth + ' - ' + birthDay,
                 sex: response.data.info.sex,
                 address: address,
                 parentsTel: response.data.info.parentsTel,

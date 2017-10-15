@@ -9,6 +9,19 @@ import '../css/Landing.css';
 
 
 class Landing extends React.Component{
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount(){        
+        let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        console.log(isChrome);
+        console.log('hello');
+        if(!isChrome){
+            window.location.href = 'https://www.google.co.kr/chrome/browser/desktop/index.html';
+        }
+    }
+
    render(){
        return(
             <div id="landing-page">
