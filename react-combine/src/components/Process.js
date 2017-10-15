@@ -1,26 +1,32 @@
 import React, {Component} from 'react';
 import Menu from './Menu'
+import {browserHistory} from 'react-router';
 
 class Process extends Component{
+
     render(){
         return (
-            <div>
+            <div id="process_area">
                 <svg id="svg">
-                    <path d="M60 20 L60 500" stroke="white" strokeWidth="11"/>
-                    <circle className="point" cx="60" cy="20" r="16" stroke-width="3" />
-                    <circle className="point" cx="60" cy="120" r="16" stroke-width="3" name="classification" onClick={this.props.moveClassification} />
-                    <circle className="point" cx="60" cy="220" r="16" stroke-width="3" name="infoinput" onClick={this.props.moveInfoinput} />
-                    <circle className="point" cx="60" cy="320" r="16" stroke-width="3" name="gradeinput" onClick={this.props.moveGradeinput} />
-                    <circle className="point" cx="60" cy="420" r="16" stroke-width="3" name="introduce" onClick={this.props.moveIntroduce} />
+                    <path d="M60 18 L60 508" stroke="white" strokeWidth="10"/>
+                    <circle className="point" id="point_step1" cx="60" cy="20" r="16" strokeWidth="2" />
+                    <circle className="point" id="point_step2" cx="60" cy="100" r="16" strokeWidth="2" onClick={() => {browserHistory.push('/classification')}} />
+                    <circle className="point" id="point_step3" cx="60" cy="180" r="16" strokeWidth="2" onClick={() => {browserHistory.push('/infoinput')}} />
+                    <circle className="point" id="point_step4" cx="60" cy="260" r="16" strokeWidth="2" onClick={() => {browserHistory.push('/gradeinput')}} />
+                    <circle className="point" id="point_step5" cx="60" cy="340" r="16" strokeWidth="2" onClick={() => {browserHistory.push('/introduce')}} />
+                    <circle className="point" id="point_step6" cx="60" cy="420" r="16" strokeWidth="2" onClick={() => {browserHistory.push('/preview')}} />
+                    <circle className="point" id="point_step7" cx="60" cy="500" r="16" strokeWidth="2" onClick={() => {browserHistory.push('/finalsubmit')}} />
                     <text x="100" y="28" fill="white">기본정보</text>
-                    <text x="100" y="128" fill="white">구분선택</text>
-                    <text x="100" y="228" fill="white">인적사항</text>
-                    <text x="100" y="328" fill="white">성적입력</text>
-                    <text x="100" y="428" fill="white">자기소개서</text>
-                    <text x="100" y="450" fill="white">학업계획서</text>
+                    <text x="100" y="108" fill="white">구분선택</text>
+                    <text x="100" y="188" fill="white">인적사항</text>
+                    <text x="100" y="268" fill="white">성적입력</text>
+                    <text x="100" y="348" fill="white">자기소개서</text>
+                    <text x="100" y="370" fill="white">학업계획서</text>
+                    <text x="100" y="428" fill="white">미리보기</text>
+                    <text x="100" y="508" fill="white">최종제출</text>
                 </svg>
             </div>
-        );        
+        );
     }
 }
 

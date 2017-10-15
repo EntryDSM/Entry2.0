@@ -6,6 +6,11 @@ class MySection extends Component{
         return(
             <section>
                 <h1> {this.props.MainTitle1} </h1>
+                <div id="mypage_check">
+                    전형료 입급확인 여부: {this.props.isPayment}
+                    <br />
+                    제출 서류(우편) 도착 여부: {this.props.isReceived}
+                </div>
                 <ChecksCover
                     checkUrl = {this.props.checkUrl}
                     checkArrs = {
@@ -20,7 +25,7 @@ class MySection extends Component{
                                 id: "mClassification"
                             },
                             {
-                                ClassName : "checkFiles",
+                                ClassName : "checkFiles",  
                                 ClassName2 : "checkTitles",
                                 CheckTitle : "인적사항",
                                 CheckTitle2 : "Personal Information",

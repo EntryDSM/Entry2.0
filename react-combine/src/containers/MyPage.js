@@ -17,7 +17,9 @@ class MyPage extends Component{
                 "",
                 "",
                 ""
-            ]
+            ],
+            isPayment: "X",
+            isReceived: "X"
         }
     }
 
@@ -94,7 +96,9 @@ class MyPage extends Component{
                            MainTitle2 = "내가 올린 게시글"
                            checkUrl = {this.state.checkImgSrc}
                            goPreview = {this.goPreview.bind(this)}
-                           route = {this.route.bind(this)}/>
+                           route = {this.route.bind(this)}
+                           isPayment = {this.state.isPayment}
+                           isReceived = {this.state.isReceived} />
                 <MyFooter/>
             </div>
         );

@@ -11,6 +11,7 @@
   "dependencies": {
     "async": "^2.5.0",
     "body-parser": "^1.17.2",
+    "bson": "^1.0.4",
     "crypto": "0.0.3",
     "ejs": "^2.5.6",
     "express": "^4.15.3",
@@ -18,6 +19,7 @@
     "express-method-override": "0.0.3",
     "express-session": "^1.15.5",
     "mongo-xlsx": "^1.0.12",
+    "mongodb": "^2.2.33",
     "mongoose": "^4.11.9",
     "morgan": "^1.9.0",
     "node-cmd": "^3.0.0",

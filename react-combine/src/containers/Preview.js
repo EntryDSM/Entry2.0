@@ -37,8 +37,8 @@ class Preview extends Component {
             volunteer: 0,
             totalGrade: 0,
             type: "",
-
             targetPage: "userInfo",
+            printCheck: ["", "", "", "", ""]
         };
         
         this.setPage = this.setPage.bind(this);
@@ -65,29 +65,46 @@ class Preview extends Component {
             } else {
                 submitNumber = response.data.submitNumber;
             }
+
+            let birth = response.data.info.birthday.split('-');
+            let birthMonth;
+            let birthDay;
+            if(Number(birth[1]) < 10){
+                birthMonth = '0' + birth[1];
+            }
+
+            if(Number(birth[2]) < 10){
+                birthDay = '0' + birth[2];
+            }
+
             console.log(response);
 
             if(response.data.classification.applyBaseType.type !== 'COMMON'){
                 this.props.pageList = [
                     {
                         name: "입학 원서",
-                        target: "userInfo"
+                        target: "userInfo",
+                        id: 'name_userinfo'
                     },
                     {
                         name: "자기 소개서",
-                        target: "self"
+                        target: "self",
+                        id: 'name_selfintroduce'
                     },
                     {
                         name: "학업 계획서",
-                        target: "plan"
+                        target: "plan",
+                        id: 'name_study_plan'
                     },
                     {
                         name: "금연 서약서",
-                        target: "noSmoke"
+                        target: "noSmoke",
+                        id: 'name_no_smoke'
                     },
                     {
-                        name: "학교장 추천서",
-                        target: "principal"
+                        name: '학교장 추천서',
+                        target: 'principal',
+                        id: 'name_principal'
                     }
                 ]
             }
@@ -96,7 +113,7 @@ class Preview extends Component {
                 schoolCode: response.data.info.schoolCode,
                 class: response.data.info.class,
                 name: response.data.user.name,
-                birth: response.data.info.birthday,
+                birth: birth[0] + ' - ' +  birthMonth + ' - ' + birthDay,
                 sex: response.data.info.sex,
                 address: address,
                 parentsTel: response.data.info.parentsTel,
@@ -127,6 +144,28 @@ class Preview extends Component {
     }
 
     componentDidMount() {
+        var point1 = document.getElementById("point_step1");
+        var point2 = document.getElementById("point_step2");
+        var point3 = document.getElementById("point_step3");
+        var point4 = document.getElementById("point_step4");
+        var point5 = document.getElementById("point_step5");
+        var point6 = document.getElementById("point_step6");
+        var point7 = document.getElementById("point_step7");
+        point1.style.fill = "#B9B4B4";
+        point1.style.stroke = "B9B4B4";
+        point2.style.fill = "#B9B4B4";
+        point2.style.stroke = "#B9B4B4";
+        point3.style.fill = "#B9B4B4";
+        point3.style.stroke = "B9B4B4";
+        point4.style.fill = "#B9B4B4";
+        point4.style.stroke = "B9B4B4";
+        point5.style.fill = "#B9B4B4";
+        point5.style.stroke = "B9B4B4";
+        point6.style.fill = "salmon";
+        point6.style.stroke = "salmon";
+        point7.style.fill = "#B9B4B4";
+        point7.style.stroke = "B9B4B4";
+
         axios({
             method: 'GET',
             url: '/api/validation'
@@ -135,10 +174,12 @@ class Preview extends Component {
                 this.getUserData();
                 this.setState({
                     targetPage: "userInfo"
-                });       
+                });
             } else {
                 browserHistory.push('/validation');
             }
+            console.log(document.getElementById('name_userinfo'));
+            document.getElementById('name_userinfo').style.background = "#ddd";
         }).catch(err => {
             console.log(err);
         })
@@ -148,14 +189,116 @@ class Preview extends Component {
         this.setState( {
             targetPage: target
         })
+
+        Array.from(document.getElementsByClassName('tabButton')).forEach(ele => {
+            ele.style.background = "inherit";
+        })
+
+        switch(target){
+            case 'userInfo':
+                document.getElementById('name_userinfo').style.background = "#ddd";
+                break;
+            case 'self':
+                document.getElementById('name_selfintroduce').style.background = "#ddd";
+                break;
+            case 'plan':
+                document.getElementById('name_study_plan').style.background = "#ddd";
+                break;
+            case 'noSmoke':
+                document.getElementById('name_no_smoke').style.background = "#ddd";
+                break;
+            case 'principal':
+                document.getElementById('name_principal').style.background = "#ddd";
+                break;
+        }
+    }
+
+    printHandler(e){
+        let green = Array.from(document.getElementsByClassName('printed'));
+        let checkArr = this.state.printCheck;
+
+        green.forEach(ele => {
+            console.log(ele);
+            ele.style.visibility = ""
+        })
+
+        e.preventDefault();
+        window.print();
+
+        switch(this.state.targetPage){
+            case 'userInfo':
+                green[0].style.visibility = 'visible';        
+                document.getElementById('name_userinfo').style.background = "inherit";
+                document.getElementById('name_selfintroduce').style.background = "#ddd";
+                checkArr[0] = "visible";
+                this.setState({
+                    printCheck: checkArr,
+                    targetPage: 'self'
+                })
+                window.scrollTo(0, 0);
+                break;
+            case 'self':
+                green[1].style.visibility = 'visible';
+                document.getElementById('name_selfintroduce').style.background = "inherit";
+                document.getElementById('name_study_plan').style.background = "#ddd";
+                checkArr[1] = "visible";
+                this.setState({
+                    printCheck: checkArr,
+                    targetPage: 'plan'
+                })
+                window.scrollTo(0, 0);
+                break;
+            case 'plan':
+                green[2].style.visibility = 'visible';
+                document.getElementById('name_study_plan').style.background = "inherit";
+                document.getElementById('name_no_smoke').style.background = "#ddd";
+                checkArr[2] = "visible";
+                this.setState({
+                    printCheck: checkArr,
+                    targetPage: 'noSmoke'
+                })
+                window.scrollTo(0, 0);
+                break;
+            case 'noSmoke':
+                green[3].style.visibility = 'visible';
+                document.getElementById('name_no_smoke').style.background = "inherit";
+                checkArr[3] = "visible";
+                if(this.state.type !== 'COMMON'){
+                    document.getElementById('name_principal').style.background = "#ddd";
+                    this.setState({
+                        printCheck: checkArr,
+                        targetPage: 'principal'
+                    })
+                    window.scrollTo(0, 0);                    
+                } else {
+                    console.log('te');
+                    this.setState({
+                        printCheck: checkArr
+                    })
+                }
+                break;
+            case 'principal':
+                green[4].style.visibility = 'visible';
+                checkArr[4] = "visible";
+                this.setState({
+                    printCheck: checkArr
+                })
+                break;
+        }
+
+        if(this.state.type === 'COMMON'){
+            for(let i=0; i<4; i++){
+                green[i].style.visibility = this.state.printCheck[i];
+            }
+        } else {
+            for(let i=0; i<5; i++){
+                green[i].style.visibility = this.state.printCheck[i];
+            }
+        }
     }
 
     render(){
-        function printHandler(e) {
-            e.preventDefault();
-            window.print();
-        }
-
+        console.log(this.state.printCheck);
         return(
             <div id="contents">
                 <div id="preview">
@@ -170,7 +313,7 @@ class Preview extends Component {
                                 target={this.state.targetPage} 
                                 datas={this.state}/>
                         </div>
-                        <button className="printButton" onClick={printHandler}>출력하기</button>                        
+                        <button className="printButton" onClick={this.printHandler.bind(this)}>출력하기</button>                        
                     </div>
                     <Button router='/introduce' buttonName="이전"/>
                     <Button router='/finalsubmit' buttonName="다음"/>
@@ -183,19 +326,23 @@ Preview.defaultProps = {
     pageList: [
         {
             name: "입학 원서",
-            target: "userInfo"
+            target: "userInfo",
+            id: 'name_userinfo'
         },
         {
             name: "자기 소개서",
-            target: "self"
+            target: "self",
+            id: 'name_selfintroduce'
         },
         {
             name: "학업 계획서",
-            target: "plan"
+            target: "plan",
+            id: 'name_study_plan'
         },
         {
             name: "금연 서약서",
-            target: "noSmoke"
+            target: "noSmoke",
+            id: 'name_no_smoke'
         }
     ]
 }

@@ -18,13 +18,36 @@ class FinalSubmit extends Component{
             url: '/api/apply'
         }).then(response => {
             console.log(response);
-            browserHistory.push('/')
+            alert("최종제출이 완료되었습니다!");
+            browserHistory.push('/main');
         }).catch(err => {
             console.log(err);
         })
     }
 
     componentDidMount(){
+        var point1 = document.getElementById("point_step1");
+        var point2 = document.getElementById("point_step2");
+        var point3 = document.getElementById("point_step3");
+        var point4 = document.getElementById("point_step4");
+        var point5 = document.getElementById("point_step5");
+        var point6 = document.getElementById("point_step6");
+        var point7 = document.getElementById("point_step7");
+        point1.style.fill = "#B9B4B4";
+        point1.style.stroke = "B9B4B4";
+        point2.style.fill = "#B9B4B4";
+        point2.style.stroke = "#B9B4B4";
+        point3.style.fill = "#B9B4B4";
+        point3.style.stroke = "B9B4B4";
+        point4.style.fill = "#B9B4B4";
+        point4.style.stroke = "B9B4B4";
+        point5.style.fill = "#B9B4B4";
+        point5.style.stroke = "B9B4B4";
+        point6.style.fill = "#B9B4B4";
+        point6.style.stroke = "B9B4B4";
+        point7.style.fill = "salmon";
+        point7.style.stroke = "salmon";
+
         axios({
             method: 'GET',
             url: '/api/validation'

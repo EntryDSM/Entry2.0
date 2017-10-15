@@ -30,6 +30,30 @@ class SignUp extends Component{
         this.getDomain = this.getDomain.bind(this);
     }
 
+    componentDidMount(){
+        var point1 = document.getElementById("point_step1");
+        var point2 = document.getElementById("point_step2");
+        var point3 = document.getElementById("point_step3");
+        var point4 = document.getElementById("point_step4");
+        var point5 = document.getElementById("point_step5");
+        var point6 = document.getElementById("point_step6");
+        var point7 = document.getElementById("point_step7");
+        point1.style.fill = "salmon";
+        point1.style.stroke = "salmon";
+        point2.style.fill = "#B9B4B4";
+        point2.style.stroke = "#B9B4B4";
+        point3.style.fill = "#B9B4B4";
+        point3.style.stroke = "B9B4B4";
+        point4.style.fill = "#B9B4B4";
+        point4.style.stroke = "B9B4B4";
+        point5.style.fill = "#B9B4B4";
+        point5.style.stroke = "B9B4B4";
+        point6.style.fill = "#B9B4B4";
+        point6.style.stroke = "B9B4B4";
+        point7.style.fill = "#B9B4B4";
+        point7.style.stroke = "B9B4B4";
+    }
+
     getName(e){
         this.setState({
             name: e.target.value
@@ -162,24 +186,30 @@ class SignUp extends Component{
         }
     }
 
+    canclePersonalAgree(){
+        this.setState({
+            isChecked: false
+        })
+    }
+
     render(){
         return(
             <div id="contents">
                 <div id="signUp">
-                <InputHeader now={"기본 정보"} />
+                <InputHeader now={"지원자 정보"} />
                 <div className="inputPart">
                     <table id="inputTable">
                         <SignUpInput inputs = {
                             [
                                 {
-                                    name: '이름',
+                                    name: '지원자 성명',
                                     type: 'text',
                                     className: 'input_style nameInput',
                                     onchange: this.getName,
                                     value: this.state.name
                                 },
                                 {
-                                    name: '이메일',
+                                    name: '지원자 이메일',
                                     type: 'text',
                                     className: 'input_style emailInput',
                                     onchange: this.getEmail,
@@ -201,12 +231,13 @@ class SignUp extends Component{
                             ]
                         }/>
                     </table>
-                    <EmailCertifyModal 
+                    <EmailCertifyModal
                         emailModalIsOpen={this.state.emailModalIsOpen}
                         closeModal={this.closeModal.bind(this)}
                         getCertifyCode={this.getCertifyCode.bind(this)}
                         verifyCode={this.verifyCode.bind(this)} />
-                    <PersonalAgreeModal 
+                    <PersonalAgreeModal
+                        canclePersonalAgree={this.canclePersonalAgree.bind(this)}
                         paCheck={this.paCheck.bind(this)}
                         isChecked={this.state.isChecked}/>
                 </div>

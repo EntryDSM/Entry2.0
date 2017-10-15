@@ -30,13 +30,13 @@ class MainPage extends Component{
                             [
                                 {
                                     ImgUrl : require('../images/set.png'),
-                                    MainTitle : "원서 접수",
+                                    MainTitle : "접수하기",
                                     SubTitle : "RECEIPT",
                                     Route : "/signup"
                                 },
                                 {
                                     ImgUrl : require('../images/group.png'),
-                                    MainTitle : "원서 조회",
+                                    MainTitle : "조회하기",
                                     SubTitle : "INQUIRY",
                                     route: this.signInCheck.bind(this)
                                 }

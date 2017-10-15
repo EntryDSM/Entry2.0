@@ -144,6 +144,29 @@ class GradeInput extends Component{
         })
     }
 
+    componentWillUnmount(){
+        axios({
+            method: 'put',
+            url: '/api/user/grade',
+            data: {
+                grade: {
+                    volunteer: this.state.volunteer,
+                    attend: {
+                        absence: this.state.absence,
+                        lateness: this.state.lateness,
+                        earlyLeave: this.state.earlyLeave,
+                        subjectEscape: this.state.subjectEscape
+                    },
+                    score: this.state.score
+                }
+            }
+        }).then(response => {
+            console.log(response);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     render(){
         let attendData = [
             this.state.absence,
@@ -151,6 +174,7 @@ class GradeInput extends Component{
             this.state.earlyLeave,
             this.state.subjectEscape
         ];
+        console.log(this.state);
         return(
             <div id="contents">
                 <InputHeader now={"성적입력"}/>
@@ -173,6 +197,28 @@ class GradeInput extends Component{
     }
 
     componentDidMount(){
+        var point1 = document.getElementById("point_step1");
+        var point2 = document.getElementById("point_step2");
+        var point3 = document.getElementById("point_step3");
+        var point4 = document.getElementById("point_step4");
+        var point5 = document.getElementById("point_step5");
+        var point6 = document.getElementById("point_step6");
+        var point7 = document.getElementById("point_step7");
+        point1.style.fill = "#B9B4B4";
+        point1.style.stroke = "B9B4B4";
+        point2.style.fill = "#B9B4B4";
+        point2.style.stroke = "#B9B4B4";
+        point3.style.fill = "#B9B4B4";
+        point3.style.stroke = "B9B4B4";
+        point4.style.fill = "salmon";
+        point4.style.stroke = "salmon";
+        point5.style.fill = "#B9B4B4";
+        point5.style.stroke = "B9B4B4";
+        point6.style.fill = "#B9B4B4";
+        point6.style.stroke = "B9B4B4";
+        point7.style.fill = "#B9B4B4";
+        point7.style.stroke = "B9B4B4";
+
         let scoreData;
         let graduateType;
 
@@ -357,6 +403,11 @@ class GradeInput extends Component{
                 did_NotPass[i][j].addEventListener('click', () => {
                     if(did_Semesters[i][j].classList.contains('notpassedArea')){
                         did_Semesters[i][j].classList.remove('notpassedArea');
+                        scoreData.semesters[i][j].pass = true;
+                        scoreData.semesters[i][j].grade = null;
+                        mThis.setState({
+                            score: scoreData
+                        })
                     } else {
                         did_Semesters[i][j].classList.add('notpassedArea');
                         scoreData.semesters[i][j].pass = false;
@@ -401,6 +452,11 @@ class GradeInput extends Component{
                     for(let j = 0; j < 7; j++){
                         did_Semesters[i][j].classList.remove('notpassedArea');
                         did_NotPass[i][j].checked = false;
+                        scoreData.semesters[i][j].pass = true;
+                        scoreData.semesters[i][j].grade = null;
+                        mThis.setState({
+                            score: scoreData
+                        })
                     }
                 }
             })
@@ -424,6 +480,11 @@ class GradeInput extends Component{
                 toBe_NotPass[i][j].addEventListener('click', () => {
                     if(toBe_Semesters[i][j].classList.contains('notpassedArea')){
                         toBe_Semesters[i][j].classList.remove('notpassedArea');
+                        scoreData.semesters[i][j].pass = true;
+                        scoreData.semesters[i][j].grade = null;
+                        mThis.setState({
+                            score: scoreData
+                        })
                     } else {
                         toBe_Semesters[i][j].classList.add('notpassedArea');
                         scoreData.semesters[i][j].pass = false;
@@ -461,13 +522,15 @@ class GradeInput extends Component{
                         })
                         toBe_NotPass[i][j].checked = true;
                         Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
-                            ele.classList.remove('selectedGrade'); 
+                            ele.classList.remove('selectedGrade');
                         })
                     }
                 } else {
                     for(let j = 0; j < 7; j++){
                         toBe_Semesters[i][j].classList.remove('notpassedArea');
                         toBe_NotPass[i][j].checked = false;
+                        scoreData.semesters[i][j].pass = true;
+                        scoreData.semesters[i][j].grade = null;
                         mThis.setState({
                             score: scoreData
                         })
@@ -488,6 +551,8 @@ class GradeInput extends Component{
                 earlyLeave: response.data.grade.attend.earlyLeave,
                 subjectEscape: response.data.grade.attend.subjectEscape,
             })
+
+            console.log(response);
 
             response.data.grade.score.semesters.forEach((ele) => {
                 for(let i = 0; i < response.data.grade.score.semesters.length; i++){
