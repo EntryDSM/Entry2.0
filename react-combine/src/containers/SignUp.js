@@ -22,7 +22,8 @@ class SignUp extends Component{
             personalAgreeModalIsOpen: false,
             isConfirm: false,
             isChecked: false,
-            isPassword: false
+            isPassword: false,
+            selected: true
         }
         this.getName = this.getName.bind(this);
         this.getEmail = this.getEmail.bind(this);
@@ -67,6 +68,33 @@ class SignUp extends Component{
     }
 
     getDomain(e){
+        if(e.target.value === "직접입력"){
+            document.querySelector('.emailSelect').style.display = 'none';
+            document.getElementById('email_typing').style.display = 'inline-block';
+            document.getElementById('email_typing_cancel').style.display = 'inline-block';
+            this.setState({
+                emailDomain: "",
+                selected: false
+            })
+        } else {
+            this.setState({
+                emailDomain: e.target.value
+            })
+        }
+    }
+
+    cancelTyping(){
+        this.setState({
+            emailDomain: "naver.com",
+            selected: true
+        })
+        document.querySelector('.emailSelect').style.display = 'inline-block';
+        document.getElementById('email_typing').style.display = 'none';
+        document.getElementById('email_typing_cancel').style.display = 'none';
+    }
+
+    typingResult(e){
+        console.log(e.target.value);
         this.setState({
             emailDomain: e.target.value
         })
@@ -172,10 +200,11 @@ class SignUp extends Component{
                 } else {
                     console.log(error.message);
                 }
-                console.log(error.config);
+                console.log(error.config);    
                 this.setState({
                     emailModalIsOpen: false
                 })
+                alert('이미 가입한 이메일입니다.');
             });
         } else if(!this.state.isChecked){
             alert("개인정보 활용 동의서에 동의해주세요.");
@@ -193,6 +222,7 @@ class SignUp extends Component{
     }
 
     render(){
+        console.log(this.state);
         return(
             <div id="contents">
                 <div id="signUp">
@@ -213,7 +243,9 @@ class SignUp extends Component{
                                     type: 'text',
                                     className: 'input_style emailInput',
                                     onchange: this.getEmail,
-                                    getDomain: this.getDomain
+                                    getDomain: this.getDomain,
+                                    typingResult: this.typingResult.bind(this),
+                                    cancelTyping: this.cancelTyping.bind(this)
                                 },
                                 {
                                     name: '비밀번호',
@@ -229,7 +261,10 @@ class SignUp extends Component{
                                     onchange: this.confirmPassword.bind(this)
                                 }
                             ]
-                        }/>
+                        }
+                        typingResult={this.typingResult.bind(this)}
+                        cancelTyping={this.cancelTyping.bind(this)}
+                        selected={this.state.selected} />
                     </table>
                     <EmailCertifyModal
                         emailModalIsOpen={this.state.emailModalIsOpen}
@@ -249,6 +284,8 @@ class SignUp extends Component{
 }
 
 const SignUpInput = (props) => {
+    console.log(props);
+    let selected = props.selected;
         return(
             <tbody>
                 {props.inputs.map((input, index) => {
@@ -259,9 +296,15 @@ const SignUpInput = (props) => {
                                         <input type={input.type} className={input.className} onChange={input.onchange} value={input.value}/>@
                                         <select className="emailSelect" onChange={input.getDomain}>
                                             {props.emails.map((email, index) => {
-                                                return <Options name={email.name} key={index} />
+                                                if(!selected && index === 0){                                                 
+                                                    return <Options name={email.name} key={index} selected={true}/>
+                                                } else {
+                                                    return <Options name={email.name} key={index} selected={false}/>
+                                                }
                                             })}
                                         </select>
+                                        <input type="text" id="email_typing" onChange={props.typingResult}/>
+                                        <button id="email_typing_cancel" onClick={props.cancelTyping}>X</button>
                                     </td>
                                 </tr>
                     } else {
@@ -286,13 +329,14 @@ SignUpInput.defaultProps = {
         {name: "hanmir.com"},
         {name: "nate.com"},
         {name: "empar.com"},
-        {name: "korea.com"}
+        {name: "korea.com"},
+        {name: "직접입력"}
     ]
 }
 
 const Options = (props) => {
     return (
-        <option>{props.name}</option>
+        <option selected={props.selected}>{props.name}</option>
     );
 }
 

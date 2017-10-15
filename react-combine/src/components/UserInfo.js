@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 class UserInfo extends Component {
     render() {
         let datas = this.props.datas();
+        let date = new Date;
 
         if(datas.isCountryMerit === true){
             document.getElementById('country_merit_area').style.visibility = 'visible';
@@ -160,15 +161,15 @@ class UserInfo extends Component {
                                             <br/>
                                             자녀임을 확인함
                                             <br/>
-                                            2017. 10. 31.
+                                            2017. 10. {date.getDate()}.
                                             <br/>
-                                            작성자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)
+                                            담임 교사: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)
                                         </p>
                                     </div>
                                 </td>
                                 <td>
                                     <p>본인은 귀 고등학교에 입학하고자 소정의 서류를 갖추어 지원합니다.</p>
-                                    <p>2017년 10월 31일</p>
+                                    <p>2017년 10월 {date.getDate()}일</p>
                                     <p>지원자:&nbsp; {datas.name} (인)&nbsp;&nbsp;&nbsp; 보호자:&nbsp; {datas.parentsName} (인)</p>
                                     <p>대덕소프트웨어마이스터고등학교장 귀하</p>
                                 </td>
@@ -184,9 +185,9 @@ class UserInfo extends Component {
                                 <td>
                                     <p>추천서</p>
                                     <p>
-                                        본 입학원서의 내용은 사실과 다름이 없으며 상기자는 귀교에 입학 적격자로 인정됐으므로 추천합니다.
+                                        본 입학원서의 내용은 사실과 다름이 없으며 상기자는 귀교에 입학 적격자로 인정되므로 추천합니다.
                                         <br/>
-                                        2017년&nbsp;&nbsp;&nbsp;10월&nbsp;&nbsp;&nbsp;31일
+                                        2017년&nbsp;&nbsp;&nbsp;10월&nbsp;&nbsp;&nbsp;{date.getDate()}일
                                     </p>
                                 </td>
                             </tr>

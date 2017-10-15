@@ -70,7 +70,7 @@ class Principal extends Component {
                         </div>
                         <div id="teacher_box">
                             <div id="teacher_name">
-                                작성자 담임 : 
+                                담임 교사 : 
                             </div>
                             <div id="sign_box">
                                 (인)
