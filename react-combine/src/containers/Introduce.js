@@ -83,6 +83,27 @@ class Introduce extends Component {
         })
     }
 
+    componentWillUnmount(){
+        axios({
+            method: 'put',
+            url: '/api/user/introduce',
+            data: {
+                introduce: {
+                    introduce: this.state.introduce,
+                    plan: this.state.plan
+                }
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://114.108.135.15"
+            }
+        }).then(response => {
+            console.log(response);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     render(){
         console.log(this.state.introduce);
         return(

@@ -144,6 +144,29 @@ class GradeInput extends Component{
         })
     }
 
+    componentWillUnmount(){
+        axios({
+            method: 'put',
+            url: '/api/user/grade',
+            data: {
+                grade: {
+                    volunteer: this.state.volunteer,
+                    attend: {
+                        absence: this.state.absence,
+                        lateness: this.state.lateness,
+                        earlyLeave: this.state.earlyLeave,
+                        subjectEscape: this.state.subjectEscape
+                    },
+                    score: this.state.score
+                }
+            }
+        }).then(response => {
+            console.log(response);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     render(){
         let attendData = [
             this.state.absence,

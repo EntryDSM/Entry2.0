@@ -163,6 +163,39 @@ class InfoInput extends Component {
         })
     }
 
+    componentWillUnmount(){
+        axios({
+            method: 'put',
+            url: '/api/user/info',
+            data: {
+                info: {
+                    sex: this.state.sex,
+                    grade: this.state.grade,
+                    number: this.state.number,
+                    class: this.state.class,
+                    schoolCode: this.state.schoolCode,
+                    schoolName: this.state.schoolName,
+                    schoolTel: this.state.schoolTel[0] + '-' + this.state.schoolTel[1] + '-' + this.state.schoolTel[2],
+                    tel: this.state.phoneNum[0] + '-' + this.state.phoneNum[1] + '-' + this.state.phoneNum[2],
+                    parentsTel: this.state.parentsTel[0] + '-' + this.state.parentsTel[1] + '-' + this.state.parentsTel[2],
+                    parentsName: this.state.parentsName,
+                    birthday: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
+                    addressBase: this.state.baseAddress,
+                    addressDetail: this.state.detailAddress
+                }
+            },
+            withCredentials: false,
+            headers: {
+                "Access-Control-Allow-Origin": "http://114.108.135.15",
+                "ContentType": "application/json"
+            }
+        }).then(response => {
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
     setSchoolInfo(e){
         Array.from(e.target.parentElement.children).forEach((ele, index) => {
             switch(index){
@@ -317,6 +350,7 @@ class InfoInput extends Component {
             phoneNum: phoneNum
         })
     }
+
     setSchoolTel(e){
         let schoolTel = this.state.schoolTel;
         let phNums = Array.from(document.getElementsByClassName('input_tel'));
@@ -336,6 +370,7 @@ class InfoInput extends Component {
             schoolTel: schoolTel
         })
     }
+
     setParentsTel(e){
         let parentsTel = this.state.parentsTel;
         let phNums = Array.from(document.getElementsByClassName('input_tel'));

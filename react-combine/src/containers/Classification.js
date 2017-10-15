@@ -29,6 +29,7 @@ class Classification extends Component {
             disabled: "disabled"
         }
         this.getAlreadyData = this.getAlreadyData.bind(this);
+        this.classificationSubmit = this.classificationSubmit.bind(this);
     }
 
     setIsBlackTest(e){
@@ -232,6 +233,40 @@ class Classification extends Component {
 
     componentDidMount(){
         this.getAlreadyData();
+    }
+
+    componentWillUnmount(){
+        let isBlackTest;
+        switch(this.state.isBlackTest){
+            case 'test-yes': {
+                isBlackTest = true;
+            }
+            case 'test-no': {
+                isBlackTest = false;
+            }
+        }
+        axios({
+            method : "put",
+            url : "/api/user/classification",
+            data : {
+                classification: {
+                    isBlack: isBlackTest,
+                    regionType: this.state.local,
+                    applyBaseType: this.state.applyBaseType,
+                    graduateType: this.state.graduation,
+                    graduateYear: this.state.date,
+                    applyDetailType: this.state.applyDetailType
+                }
+            },
+            withCredentials : false,
+            headers : {
+                "Access-Control-Allow-Origin" : "http://114.108.135.15"
+            }
+        }).then(function(response){
+            console.log(response);
+        }).catch(function(err){
+            console.log(err);
+        });
     }
 
     render() {
