@@ -170,7 +170,11 @@ const documentTemplate = {
             "subjectEscape": 0 // 무단 결과
         },
         "score": grade_will,
-        "calculatedScore": null
+        "calculatedScore": {
+            "total": 0,
+            "attendance": 0,
+            "volunteer": 0
+        }
     },
     introduce: {
         "introduce": "",
@@ -184,7 +188,11 @@ const documentTemplate = {
             "earlyLeave": 0, // 무단 조퇴
             "subjectEscape": 0 // 무단 결과
         },
-        "calculatedScore": null,
+        "calculatedScore": {
+            "total": 0,
+            "attendance": 0,
+            "volunteer": 0
+        },
         "score": {
             scores: [null, null, null, null], // 차례대로 국어 수학 사회 과학
             choose: { "subject": null, "score": null } // 선택과목 한 과목
