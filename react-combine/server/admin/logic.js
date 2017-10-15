@@ -46,9 +46,10 @@ exports.getDetail = (userId) => { // 상세보기 나머지 데이터 부분 add
 function setData(find) {
     let obj = {};
     return new Promise((resolve, reject) => {
+        console.log('adsfasdfasdfasfasfaw');
+        console.log(find.user);
         user.findOne({
-                "_id": find.user,
-                "applyStatus": true
+                "_id": find.user
             })
             .then((data) => {
                 if (data) {
@@ -57,10 +58,10 @@ function setData(find) {
                     obj["name"] = data.name; //이름
                     obj["applyBaseType"] = applyFormat.baseType(find.classification.applyBaseType.type); // 전형
                     obj["schoolName"] = find.info.schoolName; //중학교명
-                    obj["receipt"] = find.applyStatus; //원서 조회여부
+                    obj["receipt"] = find.checkReceipt; //원서 조회여부
                     obj["regionType"] = applyFormat.regionCheck(find.classification.regionType); // 관내/관외 여부
                     obj["sex"] = find.info.sex; //성별
-                    obj["payment"] = find.payment; //결제 여부
+                    obj["payment"] = find.checkPayment; //결제 여부
                     resolve(obj);
                 } else {
                     reject('학생 정보를 찾지못함');
@@ -140,8 +141,8 @@ function getScoreData(uData, callback) {
 }
 
 function verification(data) {
-    let payment = data.payment;
-    let receipt = data.applyStatus;
+    let payment = data.checkPayment;
+    let receipt = data.checkReceipt;
 
     if (payment && receipt) {
         return true;
@@ -246,11 +247,12 @@ exports.search = (body) => {
 function getSearch(body, check) {
     let returnData;
     let obj = {
+        "applyStatus": true,
         "classification.regionType": body.region,
         "info.sex": body.gender,
         "classification.applyBaseType.type": body.applyType,
-        "applyStatus": body.receipt,
-        "payment": body.payment,
+        "checkReceipt": body.receipt,
+        "payment": body.checkPayment,
         // "examNumber": body.examNumber,
         // "info.schoolName": body.schoolName
     };
@@ -272,9 +274,11 @@ function getSearch(body, check) {
         returnData = obj;
     } else { // 전체검색
         returnData = {
-            "classification.regionType": body.region
+            "classification.regionType": body.region,
+            "applyStatus": true
         };
     }
+
     return returnData;
 }
 
@@ -303,12 +307,21 @@ function getSearchName(data) {
 
 function addSearchObj(user, apply) {
     let obj = {};
+    obj.applyStatus = apply.applyStatus;
     obj.examNumber = apply.examNumber;
     obj.applyBaseType = apply.classification.applyBaseType.type;
     obj.name = user.name;
-    obj.receipt = apply.applyStatus;
-    obj.payment = apply.payment;
+    obj.receipt = apply.checkReceipt;
+    obj.payment = apply.checkPayment;
     obj.schoolName = apply.info.schoolName;
     obj.user = apply.user;
     return obj;
+}
+
+exports.updateApplyStatus = (applyStatus, user) => {
+    return new Promise((resolve, reject) => {
+        applyDataModel.update({ "user": user }, { $set: { "applyStatus": applyStatus } }, (err) => {
+            err ? reject(err) : resolve();
+        })
+    })
 }

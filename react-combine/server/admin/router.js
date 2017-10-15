@@ -192,8 +192,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var score;
             applyDataModel.find({
                 $and: [{ 'classification.regionType': 'HOME' },
-                    { 'classification.applyBaseType.type': 'COMMON' }],
-                    applyStatus:true
+                    { 'classification.applyBaseType.type': 'COMMON' }
+                ],
+                applyStatus: true
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -216,8 +217,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var score;
             applyDataModel.find({
                 $and: [{ 'classification.regionType': 'AWAY' },
-                    { 'classification.applyBaseType.type': 'COMMON'}],
-                    applyStatus:true
+                    { 'classification.applyBaseType.type': 'COMMON' }
+                ],
+                applyStatus: true
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -241,8 +243,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             applyDataModel.find({
                 'classification.regionType': 'HOME',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classification.applyBaseType.type': 'SOCIAL' }],
-                    applyStatus:true
+                    { 'classification.applyBaseType.type': 'SOCIAL' }
+                ],
+                applyStatus: true
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -266,8 +269,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             applyDataModel.find({
                 'classification.regionType': 'AWAY',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classification.applyBaseType.type': 'SOCIAL' }],
-                    applyStatus:true
+                    { 'classification.applyBaseType.type': 'SOCIAL' }
+                ],
+                applyStatus: true
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -435,6 +439,7 @@ router.route('/admin/search').post(onlyAdmin, (req, res) => {
 
     logic.search(req.body)
         .then((data) => {
+            console.log(data);
             res.render('admin_search', { data: data });
             res.end();
         })
@@ -516,6 +521,18 @@ router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
         }
     }
 })
+
+router.route('/admin/search/status').post((req, res) => {
+    let applyStatus = req.body.applyStatus;
+    let user = req.body.userId;
+    logic.updateApplyStatus(applyStatus, user)
+        .then(() => {
+            res.send('<script>alert("접수 여부 변경 완료");location.href="/admin/search";</script>');
+        })
+        .catch((err) => {
+            res.send(`<script>alert("${err}");location.href="/admin/search";</script>`);
+        })
+});
 
 router.route('/admin/create').post(onlyAdmin, (req, res) => { // 수험번호 생성부분
     let userId = req.body.userId;
