@@ -126,11 +126,11 @@ body {
     color: white;
 }
 
-#score_list {
+.score_list {
     margin: 3rem;
 }
 
-#score_list tr td {
+.score_list tr td {
     border-bottom: 1px solid #6D6D6D;
     padding-left: 1rem;
     padding-right: 1rem;
