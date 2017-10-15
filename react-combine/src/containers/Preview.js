@@ -18,6 +18,13 @@ class Preview extends Component {
     }
 
     componentDidMount() {
+        var pointbefore = document.getElementById("point_step5");
+        var pointnow = document.getElementById("point_step6");
+        var pointnext = document.getElementById("point_step7");
+        pointnow.style.fill = "salmon";
+        pointbefore.style.fill = "#B9B4B4";
+        pointnext.style.fill = "#B9B4B4";
+
         this.setState({
             pageList: [
                 {

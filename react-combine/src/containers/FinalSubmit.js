@@ -4,6 +4,14 @@ import styles from '../css/FinalSubmit.css';
 import Button from '../components/Button';
 
 class FinalSubmit extends React.Component{
+
+    componentDidMount(){
+        var pointbefore = document.getElementById("point_step6");
+        var pointnow = document.getElementById("point_step7");
+        pointnow.style.fill = "salmon";
+        pointbefore.style.fill = "#B9B4B4";
+    }
+    
     render(){
         return(
             <div id="contents">

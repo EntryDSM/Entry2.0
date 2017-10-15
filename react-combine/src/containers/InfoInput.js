@@ -23,6 +23,13 @@ class InfoInput extends React.Component {
     }
 
     componentDidMount() {
+        var pointbefore = document.getElementById("point_step2");
+        var pointnow = document.getElementById("point_step3");
+        var pointnext = document.getElementById("point_step4");
+        pointnow.style.fill = "salmon";
+        pointbefore.style.fill = "#B9B4B4";
+        pointnext.style.fill = "#B9B4B4";
+
         axios({
             method: "get",
             url: 'http://114.108.135.15:8080/user/info/',

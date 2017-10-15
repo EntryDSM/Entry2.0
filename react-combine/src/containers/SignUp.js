@@ -26,6 +26,13 @@ class SignUp extends Component{
         this.getDomain = this.getDomain.bind(this);
     }
 
+    componentDidMount(){
+        var pointnow = document.getElementById("point_step1");
+        var pointnext = document.getElementById("point_step2");
+        pointnow.style.fill = "salmon";
+        pointnext.style.fill = "B9B4B4";
+    }
+
     getName(e){
         this.setState({
             name: e.target.value
@@ -92,6 +99,7 @@ class SignUp extends Component{
                 console.log('enter password');
             }
         }
+
         return(
             <div id="contents">
                 <div id="signUp">

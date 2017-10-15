@@ -5,6 +5,16 @@ import Button from '../components/Button';
 import '../css/Introduce.css';
 
 class Introduce extends Component {
+
+    componentDidMount(){
+        var pointbefore = document.getElementById("point_step4");
+        var pointnow = document.getElementById("point_step5");
+        var pointnext = document.getElementById("point_step6");
+        pointnow.style.fill = "salmon";
+        pointbefore.style.fill = "#B9B4B4";
+        pointnext.style.fill = "#B9B4B4";
+    }
+    
     render(){
         return(
             <div id="contents">

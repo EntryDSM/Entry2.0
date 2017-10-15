@@ -9,6 +9,7 @@ import '../css/Classification.css';
 import axios from 'axios';
 
 class Classification extends Component {
+
     constructor() {
         super()
         this.state = {
@@ -21,6 +22,15 @@ class Classification extends Component {
             graduateYear: "2018",
         }
         this.changeStateValue = this.changeStateValue.bind(this);
+    }
+
+    componentDidMount(){
+        var pointbefore = document.getElementById("point_step1");
+        var pointnow = document.getElementById("point_step2");
+        var pointnext = document.getElementById("point_step3");
+        pointnow.style.fill = "salmon";
+        pointbefore.style.fill = "#B9B4B4";
+        pointnext.style.fill = "#B9B4B4";
     }
 
     changeStateValue(e) {
