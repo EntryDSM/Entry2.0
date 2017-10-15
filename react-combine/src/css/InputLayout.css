@@ -28,7 +28,7 @@
 }
 
 .logo_area {
-    margin-bottom: 100px;
+    margin-bottom: 60px;
 }
 
 .logo_area:hover {
@@ -37,7 +37,7 @@
 
 #svg {
   width: 100%;
-  height: 500px;
+  height: 600px;
 }
 
 .point {

@@ -26,6 +26,11 @@ class FinalSubmit extends Component{
     }
 
     componentDidMount(){
+        var pointbefore = document.getElementById("point_step6");
+        var pointnow = document.getElementById("point_step7");
+        pointnow.style.fill = "salmon";
+        pointbefore.style.fill = "#B9B4B4";
+        
         axios({
             method: 'GET',
             url: '/api/validation'

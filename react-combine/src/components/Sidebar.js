@@ -8,27 +8,19 @@ class Sidebar extends Component{
         document.body.style.padding = 0;
     }
 
-    toMain(){
-        browserHistory.push('/main');
-    }
-
-    render(){
+    render(){        
         return(
             <div className = "menu_area">
-                <Logo onclick={this.toMain.bind(this)} />
-                <Process 
-                    moveClassification={this.props.moveClassification}
-                    moveInfoinput={this.props.moveInfoinput}
-                    moveGradeinput={this.props.moveGradeinput}
-                    moveIntroduce={this.props.moveIntroduce}/>
+                <Logo />
+                <Process />
             </div>
         );
     }
 }
 
-const Logo = (props) => {
+const Logo = () => {
     return (
-        <div className="logo_area" onClick={props.onclick}>
+        <div className="logo_area" onClick={() => {browserHistory.push('/main')}}>
             <img src= {require('../images/nav-logo.png')} alt="nav-logo" className="LogoImage" />
         </div>
     );

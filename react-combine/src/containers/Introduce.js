@@ -34,6 +34,13 @@ class Introduce extends Component {
     }
 
     componentDidMount(){
+        var pointbefore = document.getElementById("point_step4");
+        var pointnow = document.getElementById("point_step5");
+        var pointnext = document.getElementById("point_step6");
+        pointnow.style.fill = "salmon";
+        pointbefore.style.fill = "#B9B4B4";
+        pointnext.style.fill = "#B9B4B4";
+
         axios({
             method: 'get',
             url: '/api/user/introduce',

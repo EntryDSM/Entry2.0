@@ -232,6 +232,12 @@ class Classification extends Component {
     }
 
     componentDidMount(){
+        var pointbefore = document.getElementById("point_step1");
+        var pointnow = document.getElementById("point_step2");
+        var pointnext = document.getElementById("point_step3");
+        pointnow.style.fill = "salmon";
+        pointbefore.style.fill = "#B9B4B4";
+        pointnext.style.fill = "#B9B4B4";
         this.getAlreadyData();
     }
 

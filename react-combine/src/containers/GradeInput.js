@@ -197,6 +197,13 @@ class GradeInput extends Component{
     }
 
     componentDidMount(){
+        var pointbefore = document.getElementById("point_step3");
+        var pointnow = document.getElementById("point_step4");
+        var pointnext = document.getElementById("point_step5");
+        pointnow.style.fill = "salmon";
+        pointbefore.style.fill = "#B9B4B4";
+        pointnext.style.fill = "#B9B4B4";
+
         let scoreData;
         let graduateType;
 
