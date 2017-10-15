@@ -19,7 +19,6 @@
     "express-method-override": "0.0.3",
     "express-session": "^1.15.5",
     "mongo-xlsx": "^1.0.12",
-    "mongodb": "^2.2.33",
     "mongoose": "^4.11.9",
     "morgan": "^1.9.0",
     "node-cmd": "^3.0.0",

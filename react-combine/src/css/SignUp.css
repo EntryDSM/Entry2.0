@@ -185,3 +185,15 @@ input[type=text]::-ms-clear {
 #btn_submit:hover {
     cursor: pointer;
 }
+
+#email_typing{
+    display: none;
+    width: 100px;
+    margin-left: 10px;
+    font-size: 14px;
+    padding: 1%;
+}
+
+#email_typing_cancel{
+    display: none;
+}

@@ -49,24 +49,24 @@ class FinalSubmit extends Component{
         point7.style.stroke = "salmon";
 
         axios({
-            method: 'GET',
-            url: '/api/validation'
-        }).then(response => {
-            if(!response.data.classification.length === 0 && response.data.grade.length === 0 && response.data.info.length === 0 && response.data.introduce.length === 0){
-                browserHistory.push('/validation');
-            }
-        }).catch(err => {
-            console.log(err);
-        })
-        axios({
             method: 'get',
             url: '/api/user/classification'
         }).then(response => {
             if(response.data.applyStatus){
                 browserHistory.push('/finalError');
             }
-        }).catch(err => {
+        }).catch((err) => {
             console.log(err);
+            axios({
+                method: 'GET',
+                url: '/api/validation'
+            }).then((response) => {
+                if(!response.data.classification.length === 0 && response.data.grade.length === 0 && response.data.info.length === 0 && response.data.introduce.length === 0){
+                    browserHistory.push('/validation');
+                }
+            }).catch(err => {
+                console.log(err);
+            })
             browserHistory.push('/error');
         })
     }
