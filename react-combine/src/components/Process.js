@@ -6,7 +6,7 @@ class Process extends Component{
 
     render(){
         return (
-            <div>
+            <div id="process_area">
                 <svg id="svg">
                     <path d="M60 18 L60 508" stroke="white" strokeWidth="10"/>
                     <circle className="point" id="point_step1" cx="60" cy="20" r="16" strokeWidth="2" />
