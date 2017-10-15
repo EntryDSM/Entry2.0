@@ -192,8 +192,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var score;
             applyDataModel.find({
                 $and: [{ 'classification.regionType': 'HOME' },
-                    { 'classification.applyBaseType.type': 'COMMON' },
-                    {applyStatus:true}]
+                    { 'classification.applyBaseType.type': 'COMMON' }],
+                    applyStatus:true
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -216,8 +216,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             var score;
             applyDataModel.find({
                 $and: [{ 'classification.regionType': 'AWAY' },
-                    { 'classification.applyBaseType.type': 'COMMON'},
-                    {applyStatus:true}]
+                    { 'classification.applyBaseType.type': 'COMMON'}],
+                    applyStatus:true
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -241,8 +241,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             applyDataModel.find({
                 'classification.regionType': 'HOME',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classification.applyBaseType.type': 'SOCIAL' },
-                    {applyStatus:true}]
+                    { 'classification.applyBaseType.type': 'SOCIAL' }],
+                    applyStatus:true
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -266,8 +266,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             applyDataModel.find({
                 'classification.regionType': 'AWAY',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
-                    { 'classification.applyBaseType.type': 'SOCIAL' },
-                    {applyStatus:true}]
+                    { 'classification.applyBaseType.type': 'SOCIAL' }],
+                    applyStatus:true
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
@@ -410,6 +410,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         userCount.home.sum = userCount.home.common + userCount.home.meister + userCount.home.social;
         console.log("THEN");
         console.log(userCount);
+        console.log(viewScores);
+        console.log(tmpScores);
 
         res.render('admin_main', {
             viewScores: viewScores,
@@ -480,7 +482,7 @@ router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
     let id = req.body.userId;
     let applyDataModel = require('../database/models/ApplyData');
     //결제 여부 => 일반관리자
-    //접수 여부 => 마이스터관리자
+    //접수 여부  + 제출여부 변경 가능 => 마이스터관리자
     if (req.isSuper === false) {
         console.log('일반 관리자 ');
         if (typeof req.body.checkPayment != 'undefined') {
