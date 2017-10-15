@@ -27,7 +27,7 @@
 }
 
 .logo_area {
-    margin-bottom: 100px;
+    margin-bottom: 10%;
 }
 
 /*HoriziontalProcess*/
@@ -243,6 +243,12 @@
     width: 100%;
   }
 } */
+
+
+#process_area {
+  width: 100%;
+  height: auto;
+}
 
 #svg {
   width: 100%;
