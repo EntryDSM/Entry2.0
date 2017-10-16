@@ -15,7 +15,9 @@ class PreviewContent extends Component {
         } else {
             graduationYear = datas.graduateYear;
         }
+
         let UserInfoData = () => {
+            console.log(datas.schoolName);
             return {
                 schoolCode: datas.schoolCode,
                 class: datas.class,
@@ -44,6 +46,7 @@ class PreviewContent extends Component {
                 graduateYear: graduationYear
             }
         }
+
         let SelfIntroduceData = () => {
             return  {
                 name: datas.name,
@@ -52,6 +55,7 @@ class PreviewContent extends Component {
                 submitNumber: datas.submitNumber
             }
         }
+
         let StudyPlanData = () => { 
             return {
                 name: datas.name,
@@ -60,6 +64,7 @@ class PreviewContent extends Component {
                 submitNumber: datas.submitNumber
             }
          } 
+
         let NoSmokeData = () => {
             return {
                 name: datas.name,
@@ -69,6 +74,7 @@ class PreviewContent extends Component {
                 submitNumber: datas.submitNumber
             }
         }
+
         let PrincipalData = () => {
             return { 
                 schoolName: datas.schoolName,
@@ -78,6 +84,7 @@ class PreviewContent extends Component {
                 name: datas.name
             }
         } 
+
         if(true) {
             switch(this.props.target) {
                 case "userInfo":

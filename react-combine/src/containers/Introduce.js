@@ -33,6 +33,21 @@ class Introduce extends Component {
         })
     }
 
+    componentWillMount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            console.log(response);
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
+            }
+        }).catch(error => {
+            console.log(error);
+            browserHistory.push('/error');
+        })
+    }
+
     componentDidMount(){
         var point1 = document.getElementById("point_step1");
         var point2 = document.getElementById("point_step2");
@@ -65,21 +80,17 @@ class Introduce extends Component {
             }
         }).then(response => {
             console.log(response);
-            if(response.data.applyStatus){
-                browserHistory.push('/finalError');
-            } else {
-                let introduceCount = response.data.introduce.length;
-                let planCount = response.data.plan.length;
-                this.setState({
-                    introduce: response.data.introduce,
-                    plan: response.data.plan,
-                    introduceCount: introduceCount,
-                    planCount: planCount
-                })
-            }
+            let introduceCount = response.data.introduce.length;
+            let planCount = response.data.plan.length;
+
+            this.setState({
+                introduce: response.data.introduce,
+                plan: response.data.plan,
+                introduceCount: introduceCount,
+                planCount: planCount
+            })
         }).catch(err => {
             console.log(err);
-            browserHistory.push('error');
         })
     }
 
@@ -107,22 +118,27 @@ class Introduce extends Component {
 
     componentWillUnmount(){
         axios({
-            method: 'put',
-            url: '/api/user/introduce',
-            data: {
-                introduce: {
-                    introduce: this.state.introduce,
-                    plan: this.state.plan
-                }
-            },
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15"
-            }
+            method: 'get',
+            url: '/api/user/classification'
         }).then(response => {
-            console.log(response);
-        }).catch(err => {
-            console.log(err);
+            if(!response.data.applyStatus){
+                axios({
+                    method: 'put',
+                    url: '/api/user/introduce',
+                    data: {
+                        introduce: {
+                            introduce: this.state.introduce,
+                            plan: this.state.plan
+                        }
+                    },
+                }).then(response => {
+                    console.log(response);
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+        }).catch(error => {
+            console.log(error);
         })
     }
 

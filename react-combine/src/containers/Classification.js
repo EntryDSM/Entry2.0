@@ -189,45 +189,51 @@ class Classification extends Component {
         });
     }
 
+    componentWillMount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            console.log(response);
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
+            }
+        }).catch(error => {
+            console.log(error);
+            browserHistory.push('/error');
+        })
+    }
+
     getAlreadyData(){
         axios({
             method: 'get',
-            url: '/api/user/classification',
-            withCredentials: false,
-            headers : {
-                "Access-Control-Allow-Origin" : "http://114.108.135.15"
-            }
+            url: '/api/user/classification'
         }).then(response => {
-            console.log(response.data);
-            if(response.data.applyStatus){
-                browserHistory.push('/finalError');
+            let isBlackTest;
+            let date;
+
+            if(response.data.isBlack){
+                isBlackTest = 'test-yes'
             } else {
-                let isBlackTest;
-                let date;
-
-                if(response.data.isBlack){
-                    isBlackTest = 'test-yes'
-                } else {
-                    isBlackTest = 'test-no'
-                }
-
-                if(response.data.graduateType === 'DONE'){
-                    date = "2017";
-                } else {
-                    date = "2018"
-                }
-
-                this.setState({
-                    isBlackTest: isBlackTest,
-                    local: response.data.regionType,
-                    applyBaseType: response.data.applyBaseType,
-                    graduation: response.data.graduateType,
-                    date: date,
-                    applyDetailType: response.data.applyDetailType
-                })
+                isBlackTest = 'test-no'
             }
-        }).catch(err => {
-            browserHistory.push('error');
+
+            if(response.data.graduateType === 'DONE'){
+                date = "2017";
+            } else {
+                date = "2018"
+            }
+
+            this.setState({
+                isBlackTest: isBlackTest,
+                local: response.data.regionType,
+                applyBaseType: response.data.applyBaseType,
+                graduation: response.data.graduateType,
+                date: date,
+                applyDetailType: response.data.applyDetailType
+            })
+        }).catch(error => {
+            console.log(error);
         })
     }
 
@@ -253,41 +259,51 @@ class Classification extends Component {
         point6.style.stroke = "B9B4B4";
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
+
         this.getAlreadyData();
     }
 
     componentWillUnmount(){
-        let isBlackTest;
-        switch(this.state.isBlackTest){
-            case 'test-yes': {
-                isBlackTest = true;
-            }
-            case 'test-no': {
-                isBlackTest = false;
-            }
-        }
         axios({
-            method : "put",
-            url : "/api/user/classification",
-            data : {
-                classification: {
-                    isBlack: isBlackTest,
-                    regionType: this.state.local,
-                    applyBaseType: this.state.applyBaseType,
-                    graduateType: this.state.graduation,
-                    graduateYear: this.state.date,
-                    applyDetailType: this.state.applyDetailType
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            if(!response.data.applyStatus){
+                let isBlackTest;
+                switch(this.state.isBlackTest){
+                    case 'test-yes': {
+                        isBlackTest = true;
+                    }
+                    case 'test-no': {
+                        isBlackTest = false;
+                    }
                 }
-            },
-            withCredentials : false,
-            headers : {
-                "Access-Control-Allow-Origin" : "http://114.108.135.15"
+                axios({
+                    method : "put",
+                    url : "/api/user/classification",
+                    data : {
+                        classification: {
+                            isBlack: isBlackTest,
+                            regionType: this.state.local,
+                            applyBaseType: this.state.applyBaseType,
+                            graduateType: this.state.graduation,
+                            graduateYear: this.state.date,
+                            applyDetailType: this.state.applyDetailType
+                        }
+                    },
+                    withCredentials : false,
+                    headers : {
+                        "Access-Control-Allow-Origin" : "http://114.108.135.15"
+                    }
+                }).then(function(response){
+                    console.log(response);
+                }).catch(function(err){
+                    console.log(err);
+                });
             }
-        }).then(function(response){
-            console.log(response);
-        }).catch(function(err){
-            console.log(err);
-        });
+        }).catch(error => {
+            console.log(error);
+        })
     }
 
     render() {

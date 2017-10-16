@@ -95,6 +95,10 @@
     border-radius: 4px;
 }
 
+#mypage #checksCover .checkFiles:hover{
+    cursor: pointer;
+}
+
 #mypage .checkFiles .checkTitles{
     color:#424242;
     line-height:1.5;
