@@ -1,7 +1,6 @@
 import React from 'react';
 import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
-import {connect} from 'react-redux';
 import {signInData} from '../actions';
 import {browserHistory, Link} from 'react-router';
 import 'babel-polyfill';
@@ -31,15 +30,12 @@ class SignIn extends React.Component{
     }
 
     signInSubmit(){
-        let store = this.context.store;
-        store.dispatch(signInData(this.state));
-        let storeData = store.getState().signIn.SIGN_IN_DATA;
         axios({
             method: 'post',
             url: '/api/signin',
             data: {
-                email: storeData.email,
-                password: storeData.password
+                email: this.state.email,
+                password: this.state.password
             },
             withCredentials: false,
             headers: {
@@ -49,11 +45,12 @@ class SignIn extends React.Component{
         }).then(response => {
             console.log(response)
             browserHistory.push('/mypage');
-        }).catch((error) => {
-            console.log(error.config);
-            console.log(error);
-            console.log(error.response);
-            console.log(error.request);
+        }).catch(error => {
+            if(error.response.status === 401){
+                alert("잘못된 정보를 입력하셨습니다.");
+            } else if(error.response.status === 500) {
+                alert("서버에 에러가 발생했습니다. 잠시후에 재접속해주세요.");
+            }
         })
     }
 
@@ -63,7 +60,7 @@ class SignIn extends React.Component{
                 <LogoPart ImageUrl = {require('../images/DSM Logo.png')}/>
                 <FormTitle Title = "Sign-In Page"/>
                 <div id="LoginBox">
-                    <LoginForm 
+                    <LoginForm
                         inputArray = {this.props.inputArray}
                         setEmail = {this.setEmail.bind(this)}
                         setPassword = {this.setPassword.bind(this)}
@@ -89,9 +86,6 @@ SignIn.defaultProps = {
             aText: "Forgot Password?"
         }
     ]
-}
-SignIn.contextTypes = {
-    store: PropTypes.object
 }
 
 const LoginForm = (props) => {
@@ -154,8 +148,4 @@ const LoginSubBox = (props) => {
     );
 }
 
-function signInSubmit(state){
-    signInData: state.signInData
-}
-
-export default connect(signInSubmit)(SignIn);
+export default SignIn;
