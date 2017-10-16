@@ -171,7 +171,9 @@ class UserInfo extends Component {
                                     <p>본인은 귀 고등학교에 입학하고자 소정의 서류를 갖추어 지원합니다.</p>
                                     <p>2017년 10월 {date.getDate()}일</p>
                                     <p>지원자:&nbsp; {datas.name} (인)&nbsp;&nbsp;&nbsp; 보호자:&nbsp; {datas.parentsName} (인)</p>
-                                    <p>대덕소프트웨어마이스터고등학교장 귀하</p>
+                                    <br />
+                                    <br />
+                                    <h2>대덕소프트웨어마이스터고등학교장 귀하</h2>
                                 </td>
                                 <td>
                                     <img id="profile" src="/api/upload/profile" />
@@ -193,12 +195,12 @@ class UserInfo extends Component {
                                         <span style = {{wordSpacing : "2rem",
                                                         paddingLeft : "12.8rem",
                                                         fontSize : "0.8rem"}}>
-                                            지도교사: -value- (인)
+                                            담임교사: &nbsp; (인)
                                         </span>
                                         <span style = {{paddingLeft : "11.5rem",
                                                         fontSize : "0.8rem"}}>
                                             (<span style = {{paddingLeft : "1.5rem",
-                                                             paddingRight : "1.5rem"}}>-value-</span>)중학교장 (직인)
+                                                             paddingRight : "1.5rem"}}></span>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;중학교장 (직인)
                                         </span>
                                     </p>
                                 </td>
@@ -252,14 +254,14 @@ class UserInfo extends Component {
                         <span>
                             지원자 성명 <span style = {{paddingLeft : "1.5rem",
                                                        paddingRight : "1.5rem"}}>
-                                                -value-
+                                                {datas.name}
                                        </span>(인)
                         </span>
 
                         <span style = {{display : "block"}}>
                             보호자 성명 <span style = {{paddingLeft : "1.5rem",
                                                        paddingRight : "1.5rem"}}>
-                                                -value-
+                                                {datas.parentsName}
                                        </span>(인)
                         </span>
                     </p>

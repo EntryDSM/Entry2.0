@@ -77,7 +77,7 @@ class Principal extends Component {
                             </div>
                         </div>
                         <div id="principal_name">
-                            [&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] 중학교장
+                            [ {datas.schoolName.replace("중학교", "")} ] 중학교장
                         </div>
                         <div id="stamp_box">
                             출신중학교장<br/>

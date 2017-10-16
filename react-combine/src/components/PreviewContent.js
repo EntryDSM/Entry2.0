@@ -9,6 +9,12 @@ class PreviewContent extends Component {
      render() {
         let content = null;
         let datas = this.props.datas;
+        let graduationYear;
+        if(datas.graduation !== "DONE"){
+            graduationYear = "2017";
+        } else {
+            graduationYear = datas.graduateYear;
+        }
         let UserInfoData = () => {
             return {
                 schoolCode: datas.schoolCode,
@@ -35,7 +41,7 @@ class PreviewContent extends Component {
                 volunteer: datas.volunteer,
                 totalGrade: datas.totalGrade,
                 submitNumber: datas.submitNumber,
-                graduateYear: datas.graduateYear
+                graduateYear: graduationYear
             }
         }
         let SelfIntroduceData = () => {
