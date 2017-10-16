@@ -37,6 +37,7 @@ class Preview extends Component {
             volunteer: 0,
             totalGrade: 0,
             type: "",
+            schoolName: "",
             targetPage: "userInfo",
             printCheck: ["", "", "", "", ""]
         };
@@ -49,11 +50,9 @@ class Preview extends Component {
         axios({
             method: 'get',
             url: '/api/preview',
-            withCredentials: false,
-            headers : {
-                "Access-Control-Allow-Origin" : "http://114.108.135.15"
-            }
         }).then(response => {
+            console.log(response);
+            console.log(response.data);
             let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
             let address = response.data.info.addressBase + response.data.info.addressDetail;
             let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
@@ -143,6 +142,28 @@ class Preview extends Component {
         })
     }
 
+    componentWillMount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            console.log(response);
+            axios({
+                method: 'get',
+                url: '/api/validation'
+            }).then(response => {
+                if(response.data.classification.length !== 0 || response.data.grade.length !== 0 || response.data.info.length !== 0 || response.data.introduce.length !== 0){
+                    browserHistory.push('/validation');
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        }).catch(error => {
+            console.log(error);
+            browserHistory.push('/error');
+        })
+    }
+
     componentDidMount() {
         var point1 = document.getElementById("point_step1");
         var point2 = document.getElementById("point_step2");
@@ -166,30 +187,11 @@ class Preview extends Component {
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
 
-        axios({
-            method: 'GET',
-            url: '/api/user/classification'
-        }).then(response => {
-            axios({
-                method: 'GET',
-                url: '/api/validation'
-            }).then(response => {
-                if(response.data.classification.length === 0 && response.data.grade.length === 0 && response.data.info.length === 0 && response.data.introduce.length === 0){
-                    this.getUserData();
-                    this.setState({
-                        targetPage: "userInfo"
-                    });
-                } else {
-                    browserHistory.push('/validation');
-                }
-                console.log(document.getElementById('name_userinfo'));
-                document.getElementById('name_userinfo').style.background = "#ddd";
-            }).catch(err => {
-                console.log(err);
-            })
-        }).catch(err => {
-            browserHistory.push('/error')
-        })
+        this.getUserData();
+        this.setState({
+            targetPage: "userInfo"
+        });
+        document.getElementById('name_userinfo').style.background = "#ddd";
     }
 
     setPage(target) {
@@ -305,7 +307,7 @@ class Preview extends Component {
     }
 
     render(){
-        console.log(this.state.printCheck);
+        console.log(this.state);
         return(
             <div id="contents">
                 <div id="preview">

@@ -12,7 +12,6 @@ class FinalSubmit extends Component{
     }
 
     finalSubmitBtn(){
-        console.log('test');
         axios({
             method: 'post',
             url: '/api/apply'
@@ -22,6 +21,32 @@ class FinalSubmit extends Component{
             browserHistory.push('/main');
         }).catch(err => {
             console.log(err);
+        })
+    }
+
+    componentWillMount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            console.log(response);
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
+            } else {
+                axios({
+                    method: 'get',
+                    url: '/api/validation'
+                }).then((response) => {
+                    if(response.data.classification.length !== 0 || response.data.grade.length !== 0 || response.data.info.length !== 0 || response.data.introduce.length !== 0){
+                        browserHistory.push('/validation');
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+        }).catch(error => {
+            console.log(error);
+            browserHistory.push('/error');
         })
     }
 
@@ -47,30 +72,7 @@ class FinalSubmit extends Component{
         point6.style.stroke = "B9B4B4";
         point7.style.fill = "salmon";
         point7.style.stroke = "salmon";
-
-        axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            if(response.data.applyStatus){
-                browserHistory.push('finalError');
-            } else {
-                axios({
-                    method: 'GET',
-                    url: '/api/validation'
-                }).then((response) => {
-                    if(!response.data.classification.length === 0 && response.data.grade.length === 0 && response.data.info.length === 0 && response.data.introduce.length === 0){
-                        browserHistory.push('/validation');
-                    }
-                }).catch(err => {
-                    console.log(err);
-                })
-            }
-        }).catch((err) => {
-            console.log(err);
-            browserHistory.push('/error');
-        })
-    }
+    }        
 
     render(){
         return(

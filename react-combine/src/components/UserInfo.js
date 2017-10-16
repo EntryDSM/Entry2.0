@@ -168,10 +168,10 @@ class UserInfo extends Component {
                                     </div>
                                 </td>
                                 <td>
+                                    <br />
                                     <p>본인은 귀 고등학교에 입학하고자 소정의 서류를 갖추어 지원합니다.</p>
                                     <p>2017년 10월 {date.getDate()}일</p>
                                     <p>지원자:&nbsp; {datas.name} (인)&nbsp;&nbsp;&nbsp; 보호자:&nbsp; {datas.parentsName} (인)</p>
-                                    <br />
                                     <br />
                                     <h2>대덕소프트웨어마이스터고등학교장 귀하</h2>
                                 </td>
@@ -199,8 +199,7 @@ class UserInfo extends Component {
                                         </span>
                                         <span style = {{paddingLeft : "11.5rem",
                                                         fontSize : "0.8rem"}}>
-                                            (<span style = {{paddingLeft : "1.5rem",
-                                                             paddingRight : "1.5rem"}}></span>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;중학교장 (직인)
+                                            ( {datas.schoolName.replace("중학교", "")} ) &nbsp;&nbsp;중학교장 (직인)
                                         </span>
                                     </p>
                                 </td>
