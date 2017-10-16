@@ -6,8 +6,7 @@ const user = require('../database/models/User');
 exports.findBase = (userId, database) => { // 겹치는 로직 중복 최적화 필요해 제작 setData();
     return new Promise((resolve, reject) => {
         applyDataModel.findOne({
-            "user": userId,
-            "applyStatus": true
+            "user": userId
         }).then((find) => {
             if (find) {
                 setData(find)
@@ -18,7 +17,7 @@ exports.findBase = (userId, database) => { // 겹치는 로직 중복 최적화 
                         console.log('Error ' + data);
                     });
             } else {
-                reject();
+                reject('조건에 맞는 유저를 찾지 못했습니다.');
             }
         });
 
@@ -27,8 +26,7 @@ exports.findBase = (userId, database) => { // 겹치는 로직 중복 최적화 
 exports.getDetail = (userId) => { // 상세보기 나머지 데이터 부분 addObj()
     return new Promise((resolve, reject) => {
         applyDataModel.findOne({
-            "user": userId,
-            "applyStatus": true
+            "user": userId
         }).then((data) => {
             if (data) {
                 addObj(data)
@@ -46,8 +44,6 @@ exports.getDetail = (userId) => { // 상세보기 나머지 데이터 부분 add
 function setData(find) {
     let obj = {};
     return new Promise((resolve, reject) => {
-        console.log('adsfasdfasdfasfasfaw');
-        console.log(find.user);
         user.findOne({
                 "_id": find.user
             })
@@ -158,7 +154,7 @@ exports.createNum = (userId) => {
                 "applyStatus": true
             })
             .then((find) => {
-                if (verification(find)) {
+                if (find && verification(find)) {
                     if (!find.examNumber) {
                         let examNum = new Array();
                         examNum.push(getNumber(find.classification)); // 일반, 마이스터, 사회 통합 
@@ -177,7 +173,7 @@ exports.createNum = (userId) => {
                         reject('이미 존재하는 값 입니다 ');
                     }
                 } else {
-                    reject('결제, 접수 확인이 필요합니다');
+                    reject('결제, 접수, 서류  확인이 필요합니다');
                 }
             })
     });
@@ -228,6 +224,7 @@ exports.search = (body) => {
         if (body.advanceSearch == 'true') {
             console.log('상세 검색');
             obj = getSearch(body);
+            console.log(obj);
         } else {
             console.log('전체 검색');
             obj = getSearch(body, true);
@@ -235,6 +232,7 @@ exports.search = (body) => {
         applyDataModel.find(obj)
             .then(data => getSearchName(data))
             .then((data) => {
+                console.log(data)
                 data ? resolve(data) : reject('데이터가 존재하지않음');
             })
             .catch((err) => {
@@ -247,12 +245,11 @@ exports.search = (body) => {
 function getSearch(body, check) {
     let returnData;
     let obj = {
-        "applyStatus": true,
         "classification.regionType": body.region,
         "info.sex": body.gender,
         "classification.applyBaseType.type": body.applyType,
-        "checkReceipt": body.receipt,
-        "payment": body.checkPayment,
+        "checkReceipt": body.checkReceipt,
+        "checkPayment": body.checkPayment,
         // "examNumber": body.examNumber,
         // "info.schoolName": body.schoolName
     };
@@ -275,7 +272,6 @@ function getSearch(body, check) {
     } else { // 전체검색
         returnData = {
             "classification.regionType": body.region,
-            "applyStatus": true
         };
     }
 
@@ -294,7 +290,7 @@ function getSearchName(data) {
         if (0 >= data.length) reject('해당하는 학생 정보 찾지못함');
         for (let i = 0; i < data.length; i++) {
             user.findOne(data[i].user)
-                .then(function(find) {
+                .then((find) => {
                     find ? arr.push(addSearchObj(find, data[i])) : reject('해당하는 학생 정보 찾지못함');
                     if (i === data.length - 1) {
                         resolve(arr);
@@ -324,4 +320,19 @@ exports.updateApplyStatus = (applyStatus, user) => {
             err ? reject(err) : resolve();
         })
     })
+}
+
+exports.deleteUser = (userId) => {
+    return new Promise((resolve, reject) => {
+        applyDataModel.remove({ "user": userId })
+            .then(() => {
+                user.remove({ "_id": userId })
+                    .then(() => resolve())
+            })
+            .catch((err) => {
+                console.log('삭제 오류');
+                console.log(err);
+                reject(err);
+            })
+    });
 }

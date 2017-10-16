@@ -89,12 +89,12 @@
                     </tr>
                     <tr>
                         <td class="search_option_column">접수 여부&nbsp;
-                            <input type="radio" name="receipt" value="true" checked="true">예
-                            <input type="radio" name="receipt" value="false">아니오
+                            <input type="radio" name="checkReceipt" value="true" checked="true">예
+                            <input type="radio" name="checkReceipt" value="false">아니오
                         </td>
                         <td class="search_option_column">결재 여부&nbsp;
-                            <input type="radio" name="payment" value="true" checked="true">예
-                            <input type="radio" name="payment" value="false">아니오
+                            <input type="radio" name="checkPayment" value="true" checked="true">예
+                            <input type="radio" name="checkPayment" value="false">아니오
                         </td>
                     </tr>
                     <tr>
@@ -181,8 +181,8 @@
                                     <input type="submit" value="접수 취소">
                                 </form>
                                 <%} else {%>
-
-                                    <%}%>
+                                    <%= "신청 중"%>
+                                        <%}%>
                         </div>
                         <!-- 확인 여부 -->
                         <div class="list_element_data fix_width_short">

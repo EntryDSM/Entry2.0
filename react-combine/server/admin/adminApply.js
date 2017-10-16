@@ -124,3 +124,32 @@ exports.baseType = (base) => {
         return '사회 통합 전형';
     }
 }
+
+exports.getKeyName = (i) => {
+    switch (i) {
+        case 0:
+            {
+                return 11;
+            }
+        case 1:
+            {
+                return 12;
+            }
+        case 2:
+            {
+                return 21;
+            }
+        case 3:
+            {
+                return 22;
+            }
+        case 4:
+            {
+                return 31;
+            }
+        case 5:
+            {
+                return 32;
+            }
+    }
+}
