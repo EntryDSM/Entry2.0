@@ -166,23 +166,30 @@ class Preview extends Component {
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
 
-         axios({
-             method: 'GET',
-             url: '/api/validation'
-         }).then(response => {
-             if(response.data.classification.length === 0 && response.data.grade.length === 0 && response.data.info.length === 0 && response.data.introduce.length === 0){
-                this.getUserData();
-                this.setState({
-                    targetPage: "userInfo"
-                });
-             } else {
-                 browserHistory.push('/validation');
-             }
-             console.log(document.getElementById('name_userinfo'));
-             document.getElementById('name_userinfo').style.background = "#ddd";
-         }).catch(err => {
-             console.log(err);
-         })
+        axios({
+            method: 'GET',
+            url: '/api/user/classification'
+        }).then(response => {
+            axios({
+                method: 'GET',
+                url: '/api/validation'
+            }).then(response => {
+                if(response.data.classification.length === 0 && response.data.grade.length === 0 && response.data.info.length === 0 && response.data.introduce.length === 0){
+                    this.getUserData();
+                    this.setState({
+                        targetPage: "userInfo"
+                    });
+                } else {
+                    browserHistory.push('/validation');
+                }
+                console.log(document.getElementById('name_userinfo'));
+                document.getElementById('name_userinfo').style.background = "#ddd";
+            }).catch(err => {
+                console.log(err);
+            })
+        }).catch(err => {
+            browserHistory.push('/error')
+        })
     }
 
     setPage(target) {
