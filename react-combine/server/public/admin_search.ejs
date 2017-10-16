@@ -126,17 +126,21 @@
                     <div class="list_element_data fix_width_long">
                         이름
                     </div>
-                    <!-- 확인 여부 -->
+                    <!-- 중학교명 -->
+                    <div class="list_element_data fix_width_long">
+                        중학교명
+                    </div>
+                    <!-- 접수 여부 -->
                     <div class="list_element_data fix_width_short">
-                        확인 여부
+                        접수 여부
+                    </div>
+                    <!-- 서류 확인 -->
+                    <div class="list_element_data fix_width_short">
+                        서류 확인
                     </div>
                     <!-- 결재 여부 -->
                     <div class="list_element_data fix_width_short">
                         결재 여부
-                    </div>
-                    <!-- 중학교명 -->
-                    <div class="list_element_data fix_width_long">
-                        중학교명
                     </div>
                     <div class="list_element_data fix_width_long">
 
@@ -150,7 +154,7 @@
                 </div>
 
                 <!-- 아래는 리스트의 행이다. -->
-                <%for( let i = 0; i< data.length; i++){%>
+                <%for(let i = 0; i< data.length; i++){%>
                     <div class="list_element">
                         <!-- 수험 번호 -->
                         <div class="list_element_data fix_width_short">
@@ -164,19 +168,35 @@
                         <div class="list_element_data fix_width_long">
                             <%= data[i].name%>
                         </div>
+                        <!-- 중학교명 -->
+                        <div class="list_element_data fix_width_long">
+                            <%= data[i].schoolName%>
+                        </div>
+                        <!-- 접수 여부 -->
+                        <div class="list_element_data fix_width_short">
+                            <% if(data[i].applyStatus == true) {%>
+                                <form action="/admin/search/status" method="POST">
+                                    <input type="hidden" name="applyStatus" value="false">
+                                    <input type="hidden" name="userId" value="<%= data[i].user%>">
+                                    <input type="submit" value="접수 취소">
+                                </form>
+                                <%} else {%>
+
+                                    <%}%>
+                        </div>
                         <!-- 확인 여부 -->
                         <div class="list_element_data fix_width_short">
                             <% if(data[i].receipt == true) {%>
                                 <form action="/admin/search/value" method="POST">
                                     <input type="hidden" name="checkReceipt" value="false">
                                     <input type="hidden" name="userId" value="<%= data[i].user%>">
-                                    <input type="submit" value="접수 취소">
+                                    <input type="submit" value="서류 취소">
                                 </form>
                                 <%} else{%>
                                     <form action="/admin/search/value" method="POST">
                                         <input type="hidden" name="checkReceipt" value="true">
                                         <input type="hidden" name="userId" value="<%= data[i].user%>">
-                                        <input type="submit" value="접수 확인">
+                                        <input type="submit" value="서류 확인">
                                     </form>
                                     <%}%>
 
@@ -197,10 +217,7 @@
                                     </form>
                                     <%}%>
                         </div>
-                        <!-- 중학교명 -->
-                        <div class="list_element_data fix_width_long">
-                            <%= data[i].schoolName%>
-                        </div>
+
                         <div class="list_element_data fix_width_long">
                             <form action="/admin/create" method="post">
                                 <input type="hidden" name="userId" value="<%= data[i].user%>">
