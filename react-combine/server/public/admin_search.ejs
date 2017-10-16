@@ -47,6 +47,7 @@
                         <td class="search_option_column">지역&nbsp;
                             <input type="radio" name="region" value="HOME" checked="true">대전
                             <input type="radio" name="region" value="AWAY">전국
+                            <input type="radio" name="region" value="ALL">전체
                         </td>
                     </tr>
                     <tr>
@@ -62,9 +63,9 @@
                 <table id="detail_option" class="search_option">
                     <tr>
                         <!-- 이름 -->
-                        <td class="search_option_column">이름&nbsp;
+                        <!-- <td class="search_option_column">이름&nbsp;
                             <input type="text" name="name">
-                        </td>
+                        </td> -->
                     </tr>
                     <tr>
                         <!-- 성별 -->
@@ -89,12 +90,12 @@
                     </tr>
                     <tr>
                         <td class="search_option_column">접수 여부&nbsp;
-                            <input type="radio" name="receipt" value="true" checked="true">예
-                            <input type="radio" name="receipt" value="false">아니오
+                            <input type="radio" name="checkReceipt" value="true" checked="true">예
+                            <input type="radio" name="checkReceipt" value="false">아니오
                         </td>
                         <td class="search_option_column">결재 여부&nbsp;
-                            <input type="radio" name="payment" value="true" checked="true">예
-                            <input type="radio" name="payment" value="false">아니오
+                            <input type="radio" name="checkPayment" value="true" checked="true">예
+                            <input type="radio" name="checkPayment" value="false">아니오
                         </td>
                     </tr>
                     <tr>
@@ -181,8 +182,8 @@
                                     <input type="submit" value="접수 취소">
                                 </form>
                                 <%} else {%>
-
-                                    <%}%>
+                                    <%= "신청 중"%>
+                                        <%}%>
                         </div>
                         <!-- 확인 여부 -->
                         <div class="list_element_data fix_width_short">
@@ -190,7 +191,7 @@
                                 <form action="/admin/search/value" method="POST">
                                     <input type="hidden" name="checkReceipt" value="false">
                                     <input type="hidden" name="userId" value="<%= data[i].user%>">
-                                    <input type="submit" value="서류 취소">
+                                    <input type="submit" value="서류 취소" style="background-color: #f47a64">
                                 </form>
                                 <%} else{%>
                                     <form action="/admin/search/value" method="POST">
@@ -207,7 +208,7 @@
                                 <form action="/admin/search/value" method="POST">
                                     <input type="hidden" name="checkPayment" value="false">
                                     <input type="hidden" name="userId" value="<%= data[i].user%>">
-                                    <input type="submit" value="결제 취소">
+                                    <input type="submit" value="결제 취소" style="background-color: #f47a64">
                                 </form>
                                 <%} else{%>
                                     <form action="/admin/search/value" method="POST">

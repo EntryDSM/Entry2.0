@@ -439,7 +439,6 @@ router.route('/admin/search').post(onlyAdmin, (req, res) => {
 
     logic.search(req.body)
         .then((data) => {
-            console.log(data);
             res.render('admin_search', { data: data });
             res.end();
         })
@@ -467,19 +466,13 @@ router.route('/admin/search/detail').get(onlyAdmin, (req, res) => {
 router.route('/admin/search/delete').post(onlyAdmin, (req, res) => {
     //원서 삭제 + 마이스터 관리자
     userId = req.body.userId;
-    let applyDataModel = require('../database/models/ApplyData');
-
-    applyDataModel.remove({
-        user: userId
-    }, (err) => {
-        if (err) {
-            res.send('<script>alert("학생 정보 찾지 못함");location.href="/admin/search";</script>');
-            res.end();
-        } else {
-            res.send('<script>alert("학생 정보 삭제 완료");location.href="/admin/search";</script>');
-            res.end();
-        }
-    })
+    logic.deleteUser(userId)
+        .then(() => {
+            res.send(`<script>alert("학생 정보 삭제 완료"); location.href="/admin/search";</script>`);
+        })
+        .catch(() => {
+            res.send(`<script>alert("${err}"); location.href="/admin/search";</script>`);
+        });
 });
 
 router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
@@ -501,6 +494,9 @@ router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
 
                 }
             })
+        } else {
+            res.send('<script>alert("권한이 존재 하지 않습니다");location.href="/admin/search";</script>');
+            res.end();
         }
     } else {
         console.log('마이스터 관리자 ');
@@ -556,7 +552,7 @@ router.route('/excel').post((req, res) => {
         if (data && 0 < model.length) {
             mongoXlsx.mongoData2Xlsx(data, model, (err, data) => {
                 if (err) console.log(err);
-                res.download(data.fullPath, 'Entry Dsm User Excel.xlsx', (err) => {
+                res.download(data.fullPath, 'Entry Dsm+' + adminApply.getTimeStamp() + '.xlsx', (err) => {
                     if (err)
                         console.log(err);
                 });

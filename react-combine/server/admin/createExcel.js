@@ -65,7 +65,7 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
             .then((user) => {
                 let date = findData.birthday + '';
                 let baseData = {
-                    수험번호: findData.examNumber,
+                    접수번호: findData.examNumber,
                     전형유형: detailType.baseType(findData.classification.applyBaseType.type), //classification.applyBaseType
                     지역: detailType.regionCheck(findData.classification.regionType), //classification.regionType
                     세부유형: detailType.getDetailType(findData.classification.applyBaseType.cause, 'String'),
@@ -77,7 +77,6 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                     학력구분: detailType.checkType(findData.classification.graduateType), //classification.graduateType
                     졸업년도: findData.classification.graduateYear, //classification.graduateYear
                     출신학교: findData.info.schoolName, //info.schoolName
-                    학년: findData.info.grade, //info.grade
                     반: findData.info.class, //info.class
                     보호자성명: findData.info.parentsName, // info.parentsName
                     보호자연락처: findData.info.parentsTel, // info.parentsTel
@@ -107,7 +106,8 @@ function addSubject(data) {
             let obj = {};
             for (let j = 0; j < 7; j++) {
                 if (data.grade.score.semesters[i][j].pass) {
-                    arrayObj[(i + 1) + sub[j]] = data.grade.score.semesters[i][j].grade;
+                    let name = detailType.getKeyName(i);
+                    arrayObj[sub[j] + name] = data.grade.score.semesters[i][j].grade;
                 }
             }
         }
@@ -138,7 +138,8 @@ function getArr(sub) {
     let obj = {};
     for (let i = 0; i < 6; i++) {
         for (let j = 0; j < 7; j++) {
-            obj[(i + 1) + sub[j]] = "";
+            let name = detailType.getKeyName(i);
+            obj[sub[j] + name] = "";
         }
     }
     return obj;
@@ -154,6 +155,7 @@ function getScore(data) {
                     obj["2학년"] = sData.score.second;
                     obj["3학년"] = sData.score.third;
                     obj["교과성적환산점수"] = sData.score.total;
+                    obj["봉사시간"] = sData.volunteer;
                     obj["봉사점수"] = sData.volunteer;
                     obj["결석"] = data.grade.attend.absence;
                     obj["지각"] = data.grade.attend.lateness;
@@ -164,6 +166,7 @@ function getScore(data) {
                     resolve(obj);
                 } else {
                     obj["교과성적환산점수"] = sData.score.total;
+                    obj["봉사시간"] = sData.volunteer;
                     obj["봉사점수"] = sData.volunteer;
                     obj["출석점수"] = sData.attendance;
                     obj["1차_전형_총점"] = parseFloat(sData.score.total) + parseFloat(sData.volunteer) + parseFloat(sData.attendance);
