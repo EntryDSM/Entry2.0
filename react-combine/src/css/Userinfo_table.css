@@ -225,7 +225,7 @@
     position: relative;
     top: 25px;
     left: 10px;
-    text-align: left;
+    text-align: center;
 }
 #userinfo_table_5 tbody tr:nth-child(1) td:nth-child(3){
     text-align: center;

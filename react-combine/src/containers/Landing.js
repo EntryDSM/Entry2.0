@@ -15,9 +15,8 @@ class Landing extends React.Component{
 
     componentDidMount(){        
         let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-        console.log(isChrome);
-        console.log('hello');
         if(!isChrome){
+            alert("지원하지 않는 브라우저입니다. Chrome 브라우저를 다운받아서 진행해주세요.");
             window.location.href = 'https://www.google.co.kr/chrome/browser/desktop/index.html';
         }
     }

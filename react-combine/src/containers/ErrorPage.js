@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import '../css/ErrorPage.css';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 import 'babel-polyfill';
 
 class ErrorPage extends Component{
+    componentWillUnmount(){
+        browserHistory.push('/main');
+    }
+
     render(){
         return(
             <div id = "error-page">

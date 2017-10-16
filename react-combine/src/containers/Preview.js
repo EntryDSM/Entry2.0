@@ -70,13 +70,15 @@ class Preview extends Component {
             let birthDay;
             if(Number(birth[1]) < 10){
                 birthMonth = '0' + birth[1];
+            } else {
+                birthMonth = birth[1];
             }
 
             if(Number(birth[2]) < 10){
                 birthDay = '0' + birth[2];
+            } else {
+                birthDay = birth[2];
             }
-
-            console.log(response);
 
             if(response.data.classification.applyBaseType.type !== 'COMMON'){
                 this.props.pageList = [

@@ -8,6 +8,38 @@ import 'babel-polyfill';
 import '../css/MainPage.css';
 
 class MainPage extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            signState: "로그인"
+        }
+    }
+
+    componentDidMount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            this.setState({
+                signState: "로그아웃"
+            })
+        }).catch(error => {
+            this.setState({
+                signState: "로그인"
+            })
+        })
+    }
+
+    signOnClick(){
+        console.log('hello');
+        if(this.state.signState === "로그인"){
+            browserHistory.push('/signin');
+        } else if(this.state.signState === "로그아웃"){
+            // Sign out
+            console.log("Sign Out");
+        }
+    }
+
     signInCheck(){
         axios({
             method: 'GET',
@@ -24,7 +56,9 @@ class MainPage extends Component{
     render(){
         return(
             <div id = "main">
-                <MainHeader ImgUrl = {require('../images/DSM Logo.png')}/>
+                <MainHeader signState={this.state.signState}
+                            signOnClick={this.signOnClick.bind(this)}
+                            ImgUrl = {require('../images/DSM Logo.png')}/>
                 <MainSection 
                         MainParts = {
                             [
