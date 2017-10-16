@@ -552,7 +552,7 @@ router.route('/excel').post((req, res) => {
         if (data && 0 < model.length) {
             mongoXlsx.mongoData2Xlsx(data, model, (err, data) => {
                 if (err) console.log(err);
-                res.download(data.fullPath, 'Entry Dsm User Excel.xlsx', (err) => {
+                res.download(data.fullPath, 'Entry Dsm+' + adminApply.getTimeStamp() + '.xlsx', (err) => {
                     if (err)
                         console.log(err);
                 });

@@ -47,6 +47,7 @@
                         <td class="search_option_column">지역&nbsp;
                             <input type="radio" name="region" value="HOME" checked="true">대전
                             <input type="radio" name="region" value="AWAY">전국
+                            <input type="radio" name="region" value="ALL">전체
                         </td>
                     </tr>
                     <tr>
@@ -62,9 +63,9 @@
                 <table id="detail_option" class="search_option">
                     <tr>
                         <!-- 이름 -->
-                        <td class="search_option_column">이름&nbsp;
+                        <!-- <td class="search_option_column">이름&nbsp;
                             <input type="text" name="name">
-                        </td>
+                        </td> -->
                     </tr>
                     <tr>
                         <!-- 성별 -->
@@ -190,7 +191,7 @@
                                 <form action="/admin/search/value" method="POST">
                                     <input type="hidden" name="checkReceipt" value="false">
                                     <input type="hidden" name="userId" value="<%= data[i].user%>">
-                                    <input type="submit" value="서류 취소">
+                                    <input type="submit" value="서류 취소" style="background-color: #f47a64">
                                 </form>
                                 <%} else{%>
                                     <form action="/admin/search/value" method="POST">
@@ -207,7 +208,7 @@
                                 <form action="/admin/search/value" method="POST">
                                     <input type="hidden" name="checkPayment" value="false">
                                     <input type="hidden" name="userId" value="<%= data[i].user%>">
-                                    <input type="submit" value="결제 취소">
+                                    <input type="submit" value="결제 취소" style="background-color: #f47a64">
                                 </form>
                                 <%} else{%>
                                     <form action="/admin/search/value" method="POST">

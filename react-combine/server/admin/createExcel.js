@@ -82,7 +82,6 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                     보호자연락처: findData.info.parentsTel, // info.parentsTel
                 };
                 let detailData = addSubject(findData);
-                console.log(detailData);
                 getScore(findData)
                     .then((scoreData) => {
                         let addData = Object.assign(baseData, detailData, scoreData);
@@ -112,7 +111,6 @@ function addSubject(data) {
                 }
             }
         }
-        console.log(arrayObj);
         return arrayObj;
 
     } else {
