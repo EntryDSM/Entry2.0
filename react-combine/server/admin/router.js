@@ -470,7 +470,7 @@ router.route('/admin/search/delete').post(onlyAdmin, (req, res) => {
         .then(() => {
             res.send(`<script>alert("학생 정보 삭제 완료"); location.href="/admin/search";</script>`);
         })
-        .catch(() => {
+        .catch((err) => {
             res.send(`<script>alert("${err}"); location.href="/admin/search";</script>`);
         });
 });
