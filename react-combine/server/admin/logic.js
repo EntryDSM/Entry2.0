@@ -226,8 +226,13 @@ exports.search = (body) => {
             obj = getSearch(body);
             console.log(obj);
         } else {
-            console.log('전체 검색');
-            obj = getSearch(body, true);
+            if (regionCheck == 'true'){
+                console.log('전체 검색');
+                obj = getSearch(body, 'regionCheck');   
+            } else {    
+                console.log('전체 검색');
+                obj = getSearch(body, 'regeionSimple');
+            }
         }
         applyDataModel.find(obj)
             .then(data => getSearchName(data))
@@ -269,10 +274,12 @@ function getSearch(body, check) {
         returnData = Object.assign(deleteKey(obj), addObj);
     } else if (typeof check == 'undefined') { // 상세검색 
         returnData = obj;
-    } else { // 전체검색
+    } else if (check == 'regeionCheck'){ // 전체검색
         returnData = {
             "classification.regionType": body.region,
         };
+    } else if (check == 'regeionSimple'){
+        returnData = {}
     }
 
     return returnData;
