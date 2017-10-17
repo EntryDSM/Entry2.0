@@ -19,11 +19,11 @@ exports.excel = (userId, callback) => {
                 }
             }).then((data) => {
                 let model = mongoXlsx.buildDynamicModel(data);
-                callback(null, data, model);
+                callback(data, model);
             })
             .catch((err) => {
                 console.log('엑셀 - 학생출력 오류 : ' + err);
-                callback(err, null, null);
+                callback(null, null);
             });
     } else {
         console.log('전체 엑셀 출력');
@@ -38,21 +38,26 @@ exports.excel = (userId, callback) => {
                             .then((eData) => {
                                 if (eData) arr.push(eData);
                                 else throw ('해당하는 학생 정보를 찾지 못함');
-                                if (arr.length === find.length) return arr;
+                                if (i == find.length - 1) {
+                                    console.log('return array');
+                                    console.log(arr.length + ' , ' + find.length);
+                                    return arr;
+                                } else {}
                             })
                             .then((arr) => {
                                 if (arr) {
+                                    console.log('들어옴');
                                     let model = mongoXlsx.buildDynamicModel(arr);
-                                    callback(null, arr, model);
+                                    callback(arr, model);
                                 }
                             })
                             .catch((err) => {
                                 console.log('엑셀 - 전체출력 오류 : ' + err);
-                                callback(err, null, null);
+                                callback(null, null);
                             });
                     }
                 } else {
-                    callback('학생정보가 하나도 없습니다', null, null);
+                    callback(null, null);
                 }
             });
     }
@@ -82,9 +87,6 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                     보호자연락처: findData.info.parentsTel, // info.parentsTel
                 };
                 let detailData = addSubject(findData);
-
-                console.log('excel 문제점 ');
-                console.log(detailData);
                 getScore(findData)
                     .then((scoreData) => {
                         let addData = Object.assign(baseData, detailData, scoreData);
@@ -100,6 +102,7 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
 
 function addSubject(data) {
     const sub = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어'];
+    console.log(data.info.parentsName + '의 시작');
 
     if (data.classification.graduateType != 'BLACK') {
         console.log('성적 - 일반');
@@ -114,6 +117,7 @@ function addSubject(data) {
                 }
             }
         }
+        console.log(data.info.parentsName + '의 끝');
         return arrayObj;
 
     } else {
