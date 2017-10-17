@@ -19,11 +19,11 @@ exports.excel = (userId, callback) => {
                 }
             }).then((data) => {
                 let model = mongoXlsx.buildDynamicModel(data);
-                callback(data, model);
+                callback(null, data, model);
             })
             .catch((err) => {
                 console.log('엑셀 - 학생출력 오류 : ' + err);
-                callback(null, null);
+                callback(err, null, null);
             });
     } else {
         console.log('전체 엑셀 출력');
@@ -43,16 +43,16 @@ exports.excel = (userId, callback) => {
                             .then((arr) => {
                                 if (arr) {
                                     let model = mongoXlsx.buildDynamicModel(arr);
-                                    callback(arr, model);
+                                    callback(null, arr, model);
                                 }
                             })
                             .catch((err) => {
                                 console.log('엑셀 - 전체출력 오류 : ' + err);
-                                callback(null, null);
+                                callback(err, null, null);
                             });
                     }
                 } else {
-                    callback(null, null);
+                    callback('학생정보가 하나도 없습니다', null, null);
                 }
             });
     }
@@ -82,6 +82,9 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                     보호자연락처: findData.info.parentsTel, // info.parentsTel
                 };
                 let detailData = addSubject(findData);
+
+                console.log('excel 문제점 ');
+                console.log(detailData);
                 getScore(findData)
                     .then((scoreData) => {
                         let addData = Object.assign(baseData, detailData, scoreData);
@@ -114,16 +117,8 @@ function addSubject(data) {
         return arrayObj;
 
     } else {
-        let arr = new Array();
         console.log('성적 - 검정고시');
-        for (let i = 0; i < 6; i++) {
-            let obj = {};
-            for (let j = 0; j < 7; j++) {
-                obj[(i + 1) + sub[j]] = "";
-            }
-            arr.push(obj);
-        }
-        return arr;
+        return getArr(sub);
     }
 
 }
@@ -155,7 +150,7 @@ function getScore(data) {
                     obj["2학년"] = sData.score.second;
                     obj["3학년"] = sData.score.third;
                     obj["교과성적환산점수"] = sData.score.total;
-                    obj["봉사시간"] = sData.volunteer;
+                    obj["봉사시간"] = data.grade.volunteer;
                     obj["봉사점수"] = sData.volunteer;
                     obj["결석"] = data.grade.attend.absence;
                     obj["지각"] = data.grade.attend.lateness;
@@ -166,7 +161,7 @@ function getScore(data) {
                     resolve(obj);
                 } else {
                     obj["교과성적환산점수"] = sData.score.total;
-                    obj["봉사시간"] = sData.volunteer;
+                    obj["봉사시간"] = data.grade.volunteer;
                     obj["봉사점수"] = sData.volunteer;
                     obj["출석점수"] = sData.attendance;
                     obj["1차_전형_총점"] = parseFloat(sData.score.total) + parseFloat(sData.volunteer) + parseFloat(sData.attendance);
