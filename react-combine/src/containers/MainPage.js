@@ -35,8 +35,15 @@ class MainPage extends Component{
         if(this.state.signState === "로그인"){
             browserHistory.push('/signin');
         } else if(this.state.signState === "로그아웃"){
-            // Sign out
-            console.log("Sign Out");
+            axios({
+                method: 'get',
+                url: '/api/signout'
+            }).then(response => {
+                console.log(response);
+                alert('로그아웃 됐습니다');
+            }).catch(error => {
+                console.log(error);
+            })    
         }
     }
 
