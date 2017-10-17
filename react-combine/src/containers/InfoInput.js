@@ -85,12 +85,7 @@ class InfoInput extends Component {
 
         axios({
             method: 'get',
-            url: '/api/user/info',
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15",
-                "ContentType": "application/json"
-            }
+            url: '/api/user/info'
         }).then(response => {
             console.log(response.data);
             let birth = response.data.birthday.split('-');
@@ -99,8 +94,9 @@ class InfoInput extends Component {
             let schoolTel;
             
             Array.from(birth).forEach((ele, index) => {
-                console.log(ele);
-                if(ele == undefined || ele == 'undefined'){
+                if(index === 0){
+                    birth[index] = "2002";
+                } else if(ele == undefined || ele == 'undefined'){
                     birth[index] = "";
                 }
             })

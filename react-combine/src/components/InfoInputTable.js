@@ -29,6 +29,10 @@ class InfoInputTable extends Component {
             }
         }
 
+        console.log(this.props);
+        console.log(this.props.birthYear);
+        console.log(this.props.birthYear == 2002);
+
         return(
             <div id="info_input_table">
                 <table id="table">
