@@ -226,6 +226,7 @@ exports.search = (body) => {
             obj = getSearch(body);
             console.log(obj);
         } else {
+<<<<<<< HEAD
             if (body.regionCheck == 'true'){
                 console.log('전체 검색');
                 obj = getSearch(body, 'regionCheck');   
@@ -233,6 +234,10 @@ exports.search = (body) => {
                 console.log('전체 검색');
                 obj = getSearch(body, 'regeionSimple');
             }
+=======
+            console.log('전체 검색');
+            obj = getSearch(body, true);
+>>>>>>> parent of ad1a77f6... 전체검색 모드 추가
         }
         applyDataModel.find(obj)
             .then(data => getSearchName(data))
@@ -274,12 +279,10 @@ function getSearch(body, check) {
         returnData = Object.assign(deleteKey(obj), addObj);
     } else if (typeof check == 'undefined') { // 상세검색 
         returnData = obj;
-    } else if (check == 'regeionCheck'){ // 전체검색
+    } else { // 전체검색
         returnData = {
             "classification.regionType": body.region,
         };
-    } else if (check == 'regeionSimple'){
-        returnData = {}
     }
 
     return returnData;
