@@ -226,7 +226,7 @@ exports.search = (body) => {
             obj = getSearch(body);
             console.log(obj);
         } else {
-            if (regionCheck == 'true'){
+            if (body.regionCheck == 'true'){
                 console.log('전체 검색');
                 obj = getSearch(body, 'regionCheck');   
             } else {    
