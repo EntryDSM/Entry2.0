@@ -19,11 +19,11 @@ exports.excel = (userId, callback) => {
                 }
             }).then((data) => {
                 let model = mongoXlsx.buildDynamicModel(data);
-                callback(data, model);
+                callback(null, data, model);
             })
             .catch((err) => {
                 console.log('엑셀 - 학생출력 오류 : ' + err);
-                callback(null, null);
+                callback(err, null, null);
             });
     } else {
         console.log('전체 엑셀 출력');
@@ -43,16 +43,16 @@ exports.excel = (userId, callback) => {
                             .then((arr) => {
                                 if (arr) {
                                     let model = mongoXlsx.buildDynamicModel(arr);
-                                    callback(arr, model);
+                                    callback(null, arr, model);
                                 }
                             })
                             .catch((err) => {
                                 console.log('엑셀 - 전체출력 오류 : ' + err);
-                                callback(null, null);
+                                callback(err, null, null);
                             });
                     }
                 } else {
-                    callback(null, null);
+                    callback('학생정보가 하나도 없습니다', null, null);
                 }
             });
     }
