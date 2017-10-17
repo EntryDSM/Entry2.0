@@ -324,7 +324,8 @@ exports.updateApplyStatus = (applyStatus, user) => {
 
 exports.deleteUser = (userId) => {
     return new Promise((resolve, reject) => {
-        applyDataModel.remove({ "user": userId })
+        applyDataModel.findOne({ "user": userId })
+            .then(data => data.removeData())
             .then(() => {
                 user.remove({ "_id": userId })
                     .then(() => resolve())

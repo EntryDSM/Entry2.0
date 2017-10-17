@@ -234,9 +234,9 @@
                         </div>
 
                         <div class="list_element_data fix_width_short" style="color: red">
-                            <form action="/admin/search/delete" method="POST">
+                            <form action="/admin/search/delete" method="POST" onsubmit="return deletefunction()">
                                 <input type="hidden" name="userId" value="<%= data[i].user%>">
-                                <input type="submit" value="삭제 ">
+                                <input type="submit" value="삭제">
                             </form>
                         </div>
                     </div>
@@ -245,6 +245,9 @@
         </article>
 
         <script charset="UTF-8">
+            function deletefunction() {
+                return confirm("삭제를 하시겠습니까?");
+            }
             var on_detail = function() {
                 var advanceSearch = document.getElementsByName("advanceSearch");
                 var detail_view = document.getElementById("detail_option");
@@ -260,6 +263,7 @@
                     $("#detail_option").empty();
                 }
             };
+            window.onload = deletefunction;
             window.onload = on_detail;
         </script>
 </body>
