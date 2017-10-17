@@ -153,7 +153,7 @@ exports.findEmail = (req, res) => {
             name
         })
         .then((users) => {
-            users.forEach(function(user) {
+            users.forEach(function (user) {
                 let username = user.getDecryptedEmail().split('@')[0];
                 let service = user.getDecryptedEmail().split('@')[1];
                 emails.push(username.split("").fill('*', 2).join("") + "@" + service);
@@ -238,4 +238,11 @@ exports.changePassword = (req, res) => {
                 res.sendStatus(500);
             }
         })
+}
+
+exports.signout = (req, res) => {
+    req.session.destroy(err => {
+        if (err) console.log(err);
+        res.status(200).end();
+    })
 }
