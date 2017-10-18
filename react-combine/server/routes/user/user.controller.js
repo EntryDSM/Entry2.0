@@ -246,3 +246,33 @@ exports.signout = (req, res) => {
         res.status(200).end();
     })
 }
+
+exports.mypage = (req, res) => {
+    const user = req.session.key;
+    let response = {
+        "checkPayment": Boolean,
+        "checkReceipt": Boolean,
+        "validation": Object
+    }
+    let checkPayment;
+    let checkReceipt;
+    ApplyData.findOne({
+            user
+        })
+        .then(applyData => {
+            checkPayment = applyData.checkPayment;
+            checkReceipt = applyData.checkReceipt;
+
+            return applyData.validation();
+        })
+        .then(validationResult => {
+            response.validation = validationResult;
+            response.checkPayment = checkPayment;
+            response.checkReceipt = checkReceipt;
+            res.status(200).json(response);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).end();
+        })
+}
