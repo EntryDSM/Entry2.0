@@ -39,8 +39,9 @@ WUser.methods.getDecryptedEmail = function () {
 
 WUser.statics.findOneByEmailAndRemove = function (email) {
     const secret = process.env.ENTRYDSM_SECRET;
-    const encryptedEmail = crypto.createCipher('aes192', secret)
-        .update(email, 'utf8', 'hex');
+    const cipher = crypto.createCipher('aes192', secret);
+    let encryptedEmail = cipher.update(email, 'utf8', 'hex');
+    encryptedEmail += cipher.final('hex');
     return this.findOneAndRemove({ "email": encryptedEmail });
 }
 module.exports = mongoose.model('WUser', WUser);
