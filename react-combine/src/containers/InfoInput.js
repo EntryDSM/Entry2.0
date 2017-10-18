@@ -20,7 +20,7 @@ class InfoInput extends Component {
             parentsName: "",
             schoolCode: "",
             schoolName: "",
-            goverment: "",
+            government: "",
             schoolTel: [
                 "", "", ""
             ],
@@ -239,7 +239,7 @@ class InfoInput extends Component {
             switch(index){
                 case 0: {
                     this.setState({
-                        goverment: ele.textContent
+                        government: ele.textContent
                     })
                 }
                 case 1: {
@@ -266,15 +266,15 @@ class InfoInput extends Component {
             this.setState({
                 schoolName: e.target.value
             })
-            if(this.state.goverment === ""){
+            if(this.state.government === ""){
                 query = '/api/schoolCode?name=' + e.target.value;
             } else {
-                query = '/api/schoolCode?goverment=' + this.state.goverment + '&name=' + e.target.value;
+                query = '/api/schoolCode?government=' + this.state.government + '&name=' + e.target.value;
             }
-        } else if(e.target.id === 'select_goverment'){
+        } else if(e.target.id === 'select_government'){
             if(e.target.value === "전체"){
                 this.setState({
-                    goverment: ""
+                    government: ""
                 })
                 if(this.state.schoolName === ""){
                     query = '/api/schoolCode?name=';
@@ -283,12 +283,12 @@ class InfoInput extends Component {
                 }
             } else {
                 this.setState({
-                    goverment: e.target.value
+                    government: e.target.value
                 })
                 if(this.state.schoolName === ""){
-                    query = '/api/schoolCode?goverment=' + e.target.value;
+                    query = '/api/schoolCode?government=' + e.target.value;
                 } else {
-                    query = '/api/schoolCode?goverment=' + e.target.value + '&name=' + this.state.schoolName;
+                    query = '/api/schoolCode?government=' + e.target.value + '&name=' + this.state.schoolName;
                 }
             }
         }
@@ -434,14 +434,14 @@ class InfoInput extends Component {
         })
     }
 
-    setGoverment(e){
+    setGovernment(e){
         if(e.target.value === "전체"){
             this.setState({
-                goverment: ""
+                government: ""
             })
         } else {
             this.setState({
-                goverment: e.target.value
+                government: e.target.value
             })
         }
     }
@@ -483,7 +483,7 @@ class InfoInput extends Component {
     closeModal(){
         this.setState({
             schoolList: [],
-            goverment: "",
+            government: "",
             schoolName: "",
             modalIsOpen: false
         })
