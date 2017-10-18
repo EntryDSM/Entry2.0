@@ -2,6 +2,7 @@ let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const SchoolCode = require('./SchoolCode');
 const calculator = require('../../util/calculator');
+const fs = require('fs');
 
 let ApplyData = Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
@@ -14,7 +15,9 @@ let ApplyData = Schema({
     applyStatus: { type: Boolean, default: false },
     createdAt: { type: String, required: true },
     updatedAt: { type: String, required: true },
-    profile: { type: String, required: false, default: null }
+    profile: { type: String, required: false, default: null },
+    checkPayment: { type: Boolean, default: false },
+    checkReceipt: { type: Boolean, default: false }
 }, { collection: 'ApplyData' });
 
 /*
@@ -92,8 +95,7 @@ updatedAt : 수정 날짜 (시간)
 
 function gradeTableGenerate(semester) {
     let grade = {
-        "semesters": [
-        ]
+        "semesters": []
     }
     let inSemester = [];
     for (let j = 0; j < 7; j++) {
@@ -120,14 +122,14 @@ const documentTemplate = {
         "applyBaseType": {
             "type": 'COMMON', // or MEISTER or SOCIAL
             "cause": null
-            // cause === 사회통합전형 사유
-            // BASIC_BENEFICIARY : 기초생활수급권자
-            // SINGLE_PARENT : 한부모가정
-            // LOWER_INCOME : 차상위계층
-            // LOW_INCOME : 차사상위계층
-            // FROM_NORTH : 북한이탈주민
-            // MULTICULTURAL : 다문화가정
-            // ETC : 기타
+                // cause === 사회통합전형 사유
+                // BASIC_BENEFICIARY : 기초생활수급권자
+                // SINGLE_PARENT : 한부모가정
+                // LOWER_INCOME : 차상위계층
+                // LOW_INCOME : 차사상위계층
+                // FROM_NORTH : 북한이탈주민
+                // MULTICULTURAL : 다문화가정
+                // ETC : 기타
         },
         applyDetailType: {
             "IS_COMMON": true, // 일반
@@ -168,7 +170,11 @@ const documentTemplate = {
             "subjectEscape": 0 // 무단 결과
         },
         "score": grade_will,
-        "calculatedScore": null
+        "calculatedScore": {
+            "total": 0,
+            "attendance": 0,
+            "volunteer": 0
+        }
     },
     introduce: {
         "introduce": "",
@@ -182,24 +188,32 @@ const documentTemplate = {
             "earlyLeave": 0, // 무단 조퇴
             "subjectEscape": 0 // 무단 결과
         },
-        "calculatedScore": null,
-        "score" : {
+        "calculatedScore": {
+            "total": 0,
+            "attendance": 0,
+            "volunteer": 0
+        },
+        "score": {
             scores: [null, null, null, null], // 차례대로 국어 수학 사회 과학
             choose: { "subject": null, "score": null } // 선택과목 한 과목
         }
     },
 }
 
-ApplyData.statics.findOneByUser = function (user) {
-    return this.findOne({ user }).exec();
+ApplyData.statics.findOneByUser = function(user, option) {
+    if (typeof option !== "undefined") {
+        return this.findOne({ user }, option).exec();
+    } else {
+        return this.findOne({ user }).exec();
+    }
 }
 
-ApplyData.methods.apply = function () {
+ApplyData.methods.apply = function() {
     this.applyStatus = true;
     return this.save();
 }
 
-ApplyData.statics.createEmpty = function (user) {
+ApplyData.statics.createEmpty = function(user) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -210,7 +224,7 @@ ApplyData.statics.createEmpty = function (user) {
             console.log("===================\n" + current.length);
             const next = typeof current[0] !== "undefined" ? current[0].submitNumber + 1 : 1;
             console.log("===================\n" + next)
-            
+
             let applyData = new this({
                 user,
                 "classification": documentTemplate.classification,
@@ -231,31 +245,38 @@ ApplyData.statics.createEmpty = function (user) {
         })
 }
 
-ApplyData.methods.reviseProfile = function (src) {
+ApplyData.methods.reviseProfile = function(src) {
     this.profile = src;
 
     return this.save();
 }
 
-ApplyData.methods.reviseClassification = function (classification) {
+ApplyData.methods.reviseClassification = function(classification) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
 
-    if ((this.classification.isBlack !== classification.isBlack) && classification.isBlack) {
-        this.info = documentTemplate.info_black;
-        this.grade = documentTemplate.grade_black;
-    }
-    else if (this.classification.isBlack && (this.classification.isBlack !== classification.isBlack)) {
-        this.info = documentTemplate.info_not_black;
-        this.grade = documentTemplate[classification.graduateType == 'WILL' ? 'grade_will' : 'grade_done'];
+    if (classification.isBlack) {
+        if (!this.classification.isBlack) {
+            this.info = documentTemplate.info_black;
+            this.grade = documentTemplate.grade_black;
+        }
+    } else {
+        if (this.classification.graduateType !== classification.graduateType) {
+            if (classification.graduateType === 'WILL') {
+                this.grade.score = grade_will;
+            } else {
+                this.grade.score = grade_done;
+            }
+        }
     }
     this.classification = classification;
+    this.markModified('grade');
     return this.save();
 }
 
-ApplyData.methods.reviseInfo = function (info) {
+ApplyData.methods.reviseInfo = function(info) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -266,7 +287,7 @@ ApplyData.methods.reviseInfo = function (info) {
     return this.save();
 }
 
-ApplyData.methods.reviseGrade = function (grade) {
+ApplyData.methods.reviseGrade = function(grade) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -278,14 +299,13 @@ ApplyData.methods.reviseGrade = function (grade) {
     console.log("=======================");
     console.log(_applyData);
     new Promise((resolve, reject) => {
-        resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
-    })
+            resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
+        })
         .then((validationResult) => {
             console.log(validationResult);
             if (validationResult.length === 0) {
                 return calculator.calculate(_applyData.grade, _applyData.classification.graduateType, _applyData.classification.applyBaseType.type);
-            }
-            else return;
+            } else return;
         })
         .then(score => {
             console.log(score);
@@ -295,7 +315,7 @@ ApplyData.methods.reviseGrade = function (grade) {
         .catch(console.log);
 }
 
-ApplyData.methods.reviseIntroduce = function (introduce) {
+ApplyData.methods.reviseIntroduce = function(introduce) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -310,25 +330,32 @@ ApplyData.methods.reviseIntroduce = function (introduce) {
  * 
  * TO DO :: ApplyData Validation
  */
-ApplyData.methods.validation = function () {
+ApplyData.methods.validation = function() {
     const data = this;
     return new Promise((resolve, reject) => {
-        let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [] };
+        let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [], 'isSubmited': data.applyStatus };
 
 
         if (data.classification.isBlack) {
             result.info = infoValidation('BLACK', this.info);
             result.grade = gradeValidation('BLACK', this.grade);
-        }
-        else if (data.classification.graduateType === 'WILL') {
+        } else if (data.classification.graduateType === 'WILL') {
             result.info = infoValidation('WILL', this.info)
             result.grade = gradeValidation('WILL', this.grade);
-        }
-        else {
+        } else {
             result.info = infoValidation('DONE', this.info)
-            result.grade = infoValidation('DONE', this.grade)
+            result.grade = gradeValidation('DONE', this.grade)
         }
         result.introduce = introduceValidation(this.introduce);
+        console.log(result.info);
+        let file;
+        try {
+            console.log(data.profile);
+            file = fs.readFileSync(__dirname + `/../../uploads/${data.profile}`);
+        } catch (err) {
+            console.log(err);
+            result.info.push('증명사진을 등록해주세요.');
+        }
 
         const regionType = this.classification.regionType;
 
@@ -346,24 +373,97 @@ ApplyData.methods.validation = function () {
                     resolve(result);
                 })
                 .catch(err => {
-                    if (err.message === 'SchoolCode Not Found') result.push('존재하지 않는 학교입니다.');
+                    if (err.message === 'SchoolCode Not Found') result.info.push('존재하지 않는 학교입니다.');
                     resolve(result);
                 });
         }
     })
 }
 
+ApplyData.methods.updateExamNumber = function(examNum) {
+    return new Promise((resolve, reject) => {
+        this.examNumber = examNum;
+        console.log(this);
+        this.save((err) => {
+            err ? reject(err) : resolve();
+        });
+    });
+}
+
+ApplyData.methods.removeData = function() {
+    return new Promise((resolve, reject) => {
+        if (this.applyStatus) {
+            reject('접수 완료일 경우 삭제가 불가합니다');
+        } else {
+            this.remove();
+            resolve();
+        }
+    })
+}
+
 function infoValidation(type, info) {
     let result = [];
-    if (info.sex == null) result.push('성별 정보를 입력해주세요.');
-    if (info.birthday == null) result.push('생일을 입력해주세요.');
+    let date;
+    let tel;
+    let parentsTel;
+    let schoolTel;
+
+    // 성별
+    if (info.sex == null || info.sex == '' || info.sex == 'undefined') result.push('성별 정보를 입력해주세요.');
+
+    // 생일
+    date = info.birthday.split('-');
+    for (let i = 0; i < date.length; i++) {
+        if (date[i] == null || date[i] == '' || date[i] == 'undefined') {
+            result.push('생일을 입력해주세요.');
+            break;
+        }
+    }
+
+    // 학년 정보
     if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
-    if (type !== 'BLACK' && (info.class == null)) result.push('반을 입력해주세요.');
-    if (type !== 'BLACK' && (info.schoolCode == null || info.schoolName == null || info.schoolTel == null)) result.push('학교 정보를 입력해주세요.');
-    if (info.tel == null) result.push('전화번호를 입력해주세요.');
-    if (info.parentsName == null) result.push('부모님 성함을 입력해주세요.');
-    if (info.parentsTel == null) result.push('부모님 전화번호를 입력해주세요.');
-    if ((info.addressBase == null) || (info.addressDetail == null)) result.push('주소를 빠짐없이 입력해주세요.');
+
+    // 반 정보
+    if (type !== 'BLACK' && (info.class == null || info.class == '' || info.class == 'undefined')) result.push('반을 입력해주세요.');
+
+    // 학교정보(학교코드, 학교명 / 전화번호)
+    if (type !== 'BLACK' && ((info.schoolCode == null || info.schoolCode == '' || info.schoolCode == 'undefined') || (info.schoolName == null || info.schoolName == '' || info.schoolName == 'undefined'))) {
+        result.push('학교 정보를 입력해주세요.');
+    } else {
+        schoolTel = info.schoolTel.split('-');
+        for (let i = 0; i < schoolTel.length; i++) {
+            if (schoolTel[i] == null || schoolTel[i] == '' || schoolTel[i] == 'undefined') {
+                result.push('학교 정보를 입력해주세요.');
+                break;
+            }
+        }
+    }
+
+    // 전화번호
+    tel = info.tel.split('-');
+    for (let i = 0; i < tel.length; i++) {
+        if (tel[i] == null || tel[i] == '' || tel[i] == 'undefined') {
+            result.push('전화번호를 입력해주세요.');
+            break;
+        }
+    }
+
+    // 보호자 전화번호
+    parentsTel = info.parentsTel.split('-');
+    for (let i = 0; i < parentsTel.length; i++) {
+        if (parentsTel[i] == null || parentsTel[i] == '' || parentsTel[i] == 'undefined') {
+            result.push('보호자 전화번호를 입력해주세요.');
+            break;
+        }
+    }
+
+    // 보호자 성함
+    if (info.parentsName == null || info.parentsName == '' || info.parentsName == 'undefined') result.push('부모님 성함을 입력해주세요.');
+
+    // 주소 정보
+    if ((info.addressBase == null || info.addressBase == 'undefined' || info.addressBase == '') || (info.addressDetail == null || info.addressDetail == 'undefined' || info.addressDetail == '')) {
+        result.push('주소를 빠짐없이 입력해주세요.');
+    }
 
     return result;
 }
@@ -393,8 +493,7 @@ function gradeValidation(type, grade) {
                 }
             }
         }
-    }
-    else if (type === 'DONE') {
+    } else if (type === 'DONE') {
         let subjects = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어']
         const semesters = grade.score.semesters;
 
@@ -417,8 +516,7 @@ function gradeValidation(type, grade) {
                 }
             }
         }
-    }
-    else if (type === 'BLACK') {
+    } else if (type === 'BLACK') {
         let subjects = ['국어', '수학', '사회', '과학'];
         const score = grade.score;
 
@@ -443,4 +541,6 @@ function introduceValidation(introduce) {
 
     return result;
 }
+
+
 module.exports = mongoose.model('ApplyData', ApplyData);

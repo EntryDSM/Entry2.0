@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/EntryDSM/react-combine/server/app.js",
+            "env":{
+                "ENTRYDSM_DOMAIN": "http://localhost",
+                "ENTRYDSM_PORT": "3000",
+                "ENTRYDSM_DB_URL": "mongodb://localhost:27017/EntryDSM",
+                "ENTRYDSM_EMAIL_SERVICE": "Gmail",
+                "ENTRYDSM_EMAIL_HOST": "localhost",
+                "ENTRYDSM_EMAIL_PORT": "465",
+                "ENTRYDSM_EMAIL_USER": "syeutyu123@gmail.com",
+                "ENTRYDSM_EMAIL_PASSWORD": "qlalfqjsgh12589",
+                "ENTRYDSM_SECRET": "asdjknasjdknakdnj123123"
+            }
+        }
+    ]
+}

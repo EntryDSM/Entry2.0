@@ -1,0 +1,242 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#sidebar {
+    float: left;
+    width: 17em;
+    height: 100%;
+    background: #cfd8dc;
+    position: fixed;
+}
+
+#info {
+    float: left;
+    margin-left: 17em;
+}
+
+#logo {
+    margin: 1em;
+}
+
+.title {
+    margin: 2em;
+}
+
+.circle_base {
+    width: 140pt;
+    height: 140pt;
+    border-radius: 50%;
+    float: left;
+}
+
+.default_margin {
+    margin: 2em;
+    margin-left: 3em;
+}
+
+.blue {
+    border: 1.3em #6e90df solid;
+}
+
+.yellow {
+    border: 1.3em #dfa76e solid;
+}
+
+.purple {
+    border: 1.3em #d180b3 solid;
+}
+
+.typeof_local {
+    margin: 1em;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 30pt;
+}
+
+#below_logo {
+    margin-left: 2rem;
+    font-size: 22pt;
+    color: white;
+}
+
+#sidemenu {
+    width: inherit;
+    height: 2.7rem;
+    background-color: #ADBBC1;
+}
+
+.sidemenu_text {
+    color: white;
+    font-size: 14pt;
+}
+
+.root {
+    margin-left: 1rem;
+    padding-top: 0.5rem;
+}
+
+.elems {
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+
+.people_count {
+    margin-left: 0.1em;
+    font-size: 17pt;
+    text-align: center;
+}
+
+.rect_for_count {
+    width: 140pt;
+    height: 50pt;
+    margin-left: 4em;
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+    float: left;
+}
+
+.blue_color {
+    background-color: #6e90df;
+    border-radius: 14pt;
+}
+
+.yellow_color {
+    background-color: #dfa76e;
+    margin-left: 8em;
+    border-radius: 14pt;
+}
+
+.purple_color {
+    background-color: #d180b3;
+    margin-left: 8em;
+    border-radius: 14pt;
+}
+
+.typeof_input {
+    text-align: center;
+    color: white;
+    margin-top: 0.5rem;
+}
+
+.typeof_count {
+    text-align: center;
+    color: white;
+}
+
+.score_list {
+    margin: 3rem;
+}
+
+.score_list tr td {
+    border-bottom: 1px solid #6D6D6D;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+}
+
+.symbol {
+    margin: 1rem;
+}
+
+.search_option {
+    margin: 3rem;
+}
+
+.search_option_column {
+    padding-right: 2rem;
+    padding-bottom: 0.7rem;
+    font-size: 1.1rem;
+}
+
+.list_element {
+    box-shadow: 0px 0px 10px #888888;
+    padding: 0.7rem;
+    margin-left: 3rem;
+    margin-bottom: 1rem;
+}
+
+#list_title {
+    padding: 0.7rem;
+    margin-left: 3rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.list_element_data {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    display: table-cell;
+}
+
+.fix_width_long {
+    width: 10rem;
+    text-align: center;
+}
+
+.fix_width_short {
+    width: 5rem;
+    text-align: center;
+}
+
+#classify {
+    margin-left: 3rem;
+}
+
+#view_panel {
+    margin: 3rem;
+    padding: 1.2rem;
+    width: auto;
+    height: auto;
+    background-color: white;
+    box-shadow: 0px 0px 8px #888888;
+}
+
+.info_cell {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.info_gap {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+#modify_buttons {
+    width: inherit;
+    margin-top: 1rem;
+}
+
+#edit {
+    text-align: left;
+    width: 84%;
+}
+
+#get_excel {
+    text-align: left;
+}
+
+#excel {
+    display: block;
+    margin-left: 3rem;
+    border: 0;
+    background-color: white;
+    width: 10rem;
+    height: 2.5rem;
+    box-shadow: 0 0 5px darkgray;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+input[type=submit] {
+    background-color: white;
+    box-shadow: 0 0 6px darkgray;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 0;
+    height: 1.5rem;
+}

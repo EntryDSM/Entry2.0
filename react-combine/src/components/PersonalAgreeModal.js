@@ -7,36 +7,31 @@ class PersonalAgreeModal extends React.Component {
         super(props);
 
         this.state = {
-            modalIsOpen: false,
-            isChecked: false
+            modalIsOpen: false
         };
 
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.isCheckDone = this.isCheckDone.bind(this);
     }
 
     openModal() {
-        this.setState({ modalIsOpen: true });
+        if(this.props.isChecked){
+            this.props.canclePersonalAgree();
+        } else {
+            this.setState({ modalIsOpen: true });
+        }
     }
 
     closeModal() {
         this.setState({ modalIsOpen: false });
     }
 
-    isCheckDone() {
-        this.setState({
-            isChecked: !this.state.isChecked
-        });
-    }
-
     render() {
         return (
             <div id ="agree_modal">
                 <div id="modal_area">
-                    <button className="btn_style" id="btn_personalagree" onClick={this.openModal}>개인정보활용동의서</button>&nbsp;
                     본 입학원서의 개인정부 수집‧이용‧제공에 동의합니다.&nbsp;
-                    <input type="checkbox" checked= {this.state.isChecked} onClick={this.openModal}/>&nbsp;
+                    <input type="checkbox" checked= {this.props.isChecked} onClick={this.openModal}/>&nbsp;
                 </div>
                 <Modal
                     isOpen={this.state.modalIsOpen}
@@ -74,9 +69,9 @@ class PersonalAgreeModal extends React.Component {
                     </div>
                     <div id="modal_footer">
                         본 입학원서의 개인정부 수집‧이용‧제공에 동의합니다.&nbsp;
-                        <input type="checkbox" id="agree_check" checked={this.state.isChecked} onClick={this.isCheckDone}/>
+                        <input type="checkbox" id="agree_check" checked={this.props.isChecked} onClick={this.props.paCheck}/>
                     </div>
-                    <button type="button" id="btn_submit" onClick={this.closeModal} >확인</button>
+                    <button type="button" id="btn_submit" onClick={this.closeModal}>확인</button>
                 </Modal>
             </div>
         );

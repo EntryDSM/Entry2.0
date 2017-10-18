@@ -83,16 +83,22 @@
 #landing-page #Header_Navigation ul li{
     float:left;
     color:white;
-    padding-left:1.7rem;
+    padding-left:1.8rem;
     font-size:1.1rem;
     letter-spacing:0.75px;
     padding-top:1.075rem;
     overflow:hidden;
+    position:relative;
+    left:4.7rem;
 }
 
 #landing-page #Header_Navigation ul li:hover{
     cursor:pointer;
     font-weight:bold;
+}
+
+#landing-page ul li a{
+    color:white;
 }
 
 #landing-page #Header_Image_Cover #Header_MainPart{
@@ -136,17 +142,17 @@
 }
 
 #landing-page #Title_Part #ToMainBox{
-    width:10rem;
-    height:2.75rem;
+    width:13rem;
+    height:3rem;
     border:1px solid white;
     margin-top:1.75rem;
     text-align: center;
-    font-size:0.85rem;
+    font-size:0.95rem;
     color:white;
     text-transform: uppercase;
     font-family:'Montserrat';
     font-weight:bold;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
     padding-top:0.775rem;
     transition:1.2s;
 }

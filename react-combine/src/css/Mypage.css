@@ -44,6 +44,7 @@
     position:absolute;
     top:0;
     right:4rem;
+    cursor: pointer;
 }
 
 #mypage #logoCover #myLogo{
@@ -93,6 +94,10 @@
     margin:10px;
     margin-top:3rem;
     border-radius: 4px;
+}
+
+#mypage #checksCover .checkFiles:hover{
+    cursor: pointer;
 }
 
 #mypage .checkFiles .checkTitles{
@@ -156,4 +161,9 @@
     width:60%;
     margin-left:15rem;
     padding-top:1rem;
+}
+
+#mypage_check{
+    margin-left: 4rem;
+    margin-top: 20px;
 }

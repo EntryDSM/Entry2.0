@@ -6,6 +6,7 @@ import '../css/InfoInput.css'
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
+import 'babel-polyfill';
 import PropTypes from 'prop-types';
 
 class InfoInput extends Component {
@@ -31,7 +32,7 @@ class InfoInput extends Component {
             ],
             baseAddress: "",
             detailAddress: "",
-            birthYear: "",
+            birthYear: "2002",
             birthMonth: "",
             birthDay: "",
             name: "",
@@ -44,21 +45,78 @@ class InfoInput extends Component {
         this.submitInfo= this.submitInfo.bind(this);
     }
 
-    componentDidMount(){
+    componentWillMount(){
         axios({
             method: 'get',
-            url: '/api/user/info',
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15",
-                "ContentType": "application/json"
+            url: '/api/user/classification'
+        }).then(response => {
+            console.log(response);
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
             }
+        }).catch(error => {
+            console.log(error);
+            browserHistory.push('/error');
+        })
+    }
+
+    componentDidMount(){
+        var point1 = document.getElementById("point_step1");
+        var point2 = document.getElementById("point_step2");
+        var point3 = document.getElementById("point_step3");
+        var point4 = document.getElementById("point_step4");
+        var point5 = document.getElementById("point_step5");
+        var point6 = document.getElementById("point_step6");
+        var point7 = document.getElementById("point_step7");
+        point1.style.fill = "#B9B4B4";
+        point1.style.stroke = "B9B4B4";
+        point2.style.fill = "#B9B4B4";
+        point2.style.stroke = "#B9B4B4";
+        point3.style.fill = "salmon";
+        point3.style.stroke = "salmon";
+        point4.style.fill = "#B9B4B4";
+        point4.style.stroke = "B9B4B4";
+        point5.style.fill = "#B9B4B4";
+        point5.style.stroke = "B9B4B4";
+        point6.style.fill = "#B9B4B4";
+        point6.style.stroke = "B9B4B4";
+        point7.style.fill = "#B9B4B4";
+        point7.style.stroke = "B9B4B4";
+
+        axios({
+            method: 'get',
+            url: '/api/user/info'
         }).then(response => {
             console.log(response.data);
             let birth = response.data.birthday.split('-');
-            let phoneNum = response.data.tel.split('-');
-            let parentsTel = response.data.parentsTel.split('-');
-            let schoolTel = response.data.schoolTel.split('-');
+            let phoneNum;
+            let parentsTel;
+            let schoolTel;
+            
+            Array.from(birth).forEach((ele, index) => {
+                if(index === 0){
+                    birth[index] = "2002";
+                } else if(ele == undefined || ele == 'undefined'){
+                    birth[index] = "";
+                }
+            })
+
+            if(response.data.tel.length > 0){
+                phoneNum = response.data.tel.split('-');
+            } else {
+                phoneNum = ["", "", ""];
+            }
+            if(response.data.parentsTel.length > 0){
+                parentsTel = response.data.parentsTel.split('-');                
+            } else {
+                console.log(response.data.parentsTel.split('-').length);
+                parentsTel = ["", "", ""];
+            }
+            if(response.data.schoolTel.length > 0){
+                schoolTel = response.data.schoolTel.split('-');
+            } else {
+                schoolTel = ["", "", ""];
+            }
 
             this.setState({
                 name: response.data.user.name,
@@ -79,23 +137,22 @@ class InfoInput extends Component {
                 birthMonth: birth[1],
                 birthDay: birth[2]
             })
+                
+            axios({
+                method: 'get',
+                url: '/api/upload/profile',
+                withCredentials: false
+            }).then(response => {
+                this.setState({
+                    profileImg: '/api/upload/profile'
+                })
+            }).catch(err => {
+                this.setState({
+                    profileImg: require('../images/file.png')
+                })
+            })
         }).catch(err => {
             console.log(err);
-            browserHistory.push('error');
-        })
-
-        axios({
-            method: 'get',
-            url: '/api/upload/profile',
-            withCredentials: false
-        }).then(response => {
-            this.setState({
-                profileImg: '/api/upload/profile'
-            })
-        }).catch(err => {
-            this.setState({
-                profileImg: require('../images/file.png')
-            })
         })
     }
 
@@ -132,6 +189,48 @@ class InfoInput extends Component {
             console.log(error);
             console.log(error.response);
             console.log(error.request);
+        })
+    }
+
+    componentWillUnmount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            if(!response.data.applyStatus){
+                axios({
+                    method: 'put',
+                    url: '/api/user/info',
+                    data: {
+                        info: {
+                            sex: this.state.sex,
+                            grade: this.state.grade,
+                            number: this.state.number,
+                            class: this.state.class,
+                            schoolCode: this.state.schoolCode,
+                            schoolName: this.state.schoolName,
+                            schoolTel: this.state.schoolTel[0] + '-' + this.state.schoolTel[1] + '-' + this.state.schoolTel[2],
+                            tel: this.state.phoneNum[0] + '-' + this.state.phoneNum[1] + '-' + this.state.phoneNum[2],
+                            parentsTel: this.state.parentsTel[0] + '-' + this.state.parentsTel[1] + '-' + this.state.parentsTel[2],
+                            parentsName: this.state.parentsName,
+                            birthday: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
+                            addressBase: this.state.baseAddress,
+                            addressDetail: this.state.detailAddress
+                        }
+                    },
+                    withCredentials: false,
+                    headers: {
+                        "Access-Control-Allow-Origin": "http://114.108.135.15",
+                        "ContentType": "application/json"
+                    }
+                }).then(response => {
+                    console.log(response);
+                }).catch(error => {
+                    console.log(error);
+                })
+            }
+        }).catch(error => {
+            console.log(error);
         })
     }
 
@@ -193,8 +292,11 @@ class InfoInput extends Component {
                 }
             }
         }
-        axios.get(query)
-        .then(response => {
+        axios({
+            method: 'GET',
+            url: query
+        }).then(response => {
+            console.log(response.data);
             this.setState({
                 schoolList: response.data
             })
@@ -236,15 +338,19 @@ class InfoInput extends Component {
                 break;
             }
             case 'class': {
-                this.setState({
-                    class: e.target.value
-                })
+                if(e.target.value !== NaN && e.target.value >= 0){    
+                    this.setState({
+                        class: e.target.value
+                    })
+                }
                 break;
             }
             case 'number': {
-                this.setState({
-                    number: e.target.value
-                })
+                if(e.target.value !== NaN && e.target.value >= 0){    
+                    this.setState({
+                        number: e.target.value
+                    })
+                }
                 break;
             }
             case 'parentsName': {
@@ -265,21 +371,59 @@ class InfoInput extends Component {
 
     setPhoneNum(e){
         let phoneNum = this.state.phoneNum;
-        phoneNum[e.target.name] = e.target.value;
+        let phNums = Array.from(document.getElementsByClassName('input_tel'));
+
+        if(e.target.name !== 2){
+            if(e.target.name == 0 && String(e.target.value).length === 3){
+                phNums[1].focus(); 
+            } else if(e.target.name == 1 && String(e.target.value).length === 4){
+                phNums[2].focus();
+            }
+        }
+
+        if(e.target.value !== NaN && e.target.value >= 0){
+            phoneNum[e.target.name] = e.target.value;
+        }
         this.setState({
             phoneNum: phoneNum
         })
     }
+
     setSchoolTel(e){
         let schoolTel = this.state.schoolTel;
-        schoolTel[e.target.name] = e.target.value;
+        let phNums = Array.from(document.getElementsByClassName('input_tel'));
+
+        if(e.target.name !== 2){
+            if(e.target.name == 0 && String(e.target.value).length === 3){
+                phNums[7].focus(); 
+            } else if(e.target.name == 1 && String(e.target.value).length === 4){
+                phNums[8].focus();
+            }
+        }
+
+        if(e.target.value !== NaN && e.target.value >= 0){
+            schoolTel[e.target.name] = e.target.value;
+        }
         this.setState({
             schoolTel: schoolTel
         })
     }
+
     setParentsTel(e){
         let parentsTel = this.state.parentsTel;
-        parentsTel[e.target.name] = e.target.value;
+        let phNums = Array.from(document.getElementsByClassName('input_tel'));
+
+        if(e.target.name !== 2){
+            if(e.target.name == 0 && String(e.target.value).length === 3){
+                phNums[4].focus(); 
+            } else if(e.target.name == 1 && String(e.target.value).length === 4){
+                phNums[5].focus();
+            }
+        }
+
+        if(e.target.value !== NaN && e.target.value >= 0){
+            parentsTel[e.target.name] = e.target.value;
+        }
         this.setState({
             parentsTel: parentsTel
         })
@@ -338,11 +482,15 @@ class InfoInput extends Component {
     }
     closeModal(){
         this.setState({
+            schoolList: [],
+            goverment: "",
+            schoolName: "",
             modalIsOpen: false
         })
     }
     
     render(){
+        console.log(this.state);
         return(
             <div id="contents">
                 <div id="info_input">
@@ -359,9 +507,9 @@ class InfoInput extends Component {
                         parentsTel={this.state.parentsTel}
                         schoolTel={this.state.schoolTel}
                         sex={this.state.sex}
-                        birthYear={this.state.birthYear}
-                        birthMonth={this.state.birthMonth}
                         birthDay={this.state.birthDay}
+                        month={this.state.birthMonth}
+                        birthYear={this.state.birthYear}
                         class={this.state.class}
                         number={this.state.number}
                         detailAddress={this.state.detailAddress}

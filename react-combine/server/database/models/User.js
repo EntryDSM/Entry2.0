@@ -32,17 +32,14 @@ User.methods.getDecryptedEmail = function () {
     const decipher = crypto.createDecipher('aes192', secret)
     let decrypted = decipher.update(this.email, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
-    console.log(decrypted);
     return decrypted;
 }
 
 User.statics.findOneByEmail = function (email) {
     const secret = process.env.ENTRYDSM_SECRET;
-    console.log(email);
     const cipher = crypto.createCipher('aes192', secret);
     let encryptedEmail = cipher.update(email, 'utf8', 'hex');
     encryptedEmail += cipher.final('hex');
-    console.log(encryptedEmail);
     return this.findOne({ "email": encryptedEmail }).exec();
 }
 
@@ -66,7 +63,6 @@ User.methods.changePassword = function (password) {
         .digest('base64');
 
     this.password = encryptedPassword;
-    console.log(this);
     return this.save();
 }
 

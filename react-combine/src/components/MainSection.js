@@ -9,7 +9,7 @@ class MainSection extends Component{
                     return(
                         <div className = "sectionParts" key = {idx}>
                             <Link to = {mainInfo.Route}>
-                                <img src = {mainInfo.ImgUrl} alt = "imgs"/>
+                                <img src = {mainInfo.ImgUrl} alt = "imgs" onClick={mainInfo.route}/>
                             </Link>
                             <h1> {mainInfo.MainTitle} </h1>
                             <h2> {mainInfo.SubTitle} </h2>

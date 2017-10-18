@@ -4,10 +4,23 @@ import HeaderView from '../components/HeaderView';
 import SimpleIntro from '../components/SimpleIntro';
 import MainIntro from '../components/MainIntro';
 import Footer from '../components/Footer';
+import 'babel-polyfill';
 import '../css/Landing.css';
 
 
 class Landing extends React.Component{
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount(){        
+        let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        if(!isChrome){
+            alert("지원하지 않는 브라우저입니다. Chrome 브라우저를 다운받아서 진행해주세요.");
+            window.location.href = 'https://www.google.co.kr/chrome/browser/desktop/index.html';
+        }
+    }
+
    render(){
        return(
             <div id="landing-page">
@@ -28,7 +41,7 @@ class Landing extends React.Component{
                         {
                             MainImageExplain : "Writing Form.",
                             SubImageExplain1 : "입학원서를 사이트 내에서 작성할 수 있습니다.",
-                            SubImageExplain2 : "손으로 일일히 자기소개서 및 학업계획서를 적지 않아도 되니 간편합니다.",
+                            SubImageExplain2 : "손으로 일일이 자기소개서 및 학업계획서를 적지 않아도 되니 간편합니다.",
                             SubImageExplain3 : "정성과 열정이 담긴 원서로 여러분의 역량을 표출해보세요.",
                             ImageUrl : require("../images/Introduce.png"),
                             Direction : "right"

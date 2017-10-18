@@ -61,6 +61,7 @@
 }
 #userinfo_table_1 tbody tr:nth-child(1) td:nth-child(2){
     width: 20%;
+    text-align: center;
 }
 #userinfo_table_1 tbody tr:nth-child(1) td:nth-child(3){
     text-align: center;
@@ -215,11 +216,16 @@
     text-align: center;
     width: 63%;
 }
+#userinfo_table_5 tbody tr:nth-child(1) td:nth-child(2) h2{
+    text-align: left;
+    margin-top: 40px;
+    margin-left: 20px;
+}
 #userinfo_table_5 tbody tr:nth-child(1) td:nth-child(2) p:nth-child(4){
     position: relative;
     top: 25px;
     left: 10px;
-    text-align: left;
+    text-align: center;
 }
 #userinfo_table_5 tbody tr:nth-child(1) td:nth-child(3){
     text-align: center;

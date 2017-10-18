@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
+import 'babel-polyfill';
 import '../css/Introduce.css';
 import '../css/WritingArea.css';
 
@@ -32,7 +33,44 @@ class Introduce extends Component {
         })
     }
 
+    componentWillMount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            console.log(response);
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
+            }
+        }).catch(error => {
+            console.log(error);
+            browserHistory.push('/error');
+        })
+    }
+
     componentDidMount(){
+        var point1 = document.getElementById("point_step1");
+        var point2 = document.getElementById("point_step2");
+        var point3 = document.getElementById("point_step3");
+        var point4 = document.getElementById("point_step4");
+        var point5 = document.getElementById("point_step5");
+        var point6 = document.getElementById("point_step6");
+        var point7 = document.getElementById("point_step7");
+        point1.style.fill = "#B9B4B4";
+        point1.style.stroke = "B9B4B4";
+        point2.style.fill = "#B9B4B4";
+        point2.style.stroke = "#B9B4B4";
+        point3.style.fill = "#B9B4B4";
+        point3.style.stroke = "B9B4B4";
+        point4.style.fill = "#B9B4B4";
+        point4.style.stroke = "B9B4B4";
+        point5.style.fill = "salmon";
+        point5.style.stroke = "salmon";
+        point6.style.fill = "#B9B4B4";
+        point6.style.stroke = "B9B4B4";
+        point7.style.fill = "#B9B4B4";
+        point7.style.stroke = "B9B4B4";
+
         axios({
             method: 'get',
             url: '/api/user/introduce',
@@ -41,12 +79,18 @@ class Introduce extends Component {
                 "Access-Control-Allow-Origin": "http://114.108.135.15"
             }
         }).then(response => {
+            console.log(response);
+            let introduceCount = response.data.introduce.length;
+            let planCount = response.data.plan.length;
+
             this.setState({
                 introduce: response.data.introduce,
-                plan: response.data.plan
+                plan: response.data.plan,
+                introduceCount: introduceCount,
+                planCount: planCount
             })
         }).catch(err => {
-            browserHistory.push('error');
+            console.log(err);
         })
     }
 
@@ -72,7 +116,34 @@ class Introduce extends Component {
         })
     }
 
+    componentWillUnmount(){
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            if(!response.data.applyStatus){
+                axios({
+                    method: 'put',
+                    url: '/api/user/introduce',
+                    data: {
+                        introduce: {
+                            introduce: this.state.introduce,
+                            plan: this.state.plan
+                        }
+                    },
+                }).then(response => {
+                    console.log(response);
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
     render(){
+        console.log(this.state.introduce);
         return(
             <div id="contents">
                 <InputHeader now={"자기소개서 및 학업계획서"} />

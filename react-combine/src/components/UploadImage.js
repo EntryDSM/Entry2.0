@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 
 class UploadImage extends Component {
     render() {
-        console.log(this.props.profileImg+"");
-        console.log(typeof(this.props.profileImg+""));
-        console.log(typeof(this.props.profileImg))
         return(
             <div className="div_style">
                 <img src={this.props.profileImg} id="IDPhoto"/>

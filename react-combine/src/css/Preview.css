@@ -50,6 +50,13 @@
     margin-bottom: 30px;
 }
 
+.printed {
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+    visibility: hidden; 
+}
+
 #preview #menu-area {
     padding-left: 8rem;
 }
@@ -137,7 +144,6 @@
 }
 
 #userinfo_table .td_title{
-    width: 20%;
     border: 1px solid;
     font-size: 25px;
     word-spacing: 60px;
@@ -145,7 +151,19 @@
 }
 
 #userinfo_table .td_content{
-    width: 80%;
+    border: 1px solid;
+}
+
+#userinfo_table .td_title_h{
+    width: 20%;
+    border: 1px solid;
+    font-size: 25px;
+    word-spacing: 60px;
+    text-align: center;
+}
+
+#userinfo_table .td_content_h{
+    width: 30%;
     border: 1px solid;
 }
 
@@ -184,6 +202,8 @@
 }
 
 #content .td_content{
+    white-space: pre-wrap;
+    word-break: break-all;
     font-size: 20px;
 }
 
@@ -301,6 +321,8 @@
     margin: 0 auto;
     text-align: center;
     font-size: 30px;
+    position:relative;
+    top:-1rem;
 }
 #content {
     width: 100%;
@@ -316,6 +338,7 @@
     text-align: center;
     font-size: 20px;
     height: 10%;
+    width:13rem;
 }
 #privacy #content{
     width: 99%;
@@ -338,6 +361,7 @@
     top: 10px;
     left: 800px;
     line-height: 150%;
+    margin-top:-1.5rem;
 }
 
 #userinfo_footer {
@@ -348,9 +372,14 @@
 #userinfo_footer p{
     font-size: 30px;
     font-weight: 1000;
+    margin-top:-0.3rem;
 }
 
 #profile{
     width: 100%;
     height: 215px;
+}
+
+#country_merit_area{
+    visibility: hidden;
 }

@@ -2,11 +2,18 @@ const WUser = require('../../database/models/WUser');
 const User = require('../../database/models/User');
 const ApplyData = require('../../database/models/ApplyData');
 const mailSender = require('./mailSender');
+const crypto = require('crypto');
 
 exports.signup = (req, res) => {
     const email = req.body.email;
     const name = req.body.name;
     const password = req.body.password;
+
+    /**
+     * 정상적인 코드
+     */
+
+
     User.findOneByEmail(email)
         .then((user) => {
             if (user) throw new Error('CONFLICT');
@@ -16,7 +23,6 @@ exports.signup = (req, res) => {
             return WUser.create(name, email, password); // 인증대기자 생성
         })
         .then((wUser) => {
-            console.log('asdsa');
             return mailSender.sendEmail(wUser, 'auth'); // 이메일 발신
         })
         .then(() => {
@@ -30,6 +36,52 @@ exports.signup = (req, res) => {
                 "message": err.message
             });
         });
+}
+
+exports.signup_testing = (req, res) => {
+    const email = req.body.email;
+    const name = req.body.name;
+    const password = req.body.password;
+
+    /**
+     * 유저 제약조건을 없앤 임시코드
+     */
+
+    let _wUser;
+    let uid;
+
+    User.findOneByEmail(email)
+        .then(user => {
+            if (user !== null) user.remove();
+            return ApplyData.findOneAndRemove({
+                "user": user === null ? null : user._id
+            });
+        })
+        .then(removed => {
+            return WUser.create(name, email, password);
+        })
+        .then(wUser => {
+            return User.create(wUser.name, wUser.email, wUser.password);
+        })
+        .then(user => {
+            console.log("=====USER=====")
+            console.log(user);
+            uid = user._id;
+            console.log(user.email);
+            WUser.find({
+                "email": user.email
+            }).remove(() => {});
+
+            return ApplyData.createEmpty(user._id);
+        })
+        .then(applyData => {
+            req.session.key = uid;
+            res.status(201).end();
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).end();
+        })
 }
 
 /*
@@ -61,7 +113,6 @@ exports.emailAuthentication = (req, res) => {
             return ApplyData.createEmpty(user._id);
         })
         .then((applyData) => {
-            console.log(applyData);
             // 사용자, 빈 문서 생성 성공 :: 201
             req.session.key = key;
             return res.status(201).end();
@@ -80,7 +131,7 @@ exports.signin = (req, res) => {
     User.findOneByEmail(email)
         .then((user) => {
             if (!user) return res.status(401).end();
-            if (user.verify(password)) {
+            else if (user.verify(password)) {
                 req.session.key = user._id;
                 res.status(200).end();
             } else res.status(401).end();
@@ -187,4 +238,11 @@ exports.changePassword = (req, res) => {
                 res.sendStatus(500);
             }
         })
+}
+
+exports.signout = (req, res) => {
+    req.session.destroy(err => {
+        if (err) console.log(err);
+        res.status(200).end();
+    })
 }

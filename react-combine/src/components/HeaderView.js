@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import '../css/HeaderView.css';
+import {browserHistory} from 'react-router';
 
 class HeaderView extends React.Component{
     componentDidMount(){
@@ -22,7 +23,24 @@ const NavigationBar = () =>{
     return(
         <div id="LogoAndNav">
             <LogoImagePart/>
-            <HeaderNavigationPart menuList = {["Home", "Contact", "Main", "About DSM"]}/>
+            <HeaderNavigationPart 
+            menuList = 
+            {
+                [
+                    {
+                        "nav" : "Main",
+                        "link" : "/main"
+                    },
+                    {
+                        "nav" : "Contact",
+                        "link" : "https://www.facebook.com/Entry-DSM-1386708261424912/?ref=bookmarks"
+                    },
+                    {
+                        "nav" : "About DSM",
+                        "link" : "http://dsmhs.djsch.kr/main.do"
+                    }
+                ]
+            }/>
         </div>
     );
 }
@@ -49,7 +67,24 @@ const HeaderNavigationPart = (props) =>{
         <div id="Header_Navigation">
             <ul>
                 {props.menuList.map((menu, i) => {
-                    return <li key={i}>{ menu }</li>
+                    if(i == 1 || i == 2){
+                        return(
+                            <li key={i}>
+                                <a href = {menu.link}
+                                   target = "_blank">
+                                    {menu.nav}
+                                </a>
+                            </li>
+                        );
+                    }else{
+                        return(
+                            <Link to = {menu.link}>
+                            <li key = {i}>
+                                {menu.nav}
+                            </li>
+                            </Link>
+                        );
+                    }
                 })}
             </ul>
         </div>
@@ -72,7 +107,7 @@ const TitlePart = (props) =>{
             <MainUnderLine/>
             <SubTitle Explain1= "2018학년도 DSM 입학전형 페이지입니다. 영 마이스터(Young Meister) 인재를 양성하며,"
                       Explain2= "창의, 열정, 배려가 넘치는 여러분을 기다리고 있습니다."/>
-            <MainBox BoxTitle= "main page"/>
+            <MainBox BoxTitle= "원서 접수하러가기"/>
         </div>
     );
 }

@@ -9,7 +9,15 @@ class PreviewContent extends Component {
      render() {
         let content = null;
         let datas = this.props.datas;
+        let graduationYear;
+        if(datas.graduation !== "DONE"){
+            graduationYear = "2017";
+        } else {
+            graduationYear = datas.graduateYear;
+        }
+
         let UserInfoData = () => {
+            console.log(datas.schoolName);
             return {
                 schoolCode: datas.schoolCode,
                 class: datas.class,
@@ -33,39 +41,50 @@ class PreviewContent extends Component {
                 totalSubjectGrade: datas.totalSubjectGrade,
                 attend: datas.attend,
                 volunteer: datas.volunteer,
-                totalGrade: datas.totalGrade
+                totalGrade: datas.totalGrade,
+                submitNumber: datas.submitNumber,
+                graduateYear: graduationYear
             }
         }
+
         let SelfIntroduceData = () => {
             return  {
                 name: datas.name,
                 schoolName: datas.schoolName,
-                introduce: datas.introduce
+                introduce: datas.introduce,
+                submitNumber: datas.submitNumber
             }
         }
+
         let StudyPlanData = () => { 
             return {
                 name: datas.name,
                 schoolName: datas.schoolName,
-                plan: datas.plan
+                plan: datas.plan,
+                submitNumber: datas.submitNumber
             }
          } 
+
         let NoSmokeData = () => {
             return {
                 name: datas.name,
                 phoneNum: datas.phoneNum,
                 schoolName: datas.schoolName,
-                address: datas.address
+                address: datas.address,
+                submitNumber: datas.submitNumber
             }
         }
+
         let PrincipalData = () => {
             return { 
                 schoolName: datas.schoolName,
+                local: datas.local,
                 type: datas.type,
                 class: datas.class,
                 name: datas.name
             }
         } 
+
         if(true) {
             switch(this.props.target) {
                 case "userInfo":

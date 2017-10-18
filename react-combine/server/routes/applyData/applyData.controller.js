@@ -9,7 +9,8 @@ exports.getUserInfo = (req, res) => {
             user
         }, {
             "info": true,
-            "user": true
+            "user": true,
+            "applyStatus": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -18,6 +19,7 @@ exports.getUserInfo = (req, res) => {
             console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             applyData.info.user = applyData.user;
+            applyData.info.applyStatus = applyData.applyStatus;
             res.status(200).json(applyData.info);
         })
         .catch((err) => {
@@ -55,7 +57,8 @@ exports.getUserClassification = (req, res) => {
             user
         }, {
             "classification": true,
-            "user": true
+            "user": true,
+            "applyStatus": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -64,6 +67,7 @@ exports.getUserClassification = (req, res) => {
             console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             applyData.classification.user = applyData.user;
+            applyData.classification.applyStatus = applyData.applyStatus;
             res.status(200).json(applyData.classification);
         })
         .catch((err) => {
@@ -83,11 +87,14 @@ exports.reviseUserClassification = (req, res) => {
         .then((applyData) => {
             return applyData.reviseClassification(classification);
         })
-        .then((applyData) => {
-            console.log(applyData);
+        .then((_applyData) => {
+            // console.log(applyData);
+            console.log("ASDASDASDASD");
+            console.log(_applyData.grade.score);
             res.sendStatus(200);
         })
         .catch((err) => {
+            console.log(err);
             res.status(500).json({
                 "message": err.message
             });
@@ -102,7 +109,8 @@ exports.getUserGrade = (req, res) => {
         }, {
             "grade": true,
             "_id": false,
-            "user": true
+            "user": true,
+            "applyStatus": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
@@ -147,13 +155,15 @@ exports.getUserIntroduce = (req, res) => {
             user
         }, {
             "introduce": true,
-            "user": true
+            "user": true,
+            "applyStatus": true
         }).populate({
             "path": "user",
             "select": ['email', 'name']
         })
         .then((applyData) => {
             console.log(applyData);
+            applyData.introduce.applyStatus = applyData.applyStatus;
             res.status(200).json(applyData.introduce);
         })
         .catch((err) => {
@@ -229,7 +239,7 @@ exports.getProfile = (req, res) => {
             "profile": true
         })
         .then((applyData) => {
-            if (applyData.profile === null) res.status(404).end();
+            if (applyData.profile === null) res.status(400).end();
             else {
                 const file = fs.readFileSync(__dirname + `/../../uploads/${applyData.profile}`);
                 res.writeHead(200, {
@@ -249,14 +259,14 @@ exports.reviseProfile = (req, res) => {
     const user = req.session.key;
     const file = req.files.profile;
     const src = UUID().slice(0, 12) + `.${file.mimetype.split("/")[1]}`;
-    
+
     if (typeof file === "undefined" || file === null) return res.status(400).end();
 
     let _applyData;
 
     ApplyData.findOne({
-        user
-    })
+            user
+        })
         .then((applyData) => {
             if (!applyData) throw new Error('NOT FOUND');
             _applyData = applyData;
@@ -301,8 +311,33 @@ exports.apply = (req, res) => {
         })
         .catch(err => {
             console.log(err);
+            if (err.message === 'not submitable') {
+                res.status(400).json({
+                    "message": err.message
+                });
+            } else {
+                res.status(500).json({
+                    "message": err.message
+                });
+            }
+        });
+}
+
+exports.getApplyStatus = (req, res) => {
+    const _id = req.session.key;
+    console.log(_id);
+    ApplyData.findOneByUser(_id, {
+            "applyStatus": 1
+        })
+        .then(applyData => {
+            console.log(applyData);
+            res.status(200).json({
+                "applyStatus": applyData.applyStatus
+            });
+        })
+        .catch(err => {
             res.status(500).json({
                 "message": err.message
             });
-        });
+        })
 }

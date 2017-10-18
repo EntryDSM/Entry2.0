@@ -1,5 +1,6 @@
 import React from 'react';
 import SignupCompleteChecked from '../components/SignupCompleteChecked';
+import 'babel-polyfill';
 import '../css/FormIndex.css';
 import '../css/CompleteCheckedBox.css';
 

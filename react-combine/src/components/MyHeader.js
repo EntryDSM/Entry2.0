@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 
 class MyHeader extends Component{
     render(){
@@ -16,7 +17,7 @@ class MyHeader extends Component{
 
 const LogoCover = (props) => {
     return(
-        <div id = "logoCover">
+        <div id = "logoCover" onClick={() => {browserHistory.push("/main")}}>
             <img src = {props.MyLogo} id = "myLogo" alt = "myPageLogo"/>
             <div id = "logoText">
                 {props.LogoText}
