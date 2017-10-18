@@ -552,13 +552,13 @@ router.route('/excel').post((req, res) => {
         if (data && 0 < model.length) {
             mongoXlsx.mongoData2Xlsx(data, model, (err, data) => {
                 if (err) console.log(err);
-                res.download(data.fullPath, 'Entry Dsm+' + adminApply.getTimeStamp() + '.xlsx', (err) => {
+                res.download(data.fullPath, 'Entry Dsm ' + adminApply.getTimeStamp() + '.xlsx', (err) => {
                     if (err)
                         console.log(err);
                 });
             });
         } else {
-            res.send('<script>alert("정보 찾지 못함 - Excel"); location.href="/admin/search"; </script>')
+            res.send(`<script>alert("Excel Error"); location.href="/admin/search"; </script>`)
         }
     });
 });

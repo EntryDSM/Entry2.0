@@ -38,10 +38,15 @@ exports.excel = (userId, callback) => {
                             .then((eData) => {
                                 if (eData) arr.push(eData);
                                 else throw ('해당하는 학생 정보를 찾지 못함');
-                                if (arr.length === find.length) return arr;
+                                if (i == find.length - 1) {
+                                    console.log('return array');
+                                    console.log(arr.length + ' , ' + find.length);
+                                    return arr;
+                                } else {}
                             })
                             .then((arr) => {
                                 if (arr) {
+                                    console.log('들어옴');
                                     let model = mongoXlsx.buildDynamicModel(arr);
                                     callback(arr, model);
                                 }
@@ -97,6 +102,7 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
 
 function addSubject(data) {
     const sub = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어'];
+    console.log(data.info.parentsName + '의 시작');
 
     if (data.classification.graduateType != 'BLACK') {
         console.log('성적 - 일반');
@@ -111,19 +117,12 @@ function addSubject(data) {
                 }
             }
         }
+        console.log(data.info.parentsName + '의 끝');
         return arrayObj;
 
     } else {
-        let arr = new Array();
         console.log('성적 - 검정고시');
-        for (let i = 0; i < 6; i++) {
-            let obj = {};
-            for (let j = 0; j < 7; j++) {
-                obj[(i + 1) + sub[j]] = "";
-            }
-            arr.push(obj);
-        }
-        return arr;
+        return getArr(sub);
     }
 
 }
@@ -155,7 +154,7 @@ function getScore(data) {
                     obj["2학년"] = sData.score.second;
                     obj["3학년"] = sData.score.third;
                     obj["교과성적환산점수"] = sData.score.total;
-                    obj["봉사시간"] = sData.volunteer;
+                    obj["봉사시간"] = data.grade.volunteer;
                     obj["봉사점수"] = sData.volunteer;
                     obj["결석"] = data.grade.attend.absence;
                     obj["지각"] = data.grade.attend.lateness;
@@ -166,7 +165,7 @@ function getScore(data) {
                     resolve(obj);
                 } else {
                     obj["교과성적환산점수"] = sData.score.total;
-                    obj["봉사시간"] = sData.volunteer;
+                    obj["봉사시간"] = data.grade.volunteer;
                     obj["봉사점수"] = sData.volunteer;
                     obj["출석점수"] = sData.attendance;
                     obj["1차_전형_총점"] = parseFloat(sData.score.total) + parseFloat(sData.volunteer) + parseFloat(sData.attendance);
