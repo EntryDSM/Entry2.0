@@ -28,40 +28,6 @@ class Classification extends Component {
             },
             disabled: "disabled"
         }
-        this.getAlreadyData = this.getAlreadyData.bind(this);
-        this.classificationSubmit = this.classificationSubmit.bind(this);
-    }
-
-    setIsBlackTest(e){
-        if(e.target.id === 'test-yes'){
-            this.setState({
-                isBlackTest: true,
-                graduation: ""
-            })
-        }
-        this.setState({
-            isBlackTest: !this.state.isBlackTest
-        })
-    }
-
-    onSocietyClick(e){
-        if(e.target.id === "MEISTER" || e.target.id === "COMMON"){
-            this.setState({
-                isSocietySelected: false,
-                applyBaseType: {
-                    type: e.target.id,
-                    cause: null
-                }
-            })
-        } else if(e.target.id === "SOCIAL") {
-            this.setState({
-                isSocietySelected: !this.state.isSocietySelected,
-                applyBaseType: {
-                    type: e.target.id,
-                    cause: null
-                }
-            })
-        }
     }
 
     radioSetter(e){
@@ -74,20 +40,34 @@ class Classification extends Component {
                     })
                 } else {
                     this.setState({
-                        isBlackTest: e.target.id
+                        isBlackTest: e.target.id,
+                        graduation: "WILL"
                     })
                 }
                 break;
-            case 'local': this.setState({
+            case 'local': 
+                this.setState({
                     local: e.target.id
                 })
                 break;
-            case 'type': this.setState({
-                    applyBaseType: {
-                        type: e.target.id,
-                        cause: null
-                    }
-                })
+            case 'type': 
+                if(e.target.id === "MEISTER" || e.target.id === "COMMON"){
+                    this.setState({
+                        isSocietySelected: false,
+                        applyBaseType: {
+                            type: e.target.id,
+                            cause: null
+                        }
+                    })
+                } else if(e.target.id === "SOCIAL") {
+                    this.setState({
+                        isSocietySelected: !this.state.isSocietySelected,
+                        applyBaseType: {
+                            type: e.target.id,
+                            cause: null
+                        }
+                    })
+                }
                 break;
             case 'graduation': 
                 if(e.target.id === "WILL"){
@@ -103,6 +83,11 @@ class Classification extends Component {
                         disabled: ""
                     })
                 }
+                break;
+            case 'graduateYear':
+                this.setState({
+                    date: e.target.value
+                })
                 break;
             case 'detail': 
                 this.setState({
@@ -155,86 +140,6 @@ class Classification extends Component {
         }
     }
 
-    setDate(e){
-        this.setState({
-            date: e.target.value
-        })
-    }
-
-    classificationSubmit(){
-        console.log(typeof this.state.isBlackTest);
-        console.log(this.state.isBlackTest == 'test-yes' ? true : false);
-        axios({
-            method : "put",
-            url : "/api/user/classification",
-            data : {
-                classification: {
-                    isBlack: this.state.isBlackTest == 'test-yes' ? true : false,
-                    regionType: this.state.local,
-                    applyBaseType: this.state.applyBaseType,
-                    graduateType: this.state.graduation,
-                    graduateYear: this.state.date,
-                    applyDetailType: this.state.applyDetailType
-                }
-            }
-        }).then(function(response){
-            console.log(response);
-            browserHistory.push('/infoinput');
-        }).catch(function(err){
-            console.log(err);
-        });
-    }
-
-    componentWillMount(){
-        axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            console.log(response);
-            if(response.data.applyStatus){
-                browserHistory.push('/finalError');
-            }
-        }).catch(error => {
-            console.log(error);
-            browserHistory.push('/error');
-        })
-    }
-
-    getAlreadyData(){
-        axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            let isBlackTest;
-            let date;
-
-            console.log(response.data.isBlack);
-
-            if(response.data.isBlack){
-                isBlackTest = 'test-yes'
-            } else {
-                isBlackTest = 'test-no'
-            }
-
-            if(response.data.graduateType === 'DONE'){
-                date = "2017";
-            } else {
-                date = "2018"
-            }
-
-            this.setState({
-                isBlackTest: isBlackTest,
-                local: response.data.regionType,
-                applyBaseType: response.data.applyBaseType,
-                graduation: response.data.graduateType,
-                date: date,
-                applyDetailType: response.data.applyDetailType
-            })
-        }).catch(error => {
-            console.log(error);
-        })
-    }
-
     componentDidMount(){
         var point1 = document.getElementById("point_step1");
         var point2 = document.getElementById("point_step2");
@@ -258,7 +163,27 @@ class Classification extends Component {
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
 
-        this.getAlreadyData();
+        axios({
+            method: 'get',
+            url: '/api/user/classification'
+        }).then(response => {
+            if(response.data.applyStatus){
+                browserHistory.push('/finalError');
+            } else {
+                this.setState({
+                    isBlackTest: response.data.isBlack ? 'test-yes' : 'test-no',
+                    local: response.data.regionType,
+                    applyBaseType: response.data.applyBaseType,
+                    graduation: response.data.graduateType,
+                    date: response.data.graduateType === 'DONE' ? "2017" : "2018",
+                    applyDetailType: response.data.applyDetailType,
+                    isSocietySelected: response.data.applyBaseType.type === 'SOCIAL' ? true : false
+                })
+            }
+        }).catch(error => {
+            console.log(error);
+            browserHistory.push('/error');
+        })
     }
 
     componentWillUnmount(){
@@ -267,36 +192,23 @@ class Classification extends Component {
             url: '/api/user/classification'
         }).then(response => {
             if(!response.data.applyStatus){
-                let isBlackTest;
-                switch(this.state.isBlackTest){
-                    case 'test-yes': {
-                        isBlackTest = true;
-                    }
-                    case 'test-no': {
-                        isBlackTest = false;
-                    }
-                }
                 axios({
                     method : "put",
                     url : "/api/user/classification",
                     data : {
                         classification: {
-                            isBlack: isBlackTest,
+                            isBlack: this.state.isBlackTest == 'test-yes' ? true : false,
                             regionType: this.state.local,
                             applyBaseType: this.state.applyBaseType,
                             graduateType: this.state.graduation,
                             graduateYear: this.state.date,
                             applyDetailType: this.state.applyDetailType
                         }
-                    },
-                    withCredentials : false,
-                    headers : {
-                        "Access-Control-Allow-Origin" : "http://114.108.135.15"
                     }
-                }).then(function(response){
+                }).then(response => {
                     console.log(response);
-                }).catch(function(err){
-                    console.log(err);
+                }).catch(error => {
+                    console.log(error);
                 });
             }
         }).catch(error => {
@@ -305,7 +217,6 @@ class Classification extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div id="contents">
                 <InputHeader now="구분선택"/>
@@ -317,12 +228,10 @@ class Classification extends Component {
                     <Graduate 
                         graduation={this.state.graduation}
                         radioSetter={this.radioSetter.bind(this)}
-                        setDate={this.setDate.bind(this)}
                         date={this.state.date}
-                        isBlackTest={this.state.isBlackTest}
+                        isBlack={this.state.isBlackTest === 'test-yes' ? true : false}
                         disabled={this.state.disabled}/>
                     <TypeAndMemo
-                        onSocietyClick={this.onSocietyClick.bind(this)} 
                         radioSetter={this.radioSetter.bind(this)}
                         applyBaseType={this.state.applyBaseType}
                         applyDetailType={this.state.applyDetailType}/>
@@ -332,9 +241,7 @@ class Classification extends Component {
                         isSocietySelected={this.state.isSocietySelected} 
                         radioSetter={this.radioSetter.bind(this)}/>
                 </div>
-                 <Button
-                    onclick={this.classificationSubmit.bind(this)}
-                    buttonName="다음"/>
+                 <Button router="/infoinput" buttonName="다음"/>
             </div>
         )
     }
@@ -388,55 +295,49 @@ const DefaultInfo = (props) => {
 const Graduate = (props) => {
     let graduationDisabled = "";
     let disabled = props.disabled;
-    if(props.isBlackTest === "test-yes"){
-        graduationDisabled = "disabled";
-        disabled = "disabled";
-    } else if(props.graduation === 'DONE'){
+    if(props.graduation === 'DONE'){
         graduationDisabled = "disabled";
         disabled = "";
     }
     return(
-        <div id="graduate">
-        <h2>졸업 구분</h2>
-        <span>졸업 구분</span>
-        <input
-            type="radio"
-            name="graduation"
-            id="WILL"
-            value="willGraduate"
-            onClick={props.radioSetter}
-            checked={props.graduation === 'WILL'}
-            disabled={props.isBlackTest === 'test-yes' ? 'disabled' : ''}/>
-        <label htmlFor="will-graduate">졸업 예정</label>
+        <div id="graduate" style={{display: props.isBlack ? "none" : "block"}}>
+            <h2>졸업 구분</h2>
+            <span>졸업 구분</span>
+            <input
+                type="radio"
+                name="graduation"
+                id="WILL"
+                value="willGraduate"
+                onClick={props.radioSetter}
+                checked={props.graduation === 'WILL'}/>
+            <label htmlFor="will-graduate">졸업 예정</label>
 
-        <input
-            type="radio"
-            name="graduation"
-            id="DONE"
-            value="graduated"
-            onClick={props.radioSetter}
-            checked={props.graduation === 'DONE'}
-            disabled={props.isBlackTest === 'test-yes' ? 'disabled' : ''}/>
-        <label htmlFor="graduated">졸업</label> <br />
+            <input
+                type="radio"
+                name="graduation"
+                id="DONE"
+                value="graduated"
+                onClick={props.radioSetter}
+                checked={props.graduation === 'DONE'}/>
+            <label htmlFor="graduated">졸업</label> <br />
 
-        <span>졸업년도</span>
-        <select 
-            name="graduateYear"
-            id="graduation-year" 
-            onChange={props.setDate}>
-            <option value="2018" selected={props.graduation === 'WILL'} disabled={graduationDisabled}>2018년</option>
-            <option value="2017" selected={props.date == 2017 ? 'selected' : ''} disabled={disabled}>2017년</option>
-            <option value="2016" selected={props.date == 2016 ? 'selected' : ''} disabled={disabled}>2016년</option>
-            <option value="2015" selected={props.date == 2015 ? 'selected' : ''} disabled={disabled}>2015년</option>
-            <option value="2014" selected={props.date == 2014 ? 'selected' : ''} disabled={disabled}>2014년</option>
-            <option value="2013" selected={props.date == 2013 ? 'selected' : ''} disabled={disabled}>2013년</option>
-        </select>
-    </div>
+            <span>졸업년도</span>
+            <select 
+                name="graduateYear"
+                id="graduation-year" 
+                onChange={props.radioSetter}>
+                <option value="2018" selected={props.graduation === 'WILL'} disabled={graduationDisabled}>2018년</option>
+                <option value="2017" selected={props.date == 2017 ? 'selected' : ''} disabled={disabled}>2017년</option>
+                <option value="2016" selected={props.date == 2016 ? 'selected' : ''} disabled={disabled}>2016년</option>
+                <option value="2015" selected={props.date == 2015 ? 'selected' : ''} disabled={disabled}>2015년</option>
+                <option value="2014" selected={props.date == 2014 ? 'selected' : ''} disabled={disabled}>2014년</option>
+                <option value="2013" selected={props.date == 2013 ? 'selected' : ''} disabled={disabled}>2013년</option>
+            </select>
+        </div>
     );
 }
 
 const TypeAndMemo = (props) => {
-    console.log(props);
     return (
         <div id="type-and-memo">
             <h2>전형 및 특기 사항</h2>
@@ -446,7 +347,7 @@ const TypeAndMemo = (props) => {
                 name="type"
                 id="COMMON"
                 value="general"
-                onClick={props.onSocietyClick}
+                onClick={props.radioSetter}
                 checked={props.applyBaseType.type === 'COMMON'} />
             <label htmlFor="general">일반</label>
             <input
@@ -454,7 +355,7 @@ const TypeAndMemo = (props) => {
                 name="type"
                 id="MEISTER"
                 value="meister"
-                onClick={props.onSocietyClick}
+                onClick={props.radioSetter}
                 checked={props.applyBaseType.type === 'MEISTER'} />
             <label htmlFor="meister">마이스터 인재</label>
             <input
@@ -462,7 +363,7 @@ const TypeAndMemo = (props) => {
                 name="type"
                 id="SOCIAL"
                 value="society"
-                onClick={props.onSocietyClick}
+                onClick={props.radioSetter}
                 checked={props.applyBaseType.type === 'SOCIAL'} />
             <label htmlFor="society">사회통합</label> <br />
             <span>국가 유공자</span>
@@ -509,7 +410,7 @@ const TypeAndMemo = (props) => {
 const SocietyDetail = (props) => {
     return (
         <div id="society-detail" style={{
-            visibility : props.isSocietySelected? "visible":"hidden"
+            visibility : props.isSocietySelected ? "visible" : "hidden"
         }}>
             <ul>
                 <li>
