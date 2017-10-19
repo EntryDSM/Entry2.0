@@ -12,7 +12,7 @@ class Classification extends Component {
         super(props)
         this.state = {
             local: "AWAY",
-            graduation: "",
+            graduation: "WILL",
             date: "2018",
             detail: "",
             isSocietySelected: false,
@@ -66,9 +66,17 @@ class Classification extends Component {
 
     radioSetter(e){
         switch(e.target.name){
-            case 'isBlackTest': this.setState({
-                    isBlackTest: e.target.id
-                })
+            case 'isBlackTest': 
+                if(e.target.id === 'test-yes'){
+                    this.setState({
+                        isBlackTest: e.target.id,
+                        graduation: ""
+                    })
+                } else {
+                    this.setState({
+                        isBlackTest: e.target.id
+                    })
+                }
                 break;
             case 'local': this.setState({
                     local: e.target.id
@@ -148,38 +156,26 @@ class Classification extends Component {
     }
 
     setDate(e){
-        console.log(e.target.value);
         this.setState({
             date: e.target.value
         })
     }
 
     classificationSubmit(){
-        let isBlackTest;
-        switch(this.state.isBlackTest){
-            case 'test-yes': {
-                isBlackTest = true;
-            }
-            case 'test-no': {
-                isBlackTest = false;
-            }
-        }
+        console.log(typeof this.state.isBlackTest);
+        console.log(this.state.isBlackTest == 'test-yes' ? true : false);
         axios({
             method : "put",
             url : "/api/user/classification",
             data : {
                 classification: {
-                    isBlack: isBlackTest,
+                    isBlack: this.state.isBlackTest == 'test-yes' ? true : false,
                     regionType: this.state.local,
                     applyBaseType: this.state.applyBaseType,
                     graduateType: this.state.graduation,
                     graduateYear: this.state.date,
                     applyDetailType: this.state.applyDetailType
                 }
-            },
-            withCredentials : false,
-            headers : {
-                "Access-Control-Allow-Origin" : "http://114.108.135.15"
             }
         }).then(function(response){
             console.log(response);
@@ -211,6 +207,8 @@ class Classification extends Component {
         }).then(response => {
             let isBlackTest;
             let date;
+
+            console.log(response.data.isBlack);
 
             if(response.data.isBlack){
                 isBlackTest = 'test-yes'
