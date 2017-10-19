@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Graduate from '../components/GraduateToBe';
 import Graduated from '../components/Graduated';
+import BlackExam from '../components/BlackExam';
 import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import Volunteer from '../components/Volunteer';
@@ -73,7 +74,7 @@ class GradeInput extends Component{
             volunteer: 0,
             graduated: null,
             graduate_to_be: null,
-            black: null
+            black: "none"
         };
     }
 
@@ -198,6 +199,7 @@ class GradeInput extends Component{
                 <table id="grade_input_table">
                     <Graduate visible={this.state.graduate_to_be}/>
                     <Graduated visible={this.state.graduated}/>
+                    <BlackExam visible={this.state.black}/>
                 </table>
                 <Button router="infoinput" buttonName="이전"/>
                 <Button onclick={this.gradeInputSubmit.bind(this)} buttonName="다음"/>
@@ -262,6 +264,10 @@ class GradeInput extends Component{
             withCredentials: false
         }).then(response => {
             graduateType = response.data.graduateType;
+            console.log(response);
+            this.setState({
+                black: response.data.isBlack ? "table-row-group" : "none" 
+            })
             switch(response.data.graduateType){
                 case "WILL": 
                     this.setState({

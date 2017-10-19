@@ -91,7 +91,7 @@ class InfoInput extends Component {
             let birth = response.data.birthday.split('-');
             let phoneNum;
             let parentsTel;
-            let schoolTel;
+            let schoolTel = "";
             
             Array.from(birth).forEach((ele, index) => {
                 if(index === 0){
@@ -106,15 +106,19 @@ class InfoInput extends Component {
             } else {
                 phoneNum = ["", "", ""];
             }
+
             if(response.data.parentsTel.length > 0){
                 parentsTel = response.data.parentsTel.split('-');                
             } else {
                 console.log(response.data.parentsTel.split('-').length);
                 parentsTel = ["", "", ""];
             }
-            if(response.data.schoolTel.length > 0){
-                schoolTel = response.data.schoolTel.split('-');
-            } else {
+
+            console.log(response.data.schoolTel);
+            if(response.data.schoolTel !== undefined){
+                if(response.data.schoolTel.length > 0){
+                    schoolTel = response.data.schoolTel.split('-');
+                }
                 schoolTel = ["", "", ""];
             }
 
