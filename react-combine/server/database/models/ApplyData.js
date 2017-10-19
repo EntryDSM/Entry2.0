@@ -255,7 +255,7 @@ ApplyData.methods.reviseClassification = function (classification) {
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
-
+    
     if (classification.isBlack) {
         if (!this.classification.isBlack) {
             this.info = documentTemplate.info_black;
@@ -271,7 +271,7 @@ ApplyData.methods.reviseClassification = function (classification) {
         }
     }
     this.classification = classification;
-    this.markModified('grade');
+    this.markModified('classification');
     return this.save();
 }
 
@@ -351,7 +351,11 @@ ApplyData.methods.validation = function () {
         }
 
         const regionType = this.classification.regionType;
-
+        
+        if (data.classification.applyBaseType.type == 'SOCIAL' && data.classification.applyBaseType.cause == null) {
+            result.classification.push("사회통합 사유를 입력해주세요.");
+        }
+        
         if (data.classification.isBlack === false) {
 
             SchoolCode.findOne({ "code": this.info.schoolCode })
