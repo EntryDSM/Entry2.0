@@ -7,19 +7,22 @@ exports.calculate = function (grade, graduateType, applyType) {
             "attendance": Number,
             "total": Number
         };
-        let score = [];
+        
         const attend = grade.attend;
         const volunteer = grade.volunteer;
-        const subjects = [null, 'E', 'D', 'C', 'B', 'A'];
-        g_score = grade.score.semesters;
-        g_score.forEach(function (element) {
-            let item = []
-            element.forEach(function (grade) {
-                item.push(grade.pass === true ? (grade.grade !== null ? subjects.indexOf(grade.grade) : null) : null);
-            }, this);
-            score.push(item);
-        }, this);
+        
         if (graduateType != 'BLACK') {
+            let score = [];
+            const subjects = [null, 'E', 'D', 'C', 'B', 'A'];
+            g_score = grade.score.semesters;
+            g_score.forEach(function (element) {
+                let item = []
+                element.forEach(function (grade) {
+                    item.push(grade.pass === true ? (grade.grade !== null ? subjects.indexOf(grade.grade) : null) : null);
+                }, this);
+                score.push(item);
+            }, this);
+
             for (var i = 0; i < score.length; i++) {
                 if (checkNullArray(score[i], i)) {
 
@@ -37,7 +40,8 @@ exports.calculate = function (grade, graduateType, applyType) {
             }
             result.score = calculateNormal(score, graduateType, applyType);
         } else {
-            result.score = calculateBlack(score, applyType);
+            console.log(grade);
+            result.score = calculateBlack(grade.score.avgScore, applyType);
         }
         result.volunteer = calculateVolunteer(volunteer, graduateType, applyType);
         result.attendance = calculateAttendent(attend, graduateType, applyType);
@@ -126,7 +130,7 @@ function calculateNormal(data, graduateType, applyType) {
         third: third,
         total: 0
     };
-    
+
     resultScore.first = Number(resultScore.first).toFixed(3);
     resultScore.second = Number(resultScore.second).toFixed(3);
     resultScore.third = Number(resultScore.third).toFixed(3);
@@ -134,15 +138,7 @@ function calculateNormal(data, graduateType, applyType) {
     return resultScore;
 }
 
-function calculateBlack(data, applyType) {
-    var average = 0,
-        total;
-    for (var i = 0; i < data.length; i++) {
-        if (data[i] != null) {
-            average += data[i];
-        }
-    }
-    average /= data.length;
+function calculateBlack(score, applyType) {
 
     var multiply;
     if (applyType == 'COMMON') {
@@ -151,7 +147,7 @@ function calculateBlack(data, applyType) {
         multiply = 90;
     }
 
-    total = (average - 50) / 50 * multiply;
+    total = (score - 50) / 50 * multiply;
 
     return Number(total).toFixed(3);
 }
