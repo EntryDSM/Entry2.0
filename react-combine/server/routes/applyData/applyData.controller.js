@@ -8,6 +8,7 @@ exports.getUserInfo = (req, res) => {
     ApplyData.findOne({
             user
         }, {
+            "classification.isBlack": true,
             "info": true,
             "user": true,
             "applyStatus": true
@@ -20,6 +21,7 @@ exports.getUserInfo = (req, res) => {
             applyData.user.email = applyData.user.getDecryptedEmail();
             applyData.info.user = applyData.user;
             applyData.info.applyStatus = applyData.applyStatus;
+            applyData.info.isBlack = applyData.classification.isBlack;
             res.status(200).json(applyData.info);
         })
         .catch((err) => {
