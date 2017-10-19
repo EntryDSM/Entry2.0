@@ -80,7 +80,7 @@ exports.getUserClassification = (req, res) => {
 exports.reviseUserClassification = (req, res) => {
     const user = req.session.key;
     const classification = req.body.classification;
-
+    console.log(classification.isBlack);
     ApplyData.findOne({
             user
         })
@@ -90,7 +90,7 @@ exports.reviseUserClassification = (req, res) => {
         .then((_applyData) => {
             // console.log(applyData);
             console.log("ASDASDASDASD");
-            console.log(_applyData.grade.score);
+            console.log(_applyData.classification);
             res.sendStatus(200);
         })
         .catch((err) => {
