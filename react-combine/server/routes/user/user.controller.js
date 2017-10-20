@@ -279,3 +279,18 @@ exports.mypage = (req, res) => {
             res.status(500).end();
         })
 }
+
+exports.emailValidation = (req, res) => {
+    const email = req.params.email;
+    User.findOneByEmail(email)
+        .then(user => {
+            if (user == null) res.status(200).end();
+            else res.status(400).end();
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                "message": err.message
+            });
+        })
+}
