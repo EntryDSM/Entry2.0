@@ -105,7 +105,11 @@
             </form>
         </section>
         <form action="/excel" method="POST">
-            <input type="submit" value="Excel 학생 전체 출력" id="excel">
+            <input type="submit" value="Excel 학생 전체 출력" class="excel">
+        </form>
+        <form action="/excel" method="POST">
+            <input type="hidden" name="include" value="true">
+            <input type="submit" value="자기소개서 포함하여 출력" class="excel">
         </form>
     </article>
     <%if(data.length)%>
@@ -229,7 +233,6 @@
                             <form action="/admin/search/detail" method="get">
                                 <input type="hidden" name="userId" value="<%= data[i].user%>">
                                 <input type="submit" value="상세정보 보기">
-
                             </form>
                         </div>
 
