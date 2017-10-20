@@ -45,154 +45,145 @@ class Preview extends Component {
         this.setPage = this.setPage.bind(this);
     }
 
-    componentWillMount(){
-    }
-
     componentDidMount() {
+        console.log('what');
         axios({
             method: 'get',
-            url: '/api/user/classification'
+            url: '/api/validation'
         }).then(response => {
             console.log(response);
-            axios({
-                method: 'get',
-                url: '/api/validation'
-            }).then(response => {
-                if(response.data.classification.length !== 0 || response.data.grade.length !== 0 || response.data.info.length !== 0 || response.data.introduce.length !== 0){
-                    console.log("go to validation");
-                    browserHistory.push('/validation');
-                } else {
-                    var point1 = document.getElementById("point_step1");
-                    var point2 = document.getElementById("point_step2");
-                    var point3 = document.getElementById("point_step3");
-                    var point4 = document.getElementById("point_step4");
-                    var point5 = document.getElementById("point_step5");
-                    var point6 = document.getElementById("point_step6");
-                    var point7 = document.getElementById("point_step7");
-                    point1.style.fill = "#B9B4B4";
-                    point1.style.stroke = "B9B4B4";
-                    point2.style.fill = "#B9B4B4";
-                    point2.style.stroke = "#B9B4B4";
-                    point3.style.fill = "#B9B4B4";
-                    point3.style.stroke = "B9B4B4";
-                    point4.style.fill = "#B9B4B4";
-                    point4.style.stroke = "B9B4B4";
-                    point5.style.fill = "#B9B4B4";
-                    point5.style.stroke = "B9B4B4";
-                    point6.style.fill = "salmon";
-                    point6.style.stroke = "salmon";
-                    point7.style.fill = "#B9B4B4";
-                    point7.style.stroke = "B9B4B4";
+            if(response.data.classification.length !== 0 || response.data.grade.length !== 0 || response.data.info.length !== 0 || response.data.introduce.length !== 0){
+                console.log("go to validation");
+                browserHistory.push('/validation');
+            } else {
+                console.log('hello');
+                var point1 = document.getElementById("point_step1");
+                var point2 = document.getElementById("point_step2");
+                var point3 = document.getElementById("point_step3");
+                var point4 = document.getElementById("point_step4");
+                var point5 = document.getElementById("point_step5");
+                var point6 = document.getElementById("point_step6");
+                var point7 = document.getElementById("point_step7");
+                point1.style.fill = "#B9B4B4";
+                point1.style.stroke = "B9B4B4";
+                point2.style.fill = "#B9B4B4";
+                point2.style.stroke = "#B9B4B4";
+                point3.style.fill = "#B9B4B4";
+                point3.style.stroke = "B9B4B4";
+                point4.style.fill = "#B9B4B4";
+                point4.style.stroke = "B9B4B4";
+                point5.style.fill = "#B9B4B4";
+                point5.style.stroke = "B9B4B4";
+                point6.style.fill = "salmon";
+                point6.style.stroke = "salmon";
+                point7.style.fill = "#B9B4B4";
+                point7.style.stroke = "B9B4B4";
 
-                    axios({
-                        method: 'get',
-                        url: '/api/preview',
-                    }).then(response => {
-                        console.log(response);
-                        console.log(response.data);
-                        let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
-                        let address = response.data.info.addressBase + response.data.info.addressDetail;
-                        let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
-                        let submitNumber; 
-                        if(response.data.submitNumber > 0 && response.data.submitNumber < 10){
-                            submitNumber = '00' + response.data.submitNumber;
-                        } else if(response.data.submitNumber >= 10 && response.data.submitNumber < 100){
-                            submitNumber = '0' + response.data.submitNumber;
-                        } else {
-                            submitNumber = response.data.submitNumber;
-                        }
+                axios({
+                    method: 'get',
+                    url: '/api/preview'
+                }).then(response => {
+                    console.log(response);
+                    console.log(response.data);
+                    let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
+                    let address = response.data.info.addressBase + response.data.info.addressDetail;
+                    let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
+                    let submitNumber; 
+                    if(response.data.submitNumber > 0 && response.data.submitNumber < 10){
+                        submitNumber = '00' + response.data.submitNumber;
+                    } else if(response.data.submitNumber >= 10 && response.data.submitNumber < 100){
+                        submitNumber = '0' + response.data.submitNumber;
+                    } else {
+                        submitNumber = response.data.submitNumber;
+                    }
 
-                        let birth = response.data.info.birthday.split('-');
-                        let birthMonth;
-                        let birthDay;
-                        if(Number(birth[1]) < 10){
-                            birthMonth = '0' + birth[1];
-                        } else {
-                            birthMonth = birth[1];
-                        }
+                    let birth = response.data.info.birthday.split('-');
+                    let birthMonth;
+                    let birthDay;
+                    if(Number(birth[1]) < 10){
+                        birthMonth = '0' + birth[1];
+                    } else {
+                        birthMonth = birth[1];
+                    }
 
-                        if(Number(birth[2]) < 10){
-                            birthDay = '0' + birth[2];
-                        } else {
-                            birthDay = birth[2];
-                        }
+                    if(Number(birth[2]) < 10){
+                        birthDay = '0' + birth[2];
+                    } else {
+                        birthDay = birth[2];
+                    }
 
-                        if(response.data.classification.applyBaseType.type !== 'COMMON'){
-                            this.props.pageList = [
-                                {
-                                    name: "입학 원서",
-                                    target: "userInfo",
-                                    id: 'name_userinfo'
-                                },
-                                {
-                                    name: "자기 소개서",
-                                    target: "self",
-                                    id: 'name_selfintroduce'
-                                },
-                                {
-                                    name: "학업 계획서",
-                                    target: "plan",
-                                    id: 'name_study_plan'
-                                },
-                                {
-                                    name: "금연 서약서",
-                                    target: "noSmoke",
-                                    id: 'name_no_smoke'
-                                },
-                                {
-                                    name: '학교장 추천서',
-                                    target: 'principal',
-                                    id: 'name_principal'
-                                }
-                            ]
-                        }
-                        this.setState({
-                            submitNumber: submitNumber,
-                            schoolCode: response.data.info.schoolCode,
-                            class: response.data.info.class,
-                            name: response.data.user.name,
-                            birth: birth[0] + ' - ' +  birthMonth + ' - ' + birthDay,
-                            sex: response.data.info.sex,
-                            address: address,
-                            parentsTel: response.data.info.parentsTel,
-                            parentsName: response.data.info.parentsName,
-                            schoolTel: response.data.info.schoolTel,
-                            phoneNum: response.data.info.tel,
-                            graduation: response.data.classification.graduateType,
-                            graduateYear: response.data.classification.graduateYear,
-                            local: response.data.classification.regionType,
-                            isSpecial: response.data.classification.applyDetailType.IS_EXCEPTIONEE,
-                            isCountryMerit: response.data.classification.applyDetailType.IS_NATIONAL_MERIT,
-                            firstGrade: response.data.grade.calculatedScore.score.first,
-                            secondGrade: response.data.grade.calculatedScore.score.second,
-                            thirdGrade: response.data.grade.calculatedScore.score.third,
-                            totalSubjectGrade: response.data.grade.calculatedScore.score.total,
-                            attend: response.data.grade.calculatedScore.attendance,
-                            volunteer: response.data.grade.calculatedScore.volunteer,
-                            totalGrade: response.data.grade.calculatedScore.total,
-                            schoolName: response.data.info.schoolName,
-                            type: response.data.classification.applyBaseType.type,
-                            introduce: response.data.introduce.introduce.replace(/(\r\n|\n|\r)/gm, "\n"),
-                            plan: response.data.introduce.plan
-                        })
-                    }).catch(err => {
-                        console.log(err);
-                        browserHistory.push('error');
-                    })
+                    if(response.data.classification.applyBaseType.type !== 'COMMON'){
+                        this.props.pageList = [
+                            {
+                                name: "입학 원서",
+                                target: "userInfo",
+                                id: 'name_userinfo'
+                            },
+                            {
+                                name: "자기 소개서",
+                                target: "self",
+                                id: 'name_selfintroduce'
+                            },
+                            {
+                                name: "학업 계획서",
+                                target: "plan",
+                                id: 'name_study_plan'
+                            },
+                            {
+                                name: "금연 서약서",
+                                target: "noSmoke",
+                                id: 'name_no_smoke'
+                            },
+                            {
+                                name: '학교장 추천서',
+                                target: 'principal',
+                                id: 'name_principal'
+                            }
+                        ]
+                    }
+                    
                     this.setState({
-                        targetPage: "userInfo"
-                    });
-                    document.getElementById('name_userinfo').style.background = "#ddd";
-                }
-            }).catch(err => {
-                console.log(err);
-            })
+                        submitNumber: submitNumber,
+                        schoolCode: response.data.info.schoolCode,
+                        class: response.data.info.class,
+                        name: response.data.user.name,
+                        birth: birth[0] + ' - ' +  birthMonth + ' - ' + birthDay,
+                        sex: response.data.info.sex,
+                        address: address,
+                        parentsTel: response.data.info.parentsTel,
+                        parentsName: response.data.info.parentsName,
+                        schoolTel: response.data.info.schoolTel,
+                        phoneNum: response.data.info.tel,
+                        graduation: response.data.classification.graduateType,
+                        graduateYear: response.data.classification.graduateYear,
+                        local: response.data.classification.regionType,
+                        isSpecial: response.data.classification.applyDetailType.IS_EXCEPTIONEE,
+                        isCountryMerit: response.data.classification.applyDetailType.IS_NATIONAL_MERIT,
+                        firstGrade: response.data.grade.calculatedScore.score.first,
+                        secondGrade: response.data.grade.calculatedScore.score.second,
+                        thirdGrade: response.data.grade.calculatedScore.score.third,
+                        totalSubjectGrade: response.data.grade.calculatedScore.score.total,
+                        attend: response.data.grade.calculatedScore.attendance,
+                        volunteer: response.data.grade.calculatedScore.volunteer,
+                        totalGrade: response.data.grade.calculatedScore.total,
+                        schoolName: response.data.info.schoolName,
+                        type: response.data.classification.applyBaseType.type,
+                        introduce: response.data.introduce.introduce.replace(/(\r\n|\n|\r)/gm, "\n"),
+                        plan: response.data.introduce.plan
+                    })
+                }).catch(err => {
+                    console.log(err);
+                    browserHistory.push('error');
+                })
+                this.setState({
+                    targetPage: "userInfo"
+                });
+                document.getElementById('name_userinfo').style.background = "#ddd";
+            }
         }).catch(error => {
             console.log(error);
-            console.log("preview error page");
             browserHistory.push('/error');
         })
-        console.log('did mount');
     }
 
     setPage(target) {
@@ -308,7 +299,6 @@ class Preview extends Component {
     }
 
     render(){
-        console.log(this.state);
         return(
             <div id="contents">
                 <div id="preview">

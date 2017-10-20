@@ -5,6 +5,8 @@ import UploadImage from './UploadImage';
 
 class InfoInputTable extends Component {
     render() {
+        console.log(this.props);
+        console.log(this.props.isBlack ? "none" : "table-row");
         let days = new Array;
         if(this.props.month == 1 || this.props.month == 3 || this.props.month == 5 || this.props.month == 7 || this.props.month == 8 || this.props.month == 10 || this.props.month == 12){
             for(let i = 1; i <= 31; i++){
@@ -95,7 +97,7 @@ class InfoInputTable extends Component {
                                 <label className="birth_select_label">일</label>
                             </td>
                         </tr>
-                        <tr>
+                        <tr style={{display: this.props.isBlack ? "none" : "table-row"}}>
                             <td className="td_title">학반</td>
                             <td className="td_content">
                                 &nbsp;&nbsp;&nbsp;3학년
@@ -103,7 +105,7 @@ class InfoInputTable extends Component {
                                 <input type="text" className="input_style" name="number" id="class" value={this.props.number} onChange={this.props.setter} maxLength="2" />번
                             </td>
                         </tr>
-                        <tr>
+                        <tr style={{display: this.props.isBlack ? "none" : "table-row"}}>
                             <td className="td_title">중학교명</td>
                             <td className="td_content">
                                 <input type="text" className="input_style" id="school_name" value={this.props.schoolName} readOnly/>
@@ -138,7 +140,7 @@ class InfoInputTable extends Component {
                                 <input type="text" className="input_tel" id="parentsTel" maxLength="4" name="2" value={this.props.parentsTel[2]} onChange={this.props.setParentsTel} />
                             </td>
                         </tr>
-                        <tr>
+                        <tr style={{display: this.props.isBlack ? "none" : "table-row"}}>
                             <td className="td_title">학교연락처</td>
                             <td className="td_content" colSpan="2">
                                 <input type="text" className="input_tel" id="schoolTel" maxLength="3" name="0" value={this.props.schoolTel[0]} onChange={this.props.setSchoolTel} />-

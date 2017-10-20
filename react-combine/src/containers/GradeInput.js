@@ -74,7 +74,8 @@ class GradeInput extends Component{
             volunteer: 0,
             graduated: null,
             graduate_to_be: null,
-            black: "none"
+            black: "none",
+            avgScore: 0
         };
     }
 
@@ -127,6 +128,7 @@ class GradeInput extends Component{
             url: '/api/user/classification'
         }).then(response => {
             if(!response.data.applyStatus){
+                let isBlack = response.data.isBlack;
                 axios({
                     method: 'put',
                     url: '/api/user/grade',
@@ -137,9 +139,9 @@ class GradeInput extends Component{
                                 absence: this.state.absence,
                                 lateness: this.state.lateness,
                                 earlyLeave: this.state.earlyLeave,
-                                subjectEscape: this.state.subjectEscape
+                                subjectEscape: isBlack ? this.state.avgScore : this.state.subjectEscape
                             },
-                            score: this.state.score
+                            score: isBlack ? this.state.avgScore : this.state.score
                         }
                     }
                 }).then(response => {
@@ -153,6 +155,14 @@ class GradeInput extends Component{
         })
     }
 
+    setAvgScore(e){
+        if(e.target.value !== NaN && e.target.value >= 0 && e.target.value <= 100){
+            this.setState({
+                avgScore: Number(e.target.value)
+            })
+        }
+    }
+
     render(){
         let attendData = [
             this.state.absence,
@@ -162,23 +172,28 @@ class GradeInput extends Component{
         ];
         console.log(this.state);
         return(
-            <div id="contents">
-                <InputHeader now={"성적입력"}/>
-                <div id="volunteerAttendWrapper">
+            <div id = "contents">
+                <InputHeader now = {"성적입력"}/>
+                <div id = "volunteerAttendWrapper">
                     <Volunteer
-                        setVolunteer={this.setVolunteer.bind(this)}
-                        volunteer={this.state.volunteer} />
-                    <Attend 
-                        setAttendData={this.setAttendData.bind(this)}
-                        attendValue={attendData} />
+                        visible = {this.state.black === 'table-row-group' ? "none" : "table-row-group"}
+                        setVolunteer = {this.setVolunteer.bind(this)}
+                        volunteer = {this.state.volunteer} />
+                    <Attend
+                        visible = {this.state.black === 'table-row-group' ? "none" : "table-row-group"}
+                        setAttendData = {this.setAttendData.bind(this)}
+                        attendValue = {attendData} />
                 </div>
                 <table id="grade_input_table">
-                    <Graduate visible={this.state.graduate_to_be}/>
-                    <Graduated visible={this.state.graduated}/>
-                    <BlackExam visible={this.state.black}/>
+                    <Graduate visible = {this.state.graduate_to_be}/>
+                    <Graduated visible = {this.state.graduated}/>
+                    <BlackExam
+                        avgScore = {this.state.avgScore}
+                        setAvgScore = {this.setAvgScore.bind(this)} 
+                        visible = {this.state.black}/>
                 </table>
-                <Button router="/infoinput" buttonName="이전"/>
-                <Button router='/introduce' buttonName="다음"/>
+                <Button router = "/infoinput" buttonName = "이전"/>
+                <Button router = '/introduce' buttonName = "다음"/>
             </div>
         );
     }
@@ -226,214 +241,217 @@ class GradeInput extends Component{
         }).then(response => {
             if(!response.data.applyStatus){
                 graduateType = response.data.graduateType;
-                this.setState({
-                    black: response.data.isBlack ? "table-row-group" : "none",
-                    graduated: "hide",
-                    graduated_to_be: "hide"
-                })
-                switch(response.data.graduateType){
-                    case "WILL": 
-                        this.setState({
-                            graduated: "hide"
-                        })
-                        scoreData = {
-                            semesters: [
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ],
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ],
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ],
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ],
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
+                if(!response.data.isBlack){
+                    switch(response.data.graduateType){
+                        case "WILL": 
+                            this.setState({
+                                graduated: "hide"
+                            })
+                            scoreData = {
+                                semesters: [
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ],
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ],
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ],
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ],
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ]
                                 ]
-                            ]
-                        }
-                        break;
-                    case "DONE":
-                        this.setState({
-                            graduate_to_be: "hide"
-                        })
-                        scoreData = {
-                            semesters: [
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ],
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ],
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ],
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ],
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ],
-                                [
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                    { pass: true, grade: null },
-                                ]
-                            ]
-                        }
-                    default: break;
-                }
-
-                axios({
-                    method: 'get',
-                    url: '/api/user/grade'
-                }).then(response => {
-                    this.setState({
-                        volunteer: response.data.grade.volunteer,
-                        absence: response.data.grade.attend.absence,
-                        lateness: response.data.grade.attend.lateness,
-                        earlyLeave: response.data.grade.attend.earlyLeave,
-                        subjectEscape: response.data.grade.attend.subjectEscape,
-                    })
-
-                    response.data.grade.score.semesters.forEach((ele) => {
-                        for(let i = 0; i < response.data.grade.score.semesters.length; i++){
-                            console.log(graduateType)
-                            let MtoBe_SemesterNotPass;
-                            let Mdid_SemesterNotPass;
-
-                            if(graduateType === 'DONE'){
-                                Mdid_SemesterNotPass = did_SemesterNotPass[i].children[0].children[1].children[0].children[0];
-                            } else {
-                                MtoBe_SemesterNotPass = toBe_SemesterNotPass[i].children[0].children[1].children[0].children[0];
                             }
+                            break;
+                        case "DONE":
+                            this.setState({
+                                graduate_to_be: "hide"
+                            })
+                            scoreData = {
+                                semesters: [
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ],
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ],
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ],
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ],
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ],
+                                    [
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                        { pass: true, grade: null },
+                                    ]
+                                ]
+                            }
+                        default: break;
+                    }
 
-                            let count = 0;
-                            for(let j = 0; j < 7; j++){
-                                if(graduateType === 'WILL'){
-                                    Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
-                                        if(response.data.grade.score.semesters[i][j].grade === ele.textContent){
-                                            ele.classList.add('selectedGrade');
-                                            scoreData.semesters[i][j].grade = ele.textContent;
+                    axios({
+                        method: 'get',
+                        url: '/api/user/grade'
+                    }).then(response => {
+                        this.setState({
+                            volunteer: response.data.grade.volunteer,
+                            absence: response.data.grade.attend.absence,
+                            lateness: response.data.grade.attend.lateness,
+                            earlyLeave: response.data.grade.attend.earlyLeave,
+                            subjectEscape: response.data.grade.attend.subjectEscape,
+                        })
+
+                        response.data.grade.score.semesters.forEach((ele) => {
+                            for(let i = 0; i < response.data.grade.score.semesters.length; i++){
+                                console.log(graduateType)
+                                let MtoBe_SemesterNotPass;
+                                let Mdid_SemesterNotPass;
+
+                                if(graduateType === 'DONE'){
+                                    Mdid_SemesterNotPass = did_SemesterNotPass[i].children[0].children[1].children[0].children[0];
+                                } else {
+                                    MtoBe_SemesterNotPass = toBe_SemesterNotPass[i].children[0].children[1].children[0].children[0];
+                                }
+
+                                let count = 0;
+                                for(let j = 0; j < 7; j++){
+                                    if(graduateType === 'WILL'){
+                                        Array.from(toBe_GradeSelector[i][j].children).forEach((ele) => {
+                                            if(response.data.grade.score.semesters[i][j].grade === ele.textContent){
+                                                ele.classList.add('selectedGrade');
+                                                scoreData.semesters[i][j].grade = ele.textContent;
+                                                this.setState({
+                                                    score: scoreData
+                                                })
+                                            }
+                                        })
+                                        toBe_NotPass[i][j] = toBe_Semesters[i][j].children[0].children[0].children[1].children[0].children[0];
+                                        if(!response.data.grade.score.semesters[i][j].pass){
+                                            toBe_NotPass[i][j].checked = true;
+                                            toBe_Semesters[i][j].classList.add('notpassedArea');
+                                            scoreData.semesters[i][j].pass = false;
+                                            ++count;
+                                            if(count === 7){
+                                                MtoBe_SemesterNotPass.checked = true;
+                                            } else {
+                                                MtoBe_SemesterNotPass.checked = false;
+                                            }
                                             this.setState({
                                                 score: scoreData
                                             })
                                         }
-                                    })
-                                    toBe_NotPass[i][j] = toBe_Semesters[i][j].children[0].children[0].children[1].children[0].children[0];
-                                    if(!response.data.grade.score.semesters[i][j].pass){
-                                        toBe_NotPass[i][j].checked = true;
-                                        toBe_Semesters[i][j].classList.add('notpassedArea');
-                                        scoreData.semesters[i][j].pass = false;
-                                        ++count;
-                                        if(count === 7){
-                                            MtoBe_SemesterNotPass.checked = true;
-                                        } else {
-                                            MtoBe_SemesterNotPass.checked = false;
-                                        }
-                                        this.setState({
-                                            score: scoreData
+                                    } else if(graduateType === 'DONE') {
+                                        Array.from(did_GradeSelector[i][j].children).forEach((ele) => {
+                                            if(response.data.grade.score.semesters[i][j].grade === ele.textContent){
+                                                ele.classList.add('selectedGrade');
+                                                scoreData.semesters[i][j].grade = ele.textContent;
+                                                this.setState({
+                                                    score: scoreData
+                                                })
+                                            }
                                         })
-                                    }
-                                } else if(graduateType === 'DONE') {
-                                    Array.from(did_GradeSelector[i][j].children).forEach((ele) => {
-                                        if(response.data.grade.score.semesters[i][j].grade === ele.textContent){
-                                            ele.classList.add('selectedGrade');
-                                            scoreData.semesters[i][j].grade = ele.textContent;
+                                        did_NotPass[i][j] = did_Semesters[i][j].children[0].children[0].children[1].children[0].children[0];
+                                        if(!response.data.grade.score.semesters[i][j].pass){
+                                            did_NotPass[i][j].checked = true;
+                                            did_Semesters[i][j].classList.add('notpassedArea');
+                                            scoreData.semesters[i][j].pass = false;
+                                            ++count;
+                                            if(count === 7){
+                                                Mdid_SemesterNotPass.checked = true;
+                                            } else {
+                                                Mdid_SemesterNotPass.checked = false;
+                                            }
                                             this.setState({
                                                 score: scoreData
                                             })
                                         }
-                                    })
-                                    did_NotPass[i][j] = did_Semesters[i][j].children[0].children[0].children[1].children[0].children[0];
-                                    if(!response.data.grade.score.semesters[i][j].pass){
-                                        did_NotPass[i][j].checked = true;
-                                        did_Semesters[i][j].classList.add('notpassedArea');
-                                        scoreData.semesters[i][j].pass = false;
-                                        ++count;
-                                        if(count === 7){
-                                            Mdid_SemesterNotPass.checked = true;
-                                        } else {
-                                            Mdid_SemesterNotPass.checked = false;
-                                        }
-                                        this.setState({
-                                            score: scoreData
-                                        })
                                     }
                                 }
-                            }
-                        } 
+                            } 
+                        })
+                    }).catch(error => {
+                        console.log(error);
                     })
-                }).catch(error => {
-                    console.log(error);
-                })
+                } else {
+                    this.setState({
+                        black: "table-row-group",
+                        graduated: "hide",
+                        graduate_to_be: "hide"
+                    })
+                }
             } else {
                 browserHistory.push('/finalError');
             }

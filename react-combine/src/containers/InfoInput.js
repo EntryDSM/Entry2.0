@@ -44,6 +44,7 @@ class InfoInput extends Component {
     }
 
     componentDidMount(){
+        console.log("did mount");
         var point1 = document.getElementById("point_step1");
         var point2 = document.getElementById("point_step2");
         var point3 = document.getElementById("point_step3");
@@ -122,7 +123,8 @@ class InfoInput extends Component {
                     detailAddress: response.data.addressDetail,
                     birthYear: birth[0],
                     birthMonth: birth[1],
-                    birthDay: birth[2]
+                    birthDay: birth[2],
+                    isBlack: response.data.isBlack
                 })
                     
                 axios({
@@ -378,7 +380,7 @@ class InfoInput extends Component {
             parentsTel: parentsTel
         })
     }
-    
+
     setAddress(address){
         this.setState({
             baseAddress: address
@@ -447,7 +449,8 @@ class InfoInput extends Component {
                     <div className="inputTitle">
                         <InputHeader now={"인적 사항"} />
                     </div>
-                    <InfoInputTable 
+                    <InfoInputTable
+                        isBlack={this.state.isBlack}
                         profileImg={this.state.profileImg}
                         name={this.state.name}
                         email={this.state.email}
