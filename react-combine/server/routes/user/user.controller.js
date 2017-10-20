@@ -246,3 +246,51 @@ exports.signout = (req, res) => {
         res.status(200).end();
     })
 }
+
+exports.mypage = (req, res) => {
+    console.log("+++++++++MYPAGE+++++++++")
+    const user = req.session.key;
+    let response = {
+        "checkPayment": Boolean,
+        "checkReceipt": Boolean,
+        "validation": Object
+    }
+    let checkPayment;
+    let checkReceipt;
+    ApplyData.findOne({
+            user
+        })
+        .then(applyData => {
+            console.log("FOUND")
+            checkPayment = applyData.checkPayment;
+            checkReceipt = applyData.checkReceipt;
+
+            return applyData.validation();
+        })
+        .then(validationResult => {
+            console.log("VALIDATION CHECKED")
+            response.validation = validationResult;
+            response.checkPayment = checkPayment;
+            response.checkReceipt = checkReceipt;
+            res.status(200).json(response);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).end();
+        })
+}
+
+exports.emailValidation = (req, res) => {
+    const email = req.params.email;
+    User.findOneByEmail(email)
+        .then(user => {
+            if (user == null) res.status(200).end();
+            else res.status(400).end();
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                "message": err.message
+            });
+        })
+}

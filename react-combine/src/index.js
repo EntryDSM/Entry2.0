@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import 'babel-polyfill';
-import { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete, MyPage, ErrorPage, Validation, Board, FinalSubmitErrorPage } from './containers';
+import { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete, MyPage, ErrorPage, Validation, Board, FinalSubmitErrorPage, InternalErrorPage } from './containers';
 import {createStore} from 'redux';
 import reducer from './reducers';
 import InputLayout from './components/InputLayout';
@@ -45,6 +45,7 @@ ReactDOM.render(
                 <Route path="/mypage" component={MyPage}/>
                 <Route path="/error" component={ErrorPage}/>
                 <Route path="/finalError" component={FinalSubmitErrorPage}/>
+                <Route path="/internalError" component={InternalErrorPage}/>
                 <Route path="/validation" component={Validation} />
                 <Route path="/board" component={Board}/>
                 <Route path="/input" component={InputLayout}>

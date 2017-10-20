@@ -220,18 +220,19 @@ body {
     text-align: left;
 }
 
-#excel {
+.excel {
     display: block;
     margin-left: 3rem;
     border: 0;
     background-color: white;
-    width: 10rem;
-    height: 2.5rem;
+    width: 15rem;
+    height: 3rem;
     box-shadow: 0 0 5px darkgray;
     font-size: 0.8rem;
     border-radius: 4px;
     letter-spacing: 0.5px;
     cursor: pointer;
+    margin-bottom: 1.2rem;
 }
 
 input[type=submit] {

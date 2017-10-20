@@ -144,7 +144,7 @@
 #landing-page #Title_Part #ToMainBox{
     width:13rem;
     height:3rem;
-    border:1px solid white;
+    border:2px solid white;
     margin-top:1.75rem;
     text-align: center;
     font-size:0.95rem;
@@ -153,13 +153,12 @@
     font-family:'Montserrat';
     font-weight:bold;
     letter-spacing: 1px;
-    padding-top:0.775rem;
+    padding-top:0.75rem;
     transition:1.2s;
 }
 
 #landing-page #Title_Part #ToMainBox:hover{
     cursor:pointer;
-    letter-spacing: 5px;
 }
 
 #landing-page #Header_MainPart #White_OpacityBox{

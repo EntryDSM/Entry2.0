@@ -60,7 +60,7 @@ class FindSchoolModal extends React.Component {
 
 const EduOptions = (props) => {
     return(
-        <select id="select_goverment" onChange={props.getSchoolCode}>
+        <select id="select_government" onChange={props.getSchoolCode}>
             {props.educations.map((vals, idx) => {
                 return(
                     <option value = {vals.eduName} key = {idx}>

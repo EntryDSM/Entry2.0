@@ -33,13 +33,12 @@
 
 #landing-page #ExploreLanding #Explore_Button{
     width:10.15rem;
-    height:3.5rem;
+    height:3rem;
     background-color:#EA466A;
     margin:0 auto;
     border-radius:50px;
-    margin-top:1.75rem;
+    margin-top:2.25rem;
     border:1.5px solid white;
-    cursor:pointer;
     display:table;
 }
 

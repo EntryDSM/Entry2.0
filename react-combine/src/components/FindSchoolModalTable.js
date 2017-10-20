@@ -7,13 +7,13 @@ class FindSchoolModalTable extends Component {
             <table id="table_school">
                 <tbody>
                     <tr id="title_schooltable">
-                        <th id="title_goverment">소속 교육청</th>
+                        <th id="title_government">소속 교육청</th>
                         <th id="title_school_name">학교이름</th>
                         <th id="title_school_code">학교코드</th>
                     </tr>
                     {this.props.schoolList.map((ele) => {
                         return <SchoolList
-                                    goverment={ele.goverment}
+                                    government={ele.government}
                                     schoolName={ele.name}
                                     schoolCode={ele.code}
                                     setSchoolInfo={this.props.setSchoolInfo}/>
@@ -27,7 +27,7 @@ class FindSchoolModalTable extends Component {
 const SchoolList = (props) => {
     return(
         <tr className="tr_search_result" onClick={props.setSchoolInfo}>
-            <td className="td_goverment">{props.goverment}</td>
+            <td className="td_government">{props.government}</td>
             <td className="td_school_name">{props.schoolName}</td> 
             <td className="td_school_code">{props.schoolCode}</td>
         </tr>

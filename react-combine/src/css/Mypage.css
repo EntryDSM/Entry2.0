@@ -44,6 +44,7 @@
     position:absolute;
     top:0;
     right:4rem;
+    cursor: pointer;
 }
 
 #mypage #logoCover #myLogo{

@@ -157,7 +157,7 @@ const WhiteBoxesPart = () =>{
                 BoxesInfo = {
                     [
                         {
-                            MainNumber: "012",
+                            MainNumber: "12",
                             NumberExplain: "Programmers"
                         },
                         {
@@ -165,12 +165,12 @@ const WhiteBoxesPart = () =>{
                             NumberExplain: "Started Month"
                         },
                         {
-                            MainNumber: "09",
+                            MainNumber: "10",
                             NumberExplain: "Finished Month"
                         },
                         {
-                            MainNumber: "28",
-                            NumberExplain: "Duration"
+                            MainNumber: "100",
+                            NumberExplain: "Passion"
                         }
                     ]
                 }/>

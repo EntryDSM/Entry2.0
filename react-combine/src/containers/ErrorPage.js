@@ -4,7 +4,12 @@ import {Link, browserHistory} from 'react-router';
 import 'babel-polyfill';
 
 class ErrorPage extends Component{
+    componentDidMount(){
+        console.log("mounted");
+    }
+
     componentWillUnmount(){
+        console.log('unmount');
         browserHistory.push('/main');
     }
 

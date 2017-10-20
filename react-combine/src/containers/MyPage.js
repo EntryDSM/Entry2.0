@@ -52,14 +52,14 @@ class MyPage extends Component{
 
         axios({
             method: 'GET',
-            url: '/api/validation'
+            url: '/api/mypage'
         }).then(response => {
             console.log(response);
-            classification = check(response.data.classification);
-            personalInfo = check(response.data.info);
-            gradeInput = check(response.data.grade);
-            introduction = check(response.data.introduce);
-            submission = response.data.isSubmited;
+            classification = check(response.data.validation.classification);
+            personalInfo = check(response.data.validation.info);
+            gradeInput = check(response.data.validation.grade);
+            introduction = check(response.data.validation.introduce);
+            submission = response.data.validation.isSubmited;
             checkList.push(classification);
             checkList.push(personalInfo);
             checkList.push(gradeInput);
@@ -77,7 +77,9 @@ class MyPage extends Component{
             });
 
             this.setState({
-                checkImgSrc: checkArr
+                checkImgSrc: checkArr,
+                isPayment: response.data.checkPayment ? "O" : "X",
+                isReceived: response.data.checkReceipt ? "O" : "X"
             });
         }).catch(err => {
             console.log(err);

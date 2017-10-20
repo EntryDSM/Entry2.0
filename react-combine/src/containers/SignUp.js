@@ -173,39 +173,42 @@ class SignUp extends Component{
 
     signUpSubmit(){
         if(this.state.isConfirm && this.state.isChecked){
-            this.setState({
-                emailModalIsOpen: true
-            })        
             axios({
-                method:'post',
-                url:'/api/signup',
-                data: {
-                    name: this.state.name,
-                    email: this.state.email + '@' + this.state.emailDomain,
-                    password: this.state.password
-                },
-                withCredentials: false,
-                headers: {
-                    "Access-Control-Allow-Origin": "http://114.108.135.15",
-                    "ContentType": "application/json"
-                }
+                method: 'get',
+                url: '/api/email/validation' + this.state.email + '@' + this.state.emailDomain
             }).then(response => {
-                console.log(response)
-            }).catch((error) => {
-                console.log(error);
-                if(error.response){
-                    console.log(error.response);
-                } else if(error.request){
-                    console.log(error.request);
-                } else {
-                    console.log(error.message);
-                }
-                console.log(error.config);    
+                console.log(response);
                 this.setState({
-                    emailModalIsOpen: false
+                    emailModalIsOpen: true
                 })
-                alert('이미 가입한 이메일입니다.');
-            });
+                axios({
+                    method:'post',
+                    url:'/api/signup',
+                    data: {
+                        name: this.state.name,
+                        email: this.state.email + '@' + this.state.emailDomain,
+                        password: this.state.password
+                    }
+                }).then(response => {
+                    console.log(response)
+                }).catch((error) => {
+                    console.log(error);
+                    if(error.response){
+                        console.log(error.response);
+                    } else if(error.request){
+                        console.log(error.request);
+                    } else {
+                        console.log(error.message);
+                    }
+                    console.log(error.config);    
+                    this.setState({
+                        emailModalIsOpen: false
+                    })
+                });
+            }).catch(error => {
+                console.log(error);
+                alert('이미 가입한 이메일입니다. 로그인을 해주세요');
+            })
         } else if(!this.state.isChecked){
             alert("개인정보 활용 동의서에 동의해주세요.");
         } else if(!this.state.isConfirm){

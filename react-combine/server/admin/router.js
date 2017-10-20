@@ -507,7 +507,7 @@ router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
                     res.end();
                     console.log(err + Date.now);
                 } else {
-                    res.send('<script>alert("결제 변경 완료했습니다.");location.href="/admin/search";</script>');
+                    res.send('<script>alert("접수 변경 완료했습니다.");location.href="/admin/search";</script>');
 
                 }
             })
@@ -548,7 +548,8 @@ router.route('/admin/create').post(onlyAdmin, (req, res) => { // 수험번호 �
 router.route('/excel').post((req, res) => {
     console.log('Excel 출력');
     let userId = req.body.userId;
-    excel.excel(userId, (err, data, model) => {
+    let key = req.body.include;
+    excel.excel(userId, key, (data, model) => {
         if (data && 0 < model.length) {
             mongoXlsx.mongoData2Xlsx(data, model, (err, data) => {
                 if (err) console.log(err);
@@ -557,8 +558,8 @@ router.route('/excel').post((req, res) => {
                         console.log(err);
                 });
             });
-        } else if (err) {
-            res.send(`<script>alert("Excel Error - ${err}"); location.href="/admin/search"; </script>`)
+        } else {
+            res.send(`<script>alert("Excel Error"); location.href="/admin/search"; </script>`)
         }
     });
 });

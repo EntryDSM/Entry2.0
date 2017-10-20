@@ -36,7 +36,9 @@ class Validation extends Component{
             this.setState({
                 validationResult: validation
             })
-        }).catch(err => {
+        }).catch(error => {
+            console.log(error);
+            console.log('go to error~');
             browserHistory.push('/error');
         })
     }
