@@ -507,7 +507,7 @@ router.route('/admin/search/value').post(onlyAdmin, (req, res) => {
                     res.end();
                     console.log(err + Date.now);
                 } else {
-                    res.send('<script>alert("결제 변경 완료했습니다.");location.href="/admin/search";</script>');
+                    res.send('<script>alert("접수 변경 완료했습니다.");location.href="/admin/search";</script>');
 
                 }
             })
