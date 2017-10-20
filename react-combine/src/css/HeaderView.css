@@ -113,7 +113,8 @@
 #landing-page #Title_Part #ToMainBox{
     width:10rem;
     height:2.75rem;
-    border:1px solid white;
+    border:2px solid white;
+    border-radius: 2px;
     margin-top:1.75rem;
     text-align: center;
     font-size:0.85rem;
@@ -122,13 +123,30 @@
     font-family:'Montserrat';
     font-weight:bold;
     letter-spacing: 3px;
-    padding-top:0.775rem;
-    transition:1.2s;
+    padding-top:0.75rem;
+
+    animation-name : boxAnimation;
+    animation-duration:0.5s;
+    animation-iteration-count: 4;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
 }
 
 #landing-page #Title_Part #ToMainBox:hover{
     cursor:pointer;
-    letter-spacing: 5px;
+}
+
+/* 메인 박스 애니메이션 적용*/
+@keyframes boxAnimation{
+    0%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(0.9);
+    }
+    100%{
+        transform:scale(1);
+    }
 }
 
 #landing-page #Header_MainPart #White_OpacityBox{
