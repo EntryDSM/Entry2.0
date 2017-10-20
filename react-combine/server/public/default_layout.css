@@ -64,15 +64,13 @@ body {
 
 #sidemenu {
     width: inherit;
-    height: auto;
+    height: 2.7rem;
     background-color: #ADBBC1;
-    padding-bottom: 0.5rem;
 }
 
 .sidemenu_text {
     color: white;
     font-size: 14pt;
-    
 }
 
 .root {

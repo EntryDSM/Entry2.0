@@ -225,11 +225,9 @@ exports.search = (body) => {
             console.log('상세 검색');
             obj = getSearch(body);
             console.log(obj);
-        } else if (body.advanceSearch == 'false'){
+        } else {
             console.log('전체 검색');
             obj = getSearch(body, true);
-        } else if (typeof body.advanceSearch == 'undefined'){
-            obj = {}
         }
         applyDataModel.find(obj)
             .then(data => getSearchName(data))
@@ -276,7 +274,7 @@ function getSearch(body, check) {
             "classification.regionType": body.region,
         };
     }
-    
+
     return returnData;
 }
 
