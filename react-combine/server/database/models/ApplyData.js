@@ -296,7 +296,7 @@ ApplyData.methods.reviseGrade = function (grade) {
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
-
+    console.log(grade);
     this.grade = grade;
 
     const _applyData = this;
@@ -311,6 +311,7 @@ ApplyData.methods.reviseGrade = function (grade) {
         .then(score => {
             _applyData.grade.calculatedScore = score;
             _applyData.markModified('grade');
+            _applyData.markModified('grade.')
             return _applyData.save();
         })
         .catch(console.log);

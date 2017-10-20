@@ -71,6 +71,8 @@ class InfoInput extends Component {
             method: 'get',
             url: '/api/user/info'
         }).then(response => {
+            console.log(response);
+            console.log("get info");
             if(!response.data.applyStatus){
                 let birth = response.data.birthday.split('-');
                 let phoneNum;
@@ -149,38 +151,30 @@ class InfoInput extends Component {
         })
     }
 
-    componentWillUnmount(){
+    submit(page){
         axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            if(!response.data.applyStatus){
-                axios({
-                    method: 'put',
-                    url: '/api/user/info',
-                    data: {
-                        info: {
-                            sex: this.state.sex,
-                            grade: this.state.grade,
-                            number: this.state.number,
-                            class: this.state.class,
-                            schoolCode: this.state.schoolCode,
-                            schoolName: this.state.schoolName,
-                            schoolTel: this.state.schoolTel[0] + '-' + this.state.schoolTel[1] + '-' + this.state.schoolTel[2],
-                            tel: this.state.phoneNum[0] + '-' + this.state.phoneNum[1] + '-' + this.state.phoneNum[2],
-                            parentsTel: this.state.parentsTel[0] + '-' + this.state.parentsTel[1] + '-' + this.state.parentsTel[2],
-                            parentsName: this.state.parentsName,
-                            birthday: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
-                            addressBase: this.state.baseAddress,
-                            addressDetail: this.state.detailAddress
-                        }
-                    }
-                }).then(response => {
-                    console.log(response);
-                }).catch(error => {
-                    console.log(error);
-                })
+            method: 'put',
+            url: '/api/user/info',
+            data: {
+                info: {
+                    sex: this.state.sex,
+                    grade: this.state.grade,
+                    number: this.state.number,
+                    class: this.state.class,
+                    schoolCode: this.state.schoolCode,
+                    schoolName: this.state.schoolName,
+                    schoolTel: this.state.schoolTel[0] + '-' + this.state.schoolTel[1] + '-' + this.state.schoolTel[2],
+                    tel: this.state.phoneNum[0] + '-' + this.state.phoneNum[1] + '-' + this.state.phoneNum[2],
+                    parentsTel: this.state.parentsTel[0] + '-' + this.state.parentsTel[1] + '-' + this.state.parentsTel[2],
+                    parentsName: this.state.parentsName,
+                    birthday: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
+                    addressBase: this.state.baseAddress,
+                    addressDetail: this.state.detailAddress
+                }
             }
+        }).then(response => {
+            console.log(response);
+            browserHistory.push(page);
         }).catch(error => {
             console.log(error);
         })
@@ -433,6 +427,7 @@ class InfoInput extends Component {
             modalIsOpen: true
         })
     }
+
     closeModal(){
         this.setState({
             schoolList: [],
@@ -480,8 +475,8 @@ class InfoInput extends Component {
                         setSchoolInfo={this.setSchoolInfo.bind(this)}
                         setter={this.setter.bind(this)}
                         previewFile={this.previewFile.bind(this)}/>
-                    <Button router='/classification' buttonName="이전"/>
-                    <Button router='/gradeinput' buttonName="다음"/>
+                    <Button onclick={() => this.submit('/classification')} buttonName="이전"/>
+                    <Button onclick={() => this.submit('/gradeinput')} buttonName="다음"/>
                 </div>
             </div>
         );

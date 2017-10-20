@@ -186,34 +186,26 @@ class Classification extends Component {
         })
     }
 
-    componentWillUnmount(){
+    submit(){
+        console.log('why?');
         axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            if(!response.data.applyStatus){
-                axios({
-                    method : "put",
-                    url : "/api/user/classification",
-                    data : {
-                        classification: {
-                            isBlack: this.state.isBlackTest == 'test-yes' ? true : false,
-                            regionType: this.state.local,
-                            applyBaseType: this.state.applyBaseType,
-                            graduateType: this.state.graduation,
-                            graduateYear: this.state.date,
-                            applyDetailType: this.state.applyDetailType
-                        }
-                    }
-                }).then(response => {
-                    console.log(response);
-                }).catch(error => {
-                    console.log(error);
-                });
+            method: "put",
+            url: "/api/user/classification",
+            data: {
+                classification: {
+                    isBlack: this.state.isBlackTest == 'test-yes' ? true : false,
+                    regionType: this.state.local,
+                    applyBaseType: this.state.applyBaseType,
+                    graduateType: this.state.graduation,
+                    graduateYear: this.state.date,
+                    applyDetailType: this.state.applyDetailType
+                }
             }
+        }).then(response => {
+            browserHistory.push('/infoinput');
         }).catch(error => {
             console.log(error);
-        })
+        });
     }
 
     render() {
@@ -241,7 +233,7 @@ class Classification extends Component {
                         isSocietySelected={this.state.isSocietySelected} 
                         radioSetter={this.radioSetter.bind(this)}/>
                 </div>
-                 <Button router="/infoinput" buttonName="다음"/>
+                 <Button onclick={this.submit.bind(this)} buttonName="다음"/>
             </div>
         )
     }

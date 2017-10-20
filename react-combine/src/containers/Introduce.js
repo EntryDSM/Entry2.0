@@ -78,29 +78,21 @@ class Introduce extends Component {
         })
     }
 
-    componentWillUnmount(){
+    submit(page){
         axios({
-            method: 'get',
-            url: '/api/user/classification'
+            method: 'put',
+            url: '/api/user/introduce',
+            data: {
+                introduce: {
+                    introduce: this.state.introduce,
+                    plan: this.state.plan
+                }
+            },
         }).then(response => {
-            if(!response.data.applyStatus){
-                axios({
-                    method: 'put',
-                    url: '/api/user/introduce',
-                    data: {
-                        introduce: {
-                            introduce: this.state.introduce,
-                            plan: this.state.plan
-                        }
-                    },
-                }).then(response => {
-                    console.log(response);
-                }).catch(err => {
-                    console.log(err);
-                })
-            }
-        }).catch(error => {
-            console.log(error);
+            console.log(response);
+            browserHistory.push(page);
+        }).catch(err => {
+            console.log(err);
         })
     }
 
@@ -121,8 +113,8 @@ class Introduce extends Component {
                         count={this.state.planCount}
                         content={this.state.plan}/>
                 </div>
-                <Button router="/gradeinput" buttonName="이전"/>
-                <Button router="/preview" buttonName="다음"/>
+                <Button onclick = {() => this.submit('/gradeinput')} buttonName="이전"/>
+                <Button onclick = {() => this.submit('/preview')} buttonName="다음"/>
             </div>
         );
     }

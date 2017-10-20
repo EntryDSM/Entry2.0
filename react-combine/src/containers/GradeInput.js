@@ -77,6 +77,8 @@ class GradeInput extends Component{
             black: "none",
             avgScore: 0
         };
+
+        this.submt = this.submit.bind(this);
     }
 
     setVolunteer(e){
@@ -122,36 +124,29 @@ class GradeInput extends Component{
         }
     }
 
-    componentWillUnmount(){
+    submit(page){
+        console.log({avgScore: this.state.avgScore});
+        console.log(this.state.black);
         axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            if(!response.data.applyStatus){
-                let isBlack = response.data.isBlack;
-                axios({
-                    method: 'put',
-                    url: '/api/user/grade',
-                    data: {
-                        grade: {
-                            volunteer: this.state.volunteer,
-                            attend: {
-                                absence: this.state.absence,
-                                lateness: this.state.lateness,
-                                earlyLeave: this.state.earlyLeave,
-                                subjectEscape: isBlack ? this.state.avgScore : this.state.subjectEscape
-                            },
-                            score: isBlack ? this.state.avgScore : this.state.score
-                        }
-                    }
-                }).then(response => {
-                    console.log(response);
-                }).catch(err => {
-                    console.log(err);
-                })
+            method: 'put',
+            url: '/api/user/grade',
+            data: {
+                grade: {
+                    volunteer: this.state.volunteer,
+                    attend: {
+                        absence: this.state.absence,
+                        lateness: this.state.lateness,
+                        earlyLeave: this.state.earlyLeave,
+                        subjectEscape: this.state.black === 'table-row-group' ? this.state.avgScore : this.state.subjectEscape
+                    },
+                    score: this.state.black === 'table-row-group' ? {avgScore: this.state.avgScore} : this.state.score
+                }
             }
-        }).catch(error => {
-            console.log(error);
+        }).then(response => {
+            console.log(response);
+            browserHistory.push(page);
+        }).catch(err => {
+            console.log(err);
         })
     }
 
@@ -192,8 +187,8 @@ class GradeInput extends Component{
                         setAvgScore = {this.setAvgScore.bind(this)} 
                         visible = {this.state.black}/>
                 </table>
-                <Button router = "/infoinput" buttonName = "이전"/>
-                <Button router = '/introduce' buttonName = "다음"/>
+                <Button onclick = {() => this.submit('/infoinput')} buttonName = "이전"/>
+                <Button onclick = {() => this.submit('/introduce')} buttonName = "다음"/>
             </div>
         );
     }
