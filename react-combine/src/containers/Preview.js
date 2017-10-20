@@ -112,7 +112,7 @@ class Preview extends Component {
                         birthDay = birth[2];
                     }
 
-                    if(response.data.classification.applyBaseType.type !== 'COMMON'){
+                    if(response.data.classification.applyBaseType.type !== 'COMMON' && !response.data.classification.isBlack){
                         this.props.pageList = [
                             {
                                 name: "입학 원서",
@@ -141,7 +141,7 @@ class Preview extends Component {
                             }
                         ]
                     }
-                    
+
                     this.setState({
                         submitNumber: submitNumber,
                         schoolCode: response.data.info.schoolCode,
@@ -158,6 +158,7 @@ class Preview extends Component {
                         graduateYear: response.data.classification.graduateYear,
                         local: response.data.classification.regionType,
                         isSpecial: response.data.classification.applyDetailType.IS_EXCEPTIONEE,
+                        isBlack: response.data.classification.isBlack,
                         isCountryMerit: response.data.classification.applyDetailType.IS_NATIONAL_MERIT,
                         firstGrade: response.data.grade.calculatedScore.score.first,
                         secondGrade: response.data.grade.calculatedScore.score.second,
@@ -166,9 +167,9 @@ class Preview extends Component {
                         attend: response.data.grade.calculatedScore.attendance,
                         volunteer: response.data.grade.calculatedScore.volunteer,
                         totalGrade: response.data.grade.calculatedScore.total,
-                        schoolName: response.data.info.schoolName,
+                        schoolName: response.data.classification.isBlack ? "해당없음" : response.data.info.schoolName,
                         type: response.data.classification.applyBaseType.type,
-                        introduce: response.data.introduce.introduce.replace(/(\r\n|\n|\r)/gm, "\n"),
+                        introduce: response.data.introduce.introduce,
                         plan: response.data.introduce.plan
                     })
                 }).catch(err => {

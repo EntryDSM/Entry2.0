@@ -4,8 +4,10 @@ class PreviewHeader extends Component {
      render() {
         var that = this;
         var buttons = null;
+        console.log(this.props);
         if(this.props.datas != null) {
             buttons = this.props.datas.map(function(data, index) {
+                console.log(data);
                 return(
                     <button key={index} id={data.id} className="tabButton" onClick={()=> that.props.setPage(data.target)}>{data.name}<img className="printed" src={require('../images/green_button.png')}/></button>
                 /*

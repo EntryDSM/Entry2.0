@@ -3,6 +3,7 @@ import '../css/Principal.css'
 class Principal extends Component { 
      render() {
          let datas = this.props.datas();
+         let date = new Date;
          let check = [["", "", ""], ["", "", ""]];
          if(datas.local === 'HOME'){
             if(datas.type === 'MEISTER'){
@@ -66,7 +67,7 @@ class Principal extends Component {
                             2018학년도 대덕소프트웨어마이스터 고등학교 신입생 입학전형(특별전형) 지원 자격을 갖추었으므로 귀교의 특별전형 대상자로 추천합니다.
                         </div>
                         <div id="date_box">
-                            2017 년 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일
+                            2017 년 10월 {date.getDate()}일
                         </div>
                         <div id="teacher_box">
                             <div id="teacher_name">

@@ -17,7 +17,6 @@ class PreviewContent extends Component {
         }
 
         let UserInfoData = () => {
-            console.log(datas.schoolName);
             return {
                 schoolCode: datas.schoolCode,
                 class: datas.class,
@@ -34,6 +33,7 @@ class PreviewContent extends Component {
                 type: datas.type,
                 local: datas.local,
                 isSpecial: datas.isSpecial,
+                isBlack: datas.isBlack,
                 isCountryMerit: datas.isCountryMerit,
                 firstGrade: datas.firstGrade,
                 secondGrade: datas.secondGrade,

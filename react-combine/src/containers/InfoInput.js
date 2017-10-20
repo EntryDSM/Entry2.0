@@ -424,6 +424,9 @@ class InfoInput extends Component {
 
     openModal(){
         this.setState({
+            schoolList: [],
+            government: "",
+            schoolName: "",
             modalIsOpen: true
         })
     }

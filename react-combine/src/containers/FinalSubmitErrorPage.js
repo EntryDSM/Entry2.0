@@ -9,7 +9,7 @@ class FinalSubmitErrorPage extends Component{
                 <ErrorHeader ImgUrl = {require('../images/DSM Logo.png')}/>
                 <ErrorMain ImgUrl1 = {require('../images/warning.png')}
                            title1 = "Warning!"
-                           title2 = "최종 제출 시 수정이 불가능합니다!"
+                           title2 = "최종 제출이 되었으므로 수정이 불가능합니다!"
                            title3 = "다시 검토해보세요."/>
             </div>
         );

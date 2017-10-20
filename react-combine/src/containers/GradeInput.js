@@ -165,7 +165,6 @@ class GradeInput extends Component{
             this.state.earlyLeave,
             this.state.subjectEscape
         ];
-        console.log(this.state);
         return(
             <div id = "contents">
                 <InputHeader now = {"성적입력"}/>
@@ -361,6 +360,7 @@ class GradeInput extends Component{
                         method: 'get',
                         url: '/api/user/grade'
                     }).then(response => {
+                        console.log(response);
                         this.setState({
                             volunteer: response.data.grade.volunteer,
                             absence: response.data.grade.attend.absence,
@@ -445,6 +445,17 @@ class GradeInput extends Component{
                         black: "table-row-group",
                         graduated: "hide",
                         graduate_to_be: "hide"
+                    })
+                    axios({
+                        method: 'get',
+                        url: '/api/user/grade'
+                    }).then(response => {
+                        console.log(response);
+                        this.setState({
+                            avgScore: response.data.grade.score.avgScore  
+                        })
+                    }).catch(error => {
+                        console.log(error);
                     })
                 }
             } else {
