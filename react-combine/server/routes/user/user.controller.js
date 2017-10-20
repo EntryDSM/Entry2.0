@@ -248,6 +248,7 @@ exports.signout = (req, res) => {
 }
 
 exports.mypage = (req, res) => {
+    console.log("+++++++++MYPAGE+++++++++")
     const user = req.session.key;
     let response = {
         "checkPayment": Boolean,
@@ -260,12 +261,14 @@ exports.mypage = (req, res) => {
             user
         })
         .then(applyData => {
+            console.log("FOUND")
             checkPayment = applyData.checkPayment;
             checkReceipt = applyData.checkReceipt;
 
             return applyData.validation();
         })
         .then(validationResult => {
+            console.log("VALIDATION CHECKED")
             response.validation = validationResult;
             response.checkPayment = checkPayment;
             response.checkReceipt = checkReceipt;

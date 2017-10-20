@@ -17,7 +17,6 @@ exports.getUserInfo = (req, res) => {
             "select": ['email', 'name']
         })
         .then((applyData) => {
-            console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             applyData.info.user = applyData.user;
             applyData.info.applyStatus = applyData.applyStatus;
@@ -42,7 +41,6 @@ exports.reviseUserInfo = (req, res) => {
             return applyData.reviseInfo(info);
         })
         .then((applyData) => {
-            console.log(applyData);
             res.sendStatus(200);
         })
         .catch((err) => {
@@ -66,7 +64,6 @@ exports.getUserClassification = (req, res) => {
             "select": ['email', 'name']
         })
         .then((applyData) => {
-            console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             applyData.classification.user = applyData.user;
             applyData.classification.applyStatus = applyData.applyStatus;
@@ -90,9 +87,6 @@ exports.reviseUserClassification = (req, res) => {
             return applyData.reviseClassification(classification);
         })
         .then((_applyData) => {
-            // console.log(applyData);
-            console.log("ASDASDASDASD");
-            console.log(_applyData.classification);
             res.sendStatus(200);
         })
         .catch((err) => {
@@ -118,7 +112,6 @@ exports.getUserGrade = (req, res) => {
             "select": ['email', 'name']
         })
         .then((applyData) => {
-            console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             res.status(200).json(applyData);
         })
@@ -227,6 +220,7 @@ exports.preview = (req, res) => {
             res.status(200).json(previewData);
         })
         .catch((err) => {
+            console.log(err);
             res.status(500).json({
                 "message": err.message
             });

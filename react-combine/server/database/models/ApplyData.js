@@ -255,7 +255,7 @@ ApplyData.methods.reviseClassification = function (classification) {
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
-    
+    console.log(classification.isBlack);
     if (classification.isBlack) {
         if (!this.classification.isBlack) {
             this.info = documentTemplate.info_black;
@@ -270,8 +270,13 @@ ApplyData.methods.reviseClassification = function (classification) {
             }
         }
     }
+
     this.classification = classification;
+    console.log(this.classification.isBlack);
     this.markModified('classification');
+    this.markModified('classification.isBlack');
+    this.markModified('grade');
+    this.markModified('info');
     return this.save();
 }
 
@@ -351,11 +356,11 @@ ApplyData.methods.validation = function () {
         }
 
         const regionType = this.classification.regionType;
-        
+
         if (data.classification.applyBaseType.type == 'SOCIAL' && data.classification.applyBaseType.cause == null) {
             result.classification.push("사회통합 사유를 입력해주세요.");
         }
-        
+
         if (data.classification.isBlack === false) {
 
             SchoolCode.findOne({ "code": this.info.schoolCode })
@@ -373,6 +378,9 @@ ApplyData.methods.validation = function () {
                     if (err.message === 'SchoolCode Not Found') result.info.push('존재하지 않는 학교입니다.');
                     resolve(result);
                 });
+        }
+        else {
+            resolve(result);
         }
     })
 }
@@ -416,21 +424,25 @@ function infoValidation(type, info) {
         }
     }
 
-    // 학년 정보
-    if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
 
-    // 반 정보
-    if (type !== 'BLACK' && (info.class == null || info.class == '' || info.class == 'undefined')) result.push('반을 입력해주세요.');
+    if (type !== 'BLACK') {
 
-    // 학교정보(학교코드, 학교명 / 전화번호)
-    if (type !== 'BLACK' && ((info.schoolCode == null || info.schoolCode == '' || info.schoolCode == 'undefined') || (info.schoolName == null || info.schoolName == '' || info.schoolName == 'undefined'))) {
-        result.push('학교 정보를 입력해주세요.');
-    } else {
-        schoolTel = info.schoolTel.split('-');
-        for (let i = 0; i < schoolTel.length; i++) {
-            if (schoolTel[i] == null || schoolTel[i] == '' || schoolTel[i] == 'undefined') {
-                result.push('학교 정보를 입력해주세요.');
-                break;
+        // 학년 정보
+        if (info.grade > 3 || info.grade < 1) result.push('학년 정보를 정확히 입력해주세요.');
+
+        // 반 정보
+        if (info.class == null || info.class == '' || info.class == 'undefined') result.push('반을 입력해주세요.');
+
+        // 학교정보(학교코드, 학교명 / 전화번호)
+        if (((info.schoolCode == null || info.schoolCode == '' || info.schoolCode == 'undefined') || (info.schoolName == null || info.schoolName == '' || info.schoolName == 'undefined'))) {
+            result.push('학교 정보를 입력해주세요.');
+        } else {
+            schoolTel = info.schoolTel.split('-');
+            for (let i = 0; i < schoolTel.length; i++) {
+                if (schoolTel[i] == null || schoolTel[i] == '' || schoolTel[i] == 'undefined') {
+                    result.push('학교 정보를 입력해주세요.');
+                    break;
+                }
             }
         }
     }
@@ -514,7 +526,7 @@ function gradeValidation(type, grade) {
     } else if (type === 'BLACK') {
         let subjects = ['국어', '수학', '사회', '과학'];
         const score = grade.score.avgScore;
-
+        console.log(score);
         if (typeof score == 'undefined' || score == 'null' || score < 60) {
             result.push("검정고시 합격 점수를 입력해주세요.");
         }
