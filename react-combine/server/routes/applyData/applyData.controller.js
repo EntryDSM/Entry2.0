@@ -137,6 +137,7 @@ exports.reviseUserGrade = (req, res) => {
             res.sendStatus(200);
         })
         .catch((err) => {
+            console.log(err);
             res.status(500).json({
                 "message": err.message
             });

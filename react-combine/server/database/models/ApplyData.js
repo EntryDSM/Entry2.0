@@ -296,25 +296,25 @@ ApplyData.methods.reviseGrade = function (grade) {
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
-    console.log(grade);
     this.grade = grade;
-
     const _applyData = this;
     new Promise((resolve, reject) => {
         resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
     })
         .then((validationResult) => {
             if (validationResult.length === 0) {
-                return calculator.calculate(_applyData.grade, _applyData.classification.graduateType, _applyData.classification.applyBaseType.type);
+                return calculator.calculate(_applyData.grade, _applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.classification.applyBaseType.type);
             } else return;
         })
         .then(score => {
             _applyData.grade.calculatedScore = score;
             _applyData.markModified('grade');
-            _applyData.markModified('grade.')
+            _applyData.markModified('grade.score');
             return _applyData.save();
         })
-        .catch(console.log);
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 ApplyData.methods.reviseIntroduce = function (introduce) {
