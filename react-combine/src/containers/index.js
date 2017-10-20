@@ -17,5 +17,13 @@ import ErrorPage from './ErrorPage';
 import Validation from './Validation';
 import Board from './Board';
 import FinalSubmitErrorPage from './FinalSubmitErrorPage';
+import InternalErrorPage from './InternalErrorPage';
 
-export { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, PwSendComplete, SignupSendComplete, ChangePw, FinalSubmit, MyPage, ErrorPage, Validation, Board, FinalSubmitErrorPage};
+export { Classification, GradeInput,
+         InfoInput, Introduce, Landing,
+         SignIn, MainPage, Preview,
+         SendInfo, SignUp, PwSendComplete, 
+         SignupSendComplete, ChangePw, 
+         FinalSubmit, MyPage, ErrorPage, 
+         Validation, Board, 
+         FinalSubmitErrorPage, InternalErrorPage };

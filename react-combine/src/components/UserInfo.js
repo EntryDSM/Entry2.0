@@ -73,7 +73,7 @@ class UserInfo extends Component {
                                 <td>학생</td>
                                 <td>{datas.phoneNum}</td>
                                 <td>
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" checked={datas.isBlack} readOnly/>
                                     &nbsp;&nbsp;&nbsp;고입 검정고시 합격
                                 </td>
                             </tr>
@@ -183,7 +183,7 @@ class UserInfo extends Component {
                     </table>
                     <table id="userinfo_table_6">
                         <tbody>
-                            <tr>
+                            <tr style={{display: datas.isBlack ? "none" : "table-row"}}>
                                 <td>
                                     <p>추천서</p>
                                     <p>
@@ -197,10 +197,9 @@ class UserInfo extends Component {
                                                         fontSize : "0.8rem"}}>
                                             담임교사: &nbsp; (인)
                                         </span>
-                                        <span style = {{paddingLeft : "11.5rem",
-                                                        fontSize : "0.8rem"}}>
-                                            ( {datas.schoolName.replace("중학교", "")} ) &nbsp;&nbsp;중학교장 (직인)
-                                        </span>
+                                        <h2 style = {{paddingLeft : "11.5rem"}}>
+                                            {datas.schoolName.replace("중학교", "")}중학교장 (직인)
+                                        </h2>
                                     </p>
                                 </td>
                             </tr>
