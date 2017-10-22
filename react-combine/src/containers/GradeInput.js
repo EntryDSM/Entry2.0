@@ -170,11 +170,11 @@ class GradeInput extends Component{
                 <InputHeader now = {"성적입력"}/>
                 <div id = "volunteerAttendWrapper">
                     <Volunteer
-                        visible = {this.state.black === 'table-row-group' ? "none" : "table-row-group"}
+                        visible = {this.state.black === 'table-row-group' ? "none" : "block"}
                         setVolunteer = {this.setVolunteer.bind(this)}
                         volunteer = {this.state.volunteer} />
                     <Attend
-                        visible = {this.state.black === 'table-row-group' ? "none" : "table-row-group"}
+                        visible = {this.state.black === 'table-row-group' ? "none" : "block"}
                         setAttendData = {this.setAttendData.bind(this)}
                         attendValue = {attendData} />
                 </div>

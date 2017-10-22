@@ -15,7 +15,7 @@ class MainPage extends Component{
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         axios({
             method: 'get',
             url: '/api/user/classification'

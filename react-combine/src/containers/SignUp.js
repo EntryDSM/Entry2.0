@@ -17,6 +17,7 @@ class SignUp extends Component{
             email: "",
             emailDomain: "naver.com",
             password: "",
+            confirmPassword: "",
             certifyCode: "",
             emailModalIsOpen: false,
             personalAgreeModalIsOpen: false,
@@ -94,20 +95,27 @@ class SignUp extends Component{
     }
 
     typingResult(e){
-        console.log(e.target.value);
         this.setState({
             emailDomain: e.target.value
         })
     }
 
     getPassword(e){
-        console.log(e.target.value.length);
         if(e.target.value.length >= 8){
-            this.setState({
-                password: e.target.value,
-                isPassword: true
-            })
-        } else {    
+            if(e.target.value !== this.state.confirmPassword){
+                this.setState({
+                    password: e.target.value,
+                    isPassword: true,
+                    isConfirm: false
+                })
+            } else {
+                this.setState({
+                    password: e.target.value,
+                    isPassword: true,
+                    isConfirm: true
+                })
+            }
+        } else {
             this.setState({
                 password: e.target.value,
                 isPassword: false
@@ -121,20 +129,15 @@ class SignUp extends Component{
         })
     }
 
-    checkPassword(e){
-        console.log(e.target.value);
-        let pwd = e.target.value + "";
-        console.log(pwd.length);
-        console.log(e.target.value.length);
-    }
-
     confirmPassword(e){
         if(this.state.password === e.target.value){
             this.setState({
+                confirmPassword: e.target.value,
                 isConfirm: true
             })
         } else {
             this.setState({
+                confirmPassword: e.target.value,
                 isConfirm: false
             })
         }
@@ -158,8 +161,6 @@ class SignUp extends Component{
             url: '/api/email/authentication/' + this.state.certifyCode,
             withCredentials: false
         }).then(response => {
-            console.log(this.state.certifyCode);
-            console.log(response);
             this.setState({
                 emailModalIsOpen: false
             })
@@ -172,12 +173,11 @@ class SignUp extends Component{
     }
 
     signUpSubmit(){
-        if(this.state.isConfirm && this.state.isChecked){
+        if(this.state.isConfirm && this.state.isChecked && this.state.isPassword){
             axios({
                 method: 'get',
-                url: '/api/email/validation' + this.state.email + '@' + this.state.emailDomain
+                url: '/api/email/validation/' + this.state.email + '@' + this.state.emailDomain
             }).then(response => {
-                console.log(response);
                 this.setState({
                     emailModalIsOpen: true
                 })
@@ -193,26 +193,23 @@ class SignUp extends Component{
                     console.log(response)
                 }).catch((error) => {
                     console.log(error);
-                    if(error.response){
-                        console.log(error.response);
-                    } else if(error.request){
-                        console.log(error.request);
-                    } else {
-                        console.log(error.message);
-                    }
-                    console.log(error.config);    
                     this.setState({
                         emailModalIsOpen: false
                     })
                 });
             }).catch(error => {
-                console.log(error);
-                alert('이미 가입한 이메일입니다. 로그인을 해주세요');
+                if(error.response.status === 400){
+                    alert('이미 가입한 이메일입니다. 로그인을 해주세요');
+                } else {
+                    console.log(error);
+                }
             })
         } else if(!this.state.isChecked){
             alert("개인정보 활용 동의서에 동의해주세요.");
         } else if(!this.state.isConfirm){
-            alert("비밀번호 재확인에 실패했습니다.");
+            alert("비밀번호와 비밀번호 확인에 입력한 값이 다릅니다");
+        } else if(!this.state.isPassword){
+            alert("비밀번호는 8자리 이상으로 설정해주세요");
         } else {
             alert("입력을 완료해주세요");
         }
@@ -310,6 +307,14 @@ const SignUpInput = (props) => {
                                         <button id="email_typing_cancel" onClick={props.cancelTyping}>X</button>
                                     </td>
                                 </tr>
+                    } else if(index === 2) {
+                        return  <tr key={index}>
+                            <td className="td_title">{input.name}</td>
+                            <td className="td_content">
+                                <input type={input.type} className={input.className} onChange={input.onchange} value={input.value}/>
+                                <span style={{fontSize: 5}}>8자리 이상 입력</span>
+                            </td>
+                        </tr>
                     } else {
                         return  <tr key={index}>
                             <td className="td_title">{input.name}</td>

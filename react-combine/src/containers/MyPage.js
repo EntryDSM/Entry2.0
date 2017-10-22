@@ -34,7 +34,7 @@ class MyPage extends Component{
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         let check = (arr) => {
             console.log(arr.length);
             if(arr.length === 0){

@@ -44,7 +44,6 @@ class InfoInput extends Component {
     }
 
     componentDidMount(){
-        console.log("did mount");
         var point1 = document.getElementById("point_step1");
         var point2 = document.getElementById("point_step2");
         var point3 = document.getElementById("point_step3");
@@ -66,13 +65,14 @@ class InfoInput extends Component {
         point6.style.stroke = "B9B4B4";
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
+    }
 
+    componentWillMount(){
         axios({
             method: 'get',
             url: '/api/user/info'
         }).then(response => {
             console.log(response);
-            console.log("get info");
             if(!response.data.applyStatus){
                 let birth = response.data.birthday.split('-');
                 let phoneNum;
@@ -96,16 +96,15 @@ class InfoInput extends Component {
                 if(response.data.parentsTel.length > 0){
                     parentsTel = response.data.parentsTel.split('-');                
                 } else {
-                    console.log(response.data.parentsTel.split('-').length);
                     parentsTel = ["", "", ""];
                 }
 
-                console.log(response.data.schoolTel);
-                if(response.data.schoolTel !== undefined){
+                if(!response.data.isBlack){
                     if(response.data.schoolTel.length > 0){
                         schoolTel = response.data.schoolTel.split('-');
+                    } else {
+                        schoolTel = ["", "", ""];
                     }
-                    schoolTel = ["", "", ""];
                 }
 
                 this.setState({

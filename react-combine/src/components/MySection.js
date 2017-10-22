@@ -9,6 +9,7 @@ class MySection extends Component{
                 <div id="mypage_check">
                     전형료 입급확인 여부: {this.props.isPayment}
                     <br />
+                    <br />
                     제출 서류(우편) 도착 여부: {this.props.isReceived}
                 </div>
                 <ChecksCover

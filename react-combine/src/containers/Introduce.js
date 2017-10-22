@@ -55,7 +55,9 @@ class Introduce extends Component {
         point6.style.stroke = "B9B4B4";
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
+    }
 
+    componentWillMount(){
         axios({
             method: 'get',
             url: '/api/user/introduce'

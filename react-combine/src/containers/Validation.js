@@ -13,7 +13,7 @@ class Validation extends Component{
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         axios({
             method: 'GET',
             url: '/api/validation'
