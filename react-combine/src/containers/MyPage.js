@@ -24,7 +24,6 @@ class MyPage extends Component{
     }
 
     route(e){
-        console.log(e.target.id)
         switch(e.target.id){
             case "mClassification": browserHistory.push('/classification'); break;
             case "mInfoInput": browserHistory.push('/infoinput'); break;
@@ -36,7 +35,6 @@ class MyPage extends Component{
 
     componentWillMount(){
         let check = (arr) => {
-            console.log(arr.length);
             if(arr.length === 0){
                 return true;
             } else {
@@ -54,7 +52,6 @@ class MyPage extends Component{
             method: 'GET',
             url: '/api/mypage'
         }).then(response => {
-            console.log(response);
             classification = check(response.data.validation.classification);
             personalInfo = check(response.data.validation.info);
             gradeInput = check(response.data.validation.grade);

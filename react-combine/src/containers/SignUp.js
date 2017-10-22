@@ -4,7 +4,6 @@ import Button from '../components/Button';
 import EmailCertifyModal from '../components/EmailCertifyModal';
 import PersonalAgreeModal from '../components/PersonalAgreeModal';
 import {browserHistory} from 'react-router';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 import 'babel-polyfill';
 import '../css/SignUp.css';
@@ -198,7 +197,6 @@ class SignUp extends Component{
                         password: this.state.password
                     }
                 }).then(response => {
-                    console.log(response)
                 }).catch((error) => {
                     console.log(error);
                     if(error.response.status === 500){
@@ -235,7 +233,6 @@ class SignUp extends Component{
     }
 
     render(){
-        console.log(this.state);
         return(
             <div id="contents">
                 <div id="signUp">
@@ -302,7 +299,6 @@ class SignUp extends Component{
 }
 
 const SignUpInput = (props) => {
-    console.log(props);
     let selected = props.selected;
         return(
             <tbody>

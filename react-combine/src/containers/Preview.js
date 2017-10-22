@@ -74,19 +74,14 @@ class Preview extends Component {
             method: 'get',
             url: '/api/validation'
         }).then(response => {
-            console.log(response);
             if(response.data.classification.length !== 0 || response.data.grade.length !== 0 || response.data.info.length !== 0 || response.data.introduce.length !== 0){
-                console.log("go to validation");
                 browserHistory.push('/validation');
             } else {
                 axios({
                     method: 'get',
                     url: '/api/preview'
                 }).then(response => {
-                    console.log(response.data);
-                    let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
                     let address = response.data.info.addressBase + response.data.info.addressDetail;
-                    let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
                     let submitNumber; 
                     if(response.data.submitNumber > 0 && response.data.submitNumber < 10){
                         submitNumber = '00' + response.data.submitNumber;
@@ -220,6 +215,8 @@ class Preview extends Component {
             case 'principal':
                 document.getElementById('name_principal').style.background = "#ddd";
                 break;
+            default:
+                break;
         }
     }
 
@@ -228,7 +225,6 @@ class Preview extends Component {
         let checkArr = this.state.printCheck;
 
         green.forEach(ele => {
-            console.log(ele);
             ele.style.visibility = ""
         })
 
@@ -281,7 +277,6 @@ class Preview extends Component {
                     })
                     window.scrollTo(0, 0);                    
                 } else {
-                    console.log('te');
                     this.setState({
                         printCheck: checkArr
                     })

@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 
 class Volunteer extends Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return (
             <div id="volunteer_div" style={{display: this.props.visible}}>

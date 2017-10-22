@@ -85,10 +85,9 @@ class PwChangeForm extends React.Component{
             headers: {
                 "Access-Control-Allow-Origin": "http://114.108.135.15"
             }
-        }).then(function (response) {
-            console.log(response);
-        }).catch(function (err) {
-            console.log(err);
+        }).then(response => {
+        }).catch(error => {
+            console.log(error);
         });
     }
 

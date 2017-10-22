@@ -1,8 +1,6 @@
 import React from 'react';
 import '../css/Button.css'
-import Button from '../components/Button';
 import SignupSendComplete from '../containers/SignupSendComplete';
-import axios from 'axios';
 import Modal from 'react-modal';
 import "babel-polyfill";
  

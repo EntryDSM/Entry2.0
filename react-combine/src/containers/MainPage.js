@@ -35,7 +35,6 @@ class MainPage extends Component{
     }
 
     signOnClick(){
-        console.log('hello');
         if(this.state.signState === "로그인"){
             browserHistory.push('/signin');
         } else if(this.state.signState === "로그아웃"){
@@ -43,7 +42,6 @@ class MainPage extends Component{
                 method: 'post',
                 url: '/api/signout'
             }).then(response => {
-                console.log(response);
                 alert('로그아웃 됐습니다');
                 this.setState({
                     signState: "로그인"
@@ -62,7 +60,6 @@ class MainPage extends Component{
             method: 'GET',
             url: '/api/user/classification'
         }).then(response => {
-            console.log(response);
             browserHistory.push('/mypage')
         }).catch(error => {
             console.log(error);

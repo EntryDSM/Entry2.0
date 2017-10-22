@@ -4,10 +4,8 @@ import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import '../css/InfoInput.css'
 import axios from 'axios';
-import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import 'babel-polyfill';
-import PropTypes from 'prop-types';
 
 class InfoInput extends Component {
     constructor(props){
@@ -72,7 +70,6 @@ class InfoInput extends Component {
             method: 'get',
             url: '/api/user/info'
         }).then(response => {
-            console.log(response);
             if(!response.data.applyStatus){
                 let birth = response.data.birthday.split('-');
                 let phoneNum;
@@ -180,7 +177,6 @@ class InfoInput extends Component {
                 }
             }
         }).then(response => {
-            console.log(response);
             browserHistory.push(page);
         }).catch(error => {
             console.log(error);
@@ -252,7 +248,6 @@ class InfoInput extends Component {
             method: 'GET',
             url: query
         }).then(response => {
-            console.log(response.data);
             this.setState({
                 schoolList: response.data
             })
@@ -424,7 +419,6 @@ class InfoInput extends Component {
                     'content-type': 'multipart/form-data'
                 }
             }).then(response => {
-                console.log(response);
             }).catch(error => {
                 console.log(error);
                 if(error.response.status === 500){

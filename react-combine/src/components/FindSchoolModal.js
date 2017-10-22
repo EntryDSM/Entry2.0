@@ -2,7 +2,6 @@ import React from 'react';
 import '../css/FindSchoolModal.css';
 import FindSchoolModalTable from './FindSchoolModalTable';
 import Modal from 'react-modal';
-import axios from 'axios';
  
 class FindSchoolModal extends React.Component {
     render() {

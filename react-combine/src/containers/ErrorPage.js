@@ -55,7 +55,6 @@ const LoginOrSignUp = (props) => {
         <div id = "routerCover">
             <img src = {props.ImgUrl} alt = "img"/>
             {props.links.map((info, i) => {
-                console.log(info.router);
                 return(
                     <Link to = {info.router} key = {i} className = "links">
                         {info.linkName}

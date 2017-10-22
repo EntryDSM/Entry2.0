@@ -18,7 +18,6 @@ class Validation extends Component{
             method: 'GET',
             url: '/api/validation'
         }).then(response => {
-            console.log(response);
             let validation = new Array;
             response.data.classification.forEach((ele) => {
                 validation.push(ele + "(구분선택)");
@@ -32,7 +31,6 @@ class Validation extends Component{
             response.data.introduce.forEach((ele) => {
                 validation.push(ele + "(자기소개서 & 학업계획서)");
             })
-            console.log(validation);
             this.setState({
                 validationResult: validation
             })

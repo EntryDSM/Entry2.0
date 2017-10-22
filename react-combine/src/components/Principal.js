@@ -4,7 +4,6 @@ class Principal extends Component {
      render() {
          let datas = this.props.datas();
          let date = new Date;
-         console.log(datas);
          let check = [["", "", ""], ["", "", ""]];
          if(datas.local === 'HOME'){
             if(datas.type === 'MEISTER'){

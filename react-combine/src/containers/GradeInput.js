@@ -9,7 +9,6 @@ import Attend from '../components/Attend';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
 import 'babel-polyfill';
-import PropTypes from 'prop-types';
 import '../css/InputHeader.css';
 import '../css/GradeInput.css';
 
@@ -125,8 +124,6 @@ class GradeInput extends Component{
     }
 
     submit(page){
-        console.log({avgScore: this.state.avgScore});
-        console.log(this.state.black);
         axios({
             method: 'put',
             url: '/api/user/grade',
@@ -143,7 +140,6 @@ class GradeInput extends Component{
                 }
             }
         }).then(response => {
-            console.log(response);
             browserHistory.push(page);
         }).catch(error => {
             console.log(error);
@@ -363,7 +359,6 @@ class GradeInput extends Component{
                         method: 'get',
                         url: '/api/user/grade'
                     }).then(response => {
-                        console.log(response);
                         this.setState({
                             volunteer: response.data.grade.volunteer,
                             absence: response.data.grade.attend.absence,
@@ -374,7 +369,6 @@ class GradeInput extends Component{
 
                         response.data.grade.score.semesters.forEach((ele) => {
                             for(let i = 0; i < response.data.grade.score.semesters.length; i++){
-                                console.log(graduateType)
                                 let MtoBe_SemesterNotPass;
                                 let Mdid_SemesterNotPass;
 
@@ -456,7 +450,6 @@ class GradeInput extends Component{
                         method: 'get',
                         url: '/api/user/grade'
                     }).then(response => {
-                        console.log(response);
                         this.setState({
                             avgScore: response.data.grade.score.avgScore  
                         })

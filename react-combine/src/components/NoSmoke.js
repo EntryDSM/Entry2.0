@@ -4,7 +4,7 @@ class NoSmoke extends Component {
      render() {
         let datas = this.props.datas();
         let date = new Date;
-        console.log(datas);
+
         return(
             <div id="no_smoke">
                 <div id="smoke_header">

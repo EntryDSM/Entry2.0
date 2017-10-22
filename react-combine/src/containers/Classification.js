@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Button from '../components/Button';
 import InputHeader from '../components/InputHeader';
 import '../css/Classification.css';
-import PropTypes from 'prop-types';
 import {browserHistory} from 'react-router';
 import 'babel-polyfill';
 import axios from 'axios';
@@ -193,7 +192,6 @@ class Classification extends Component {
     }
 
     submit(){
-        console.log('why?');
         axios({
             method: "put",
             url: "/api/user/classification",

@@ -3,7 +3,6 @@ import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
-import PropTypes from 'prop-types';
 import 'babel-polyfill';
 import '../css/Introduce.css';
 import '../css/WritingArea.css';
@@ -96,7 +95,6 @@ class Introduce extends Component {
                 }
             },
         }).then(response => {
-            console.log(response);
             browserHistory.push(page);
         }).catch(error => {
             console.log(error);
@@ -107,7 +105,6 @@ class Introduce extends Component {
     }
 
     render(){
-        console.log(this.state.introduce);
         return(
             <div id="contents">
                 <InputHeader now={"자기소개서 및 학업계획서"} />
