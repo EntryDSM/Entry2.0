@@ -27,6 +27,7 @@
     margin:0 auto;
     margin-top:9px;
     display:block;
+    cursor: pointer;
 }
 
 #internalError h1{

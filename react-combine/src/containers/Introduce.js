@@ -75,8 +75,13 @@ class Introduce extends Component {
             } else {
                 browserHistory.push('/finalError');
             }
-        }).catch(err => {
-            browserHistory.push('/error');
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
@@ -93,8 +98,11 @@ class Introduce extends Component {
         }).then(response => {
             console.log(response);
             browserHistory.push(page);
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 

@@ -157,7 +157,7 @@ const WhiteBoxesPart = () =>{
                 BoxesInfo = {
                     [
                         {
-                            MainNumber: "12",
+                            MainNumber: "11",
                             NumberExplain: "Programmers"
                         },
                         {

@@ -136,17 +136,25 @@ class InfoInput extends Component {
                     this.setState({
                         profileImg: '/api/upload/profile'
                     })
-                }).catch(err => {
-                    this.setState({
-                        profileImg: require('../images/file.png')
-                    })
+                }).catch(error => {
+                    if(error.response.status === 500){
+                        browserHistory.push('/internalError');
+                    } else {
+                        this.setState({
+                            profileImg: require('../images/file.png')
+                        })
+                    }
                 })
             } else {
                 browserHistory.push('/finalError');
             }
         }).catch(error => {
             console.log(error);
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
@@ -176,6 +184,9 @@ class InfoInput extends Component {
             browserHistory.push(page);
         }).catch(error => {
             console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
@@ -245,8 +256,11 @@ class InfoInput extends Component {
             this.setState({
                 schoolList: response.data
             })
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
@@ -411,10 +425,11 @@ class InfoInput extends Component {
                 }
             }).then(response => {
                 console.log(response);
-            }).catch(err => {
-                console.log(err);
-                console.log(err.request);
-                console.log(err.config)
+            }).catch(error => {
+                console.log(error);
+                if(error.response.status === 500){
+                    browserHistory.push('/internalError');
+                }
             })
         } else {
             preview.src = require('../images/file.png');

@@ -38,8 +38,11 @@ class Validation extends Component{
             })
         }).catch(error => {
             console.log(error);
-            console.log('go to error~');
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 

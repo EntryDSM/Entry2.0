@@ -81,8 +81,11 @@ class MyPage extends Component{
                 isPayment: response.data.checkPayment ? "O" : "X",
                 isReceived: response.data.checkReceipt ? "O" : "X"
             });
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 

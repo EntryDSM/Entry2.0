@@ -145,8 +145,11 @@ class GradeInput extends Component{
         }).then(response => {
             console.log(response);
             browserHistory.push(page);
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
@@ -439,6 +442,9 @@ class GradeInput extends Component{
                         })
                     }).catch(error => {
                         console.log(error);
+                        if(error.response.status === 500){
+                            browserHistory.push('/internalError');
+                        }
                     })
                 } else {
                     this.setState({
@@ -456,6 +462,9 @@ class GradeInput extends Component{
                         })
                     }).catch(error => {
                         console.log(error);
+                        if(error.response.status === 500){
+                            browserHistory.push('/internalError');
+                        }
                     })
                 }
             } else {
@@ -463,7 +472,11 @@ class GradeInput extends Component{
             }
         }).catch(error => {
             console.log(error);
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
 
         let selectorToggle = (nodes, event, semester, subject) => {

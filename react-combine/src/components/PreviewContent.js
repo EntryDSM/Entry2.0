@@ -80,6 +80,7 @@ class PreviewContent extends Component {
                 schoolName: datas.schoolName,
                 local: datas.local,
                 type: datas.type,
+                cause: datas.cause,
                 class: datas.class,
                 name: datas.name
             }

@@ -24,9 +24,13 @@ class MainPage extends Component{
                 signState: "로그아웃"
             })
         }).catch(error => {
-            this.setState({
-                signState: "로그인"
-            })
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                this.setState({
+                    signState: "로그인"
+                })
+            }
         })
     }
 
@@ -46,6 +50,9 @@ class MainPage extends Component{
                 })
             }).catch(error => {
                 console.log(error);
+                if(error.response.status === 500){
+                    browserHistory.push('/internalError');
+                }
             })    
         }
     }
@@ -57,9 +64,13 @@ class MainPage extends Component{
         }).then(response => {
             console.log(response);
             browserHistory.push('/mypage')
-        }).catch(err => {
-            console.log(err);
-            browserHistory.push('/signin')
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/signin')
+            }
         })
     }
 

@@ -4,10 +4,6 @@ import {Link, browserHistory} from 'react-router';
 import 'babel-polyfill';
 
 class ErrorPage extends Component{
-    componentWillUnmount(){
-        browserHistory.push('/main');
-    }
-
     render(){
         return(
             <div id = "error-page">
@@ -25,7 +21,7 @@ class ErrorPage extends Component{
 const ErrorHeader = (props) => {
     return(
         <div id = "errorHeader">
-            <img src = {props.ImgUrl} alt = "logo" id = "logo"/>
+            <img src = {props.ImgUrl} alt = "logo" id = "logo" onClick = {() => {browserHistory.push('/main')}}/>
         </div>
     );
 }
@@ -59,6 +55,7 @@ const LoginOrSignUp = (props) => {
         <div id = "routerCover">
             <img src = {props.ImgUrl} alt = "img"/>
             {props.links.map((info, i) => {
+                console.log(info.router);
                 return(
                     <Link to = {info.router} key = {i} className = "links">
                         {info.linkName}

@@ -184,7 +184,11 @@ class Classification extends Component {
             }
         }).catch(error => {
             console.log(error);
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
@@ -207,6 +211,9 @@ class Classification extends Component {
             browserHistory.push('/infoinput');
         }).catch(error => {
             console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         });
     }
 

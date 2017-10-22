@@ -80,6 +80,7 @@
 
 #principal #teacher_name {
     float: left;
+    margin-left: 120px;
 }
 
 #principal #sign_box {

@@ -70,7 +70,6 @@ class Preview extends Component {
     }
 
     componentWillMount() {
-        console.log('what');
         axios({
             method: 'get',
             url: '/api/validation'
@@ -84,7 +83,6 @@ class Preview extends Component {
                     method: 'get',
                     url: '/api/preview'
                 }).then(response => {
-                    console.log(response);
                     console.log(response.data);
                     let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
                     let address = response.data.info.addressBase + response.data.info.addressDetail;
@@ -170,12 +168,17 @@ class Preview extends Component {
                         totalGrade: response.data.grade.calculatedScore.total,
                         schoolName: response.data.classification.isBlack ? "해당없음" : response.data.info.schoolName,
                         type: response.data.classification.applyBaseType.type,
+                        cause: response.data.classification.applyBaseType.cause,
                         introduce: response.data.introduce.introduce,
                         plan: response.data.introduce.plan
                     })
-                }).catch(err => {
-                    console.log(err);
-                    browserHistory.push('error');
+                }).catch(error => {
+                    console.log(error);
+                    if(error.response.status === 500){
+                        browserHistory.push('/internalError');
+                    } else {
+                        browserHistory.push('error');
+                    }
                 })
                 this.setState({
                     targetPage: "userInfo"
@@ -184,7 +187,11 @@ class Preview extends Component {
             }
         }).catch(error => {
             console.log(error);
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
@@ -286,6 +293,8 @@ class Preview extends Component {
                 this.setState({
                     printCheck: checkArr
                 })
+                break;
+            default:
                 break;
         }
 

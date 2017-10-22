@@ -57,9 +57,13 @@ class SignUp extends Component{
     }
 
     getName(e){
-        this.setState({
-            name: e.target.value
-        })
+        if(!/[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi.test(e.target.value)){
+            this.setState({
+                name: e.target.value
+            })
+        } else {
+            alert("특수문자는 입력할 수 없습니다.")
+        }
     }
 
     getEmail(e){
@@ -165,10 +169,14 @@ class SignUp extends Component{
                 emailModalIsOpen: false
             })
             browserHistory.push('/classification');
-        }).catch(err => {
-            this.setState({
-                emailModalIsOpen: true
-            })
+        }).catch(error => {
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                this.setState({
+                    emailModalIsOpen: true
+                })
+            }
         })
     }
 
@@ -193,15 +201,20 @@ class SignUp extends Component{
                     console.log(response)
                 }).catch((error) => {
                     console.log(error);
-                    this.setState({
-                        emailModalIsOpen: false
-                    })
+                    if(error.response.status === 500){
+                        browserHistory.push('/internalError');
+                    } else {
+                        this.setState({
+                            emailModalIsOpen: false
+                        })
+                    }
                 });
             }).catch(error => {
+                console.log(error);
                 if(error.response.status === 400){
                     alert('이미 가입한 이메일입니다. 로그인을 해주세요');
-                } else {
-                    console.log(error);
+                } else if(error.response.status === 500) {
+                    browserHistory.push('/internalError');
                 }
             })
         } else if(!this.state.isChecked){
@@ -227,6 +240,11 @@ class SignUp extends Component{
             <div id="contents">
                 <div id="signUp">
                 <InputHeader now={"지원자 정보"} />
+                <p style={{
+                    marginLeft: 20,
+                    marginBottom: 5,
+                    fontSize: 12
+                }}>이 정보는 원서수정 및 조회시에 사용되며 수정이 불가능합니다.</p>
                 <div className="inputPart">
                     <table id="inputTable">
                         <SignUpInput inputs = {
