@@ -158,7 +158,7 @@ function calculateAttendent(data, graduateType) {
     if (graduateType == 'BLACK') {
         return 15;
     }
-    var toSub = (data.absence + (data.lateness + data.earlyLeave + data.subjectEscape) / 3);
+    var toSub = (data.absence + Math.floor((data.lateness + data.earlyLeave + data.subjectEscape) / 3));
     if (toSub >= 15) {
         return 0;
     }
@@ -174,7 +174,7 @@ function calculateNotBlackVolunteer(hours, applyType, graduateType) {
 function calculateBlackVolunteer(avgScore, applyType, graduateType) {
     let minus = 30;
     let div = 120;
-    
+
     let result;
 
     result = 3 + (avgScore - minus) / div * 12;
