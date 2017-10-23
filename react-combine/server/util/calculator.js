@@ -43,7 +43,7 @@ exports.calculate = function (grade, graduateType, applyType) {
         } else {
             console.log(grade);
             result.score = calculateBlack(grade.score.avgScore, applyType);
-            result.volunteer = calculateBlackVolunteer(grade.score.avgScore, graduateType, applyType);
+            result.volunteer = calculateBlackVolunteer(calculateBlack(grade.score.avgScore, "COMMON"), graduateType, applyType);
         }
 
         result.attendance = calculateAttendent(attend, graduateType, applyType);
