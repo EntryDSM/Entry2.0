@@ -95,13 +95,6 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         }
     }
 
-    let tmpScores = {
-            scoreCommonHome: [],
-            scoreCommonAway: [],
-            scoreSpecialHome: [],
-            scoreSpecialAway: []
-        }
-        //TODO: regeionType, applyBaseType 변경사항 체킹 후 변수명 변경
 
     let userCount = {
         home: {
@@ -124,10 +117,9 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
         }
     }
 
-    function categorizeScore(array, isSpecial, isHome) {
+    function categorizeScore(score, isSpecial, isHome) {
         if (isSpecial === true) {
             if (isHome === true) {
-                array.forEach(function(score) {
                     if (score === 12) viewScores.special.home.to120++;
                     else if (score === 11) viewScores.special.home.to110++;
                     else if (score === 10) viewScores.special.home.to100++;
@@ -138,10 +130,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
                     else if (score === 5) viewScores.special.home.to50++;
                     else if (score === 4) viewScores.special.home.to40++;
                     else if (score === 3) viewScores.special.home.to30++;
-                    else;
-                }, this);
+                    else viewScores.common.away.under90++;
             } else if (isHome === false) {
-                array.forEach(function(score) {
                     if (score === 12) viewScores.special.away.to120++;
                     else if (score === 11) viewScores.special.away.to110++;
                     else if (score === 10) viewScores.special.away.to100++;
@@ -152,14 +142,11 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
                     else if (score === 5) viewScores.special.away.to50++;
                     else if (score === 4) viewScores.special.away.to40++;
                     else if (score === 3) viewScores.special.away.to30++;
-                    else;
-                }, this);
+                    else viewScores.special.away.under20++;
             }
 
         } else if (isSpecial === false) {
-            array.forEach(function(score) {
                 if (isHome === true) {
-                    array.forEach(function(score) {
                         if (score === 18) viewScores.common.home.to180++;
                         else if (score === 17) viewScores.common.home.to170++;
                         else if (score === 16) viewScores.common.home.to160++;
@@ -169,9 +156,8 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
                         else if (score === 12) viewScores.common.home.to120++;
                         else if (score === 11) viewScores.common.home.to110++;
                         else if (score === 10) viewScores.common.home.to100++;
-                    }, this);
+                        else viewScores.common.away.under90++;
                 } else if (isHome === false) {
-                    array.forEach(function(score) {
                         if (score === 18) viewScores.common.away.to180++;
                         else if (score === 17) viewScores.common.away.to170++;
                         else if (score === 16) viewScores.common.away.to160++;
@@ -181,15 +167,14 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
                         else if (score === 12) viewScores.common.away.to120++;
                         else if (score === 11) viewScores.common.away.to110++;
                         else if (score === 10) viewScores.common.away.to100++;
-                    }, this);
+                        else viewScores.common.away.under90++;
                 }
-            }, this);
         }
     }
 
     var scoreCommonHome = function() {
         return new Promise(function(resolved, reject) {
-            var score;
+            
             applyDataModel.find({
                 $and: [{ 'classification.regionType': 'HOME' },
                     { 'classification.applyBaseType.type': 'COMMON' }
@@ -198,15 +183,11 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
+                    var score;
                     score = element.grade.calculatedScore.total;
                     score = (score - (score % 10)) / 10;
-                    if (score > 9) {
-                        tmpScores.scoreCommonHome.push(score);
-                    } else {
-                        viewScores.common.home.under90++;
-                    }
+                    categorizeScore(score, false, true);
                 }, this);
-                categorizeScore(tmpScores.scoreCommonHome, false, true);
                 resolved(true);
             })
         })
@@ -214,7 +195,6 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
 
     var scoreCommonAway = function() {
         return new Promise(function(resolved, reject) {
-            var score;
             applyDataModel.find({
                 $and: [{ 'classification.regionType': 'AWAY' },
                     { 'classification.applyBaseType.type': 'COMMON' }
@@ -223,15 +203,12 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
+                    var score;
                     score = element.grade.calculatedScore.total;
                     score = (score - (score % 10)) / 10;
-                    if (score > 9) {
-                        tmpScores.scoreCommonAway.push(score);
-                    } else {
-                        viewScores.common.home.under90++;
-                    }
+                    categorizeScore(score, false, false);
                 }, this)
-                categorizeScore(tmpScores.scoreCommonAway, false, false);
+                
                 resolved(true);
             });
         })
@@ -239,7 +216,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
 
     var scoreSpecialHome = function() {
         return new Promise(function(resolved, reject) {
-            var score;
+            
             applyDataModel.find({
                 'classification.regionType': 'HOME',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
@@ -249,15 +226,12 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
+                    var score;
                     score = element.grade.calculatedScore.total;
                     score = (score - (score % 10)) / 10;
-                    if (score > 2) {
-                        tmpScores.scoreSpecialHome.push(score);
-                    } else {
-                        viewScores.special.home.under20++;
-                    }
+                    categorizeScore(score, true, true);
                 }, this);
-                categorizeScore(tmpScores.scoreSpecialHome, true, true);
+                
                 resolved(true);
             })
         })
@@ -265,7 +239,7 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
 
     var scoreSpecialAway = function() {
         return new Promise(function(resolved, reject) {
-            var score;
+            
             applyDataModel.find({
                 'classification.regionType': 'AWAY',
                 $or: [{ 'classfication.applyBaseType.type': 'MEISTER' },
@@ -275,15 +249,11 @@ router.route('/admin').get(onlyAdmin, (req, res) => {
             }, (err, find) => {
                 if (err) reject(err);
                 find.forEach(function(element) {
+                    var score;
                     score = element.grade.calculatedScore.total;
                     score = (score - (score % 10)) / 10;
-                    if (score > 2) {
-                        tmpScores.scoreSpecialAway.push(score);
-                    } else {
-                        viewScores.special.away.under20++;
-                    }
+                    categorizeScore(score, true, false);
                 }, this);
-                categorizeScore(tmpScores.scoreSpecialAway, true, false);
                 resolved(true);
             })
         })
