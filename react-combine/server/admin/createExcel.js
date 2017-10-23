@@ -13,7 +13,7 @@ exports.excel = (userId, key, callback) => {
             })
             .then((findData) => {
                 if (findData) {
-                    return getObject(findData, true);
+                    return getObject(findData);
                 } else {
                     throw ('학생 정보를 찾지 못했습니다.');
                 }
@@ -34,7 +34,7 @@ exports.excel = (userId, key, callback) => {
                 if (0 < find.length) {
                     let arr = new Array();
                     for (let i = 0; i < find.length; i++) {
-                        getObject(find[i], undefined, key)
+                        getObject(find[i], key)
                             .then((eData) => {
                                 if (eData) arr.push(eData);
                                 else throw ('해당하는 학생 정보를 찾지 못함');
@@ -61,7 +61,7 @@ exports.excel = (userId, key, callback) => {
 };
 
 
-function getObject(findData, check, key) { // 성적을 입력하기 전의 Object
+function getObject(findData, key) { // 성적을 입력하기 전의 Object
     return new Promise((resolve, reject) => {
         logic.userInfo(findData.user)
             .then((user) => {
@@ -87,8 +87,7 @@ function getObject(findData, check, key) { // 성적을 입력하기 전의 Obje
                 getScore(findData, key)
                     .then((scoreData) => {
                         let addData = Object.assign(baseData, detailData, scoreData);
-                        if (typeof check == undefined) resolve([addData]);
-                        resolve(addData);
+                        resolve([addData]);
                     });
             }).catch((err) => {
                 console.log('Excel Error ' + err);
