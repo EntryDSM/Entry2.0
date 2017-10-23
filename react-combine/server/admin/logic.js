@@ -223,7 +223,7 @@ exports.search = (body) => {
             console.log('전체 검색');
             obj = getSearch(body, true);
         }
-        applyDataModel.find(obj)
+           applyDataModel.find(obj)
             .then(data => getSearchName(data))
             .then((data) => {
                 console.log(data)
@@ -238,7 +238,7 @@ exports.search = (body) => {
 
 function getSearch(body, check) {
     let returnData;
-    let obj = {
+    var _obj_ = {
         "classification.regionType": body.region,
         "info.sex": body.gender,
         "classification.applyBaseType.type": body.applyType,
@@ -247,7 +247,21 @@ function getSearch(body, check) {
         // "examNumber": body.examNumber,
         // "info.schoolName": body.schoolName
     };
+    if (body.region === 'ALL'){
+        console.log('ALL');
+        // delete _obj_["classification.regionType"];
+        // _obj_.$or = [{"classification.regionType" : 'AWAY'}, {"classification.regionType" : 'HOME'}] 
+        _obj_ = {
+            $or : [{"classification.regionType" : 'AWAY'}, {"classification.regionType" : 'HOME'}],
+            "info.sex": body.gender,
+            "classification.applyBaseType.type": body.applyType,
+            "checkReceipt": body.checkReceipt,
+            "checkPayment": body.checkPayment,
+        }
+    }
+
     if ((body.name || body.examNumber || body.schoolName) && typeof check == 'undefined') { // 상세 - 추가 입력
+        console.log("IF");
         let addObj = {
             $or: [{
                     "name": body.name
@@ -260,14 +274,26 @@ function getSearch(body, check) {
                 }
             ]
         };
-        returnData = Object.assign(deleteKey(obj), addObj);
+        returnData = Object.assign(deleteKey(_obj_), addObj);
     } else if (typeof check == 'undefined') { // 상세검색 
-        returnData = obj;
+        console.log("ELSE IF");
+        returnData = _obj_;
     } else { // 전체검색
-        returnData = {
-            "classification.regionType": body.region,
-        };
+        console.log("ELSE");
+        if (body.region === 'ALL') {
+            returnData = {
+                $or:
+                [ { 'classification.regionType': 'AWAY' },
+                  { 'classification.regionType': 'HOME' } ]
+            };
+        } else {
+            returnData = {
+                "classification.regionType": body.region
+            };
+        }
     }
+
+    console.log(returnData);
 
     return returnData;
 }
@@ -281,6 +307,7 @@ function deleteKey(data) {
 function getSearchName(data) {
     return new Promise((resolve, reject) => {
         let arr = new Array;
+        console.log(data);
         if (0 >= data.length) reject('해당하는 학생 정보 찾지못함');
         for (let i = 0; i < data.length; i++) {
             user.findOne(data[i].user)

@@ -6,7 +6,7 @@ class UserInfo extends Component {
         let date = new Date;
 
         if(datas.isCountryMerit === true){
-            document.getElementById('country_merit_area').style.visibility = 'visible';
+            document.getElementById('country_merit_area').style.display = 'block';
         }
 
         return(
@@ -171,7 +171,7 @@ class UserInfo extends Component {
                                     <br />
                                     <p>본인은 귀 고등학교에 입학하고자 소정의 서류를 갖추어 지원합니다.</p>
                                     <p>2017년 10월 {date.getDate()}일</p>
-                                    <p>지원자:&nbsp; {datas.name} (인)&nbsp;&nbsp;&nbsp; 보호자:&nbsp; {datas.parentsName} (인)</p>
+                                    <p>지원자:&nbsp; {datas.name} (인)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 보호자:&nbsp; {datas.parentsName} (인)</p>
                                     <br />
                                     <h2>대덕소프트웨어마이스터고등학교장 귀하</h2>
                                 </td>
@@ -191,16 +191,30 @@ class UserInfo extends Component {
                                         <br/>
                                         2017년&nbsp;&nbsp;&nbsp;10월&nbsp;&nbsp;&nbsp;{date.getDate()}일
                                     </p>
-                                    <p>
+                                    <p style={{textAlign: "center"}}>
                                         <span style = {{wordSpacing : "2rem",
-                                                        paddingLeft : "12.8rem",
                                                         fontSize : "0.8rem"}}>
                                             담임교사: &nbsp; (인)
                                         </span>
-                                        <h2 style = {{paddingLeft : "11.5rem"}}>
-                                            {datas.schoolName.replace("중학교", "")}중학교장 (직인)
-                                        </h2>
                                     </p>
+                                </td>
+                                <td>
+                                    <div style={{
+                                        display: "inline-block",
+                                        width: 90,
+                                        height: 90,
+                                        marginLeft: 27,
+                                        marginTop: 20,
+                                        textAlign: "center",
+                                        lineHeight: 4,
+                                        border: "1px dashed black"
+                                    }}>
+                                        출신중학교장<br/>
+                                        직인
+                                    </div>
+                                    <h4 style = {{
+                                        textAlign: "center"
+                                    }}>{datas.schoolName.replace("중학교", "")}중학교장 (직인)</h4>
                                 </td>
                             </tr>
                         </tbody>
@@ -214,7 +228,7 @@ class UserInfo extends Component {
 
                     <div id = "agreeCover"
                          style = {{border : "1px solid",
-                                   height : "15rem",
+                                   height : "13rem",
                                    fontSize : "0.75rem",
                                    lineHeight : "1.4",
                                    padding : "5px",
@@ -255,7 +269,8 @@ class UserInfo extends Component {
                                                 {datas.name}
                                        </span>(인)
                         </span>
-
+                        <br/>
+                        <br/>
                         <span style = {{display : "block"}}>
                             보호자 성명 <span style = {{paddingLeft : "1.5rem",
                                                        paddingRight : "1.5rem"}}>
@@ -265,8 +280,7 @@ class UserInfo extends Component {
                     </p>
 
                     <p style = {{fontWeight : "bold",
-                                 fontSize : "1rem",
-                                 marginTop : "-15px"}}>
+                                 fontSize : "1rem"}}>
                         대덕소프트웨어마이스터고등학교장 귀하
                     </p>
                 </div>

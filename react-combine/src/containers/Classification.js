@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Button from '../components/Button';
 import InputHeader from '../components/InputHeader';
 import '../css/Classification.css';
-import PropTypes from 'prop-types';
 import {browserHistory} from 'react-router';
 import 'babel-polyfill';
 import axios from 'axios';
@@ -162,7 +161,9 @@ class Classification extends Component {
         point6.style.stroke = "B9B4B4";
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
+    }
 
+    componentWillMount(){
         axios({
             method: 'get',
             url: '/api/user/classification'
@@ -182,12 +183,15 @@ class Classification extends Component {
             }
         }).catch(error => {
             console.log(error);
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
     submit(){
-        console.log('why?');
         axios({
             method: "put",
             url: "/api/user/classification",
@@ -205,6 +209,9 @@ class Classification extends Component {
             browserHistory.push('/infoinput');
         }).catch(error => {
             console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         });
     }
 

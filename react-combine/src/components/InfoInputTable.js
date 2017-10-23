@@ -5,35 +5,29 @@ import UploadImage from './UploadImage';
 
 class InfoInputTable extends Component {
     render() {
-        console.log(this.props);
-        console.log(this.props.isBlack ? "none" : "table-row");
         let days = new Array;
         if(this.props.month == 1 || this.props.month == 3 || this.props.month == 5 || this.props.month == 7 || this.props.month == 8 || this.props.month == 10 || this.props.month == 12){
             for(let i = 1; i <= 31; i++){
                 if(i == this.props.birthDay){
-                    days.push(<Birth_day day={i} selected="selected"/>)
+                    days.push(<BirthDay day={i} selected="selected"/>)
                 }
-                days.push(<Birth_day day={i} selected=""/>)
+                days.push(<BirthDay day={i} selected=""/>)
             }
         } else if(this.props.month == 2){
             for(let i = 1; i <= 28; i++){
                 if(i == this.props.birthDay){
-                    days.push(<Birth_day day={i} selected="selected"/>)
+                    days.push(<BirthDay day={i} selected="selected"/>)
                 }
-                days.push(<Birth_day day={i} selected=""/>)
+                days.push(<BirthDay day={i} selected=""/>)
             }
         } else {
             for(let i = 1; i <= 30; i++){
                 if(i == this.props.birthDay){
-                    days.push(<Birth_day day={i} selected="selected"/>)
+                    days.push(<BirthDay day={i} selected="selected"/>)
                 }
-                days.push(<Birth_day day={i} selected=""/>)
+                days.push(<BirthDay day={i} selected=""/>)
             }
         }
-
-        console.log(this.props);
-        console.log(this.props.birthYear);
-        console.log(this.props.birthYear == 2002);
 
         return(
             <div id="info_input_table">
@@ -168,7 +162,7 @@ class InfoInputTable extends Component {
     }
 }
 
-const Birth_day = (props) => {
+const BirthDay = (props) => {
     return(
         <option selected={props.selected}>{props.day}</option>
     );

@@ -233,8 +233,10 @@
 }
 
 /* seventh row */
-#userinfo_table_6 tbody tr td{
-    width: 100%;
+#userinfo_table_6 tbody tr td:nth-child(1){
+    width: 85%;
+    padding-left: 100px;
+    border: 0;
 }
 #userinfo_table_6 tbody tr td p:nth-child(1){
     text-align: center;
@@ -243,4 +245,8 @@
 #userinfo_table_6 tbody tr td p:nth-child(2){
     text-align: center;
     line-height: 250%;
+}
+#userinfo_table_6 tbody tr td:nth-child(2){
+    width: 25%;
+    border: 0;
 }

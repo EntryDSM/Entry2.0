@@ -3,7 +3,6 @@ import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
-import PropTypes from 'prop-types';
 import 'babel-polyfill';
 import '../css/Introduce.css';
 import '../css/WritingArea.css';
@@ -55,7 +54,9 @@ class Introduce extends Component {
         point6.style.stroke = "B9B4B4";
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
+    }
 
+    componentWillMount(){
         axios({
             method: 'get',
             url: '/api/user/introduce'
@@ -73,8 +74,13 @@ class Introduce extends Component {
             } else {
                 browserHistory.push('/finalError');
             }
-        }).catch(err => {
-            browserHistory.push('/error');
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
@@ -89,15 +95,16 @@ class Introduce extends Component {
                 }
             },
         }).then(response => {
-            console.log(response);
             browserHistory.push(page);
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
     render(){
-        console.log(this.state.introduce);
         return(
             <div id="contents">
                 <InputHeader now={"자기소개서 및 학업계획서"} />

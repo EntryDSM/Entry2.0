@@ -9,7 +9,6 @@ import Attend from '../components/Attend';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
 import 'babel-polyfill';
-import PropTypes from 'prop-types';
 import '../css/InputHeader.css';
 import '../css/GradeInput.css';
 
@@ -125,8 +124,6 @@ class GradeInput extends Component{
     }
 
     submit(page){
-        console.log({avgScore: this.state.avgScore});
-        console.log(this.state.black);
         axios({
             method: 'put',
             url: '/api/user/grade',
@@ -143,10 +140,12 @@ class GradeInput extends Component{
                 }
             }
         }).then(response => {
-            console.log(response);
             browserHistory.push(page);
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
@@ -170,11 +169,11 @@ class GradeInput extends Component{
                 <InputHeader now = {"성적입력"}/>
                 <div id = "volunteerAttendWrapper">
                     <Volunteer
-                        visible = {this.state.black === 'table-row-group' ? "none" : "table-row-group"}
+                        visible = {this.state.black === 'table-row-group' ? "none" : "block"}
                         setVolunteer = {this.setVolunteer.bind(this)}
                         volunteer = {this.state.volunteer} />
                     <Attend
-                        visible = {this.state.black === 'table-row-group' ? "none" : "table-row-group"}
+                        visible = {this.state.black === 'table-row-group' ? "none" : "block"}
                         setAttendData = {this.setAttendData.bind(this)}
                         attendValue = {attendData} />
                 </div>
@@ -360,7 +359,6 @@ class GradeInput extends Component{
                         method: 'get',
                         url: '/api/user/grade'
                     }).then(response => {
-                        console.log(response);
                         this.setState({
                             volunteer: response.data.grade.volunteer,
                             absence: response.data.grade.attend.absence,
@@ -371,7 +369,6 @@ class GradeInput extends Component{
 
                         response.data.grade.score.semesters.forEach((ele) => {
                             for(let i = 0; i < response.data.grade.score.semesters.length; i++){
-                                console.log(graduateType)
                                 let MtoBe_SemesterNotPass;
                                 let Mdid_SemesterNotPass;
 
@@ -439,6 +436,9 @@ class GradeInput extends Component{
                         })
                     }).catch(error => {
                         console.log(error);
+                        if(error.response.status === 500){
+                            browserHistory.push('/internalError');
+                        }
                     })
                 } else {
                     this.setState({
@@ -450,12 +450,14 @@ class GradeInput extends Component{
                         method: 'get',
                         url: '/api/user/grade'
                     }).then(response => {
-                        console.log(response);
                         this.setState({
                             avgScore: response.data.grade.score.avgScore  
                         })
                     }).catch(error => {
                         console.log(error);
+                        if(error.response.status === 500){
+                            browserHistory.push('/internalError');
+                        }
                     })
                 }
             } else {
@@ -463,7 +465,11 @@ class GradeInput extends Component{
             }
         }).catch(error => {
             console.log(error);
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
 
         let selectorToggle = (nodes, event, semester, subject) => {

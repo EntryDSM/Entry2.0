@@ -1,0 +1,13 @@
+$env:ENTRYDSM_EMAIL_SERVICE="Gmail";
+$env:ENTRYDSM_EMAIL_HOST="localhost";
+$env:ENTRYDSM_EMAIL_PORT="465";
+$env:ENTRYDSM_EMAIL_USER="syeutyu123@gmail.com";
+$env:ENTRYDSM_EMAIL_PASSWORD="qlalfqjsgh12589";
+$env:ENTRYDSM_SECRET="asdjknasjdknakdnj123123";
+$env:ENTRYDSM_DB_URL="mongodb://localhost:27017/EntryDSM";
+$env:ENTRYDSM_PORT="4875";
+$env:MEISTER="MEISTER";
+$env:NOMAL="ADMIN";
+cls
+node app.js
+

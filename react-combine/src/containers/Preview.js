@@ -45,49 +45,43 @@ class Preview extends Component {
         this.setPage = this.setPage.bind(this);
     }
 
-    componentDidMount() {
-        console.log('what');
+    componentDidMount(){
+        var point1 = document.getElementById("point_step1");
+        var point2 = document.getElementById("point_step2");
+        var point3 = document.getElementById("point_step3");
+        var point4 = document.getElementById("point_step4");
+        var point5 = document.getElementById("point_step5");
+        var point6 = document.getElementById("point_step6");
+        var point7 = document.getElementById("point_step7");
+        point1.style.fill = "#B9B4B4";
+        point1.style.stroke = "B9B4B4";
+        point2.style.fill = "#B9B4B4";
+        point2.style.stroke = "#B9B4B4";
+        point3.style.fill = "#B9B4B4";
+        point3.style.stroke = "B9B4B4";
+        point4.style.fill = "#B9B4B4";
+        point4.style.stroke = "B9B4B4";
+        point5.style.fill = "#B9B4B4";
+        point5.style.stroke = "B9B4B4";
+        point6.style.fill = "salmon";
+        point6.style.stroke = "salmon";
+        point7.style.fill = "#B9B4B4";
+        point7.style.stroke = "B9B4B4";
+    }
+
+    componentWillMount() {
         axios({
             method: 'get',
             url: '/api/validation'
         }).then(response => {
-            console.log(response);
             if(response.data.classification.length !== 0 || response.data.grade.length !== 0 || response.data.info.length !== 0 || response.data.introduce.length !== 0){
-                console.log("go to validation");
                 browserHistory.push('/validation');
             } else {
-                console.log('hello');
-                var point1 = document.getElementById("point_step1");
-                var point2 = document.getElementById("point_step2");
-                var point3 = document.getElementById("point_step3");
-                var point4 = document.getElementById("point_step4");
-                var point5 = document.getElementById("point_step5");
-                var point6 = document.getElementById("point_step6");
-                var point7 = document.getElementById("point_step7");
-                point1.style.fill = "#B9B4B4";
-                point1.style.stroke = "B9B4B4";
-                point2.style.fill = "#B9B4B4";
-                point2.style.stroke = "#B9B4B4";
-                point3.style.fill = "#B9B4B4";
-                point3.style.stroke = "B9B4B4";
-                point4.style.fill = "#B9B4B4";
-                point4.style.stroke = "B9B4B4";
-                point5.style.fill = "#B9B4B4";
-                point5.style.stroke = "B9B4B4";
-                point6.style.fill = "salmon";
-                point6.style.stroke = "salmon";
-                point7.style.fill = "#B9B4B4";
-                point7.style.stroke = "B9B4B4";
-
                 axios({
                     method: 'get',
                     url: '/api/preview'
                 }).then(response => {
-                    console.log(response);
-                    console.log(response.data);
-                    let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
                     let address = response.data.info.addressBase + response.data.info.addressDetail;
-                    let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
                     let submitNumber; 
                     if(response.data.submitNumber > 0 && response.data.submitNumber < 10){
                         submitNumber = '00' + response.data.submitNumber;
@@ -169,12 +163,17 @@ class Preview extends Component {
                         totalGrade: response.data.grade.calculatedScore.total,
                         schoolName: response.data.classification.isBlack ? "해당없음" : response.data.info.schoolName,
                         type: response.data.classification.applyBaseType.type,
+                        cause: response.data.classification.applyBaseType.cause,
                         introduce: response.data.introduce.introduce,
                         plan: response.data.introduce.plan
                     })
-                }).catch(err => {
-                    console.log(err);
-                    browserHistory.push('error');
+                }).catch(error => {
+                    console.log(error);
+                    if(error.response.status === 500){
+                        browserHistory.push('/internalError');
+                    } else {
+                        browserHistory.push('error');
+                    }
                 })
                 this.setState({
                     targetPage: "userInfo"
@@ -183,7 +182,11 @@ class Preview extends Component {
             }
         }).catch(error => {
             console.log(error);
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
@@ -212,6 +215,8 @@ class Preview extends Component {
             case 'principal':
                 document.getElementById('name_principal').style.background = "#ddd";
                 break;
+            default:
+                break;
         }
     }
 
@@ -220,7 +225,6 @@ class Preview extends Component {
         let checkArr = this.state.printCheck;
 
         green.forEach(ele => {
-            console.log(ele);
             ele.style.visibility = ""
         })
 
@@ -273,7 +277,6 @@ class Preview extends Component {
                     })
                     window.scrollTo(0, 0);                    
                 } else {
-                    console.log('te');
                     this.setState({
                         printCheck: checkArr
                     })
@@ -285,6 +288,8 @@ class Preview extends Component {
                 this.setState({
                     printCheck: checkArr
                 })
+                break;
+            default:
                 break;
         }
 

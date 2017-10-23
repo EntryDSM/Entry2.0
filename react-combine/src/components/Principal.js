@@ -8,16 +8,22 @@ class Principal extends Component {
          if(datas.local === 'HOME'){
             if(datas.type === 'MEISTER'){
                 check[0][0] = 'O';
-            } else if(datas.type === 'SOCIETY') {
-                check[0][1] = 'O';
-                check[0][2] = 'O';
+            } else if(datas.type === 'SOCIAL') {
+                if(datas.cause === 'BASIC_BENEFICIARY' || datas.cause === 'SINGLE_PARENT' || datas.cause === 'LOWER_INCOME' || datas.cause === 'LOW_INCOME'){
+                    check[0][1] = 'O';
+                } else {
+                    check[0][2] = 'O';
+                }
             }
          } else if(datas.local === 'AWAY') {
             if(datas.type === 'MEISTER'){
                 check[1][0] = 'O';
-            } else if(datas.type === 'SOCIETY') {
-                check[1][1] = 'O';
-                check[1][2] = 'O';
+            } else if(datas.type === 'SOCIAL') {
+                if(datas.cause === 'BASIC_BENEFICIARY' || datas.cause === 'SINGLE_PARENT' || datas.cause === 'LOWER_INCOME' || datas.cause === 'LOW_INCOME'){
+                    check[1][1] = 'O';
+                } else {
+                    check[1][2] = 'O';
+                }
             }
          }
          return(

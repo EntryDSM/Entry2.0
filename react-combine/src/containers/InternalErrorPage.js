@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import '../css/InternalErrorPage.css';
+import {browserHistory} from 'react-router';
 
 class InternalErrorPage extends Component{
     render(){
@@ -17,7 +18,7 @@ class InternalErrorPage extends Component{
 const ErrorHeader = (props) => {
     return(
         <div id = "errorHeader">
-            <img src = {props.ImgUrl} alt = "logo" id = "logo"/>
+            <img src = {props.ImgUrl} alt = "logo" id = "logo" onClick = {browserHistory.push('/main')}/>
         </div>
     );
 }

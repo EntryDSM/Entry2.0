@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class MainHeader extends Component{
     render(){
         let signOnClick = this.props.signOnClick;
-        console.log(this.props);
+
         return(
             <div id = "headerCover">
                 <img src = {this.props.ImgUrl} alt ="img" id = "mainLogo"/>

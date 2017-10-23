@@ -4,10 +4,8 @@ import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import '../css/InfoInput.css'
 import axios from 'axios';
-import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import 'babel-polyfill';
-import PropTypes from 'prop-types';
 
 class InfoInput extends Component {
     constructor(props){
@@ -44,7 +42,6 @@ class InfoInput extends Component {
     }
 
     componentDidMount(){
-        console.log("did mount");
         var point1 = document.getElementById("point_step1");
         var point2 = document.getElementById("point_step2");
         var point3 = document.getElementById("point_step3");
@@ -66,13 +63,13 @@ class InfoInput extends Component {
         point6.style.stroke = "B9B4B4";
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
+    }
 
+    componentWillMount(){
         axios({
             method: 'get',
             url: '/api/user/info'
         }).then(response => {
-            console.log(response);
-            console.log("get info");
             if(!response.data.applyStatus){
                 let birth = response.data.birthday.split('-');
                 let phoneNum;
@@ -96,16 +93,15 @@ class InfoInput extends Component {
                 if(response.data.parentsTel.length > 0){
                     parentsTel = response.data.parentsTel.split('-');                
                 } else {
-                    console.log(response.data.parentsTel.split('-').length);
                     parentsTel = ["", "", ""];
                 }
 
-                console.log(response.data.schoolTel);
-                if(response.data.schoolTel !== undefined){
+                if(!response.data.isBlack){
                     if(response.data.schoolTel.length > 0){
                         schoolTel = response.data.schoolTel.split('-');
+                    } else {
+                        schoolTel = ["", "", ""];
                     }
-                    schoolTel = ["", "", ""];
                 }
 
                 this.setState({
@@ -137,17 +133,25 @@ class InfoInput extends Component {
                     this.setState({
                         profileImg: '/api/upload/profile'
                     })
-                }).catch(err => {
-                    this.setState({
-                        profileImg: require('../images/file.png')
-                    })
+                }).catch(error => {
+                    if(error.response.status === 500){
+                        browserHistory.push('/internalError');
+                    } else {
+                        this.setState({
+                            profileImg: require('../images/file.png')
+                        })
+                    }
                 })
             } else {
                 browserHistory.push('/finalError');
             }
         }).catch(error => {
             console.log(error);
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
@@ -173,10 +177,12 @@ class InfoInput extends Component {
                 }
             }
         }).then(response => {
-            console.log(response);
             browserHistory.push(page);
         }).catch(error => {
             console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
@@ -242,12 +248,14 @@ class InfoInput extends Component {
             method: 'GET',
             url: query
         }).then(response => {
-            console.log(response.data);
             this.setState({
                 schoolList: response.data
             })
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
@@ -411,11 +419,11 @@ class InfoInput extends Component {
                     'content-type': 'multipart/form-data'
                 }
             }).then(response => {
-                console.log(response);
-            }).catch(err => {
-                console.log(err);
-                console.log(err.request);
-                console.log(err.config)
+            }).catch(error => {
+                console.log(error);
+                if(error.response.status === 500){
+                    browserHistory.push('/internalError');
+                }
             })
         } else {
             preview.src = require('../images/file.png');

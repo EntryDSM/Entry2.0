@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import '../css/HeaderView.css';
-import {browserHistory} from 'react-router';
 
 class HeaderView extends React.Component{
     componentDidMount(){
@@ -157,7 +156,7 @@ const WhiteBoxesPart = () =>{
                 BoxesInfo = {
                     [
                         {
-                            MainNumber: "12",
+                            MainNumber: "11",
                             NumberExplain: "Programmers"
                         },
                         {
