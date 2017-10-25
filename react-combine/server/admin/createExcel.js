@@ -122,7 +122,10 @@ function addSubject(data) {
 }
 
 function checkCount(data) {
-    return (data.classification.graduateType) ? 5 : 6;
+    if (data.classification.graduateType != 'WILL') {
+        console.log(data.classification.graduateType);
+    }
+    return (data.classification.graduateType == 'WILL') ? 5 : 6;
 }
 
 function getArr(sub) {
