@@ -19,7 +19,7 @@ exports.checkType = (str) => {
             {
                 return '졸업';
             }
-        case 'BLACK':
+        case '':
             {
                 return '검정고시';
 
