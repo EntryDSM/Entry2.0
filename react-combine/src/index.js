@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import 'babel-polyfill';
-import { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete, MyPage, ErrorPage, Validation, Board, FinalSubmitErrorPage, InternalErrorPage } from './containers';
+import { Classification, GradeInput, InfoInput, Introduce, Landing, SignIn, MainPage, Preview, SendInfo, SignUp, ChangePw, PwSendComplete, FinalSubmit, SignupSendComplete, MyPage, ErrorPage, Validation, Board, FinalSubmitErrorPage, InternalErrorPage, FinishPage } from './containers';
 import reducer from './reducers';
 import InputLayout from './components/InputLayout';
 
@@ -38,6 +38,7 @@ ReactDOM.render(
                 <Route path="/preview" component={Preview} />
                 <Route path="/finalsubmit" component={FinalSubmit} />
             </Route>
+            <Route path = "/finish" component={FinishPage}/>
         </Route>
     </Router>
 , rootElement);

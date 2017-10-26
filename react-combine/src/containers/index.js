@@ -18,6 +18,7 @@ import Validation from './Validation';
 import Board from './Board';
 import FinalSubmitErrorPage from './FinalSubmitErrorPage';
 import InternalErrorPage from './InternalErrorPage';
+import FinishPage from './FinishPage';
 
 export { Classification, GradeInput,
          InfoInput, Introduce, Landing,
@@ -26,4 +27,5 @@ export { Classification, GradeInput,
          SignupSendComplete, ChangePw, 
          FinalSubmit, MyPage, ErrorPage, 
          Validation, Board, 
-         FinalSubmitErrorPage, InternalErrorPage };
+         FinalSubmitErrorPage, InternalErrorPage,
+         FinishPage };
