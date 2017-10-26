@@ -166,6 +166,9 @@ function getScore(data, key) {
                     resolve(obj);
                 });
         } else {
+            obj["1학년"] = '';
+            obj["2학년"] = '';
+            obj["3학년"] = '';
             obj["교과성적환산점수"] = data.grade.calculatedScore.score;
             obj["봉사시간"] = data.grade.volunteer;
             obj["봉사점수"] = data.grade.calculatedScore.volunteer;
