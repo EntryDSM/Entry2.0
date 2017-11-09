@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../css/FinalSubmitErrorPage.css';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 
 class FinalSubmitErrorPage extends Component{
     render(){
@@ -9,8 +9,8 @@ class FinalSubmitErrorPage extends Component{
                 <ErrorHeader ImgUrl = {require('../images/DSM Logo.png')}/>
                 <ErrorMain ImgUrl1 = {require('../images/warning.png')}
                            title1 = "Warning!"
-                           title2 = "최종 제출 시 수정이 불가능합니다!"
-                           title3 = "다시 검토해보세요."/>
+                           title2 = "최종 제출이 되었으므로 수정이 불가능합니다!"
+                           title3 = "조회 및 출력만 가능합니다."/>
             </div>
         );
     }
@@ -19,7 +19,7 @@ class FinalSubmitErrorPage extends Component{
 const ErrorHeader = (props) => {
     return(
         <div id = "errorHeader">
-            <img src = {props.ImgUrl} alt = "logo" id = "logo"/>
+            <img src = {props.ImgUrl} alt = "logo" id = "logo" onClick = {() => {browserHistory.push('/main')}}/>
         </div>
     );
 }

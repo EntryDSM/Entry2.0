@@ -3,7 +3,6 @@ import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
-import PropTypes from 'prop-types';
 import 'babel-polyfill';
 import '../css/Introduce.css';
 import '../css/WritingArea.css';
@@ -33,21 +32,6 @@ class Introduce extends Component {
         })
     }
 
-    componentWillMount(){
-        axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            console.log(response);
-            if(response.data.applyStatus){
-                browserHistory.push('/finalError');
-            }
-        }).catch(error => {
-            console.log(error);
-            browserHistory.push('/error');
-        })
-    }
-
     componentDidMount(){
         var point1 = document.getElementById("point_step1");
         var point2 = document.getElementById("point_step2");
@@ -70,31 +54,37 @@ class Introduce extends Component {
         point6.style.stroke = "B9B4B4";
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
+    }
 
+    componentWillMount(){
         axios({
             method: 'get',
-            url: '/api/user/introduce',
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15"
-            }
+            url: '/api/user/introduce'
         }).then(response => {
-            console.log(response);
-            let introduceCount = response.data.introduce.length;
-            let planCount = response.data.plan.length;
+            if(!response.data.applyStatus){
+                let introduceCount = response.data.introduce.length;
+                let planCount = response.data.plan.length;
 
-            this.setState({
-                introduce: response.data.introduce,
-                plan: response.data.plan,
-                introduceCount: introduceCount,
-                planCount: planCount
-            })
-        }).catch(err => {
-            console.log(err);
+                this.setState({
+                    introduce: response.data.introduce,
+                    plan: response.data.plan,
+                    introduceCount: introduceCount,
+                    planCount: planCount
+                })
+            } else {
+                browserHistory.push('/finalError');
+            }
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
-    introduceSubmit(){
+    submit(page){
         axios({
             method: 'put',
             url: '/api/user/introduce',
@@ -104,46 +94,17 @@ class Introduce extends Component {
                     plan: this.state.plan
                 }
             },
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15"
-            }
         }).then(response => {
-            console.log(response);
-            browserHistory.push('/preview');
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-
-    componentWillUnmount(){
-        axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            if(!response.data.applyStatus){
-                axios({
-                    method: 'put',
-                    url: '/api/user/introduce',
-                    data: {
-                        introduce: {
-                            introduce: this.state.introduce,
-                            plan: this.state.plan
-                        }
-                    },
-                }).then(response => {
-                    console.log(response);
-                }).catch(err => {
-                    console.log(err);
-                })
-            }
+            browserHistory.push(page);
         }).catch(error => {
             console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
     render(){
-        console.log(this.state.introduce);
         return(
             <div id="contents">
                 <InputHeader now={"자기소개서 및 학업계획서"} />
@@ -159,8 +120,8 @@ class Introduce extends Component {
                         count={this.state.planCount}
                         content={this.state.plan}/>
                 </div>
-                <Button router="gradeinput" buttonName="이전"/>
-                <Button onclick={this.introduceSubmit.bind(this)} buttonName="다음"/>
+                <Button onclick = {() => this.submit('/gradeinput')} buttonName="이전"/>
+                <Button onclick = {() => this.submit('/preview')} buttonName="다음"/>
             </div>
         );
     }

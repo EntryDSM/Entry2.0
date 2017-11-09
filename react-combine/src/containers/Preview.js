@@ -43,130 +43,9 @@ class Preview extends Component {
         };
         
         this.setPage = this.setPage.bind(this);
-        this.getUserData = this.getUserData.bind(this);
     }
 
-    getUserData(){
-        axios({
-            method: 'get',
-            url: '/api/preview',
-        }).then(response => {
-            console.log(response);
-            console.log(response.data);
-            let totalSubjectGrade = response.data.grade.calculatedScore.score.total;
-            let address = response.data.info.addressBase + response.data.info.addressDetail;
-            let isSpecial = response.data.classification.applyDetailType.IS_EXCEPTIONEE;
-            let submitNumber; 
-            if(response.data.submitNumber > 0 && response.data.submitNumber < 10){
-                submitNumber = '00' + response.data.submitNumber;
-            } else if(response.data.submitNumber >= 10 && response.data.submitNumber < 100){
-                submitNumber = '0' + response.data.submitNumber;
-            } else {
-                submitNumber = response.data.submitNumber;
-            }
-
-            let birth = response.data.info.birthday.split('-');
-            let birthMonth;
-            let birthDay;
-            if(Number(birth[1]) < 10){
-                birthMonth = '0' + birth[1];
-            } else {
-                birthMonth = birth[1];
-            }
-
-            if(Number(birth[2]) < 10){
-                birthDay = '0' + birth[2];
-            } else {
-                birthDay = birth[2];
-            }
-
-            if(response.data.classification.applyBaseType.type !== 'COMMON'){
-                this.props.pageList = [
-                    {
-                        name: "입학 원서",
-                        target: "userInfo",
-                        id: 'name_userinfo'
-                    },
-                    {
-                        name: "자기 소개서",
-                        target: "self",
-                        id: 'name_selfintroduce'
-                    },
-                    {
-                        name: "학업 계획서",
-                        target: "plan",
-                        id: 'name_study_plan'
-                    },
-                    {
-                        name: "금연 서약서",
-                        target: "noSmoke",
-                        id: 'name_no_smoke'
-                    },
-                    {
-                        name: '학교장 추천서',
-                        target: 'principal',
-                        id: 'name_principal'
-                    }
-                ]
-            }
-            this.setState({
-                submitNumber: submitNumber,
-                schoolCode: response.data.info.schoolCode,
-                class: response.data.info.class,
-                name: response.data.user.name,
-                birth: birth[0] + ' - ' +  birthMonth + ' - ' + birthDay,
-                sex: response.data.info.sex,
-                address: address,
-                parentsTel: response.data.info.parentsTel,
-                parentsName: response.data.info.parentsName,
-                schoolTel: response.data.info.schoolTel,
-                phoneNum: response.data.info.tel,
-                graduation: response.data.classification.graduateType,
-                graduateYear: response.data.classification.graduateYear,
-                local: response.data.classification.regionType,
-                isSpecial: response.data.classification.applyDetailType.IS_EXCEPTIONEE,
-                isCountryMerit: response.data.classification.applyDetailType.IS_NATIONAL_MERIT,
-                firstGrade: response.data.grade.calculatedScore.score.first,
-                secondGrade: response.data.grade.calculatedScore.score.second,
-                thirdGrade: response.data.grade.calculatedScore.score.third,
-                totalSubjectGrade: response.data.grade.calculatedScore.score.total,
-                attend: response.data.grade.calculatedScore.attendance,
-                volunteer: response.data.grade.calculatedScore.volunteer,
-                totalGrade: response.data.grade.calculatedScore.total,
-                schoolName: response.data.info.schoolName,
-                type: response.data.classification.applyBaseType.type,
-                introduce: response.data.introduce.introduce.replace(/(\r\n|\n|\r)/gm, "\n"),
-                plan: response.data.introduce.plan
-            })
-        }).catch(err => {
-            console.log(err);
-            browserHistory.push('error');
-        })
-    }
-
-    componentWillMount(){
-        axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            console.log(response);
-            axios({
-                method: 'get',
-                url: '/api/validation'
-            }).then(response => {
-                if(response.data.classification.length !== 0 || response.data.grade.length !== 0 || response.data.info.length !== 0 || response.data.introduce.length !== 0){
-                    browserHistory.push('/validation');
-                }
-            }).catch(err => {
-                console.log(err);
-            })
-        }).catch(error => {
-            console.log(error);
-            browserHistory.push('/error');
-        })
-    }
-
-    componentDidMount() {
+    componentDidMount(){
         var point1 = document.getElementById("point_step1");
         var point2 = document.getElementById("point_step2");
         var point3 = document.getElementById("point_step3");
@@ -188,12 +67,127 @@ class Preview extends Component {
         point6.style.stroke = "salmon";
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
+    }
 
-        this.getUserData();
-        this.setState({
-            targetPage: "userInfo"
-        });
-        document.getElementById('name_userinfo').style.background = "#ddd";
+    componentWillMount() {
+        axios({
+            method: 'get',
+            url: '/api/validation'
+        }).then(response => {
+            if(response.data.classification.length !== 0 || response.data.grade.length !== 0 || response.data.info.length !== 0 || response.data.introduce.length !== 0){
+                browserHistory.push('/validation');
+            } else {
+                axios({
+                    method: 'get',
+                    url: '/api/preview'
+                }).then(response => {
+                    let address = response.data.info.addressBase + response.data.info.addressDetail;
+                    let submitNumber; 
+                    if(response.data.submitNumber > 0 && response.data.submitNumber < 10){
+                        submitNumber = '00' + response.data.submitNumber;
+                    } else if(response.data.submitNumber >= 10 && response.data.submitNumber < 100){
+                        submitNumber = '0' + response.data.submitNumber;
+                    } else {
+                        submitNumber = response.data.submitNumber;
+                    }
+
+                    let birth = response.data.info.birthday.split('-');
+                    let birthMonth;
+                    let birthDay;
+                    if(Number(birth[1]) < 10){
+                        birthMonth = '0' + birth[1];
+                    } else {
+                        birthMonth = birth[1];
+                    }
+
+                    if(Number(birth[2]) < 10){
+                        birthDay = '0' + birth[2];
+                    } else {
+                        birthDay = birth[2];
+                    }
+
+                    if(response.data.classification.applyBaseType.type !== 'COMMON' && !response.data.classification.isBlack){
+                        this.props.pageList = [
+                            {
+                                name: "입학 원서",
+                                target: "userInfo",
+                                id: 'name_userinfo'
+                            },
+                            {
+                                name: "자기 소개서",
+                                target: "self",
+                                id: 'name_selfintroduce'
+                            },
+                            {
+                                name: "학업 계획서",
+                                target: "plan",
+                                id: 'name_study_plan'
+                            },
+                            {
+                                name: "금연 서약서",
+                                target: "noSmoke",
+                                id: 'name_no_smoke'
+                            },
+                            {
+                                name: '학교장 추천서',
+                                target: 'principal',
+                                id: 'name_principal'
+                            }
+                        ]
+                    }
+
+                    this.setState({
+                        submitNumber: submitNumber,
+                        schoolCode: response.data.info.schoolCode,
+                        class: response.data.info.class,
+                        name: response.data.user.name,
+                        birth: birth[0] + ' - ' +  birthMonth + ' - ' + birthDay,
+                        sex: response.data.info.sex,
+                        address: address,
+                        parentsTel: response.data.info.parentsTel,
+                        parentsName: response.data.info.parentsName,
+                        schoolTel: response.data.info.schoolTel,
+                        phoneNum: response.data.info.tel,
+                        graduation: response.data.classification.graduateType,
+                        graduateYear: response.data.classification.graduateYear,
+                        local: response.data.classification.regionType,
+                        isSpecial: response.data.classification.applyDetailType.IS_EXCEPTIONEE,
+                        isBlack: response.data.classification.isBlack,
+                        isCountryMerit: response.data.classification.applyDetailType.IS_NATIONAL_MERIT,
+                        firstGrade: response.data.grade.calculatedScore.score.first,
+                        secondGrade: response.data.grade.calculatedScore.score.second,
+                        thirdGrade: response.data.grade.calculatedScore.score.third,
+                        totalSubjectGrade: response.data.grade.calculatedScore.score.total,
+                        attend: response.data.grade.calculatedScore.attendance,
+                        volunteer: response.data.grade.calculatedScore.volunteer,
+                        totalGrade: response.data.grade.calculatedScore.total,
+                        schoolName: response.data.classification.isBlack ? "해당없음" : response.data.info.schoolName,
+                        type: response.data.classification.applyBaseType.type,
+                        cause: response.data.classification.applyBaseType.cause,
+                        introduce: response.data.introduce.introduce,
+                        plan: response.data.introduce.plan
+                    })
+                }).catch(error => {
+                    console.log(error);
+                    if(error.response.status === 500){
+                        browserHistory.push('/internalError');
+                    } else {
+                        browserHistory.push('error');
+                    }
+                })
+                this.setState({
+                    targetPage: "userInfo"
+                });
+                document.getElementById('name_userinfo').style.background = "#ddd";
+            }
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
+        })
     }
 
     setPage(target) {
@@ -221,6 +215,8 @@ class Preview extends Component {
             case 'principal':
                 document.getElementById('name_principal').style.background = "#ddd";
                 break;
+            default:
+                break;
         }
     }
 
@@ -229,7 +225,6 @@ class Preview extends Component {
         let checkArr = this.state.printCheck;
 
         green.forEach(ele => {
-            console.log(ele);
             ele.style.visibility = ""
         })
 
@@ -282,7 +277,6 @@ class Preview extends Component {
                     })
                     window.scrollTo(0, 0);                    
                 } else {
-                    console.log('te');
                     this.setState({
                         printCheck: checkArr
                     })
@@ -294,6 +288,8 @@ class Preview extends Component {
                 this.setState({
                     printCheck: checkArr
                 })
+                break;
+            default:
                 break;
         }
 
@@ -309,7 +305,6 @@ class Preview extends Component {
     }
 
     render(){
-        console.log(this.state);
         return(
             <div id="contents">
                 <div id="preview">

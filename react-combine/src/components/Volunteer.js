@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 
 class Volunteer extends Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return (
-            <div id="volunteer_div">
+            <div id="volunteer_div" style={{display: this.props.visible}}>
                 <div className="grade_table_title">봉사시간</div>
                 <table className="grade_table">
                     <tbody>

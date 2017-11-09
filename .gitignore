@@ -175,3 +175,4 @@ $RECYCLE.BIN/
 *.lnk
 .idea/
 # End of https://www.gitignore.io/api/node,macos,windows,webstorm
+react-combine/server/mongo-xlsx-1508483395475.xlsx

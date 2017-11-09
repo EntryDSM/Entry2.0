@@ -4,10 +4,8 @@ import InputHeader from '../components/InputHeader';
 import Button from '../components/Button';
 import '../css/InfoInput.css'
 import axios from 'axios';
-import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import 'babel-polyfill';
-import PropTypes from 'prop-types';
 
 class InfoInput extends Component {
     constructor(props){
@@ -20,7 +18,7 @@ class InfoInput extends Component {
             parentsName: "",
             schoolCode: "",
             schoolName: "",
-            goverment: "",
+            government: "",
             schoolTel: [
                 "", "", ""
             ],
@@ -41,23 +39,6 @@ class InfoInput extends Component {
             modalIsOpen: false,
             profileImg: "../images/file.png"
         };
-
-        this.submitInfo= this.submitInfo.bind(this);
-    }
-
-    componentWillMount(){
-        axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            console.log(response);
-            if(response.data.applyStatus){
-                browserHistory.push('/finalError');
-            }
-        }).catch(error => {
-            console.log(error);
-            browserHistory.push('/error');
-        })
     }
 
     componentDidMount(){
@@ -82,81 +63,99 @@ class InfoInput extends Component {
         point6.style.stroke = "B9B4B4";
         point7.style.fill = "#B9B4B4";
         point7.style.stroke = "B9B4B4";
+    }
 
+    componentWillMount(){
         axios({
             method: 'get',
             url: '/api/user/info'
         }).then(response => {
-            console.log(response.data);
-            let birth = response.data.birthday.split('-');
-            let phoneNum;
-            let parentsTel;
-            let schoolTel;
-            
-            Array.from(birth).forEach((ele, index) => {
-                if(index === 0){
-                    birth[index] = "2002";
-                } else if(ele == undefined || ele == 'undefined'){
-                    birth[index] = "";
-                }
-            })
-
-            if(response.data.tel.length > 0){
-                phoneNum = response.data.tel.split('-');
-            } else {
-                phoneNum = ["", "", ""];
-            }
-            if(response.data.parentsTel.length > 0){
-                parentsTel = response.data.parentsTel.split('-');                
-            } else {
-                console.log(response.data.parentsTel.split('-').length);
-                parentsTel = ["", "", ""];
-            }
-            if(response.data.schoolTel.length > 0){
-                schoolTel = response.data.schoolTel.split('-');
-            } else {
-                schoolTel = ["", "", ""];
-            }
-
-            this.setState({
-                name: response.data.user.name,
-                email: response.data.user.email,
-                number: response.data.number,
-                sex: response.data.sex,
-                grade: response.data.grade,
-                class: response.data.class,
-                parentsName: response.data.parentsName,
-                schoolCode: response.data.schoolCode,
-                schoolName: response.data.schoolName,
-                schoolTel: schoolTel,
-                phoneNum: phoneNum,
-                parentsTel: parentsTel,
-                baseAddress: response.data.addressBase,
-                detailAddress: response.data.addressDetail,
-                birthYear: birth[0],
-                birthMonth: birth[1],
-                birthDay: birth[2]
-            })
+            if(!response.data.applyStatus){
+                let birth = response.data.birthday.split('-');
+                let phoneNum;
+                let parentsTel;
+                let schoolTel = "";
                 
-            axios({
-                method: 'get',
-                url: '/api/upload/profile',
-                withCredentials: false
-            }).then(response => {
-                this.setState({
-                    profileImg: '/api/upload/profile'
+                Array.from(birth).forEach((ele, index) => {
+                    if(index === 0){
+                        birth[index] = "2002";
+                    } else if(ele == undefined || ele == 'undefined'){
+                        birth[index] = "";
+                    }
                 })
-            }).catch(err => {
+
+                if(response.data.tel.length > 0){
+                    phoneNum = response.data.tel.split('-');
+                } else {
+                    phoneNum = ["", "", ""];
+                }
+
+                if(response.data.parentsTel.length > 0){
+                    parentsTel = response.data.parentsTel.split('-');                
+                } else {
+                    parentsTel = ["", "", ""];
+                }
+
+                if(!response.data.isBlack){
+                    if(response.data.schoolTel.length > 0){
+                        schoolTel = response.data.schoolTel.split('-');
+                    } else {
+                        schoolTel = ["", "", ""];
+                    }
+                }
+
                 this.setState({
-                    profileImg: require('../images/file.png')
+                    name: response.data.user.name,
+                    email: response.data.user.email,
+                    number: response.data.number,
+                    sex: response.data.sex,
+                    grade: response.data.grade,
+                    class: response.data.class,
+                    parentsName: response.data.parentsName,
+                    schoolCode: response.data.schoolCode,
+                    schoolName: response.data.schoolName,
+                    schoolTel: schoolTel,
+                    phoneNum: phoneNum,
+                    parentsTel: parentsTel,
+                    baseAddress: response.data.addressBase,
+                    detailAddress: response.data.addressDetail,
+                    birthYear: birth[0],
+                    birthMonth: birth[1],
+                    birthDay: birth[2],
+                    isBlack: response.data.isBlack
                 })
-            })
-        }).catch(err => {
-            console.log(err);
+                    
+                axios({
+                    method: 'get',
+                    url: '/api/upload/profile',
+                    withCredentials: false
+                }).then(response => {
+                    this.setState({
+                        profileImg: '/api/upload/profile'
+                    })
+                }).catch(error => {
+                    if(error.response.status === 500){
+                        browserHistory.push('/internalError');
+                    } else {
+                        this.setState({
+                            profileImg: require('../images/file.png')
+                        })
+                    }
+                })
+            } else {
+                browserHistory.push('/finalError');
+            }
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 
-    submitInfo(){
+    submit(page){
         axios({
             method: 'put',
             url: '/api/user/info',
@@ -176,61 +175,14 @@ class InfoInput extends Component {
                     addressBase: this.state.baseAddress,
                     addressDetail: this.state.detailAddress
                 }
-            },
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15",
-                "ContentType": "application/json"
             }
         }).then(response => {
-            browserHistory.push('/gradeinput');
+            browserHistory.push(page);
         }).catch(error => {
-            console.log(error.config);
             console.log(error);
-            console.log(error.response);
-            console.log(error.request);
-        })
-    }
-
-    componentWillUnmount(){
-        axios({
-            method: 'get',
-            url: '/api/user/classification'
-        }).then(response => {
-            if(!response.data.applyStatus){
-                axios({
-                    method: 'put',
-                    url: '/api/user/info',
-                    data: {
-                        info: {
-                            sex: this.state.sex,
-                            grade: this.state.grade,
-                            number: this.state.number,
-                            class: this.state.class,
-                            schoolCode: this.state.schoolCode,
-                            schoolName: this.state.schoolName,
-                            schoolTel: this.state.schoolTel[0] + '-' + this.state.schoolTel[1] + '-' + this.state.schoolTel[2],
-                            tel: this.state.phoneNum[0] + '-' + this.state.phoneNum[1] + '-' + this.state.phoneNum[2],
-                            parentsTel: this.state.parentsTel[0] + '-' + this.state.parentsTel[1] + '-' + this.state.parentsTel[2],
-                            parentsName: this.state.parentsName,
-                            birthday: this.state.birthYear + '-' + this.state.birthMonth + '-' + this.state.birthDay,
-                            addressBase: this.state.baseAddress,
-                            addressDetail: this.state.detailAddress
-                        }
-                    },
-                    withCredentials: false,
-                    headers: {
-                        "Access-Control-Allow-Origin": "http://114.108.135.15",
-                        "ContentType": "application/json"
-                    }
-                }).then(response => {
-                    console.log(response);
-                }).catch(error => {
-                    console.log(error);
-                })
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
             }
-        }).catch(error => {
-            console.log(error);
         })
     }
 
@@ -239,7 +191,7 @@ class InfoInput extends Component {
             switch(index){
                 case 0: {
                     this.setState({
-                        goverment: ele.textContent
+                        government: ele.textContent
                     })
                 }
                 case 1: {
@@ -266,15 +218,15 @@ class InfoInput extends Component {
             this.setState({
                 schoolName: e.target.value
             })
-            if(this.state.goverment === ""){
+            if(this.state.government === ""){
                 query = '/api/schoolCode?name=' + e.target.value;
             } else {
-                query = '/api/schoolCode?goverment=' + this.state.goverment + '&name=' + e.target.value;
+                query = '/api/schoolCode?government=' + this.state.government + '&name=' + e.target.value;
             }
-        } else if(e.target.id === 'select_goverment'){
+        } else if(e.target.id === 'select_government'){
             if(e.target.value === "전체"){
                 this.setState({
-                    goverment: ""
+                    government: ""
                 })
                 if(this.state.schoolName === ""){
                     query = '/api/schoolCode?name=';
@@ -283,12 +235,12 @@ class InfoInput extends Component {
                 }
             } else {
                 this.setState({
-                    goverment: e.target.value
+                    government: e.target.value
                 })
                 if(this.state.schoolName === ""){
-                    query = '/api/schoolCode?goverment=' + e.target.value;
+                    query = '/api/schoolCode?government=' + e.target.value;
                 } else {
-                    query = '/api/schoolCode?goverment=' + e.target.value + '&name=' + this.state.schoolName;
+                    query = '/api/schoolCode?government=' + e.target.value + '&name=' + this.state.schoolName;
                 }
             }
         }
@@ -296,12 +248,14 @@ class InfoInput extends Component {
             method: 'GET',
             url: query
         }).then(response => {
-            console.log(response.data);
             this.setState({
                 schoolList: response.data
             })
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
@@ -428,20 +382,21 @@ class InfoInput extends Component {
             parentsTel: parentsTel
         })
     }
+
     setAddress(address){
         this.setState({
             baseAddress: address
         })
     }
 
-    setGoverment(e){
+    setGovernment(e){
         if(e.target.value === "전체"){
             this.setState({
-                goverment: ""
+                government: ""
             })
         } else {
             this.setState({
-                goverment: e.target.value
+                government: e.target.value
             })
         }
     }
@@ -464,11 +419,11 @@ class InfoInput extends Component {
                     'content-type': 'multipart/form-data'
                 }
             }).then(response => {
-                console.log(response);
-            }).catch(err => {
-                console.log(err);
-                console.log(err.request);
-                console.log(err.config)
+            }).catch(error => {
+                console.log(error);
+                if(error.response.status === 500){
+                    browserHistory.push('/internalError');
+                }
             })
         } else {
             preview.src = require('../images/file.png');
@@ -477,27 +432,31 @@ class InfoInput extends Component {
 
     openModal(){
         this.setState({
+            schoolList: [],
+            government: "",
+            schoolName: "",
             modalIsOpen: true
         })
     }
+
     closeModal(){
         this.setState({
             schoolList: [],
-            goverment: "",
+            government: "",
             schoolName: "",
             modalIsOpen: false
         })
     }
     
     render(){
-        console.log(this.state);
         return(
             <div id="contents">
                 <div id="info_input">
                     <div className="inputTitle">
                         <InputHeader now={"인적 사항"} />
                     </div>
-                    <InfoInputTable 
+                    <InfoInputTable
+                        isBlack={this.state.isBlack}
                         profileImg={this.state.profileImg}
                         name={this.state.name}
                         email={this.state.email}
@@ -527,8 +486,8 @@ class InfoInput extends Component {
                         setSchoolInfo={this.setSchoolInfo.bind(this)}
                         setter={this.setter.bind(this)}
                         previewFile={this.previewFile.bind(this)}/>
-                    <Button router="/classification" buttonName="이전"/>
-                    <Button onclick={this.submitInfo.bind(this)} buttonName="다음"/>
+                    <Button onclick={() => this.submit('/classification')} buttonName="이전"/>
+                    <Button onclick={() => this.submit('/gradeinput')} buttonName="다음"/>
                 </div>
             </div>
         );

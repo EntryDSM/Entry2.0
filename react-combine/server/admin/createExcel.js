@@ -4,7 +4,7 @@ const mongoXlsx = require('mongo-xlsx');
 const logic = require('./logic');
 const applyDataModel = require('../database/models/ApplyData');
 
-exports.excel = (userId, callback) => {
+exports.excel = (userId, key, callback) => {
     if (typeof userId != 'undefined') {
         console.log('학생 엑셀 출력');
         applyDataModel.findOne({
@@ -13,7 +13,7 @@ exports.excel = (userId, callback) => {
             })
             .then((findData) => {
                 if (findData) {
-                    return getObject(findData, true);
+                    return getObject(findData);
                 } else {
                     throw ('학생 정보를 찾지 못했습니다.');
                 }
@@ -34,19 +34,16 @@ exports.excel = (userId, callback) => {
                 if (0 < find.length) {
                     let arr = new Array();
                     for (let i = 0; i < find.length; i++) {
-                        getObject(find[i])
+                        getObject(find[i], key, true)
                             .then((eData) => {
                                 if (eData) arr.push(eData);
                                 else throw ('해당하는 학생 정보를 찾지 못함');
                                 if (i == find.length - 1) {
-                                    console.log('return array');
-                                    console.log(arr.length + ' , ' + find.length);
                                     return arr;
                                 } else {}
                             })
                             .then((arr) => {
                                 if (arr) {
-                                    console.log('들어옴');
                                     let model = mongoXlsx.buildDynamicModel(arr);
                                     callback(arr, model);
                                 }
@@ -64,18 +61,18 @@ exports.excel = (userId, callback) => {
 };
 
 
-function getObject(findData, check) { // 성적을 입력하기 전의 Object
+function getObject(findData, key, check) { // 성적을 입력하기 전의 Object
     return new Promise((resolve, reject) => {
         logic.userInfo(findData.user)
             .then((user) => {
                 let date = findData.birthday + '';
                 let baseData = {
-                    접수번호: findData.examNumber,
+                    접수번호: findData.submitNumber,
                     전형유형: detailType.baseType(findData.classification.applyBaseType.type), //classification.applyBaseType
                     지역: detailType.regionCheck(findData.classification.regionType), //classification.regionType
                     세부유형: detailType.getDetailType(findData.classification.applyBaseType.cause, 'String'),
                     성명: user.name, // user에서 찾은 유저 정보 합치기
-                    생년월일: findData.info.birthday, //info.birthday
+                    생년월일: getBirthdate(findData.info.birthday),
                     지원자주소: findData.info.addressBase + findData.info.addressDetail, //info
                     지원자휴대폰: findData.info.tel, //info.tel
                     성별: findData.info.sex, //info.sex
@@ -86,12 +83,16 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
                     보호자성명: findData.info.parentsName, // info.parentsName
                     보호자연락처: findData.info.parentsTel, // info.parentsTel
                 };
+                if (!findData.classification.graduateType) {
+                    baseData["출신학교"] = '';
+                    baseData["반"] = '';
+                }
                 let detailData = addSubject(findData);
-                getScore(findData)
+
+                getScore(findData, key)
                     .then((scoreData) => {
                         let addData = Object.assign(baseData, detailData, scoreData);
-                        if (check) resolve([addData]);
-                        resolve(addData);
+                        check ? resolve(addData) : resolve([addData]);
                     });
             }).catch((err) => {
                 console.log('Excel Error ' + err);
@@ -102,9 +103,8 @@ function getObject(findData, check) { // 성적을 입력하기 전의 Object
 
 function addSubject(data) {
     const sub = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어'];
-    console.log(data.info.parentsName + '의 시작');
 
-    if (data.classification.graduateType != 'BLACK') {
+    if (data.classification.graduateType) {
         console.log('성적 - 일반');
         let count = checkCount(data);
         let arrayObj = getArr(sub);
@@ -117,7 +117,6 @@ function addSubject(data) {
                 }
             }
         }
-        console.log(data.info.parentsName + '의 끝');
         return arrayObj;
 
     } else {
@@ -128,9 +127,7 @@ function addSubject(data) {
 }
 
 function checkCount(data) {
-    let count;
-    data.classification.graduateType === 'WILL' ? count = 5 : count = 6;
-    return count;
+    return (data.classification.graduateType == 'WILL') ? 5 : 6;
 }
 
 function getArr(sub) {
@@ -144,12 +141,12 @@ function getArr(sub) {
     return obj;
 }
 
-function getScore(data) {
+function getScore(data, key) {
     let obj = {};
     return new Promise((resolve, reject) => {
-        scoreLogic.calculate(data.grade, data.classification.graduateType, data.classification.applyBaseType.type)
-            .then((sData) => {
-                if (data.classification.graduateType != 'BLACK') {
+        if (data.classification.graduateType) {
+            scoreLogic.calculate(data.grade, data.classification.graduateType, data.classification.applyBaseType.type)
+                .then((sData) => {
                     obj["1학년"] = sData.score.first;
                     obj["2학년"] = sData.score.second;
                     obj["3학년"] = sData.score.third;
@@ -162,15 +159,36 @@ function getScore(data) {
                     obj["결과"] = data.grade.attend.subjectEscape;
                     obj["출석점수"] = sData.attendance;
                     obj["1차_전형_총점"] = parseFloat(sData.score.total) + parseFloat(sData.volunteer) + parseFloat(sData.attendance);
+                    if (key) {
+                        obj["자기 소개서 "] = data.introduce.introduce;
+                        obj["학업 계획서"] = data.introduce.plan;
+                    }
                     resolve(obj);
-                } else {
-                    obj["교과성적환산점수"] = sData.score.total;
-                    obj["봉사시간"] = data.grade.volunteer;
-                    obj["봉사점수"] = sData.volunteer;
-                    obj["출석점수"] = sData.attendance;
-                    obj["1차_전형_총점"] = parseFloat(sData.score.total) + parseFloat(sData.volunteer) + parseFloat(sData.attendance);
-                    resolve(obj);
-                }
-            });
+                });
+        } else {
+            obj["1학년"] = '';
+            obj["2학년"] = '';
+            obj["3학년"] = '';
+            obj["교과성적환산점수"] = data.grade.calculatedScore.score;
+            obj["봉사시간"] = data.grade.volunteer;
+            obj["봉사점수"] = data.grade.calculatedScore.volunteer;
+            obj["결석"] = data.grade.attend.absence;
+            obj["지각"] = data.grade.attend.lateness;
+            obj["조퇴"] = data.grade.attend.earlyLeave;
+            obj["결과"] = data.grade.attend.subjectEscape;
+            obj["출석점수"] = data.grade.calculatedScore.attendance;
+            obj["1차_전형_총점"] = data.grade.calculatedScore.total;
+            if (key) {
+                obj["자기 소개서 "] = data.introduce.introduce;
+                obj["학업 계획서"] = data.introduce.plan;
+            }
+            resolve(obj);
+        }
     });
+}
+
+function getBirthdate(date) {
+    let data = date.split('-');
+    let returnData = data[0] + "-" + detailType.changeExamNum(data[1], 2) + "-" + detailType.changeExamNum(data[2], 2);
+    return returnData;
 }

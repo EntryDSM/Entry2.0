@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Menu from './Menu'
 import {browserHistory} from 'react-router';
 
 class Process extends Component{

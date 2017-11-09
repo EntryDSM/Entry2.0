@@ -2,7 +2,6 @@ import React from 'react';
 import '../css/FindSchoolModal.css';
 import FindSchoolModalTable from './FindSchoolModalTable';
 import Modal from 'react-modal';
-import axios from 'axios';
  
 class FindSchoolModal extends React.Component {
     render() {
@@ -60,7 +59,7 @@ class FindSchoolModal extends React.Component {
 
 const EduOptions = (props) => {
     return(
-        <select id="select_goverment" onChange={props.getSchoolCode}>
+        <select id="select_government" onChange={props.getSchoolCode}>
             {props.educations.map((vals, idx) => {
                 return(
                     <option value = {vals.eduName} key = {idx}>

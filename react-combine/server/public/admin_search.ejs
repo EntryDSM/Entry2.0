@@ -26,9 +26,9 @@
             </div>
 
             <p id="below_logo">관리자 페이지</p>
-            <div id="sidemenu">
-                <a class="sidemenu_text root" href="/admin">입학 원서 관리</a>
-                <p class="sidemenu_text root">입학 원서 검색</p>
+            <div class="sidemenu">
+                <p style="margin: 0"><a class="sidemenu_text root" href="/admin">입학 원서 관리</a></p>
+                <p class="sidemenu_text root" style="margin-bottom: 0; font-size: 16pt;">입학 원서 검색</p>
             </div>
         </div>
     </nav>
@@ -74,7 +74,7 @@
                             <input type="radio" name="gender" value="여">여성
                         </td>
                         <!-- 수험번호 -->
-                        <td class="search_option_column">수험번호&nbsp;
+                        <td class="search_option_column">접수 번호&nbsp;
                             <input type="text" name="examNumber">
                         </td>
                     </tr>
@@ -105,7 +105,11 @@
             </form>
         </section>
         <form action="/excel" method="POST">
-            <input type="submit" value="Excel 학생 전체 출력" id="excel">
+            <input type="submit" value="Excel 학생 전체 출력" class="excel">
+        </form>
+        <form action="/excel" method="POST">
+            <input type="hidden" name="include" value="true">
+            <input type="submit" value="자기소개서 포함하여 출력" class="excel">
         </form>
     </article>
     <%if(data.length)%>
@@ -117,7 +121,7 @@
                 <div id="list_title">
                     <!-- 수험 번호 -->
                     <div class="list_element_data fix_width_short">
-                        수험 번호
+                        접수 번호
                     </div>
                     <!-- 전형 -->
                     <div class="list_element_data fix_width_long">
@@ -229,7 +233,6 @@
                             <form action="/admin/search/detail" method="get">
                                 <input type="hidden" name="userId" value="<%= data[i].user%>">
                                 <input type="submit" value="상세정보 보기">
-
                             </form>
                         </div>
 

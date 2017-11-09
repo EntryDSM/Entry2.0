@@ -1,11 +1,9 @@
 import React from 'react';
 import LogoPart from '../components/LogoPart';
 import FormTitle from '../components/FormTitle';
-import {signInData} from '../actions';
 import {browserHistory, Link} from 'react-router';
 import 'babel-polyfill';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import '../css/FormIndex.css';
 
 class SignIn extends React.Component{
@@ -36,20 +34,14 @@ class SignIn extends React.Component{
             data: {
                 email: this.state.email,
                 password: this.state.password
-            },
-            withCredentials: false,
-            headers: {
-                "Access-Control-Allow-Origin": "http://114.108.135.15",
-                "ContentType": "application/json"
             }
         }).then(response => {
-            console.log(response)
             browserHistory.push('/mypage');
         }).catch(error => {
             if(error.response.status === 401){
-                alert("잘못된 정보를 입력하셨습니다.");
+                alert("존재하지 않는 이메일이거나 잘못된 비밀번호입니다.");
             } else if(error.response.status === 500) {
-                alert("서버에 에러가 발생했습니다. 잠시후에 재접속해주세요.");
+                browserHistory.push('/internalError');
             }
         })
     }
@@ -103,9 +95,9 @@ const LoginForm = (props) => {
                     <div key={i}>
                         <h2>
                             {info.InfoTitle}
-                            <a href="#">
+                            {/* <a href="#">
                                 {info.aText}
-                            </a>
+                            </a> */}
                         </h2>
                         <input 
                             type={info.InputType} 

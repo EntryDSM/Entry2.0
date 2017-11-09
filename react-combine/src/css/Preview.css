@@ -381,5 +381,5 @@
 }
 
 #country_merit_area{
-    visibility: hidden;
+    display: none;
 }

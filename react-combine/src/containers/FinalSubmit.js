@@ -7,20 +7,18 @@ import 'babel-polyfill';
 import '../css/FinalSubmit.css';
 
 class FinalSubmit extends Component{
-    constructor(props){
-        super(props);
-    }
-
     finalSubmitBtn(){
         axios({
             method: 'post',
             url: '/api/apply'
         }).then(response => {
-            console.log(response);
             alert("최종제출이 완료되었습니다!");
             browserHistory.push('/main');
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 
@@ -29,7 +27,6 @@ class FinalSubmit extends Component{
             method: 'get',
             url: '/api/user/classification'
         }).then(response => {
-            console.log(response);
             if(response.data.applyStatus){
                 browserHistory.push('/finalError');
             } else {
@@ -40,13 +37,20 @@ class FinalSubmit extends Component{
                     if(response.data.classification.length !== 0 || response.data.grade.length !== 0 || response.data.info.length !== 0 || response.data.introduce.length !== 0){
                         browserHistory.push('/validation');
                     }
-                }).catch(err => {
-                    console.log(err);
+                }).catch(error => {
+                    console.log(error);
+                    if(error.response.status === 500){
+                        browserHistory.push('/internalError');
+                    }
                 })
             }
         }).catch(error => {
             console.log(error);
-            browserHistory.push('/error');
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            } else {
+                browserHistory.push('/error');
+            }
         })
     }
 

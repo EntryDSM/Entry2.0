@@ -194,13 +194,12 @@ const documentTemplate = {
             "volunteer": 0
         },
         "score": {
-            scores: [null, null, null, null], // 차례대로 국어 수학 사회 과학
-            choose: { "subject": null, "score": null } // 선택과목 한 과목
+            "avgScore": 0
         }
     },
 }
 
-ApplyData.statics.findOneByUser = function(user, option) {
+ApplyData.statics.findOneByUser = function (user, option) {
     if (typeof option !== "undefined") {
         return this.findOne({ user }, option).exec();
     } else {
@@ -208,12 +207,12 @@ ApplyData.statics.findOneByUser = function(user, option) {
     }
 }
 
-ApplyData.methods.apply = function() {
+ApplyData.methods.apply = function () {
     this.applyStatus = true;
     return this.save();
 }
 
-ApplyData.statics.createEmpty = function(user) {
+ApplyData.statics.createEmpty = function (user) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -245,18 +244,18 @@ ApplyData.statics.createEmpty = function(user) {
         })
 }
 
-ApplyData.methods.reviseProfile = function(src) {
+ApplyData.methods.reviseProfile = function (src) {
     this.profile = src;
-
+    this.markModified('profile');
     return this.save();
 }
 
-ApplyData.methods.reviseClassification = function(classification) {
+ApplyData.methods.reviseClassification = function (classification) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
-
+    console.log(classification.isBlack);
     if (classification.isBlack) {
         if (!this.classification.isBlack) {
             this.info = documentTemplate.info_black;
@@ -271,58 +270,61 @@ ApplyData.methods.reviseClassification = function(classification) {
             }
         }
     }
+
     this.classification = classification;
+    console.log(this.classification.isBlack);
+    this.markModified('classification');
+    this.markModified('classification.isBlack');
     this.markModified('grade');
+    this.markModified('info');
     return this.save();
 }
 
-ApplyData.methods.reviseInfo = function(info) {
+ApplyData.methods.reviseInfo = function (info) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
 
     this.info = info;
-
+    this.markModified('info');
     return this.save();
 }
 
-ApplyData.methods.reviseGrade = function(grade) {
+ApplyData.methods.reviseGrade = function (grade) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
-
     this.grade = grade;
-
     const _applyData = this;
-    console.log("=======================");
-    console.log(_applyData);
     new Promise((resolve, reject) => {
-            resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
-        })
+        resolve(gradeValidation(_applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.grade));
+    })
         .then((validationResult) => {
-            console.log(validationResult);
             if (validationResult.length === 0) {
-                return calculator.calculate(_applyData.grade, _applyData.classification.graduateType, _applyData.classification.applyBaseType.type);
+                return calculator.calculate(_applyData.grade, _applyData.classification.isBlack ? 'BLACK' : _applyData.classification.graduateType, _applyData.classification.applyBaseType.type);
             } else return;
         })
         .then(score => {
-            console.log(score);
             _applyData.grade.calculatedScore = score;
+            _applyData.markModified('grade');
+            _applyData.markModified('grade.score');
             return _applyData.save();
         })
-        .catch(console.log);
+        .catch(err => {
+            console.log(err);
+        });
 }
 
-ApplyData.methods.reviseIntroduce = function(introduce) {
+ApplyData.methods.reviseIntroduce = function (introduce) {
     const date = new Date();
     const date_now = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.updatedAt = date_now;
 
     this.introduce = introduce;
-
+    this.markModified('introduce');
     return this.save();
 }
 
@@ -330,7 +332,7 @@ ApplyData.methods.reviseIntroduce = function(introduce) {
  * 
  * TO DO :: ApplyData Validation
  */
-ApplyData.methods.validation = function() {
+ApplyData.methods.validation = function () {
     const data = this;
     return new Promise((resolve, reject) => {
         let result = { 'classification': [], 'info': [], 'grade': [], 'introduce': [], 'isSubmited': data.applyStatus };
@@ -347,17 +349,18 @@ ApplyData.methods.validation = function() {
             result.grade = gradeValidation('DONE', this.grade)
         }
         result.introduce = introduceValidation(this.introduce);
-        console.log(result.info);
         let file;
         try {
-            console.log(data.profile);
             file = fs.readFileSync(__dirname + `/../../uploads/${data.profile}`);
         } catch (err) {
-            console.log(err);
             result.info.push('증명사진을 등록해주세요.');
         }
 
         const regionType = this.classification.regionType;
+
+        if (data.classification.applyBaseType.type == 'SOCIAL' && data.classification.applyBaseType.cause == null) {
+            result.classification.push("사회통합 사유를 입력해주세요.");
+        }
 
         if (data.classification.isBlack === false) {
 
@@ -377,20 +380,22 @@ ApplyData.methods.validation = function() {
                     resolve(result);
                 });
         }
+        else {
+            resolve(result);
+        }
     })
 }
 
-ApplyData.methods.updateExamNumber = function(examNum) {
+ApplyData.methods.updateExamNumber = function (examNum) {
     return new Promise((resolve, reject) => {
         this.examNumber = examNum;
-        console.log(this);
         this.save((err) => {
             err ? reject(err) : resolve();
         });
     });
 }
 
-ApplyData.methods.removeData = function() {
+ApplyData.methods.removeData = function () {
     return new Promise((resolve, reject) => {
         if (this.applyStatus) {
             reject('접수 완료일 경우 삭제가 불가합니다');
@@ -420,21 +425,25 @@ function infoValidation(type, info) {
         }
     }
 
-    // 학년 정보
-    if (type !== 'BLACK' && (info.grade > 3 || info.grade < 1)) result.push('학년 정보를 정확히 입력해주세요.');
 
-    // 반 정보
-    if (type !== 'BLACK' && (info.class == null || info.class == '' || info.class == 'undefined')) result.push('반을 입력해주세요.');
+    if (type !== 'BLACK') {
 
-    // 학교정보(학교코드, 학교명 / 전화번호)
-    if (type !== 'BLACK' && ((info.schoolCode == null || info.schoolCode == '' || info.schoolCode == 'undefined') || (info.schoolName == null || info.schoolName == '' || info.schoolName == 'undefined'))) {
-        result.push('학교 정보를 입력해주세요.');
-    } else {
-        schoolTel = info.schoolTel.split('-');
-        for (let i = 0; i < schoolTel.length; i++) {
-            if (schoolTel[i] == null || schoolTel[i] == '' || schoolTel[i] == 'undefined') {
-                result.push('학교 정보를 입력해주세요.');
-                break;
+        // 학년 정보
+        if (info.grade > 3 || info.grade < 1) result.push('학년 정보를 정확히 입력해주세요.');
+
+        // 반 정보
+        if (info.class == null || info.class == '' || info.class == 'undefined') result.push('반을 입력해주세요.');
+
+        // 학교정보(학교코드, 학교명 / 전화번호)
+        if (((info.schoolCode == null || info.schoolCode == '' || info.schoolCode == 'undefined') || (info.schoolName == null || info.schoolName == '' || info.schoolName == 'undefined'))) {
+            result.push('학교 정보를 입력해주세요.');
+        } else {
+            schoolTel = info.schoolTel.split('-');
+            for (let i = 0; i < schoolTel.length; i++) {
+                if (schoolTel[i] == null || schoolTel[i] == '' || schoolTel[i] == 'undefined') {
+                    result.push('학교 정보를 입력해주세요.');
+                    break;
+                }
             }
         }
     }
@@ -472,7 +481,6 @@ function gradeValidation(type, grade) {
     let result = [];
     if (type === 'WILL') {
         let subjects = ['국어', '사회', '역사', '수학', '과학', '기술가정', '영어']
-        console.log(grade);
         const semesters = grade.score.semesters;
 
         for (var i = 0; i < 5; i++) {
@@ -518,16 +526,10 @@ function gradeValidation(type, grade) {
         }
     } else if (type === 'BLACK') {
         let subjects = ['국어', '수학', '사회', '과학'];
-        const score = grade.score;
-
-        for (var i = 0; i < score.scores.length; i++) {
-            if (score.scores[i] == null) {
-                messages.push('검정고시 ' + subjects[i] + ' 성적을 입력해주세요.');
-            }
-        }
-        if ((score.choose.subject === "") || (score.choose.subject === null)) messages.push('검정고시 선택과목에 대한 점수를 입력해주세요.');
-        else if (score.choose.subject !== "" && score.choose.score === null) {
-            messages.push('선택과목 ' + score.choose.subject + ' 점수를 입력해주세요.');
+        const score = grade.score.avgScore;
+        console.log(score);
+        if (typeof score == 'undefined' || score == 'null' || score < 60) {
+            result.push("검정고시 합격 점수를 입력해주세요.");
         }
     }
 

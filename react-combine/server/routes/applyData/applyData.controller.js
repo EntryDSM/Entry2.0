@@ -8,6 +8,7 @@ exports.getUserInfo = (req, res) => {
     ApplyData.findOne({
             user
         }, {
+            "classification.isBlack": true,
             "info": true,
             "user": true,
             "applyStatus": true
@@ -16,10 +17,10 @@ exports.getUserInfo = (req, res) => {
             "select": ['email', 'name']
         })
         .then((applyData) => {
-            console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             applyData.info.user = applyData.user;
             applyData.info.applyStatus = applyData.applyStatus;
+            applyData.info.isBlack = applyData.classification.isBlack;
             res.status(200).json(applyData.info);
         })
         .catch((err) => {
@@ -40,7 +41,6 @@ exports.reviseUserInfo = (req, res) => {
             return applyData.reviseInfo(info);
         })
         .then((applyData) => {
-            console.log(applyData);
             res.sendStatus(200);
         })
         .catch((err) => {
@@ -64,7 +64,6 @@ exports.getUserClassification = (req, res) => {
             "select": ['email', 'name']
         })
         .then((applyData) => {
-            console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             applyData.classification.user = applyData.user;
             applyData.classification.applyStatus = applyData.applyStatus;
@@ -80,7 +79,7 @@ exports.getUserClassification = (req, res) => {
 exports.reviseUserClassification = (req, res) => {
     const user = req.session.key;
     const classification = req.body.classification;
-
+    console.log(classification.isBlack);
     ApplyData.findOne({
             user
         })
@@ -88,9 +87,6 @@ exports.reviseUserClassification = (req, res) => {
             return applyData.reviseClassification(classification);
         })
         .then((_applyData) => {
-            // console.log(applyData);
-            console.log("ASDASDASDASD");
-            console.log(_applyData.grade.score);
             res.sendStatus(200);
         })
         .catch((err) => {
@@ -116,7 +112,6 @@ exports.getUserGrade = (req, res) => {
             "select": ['email', 'name']
         })
         .then((applyData) => {
-            console.log(applyData);
             applyData.user.email = applyData.user.getDecryptedEmail();
             res.status(200).json(applyData);
         })
@@ -142,6 +137,7 @@ exports.reviseUserGrade = (req, res) => {
             res.sendStatus(200);
         })
         .catch((err) => {
+            console.log(err);
             res.status(500).json({
                 "message": err.message
             });
@@ -225,6 +221,7 @@ exports.preview = (req, res) => {
             res.status(200).json(previewData);
         })
         .catch((err) => {
+            console.log(err);
             res.status(500).json({
                 "message": err.message
             });

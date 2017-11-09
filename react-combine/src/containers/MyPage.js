@@ -24,7 +24,6 @@ class MyPage extends Component{
     }
 
     route(e){
-        console.log(e.target.id)
         switch(e.target.id){
             case "mClassification": browserHistory.push('/classification'); break;
             case "mInfoInput": browserHistory.push('/infoinput'); break;
@@ -34,9 +33,8 @@ class MyPage extends Component{
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         let check = (arr) => {
-            console.log(arr.length);
             if(arr.length === 0){
                 return true;
             } else {
@@ -52,14 +50,13 @@ class MyPage extends Component{
 
         axios({
             method: 'GET',
-            url: '/api/validation'
+            url: '/api/mypage'
         }).then(response => {
-            console.log(response);
-            classification = check(response.data.classification);
-            personalInfo = check(response.data.info);
-            gradeInput = check(response.data.grade);
-            introduction = check(response.data.introduce);
-            submission = response.data.isSubmited;
+            classification = check(response.data.validation.classification);
+            personalInfo = check(response.data.validation.info);
+            gradeInput = check(response.data.validation.grade);
+            introduction = check(response.data.validation.introduce);
+            submission = response.data.validation.isSubmited;
             checkList.push(classification);
             checkList.push(personalInfo);
             checkList.push(gradeInput);
@@ -77,10 +74,15 @@ class MyPage extends Component{
             });
 
             this.setState({
-                checkImgSrc: checkArr
+                checkImgSrc: checkArr,
+                isPayment: response.data.checkPayment ? "O" : "X",
+                isReceived: response.data.checkReceipt ? "O" : "X"
             });
-        }).catch(err => {
-            console.log(err);
+        }).catch(error => {
+            console.log(error);
+            if(error.response.status === 500){
+                browserHistory.push('/internalError');
+            }
         })
     }
 

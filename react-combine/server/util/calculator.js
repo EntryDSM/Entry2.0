@@ -7,19 +7,22 @@ exports.calculate = function (grade, graduateType, applyType) {
             "attendance": Number,
             "total": Number
         };
-        let score = [];
+
         const attend = grade.attend;
         const volunteer = grade.volunteer;
-        const subjects = [null, 'E', 'D', 'C', 'B', 'A'];
-        g_score = grade.score.semesters;
-        g_score.forEach(function (element) {
-            let item = []
-            element.forEach(function (grade) {
-                item.push(grade.pass === true ? (grade.grade !== null ? subjects.indexOf(grade.grade) : null) : null);
-            }, this);
-            score.push(item);
-        }, this);
+
         if (graduateType != 'BLACK') {
+            let score = [];
+            const subjects = [null, 'E', 'D', 'C', 'B', 'A'];
+            g_score = grade.score.semesters;
+            g_score.forEach(function (element) {
+                let item = []
+                element.forEach(function (grade) {
+                    item.push(grade.pass === true ? (grade.grade !== null ? subjects.indexOf(grade.grade) : null) : null);
+                }, this);
+                score.push(item);
+            }, this);
+
             for (var i = 0; i < score.length; i++) {
                 if (checkNullArray(score[i], i)) {
 
@@ -36,10 +39,13 @@ exports.calculate = function (grade, graduateType, applyType) {
                 }
             }
             result.score = calculateNormal(score, graduateType, applyType);
+            result.volunteer = calculateNotBlackVolunteer(volunteer, graduateType, applyType);
         } else {
-            result.score = calculateBlack(score, applyType);
+            console.log(grade);
+            result.score = calculateBlack(grade.score.avgScore, applyType);
+            result.volunteer = calculateBlackVolunteer(calculateBlack(grade.score.avgScore, "COMMON"), graduateType, applyType);
         }
-        result.volunteer = calculateVolunteer(volunteer, graduateType, applyType);
+
         result.attendance = calculateAttendent(attend, graduateType, applyType);
         if (graduateType === 'BLACK') result.total = (Number(result.score) + Number(result.attendance) + Number(result.volunteer)).toFixed(3);
         else result.total = (Number(result.score.first) + Number(result.score.second) + Number(result.score.third) + Number(result.attendance) + Number(result.volunteer)).toFixed(3);
@@ -126,7 +132,7 @@ function calculateNormal(data, graduateType, applyType) {
         third: third,
         total: 0
     };
-    
+
     resultScore.first = Number(resultScore.first).toFixed(3);
     resultScore.second = Number(resultScore.second).toFixed(3);
     resultScore.third = Number(resultScore.third).toFixed(3);
@@ -134,15 +140,7 @@ function calculateNormal(data, graduateType, applyType) {
     return resultScore;
 }
 
-function calculateBlack(data, applyType) {
-    var average = 0,
-        total;
-    for (var i = 0; i < data.length; i++) {
-        if (data[i] != null) {
-            average += data[i];
-        }
-    }
-    average /= data.length;
+function calculateBlack(score, applyType) {
 
     var multiply;
     if (applyType == 'COMMON') {
@@ -150,8 +148,8 @@ function calculateBlack(data, applyType) {
     } else {
         multiply = 90;
     }
-
-    total = (average - 50) / 50 * multiply;
+    console.log(`blackScore : ${score}`)
+    total = (score - 50) / 50 * multiply;
 
     return Number(total).toFixed(3);
 }
@@ -160,33 +158,26 @@ function calculateAttendent(data, graduateType) {
     if (graduateType == 'BLACK') {
         return 15;
     }
-    var toSub = (data.absence + (data.lateness + data.earlyLeave + data.subjectEscape) / 3);
+    var toSub = (data.absence + Math.floor((data.lateness + data.earlyLeave + data.subjectEscape) / 3));
     if (toSub >= 15) {
         return 0;
     }
     return Number(15 - toSub).toFixed(3);
 }
 
-function calculateVolunteer(data, applyType, graduateType) {
-    var score, minus, div;
-    if (graduateType == 'BLACK') { // black(GED)
-        score = calculateBlack(data, applyType);
-        minus = 30;
-        div = 120;
-    } else {
-        if (data >= 50) {
-            return 15;
-        } else if (data <= 14) {
-            return 3;
-        }
-        score = data;
-        minus = 14;
-        div = 36;
-    }
+function calculateNotBlackVolunteer(hours, applyType, graduateType) {
+    if (hours >= 50) return 15;
+    else if (hours <= 14) return 3;
+    return Number(3 + (hours - 14) / 36 * 12).toFixed(3);
+}
 
-    var result;
+function calculateBlackVolunteer(avgScore, applyType, graduateType) {
+    let minus = 30;
+    let div = 120;
 
-    result = 3 + (score - minus) / div * 12;
+    let result;
+
+    result = 3 + (avgScore - minus) / div * 12;
 
     return Number(result).toFixed(3);
 }

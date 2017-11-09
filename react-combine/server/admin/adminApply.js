@@ -14,17 +14,14 @@ exports.checkType = (str) => {
         case 'WILL':
             {
                 return '졸업 예정';
-                break;
             }
         case 'DONE':
             {
                 return '졸업';
-                break;
             }
-        case 'BLACK':
+        case '':
             {
                 return '검정고시';
-                break;
 
             }
     }
@@ -35,27 +32,22 @@ exports.checkGrade = (score) => { // 성적 숫자로 들어간것 ABC로 표시
         case 1:
             {
                 return 'E';
-                break;
             }
         case 2:
             {
                 return 'D';
-                break;
             }
         case 3:
             {
                 return 'C';
-                break;
             }
         case 4:
             {
                 return 'B';
-                break;
             }
         case 5:
             {
                 return 'A';
-                break;
             }
 
     }
@@ -156,10 +148,15 @@ exports.getKeyName = (i) => {
 
 exports.getTimeStamp = () => {
     let NT_date = new Date();
-    let nt_month = NT_date.getMonth() + 1; //month는 0부터 시작함. 1월 = 0, 10월 = 9
-    let nt_day = NT_date.getDate(); //day는 현재 일자의 요일을 나타냄. 0 = 일요일 1 = 월요일
+    let nt_month = NT_date.getMonth() + 1;
+    let nt_day = NT_date.getDate();
     let nt_hour = NT_date.getHours();
     let nt_min = NT_date.getMinutes();
     let nt_sec = NT_date.getSeconds();
     return nt_month + "월 " + nt_day + "일 " + nt_hour + "시 " + nt_min + "분 " + nt_sec + "초";
 };
+
+exports.changeExamNum = (n, count) => { // 1,2,3 등의 한자리숫자 001,002등으로 변경
+    n = n + '';
+    return n.length >= count ? n : new Array(count - n.length + 1).join('0') + n;
+}

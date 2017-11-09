@@ -21,7 +21,7 @@ class Attend extends Component{
             "not_attendence"
         ];
         return(
-            <div id="attend_table">
+            <div id="attend_table" style={{display: this.props.visible}}>
                 <div className="grade_table_title">출석성적</div>
                 <table className="grade_table">
                     <tbody>
